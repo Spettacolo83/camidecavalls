@@ -46,5 +46,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Location permissions for GPS tracking -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs your location to track your progress on the Camí de Cavalls trail.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs your location to track your progress even when running in the background.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs your location to track your progress when the app is in the background.</string>
+	<!-- Required for location tracking -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>

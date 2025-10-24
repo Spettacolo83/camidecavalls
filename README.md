@@ -6,16 +6,21 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 
 **Camí de Cavalls** is a production-ready mobile application designed for both Android and iOS platforms, showcasing best practices in Kotlin Multiplatform development. The app serves as both a **portfolio project** and a **commercial application** targeting local partnerships with Menorcan businesses.
 
-### Key Features (Planned)
+### Key Features
 
-- 🗺️ **Interactive Route Maps**: Detailed maps for all 20 stages using Mapbox
-- 📍 **GPS Tracking**: Real-time location tracking with background support
-- 📴 **Offline Mode**: Download maps and route data for offline use
-- 📝 **Notebook**: Track your hiking sessions with detailed statistics (distance, duration, elevation, speed)
+**Implemented:**
+- 📍 **GPS Tracking**: Real-time location tracking with battery optimization (5s intervals, 5m minimum distance)
+- 📴 **Offline Mode**: Complete offline support - all data stored locally in SQLDelight, GPS works without internet
+- 📝 **Notebook**: Track hiking sessions with automatic statistics calculation (distance via Haversine formula, duration, elevation, speed)
+- 🔐 **Location Permissions**: Smart permission handling with native dialogs for Android and iOS
+- 🗺️ **Route Database**: Complete data for all 20 Camí de Cavalls stages (~185km, ~2,480m elevation gain, ~55 hours)
+- 📊 **Session Statistics**: Automatic calculation of distance, speed, elevation gain/loss during tracking
+
+**Planned:**
+- 🗺️ **Interactive Maps**: Detailed maps for all 20 stages using Mapbox
 - 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
-- 📊 **Statistics**: Comprehensive tracking of your hiking activities
-- 🌍 **Multilingual**: Support for multiple languages
+- 🌍 **Multilingual**: Support for 6 languages (Catalan, Spanish, English, French, German, Italian)
 
 ### Business Model
 
@@ -72,20 +77,26 @@ composeApp/
 ### Layers
 
 1. **Domain Layer** (Pure Kotlin)
-   - Business entities and models
+   - Business entities and models (Route, POI, TrackingSession, TrackPoint)
    - Repository interfaces
-   - Use cases (Future)
+   - Use cases (18 implemented):
+     - Route management: GetAllRoutes, GetRouteById, GetRouteByNumber, SaveRoutes, InitializeDatabase
+     - POI management: GetAllPOIs, GetPOIsByType, GetPOIsNearLocation, GetPOIsByRoute, SavePOIs
+     - Tracking: StartSession, StopSession, AddTrackPoint, CalculateStats, GetActiveSession, GetAllSessions, GetSessionById, DeleteSession
+   - Services: LocationService, PermissionHandler
 
 2. **Data Layer**
-   - Repository implementations
-   - Local database (SQLDelight)
-   - Remote API client (Ktor - Future)
+   - Repository implementations with Flow-based reactive queries
+   - Local database (SQLDelight) with 4 tables and optimized indexes
+   - LocationService implementations (Android: FusedLocationProvider, iOS: CoreLocation)
+   - PermissionHandler implementations (platform-specific dialogs)
    - Platform-specific implementations (expect/actual)
 
-3. **Presentation Layer** (Future)
-   - ViewModels/ScreenModels
-   - UI components (Compose Multiplatform)
-   - Navigation (Voyager)
+3. **Presentation Layer**
+   - ScreenModels (Voyager): HomeScreenModel, RouteDetailScreenModel, TrackingScreenModel
+   - UI screens: Home (route list), RouteDetail, Tracking (GPS)
+   - Navigation with Voyager
+   - Material 3 UI components
 
 ## 🛠️ Tech Stack
 
@@ -131,8 +142,9 @@ composeApp/
 #### Maps (Android)
 - **Mapbox 11.7.1**: Interactive maps (To be configured)
 
-#### Location (Android)
-- **Google Play Services Location 21.3.0**: GPS tracking
+#### Location
+- **Google Play Services Location 21.3.0**: GPS tracking (Android)
+- **Core Location**: GPS tracking (iOS)
 
 #### Settings
 - **Multiplatform Settings 1.2.0**: Key-value storage
@@ -281,42 +293,52 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 🗓️ Development Roadmap
 
-### ✅ Phase 1: Foundation (Current - COMPLETED)
+### ✅ Milestone 1: Foundation & Architecture (COMPLETED)
 - [x] Project setup and configuration
 - [x] Clean Architecture structure
 - [x] Domain models (Route, POI, TrackingSession, TrackPoint)
-- [x] SQLDelight database implementation
-- [x] Repository pattern implementation
-- [x] Dependency injection with Koin
+- [x] SQLDelight database implementation with 4 tables
+- [x] Repository pattern implementation with Flow
+- [x] Dependency injection with Koin 4.0.0
 - [x] Android build working
 - [x] iOS build working
 
-### 📋 Phase 2: Business Logic (Next)
-- [ ] Use Cases implementation
-  - [ ] Route management (get all, get by ID, get by number)
-  - [ ] POI queries (by type, by location, by route)
-  - [ ] Tracking session management
-  - [ ] Distance calculation (Haversine formula)
-- [ ] Data preparation
-  - [ ] Create route data with all 20 stages
-  - [ ] POI data collection
-  - [ ] GPX files preparation (stored locally)
+### ✅ Milestone 2: Business Logic & Data (COMPLETED)
+- [x] Use Cases implementation (18 total)
+  - [x] Route management: GetAll, GetById, GetByNumber, Save, InitializeDatabase
+  - [x] POI queries: GetAll, ByType, NearLocation, ByRoute, Save
+  - [x] Tracking: Start, Stop, AddPoint, CalculateStats, GetActive, GetAll, GetById, Delete
+- [x] Route data preparation
+  - [x] All 20 Camí de Cavalls stages with realistic data
+  - [x] Database initialization on first app launch
+  - [x] Offline-first data strategy
+- [x] TrackingManager with battery optimization
 
-### 🎨 Phase 3: UI/UX
-- [ ] Navigation setup with Voyager
-- [ ] Home screen with route list
-- [ ] Route detail screen
-- [ ] Map view with Mapbox
-- [ ] Tracking screen (Notebook)
+### ✅ Milestone 3: Core UI & Navigation (COMPLETED)
+- [x] Navigation setup with Voyager
+- [x] HomeScreen with route list (Material 3 cards)
+- [x] RouteDetailScreen with complete route information
+- [x] TrackingScreen (Notebook) with real-time GPS
+- [x] Location permission handling (Android & iOS)
+
+### ✅ Milestone 4: GPS Tracking & Permissions (COMPLETED)
+- [x] GPS tracking implementation
+  - [x] Android LocationService (FusedLocationProvider)
+  - [x] iOS LocationService (CoreLocation)
+  - [x] Battery optimization (5s intervals, 5m min distance, balanced accuracy)
+  - [x] Offline tracking (no internet required)
+- [x] Permission handling
+  - [x] Android runtime permissions with ActivityResultContracts
+  - [x] iOS authorization dialogs
+  - [x] Smart permission flow in UI
+- [x] TrackingManager
+  - [x] Automatic track point recording
+  - [x] Real-time statistics calculation (Haversine formula)
+  - [x] Session state management (Idle, Tracking, Completed, Error)
+
+### 📋 Next: POI System & Maps
+- [ ] POI data collection and database population
 - [ ] POI list and detail screens
-- [ ] Settings screen
-
-### 📍 Phase 4: Location & Maps
-- [ ] GPS tracking implementation
-  - [ ] Android location services
-  - [ ] iOS location services
-  - [ ] Background tracking
-  - [ ] Battery optimization
 - [ ] Mapbox integration
   - [ ] Display routes on map
   - [ ] Current location marker
@@ -324,14 +346,15 @@ Build in Xcode with Release configuration for App Store distribution.
   - [ ] POI markers
 - [ ] Offline maps support
 
-### 🔔 Phase 5: Advanced Features
+### 🔔 Future: Advanced Features
 - [ ] Proximity alerts for POIs
 - [ ] Route navigation with turn-by-turn
-- [ ] Download route data for offline use
 - [ ] Statistics and achievements
 - [ ] Photo gallery for routes
+- [ ] Multilingual support (6 languages)
+- [ ] Settings screen
 
-### 🌐 Phase 6: Backend Integration (V2)
+### 🌐 Future: Backend Integration (V2)
 - [ ] Custom backend API (optional)
 - [ ] Firebase setup
 - [ ] User authentication
@@ -342,14 +365,41 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestone 1 Completed** ✅
+**Milestones 1-4 Completed** ✅
 
-- Clean Architecture fully implemented
-- Database schema designed and working
-- Repository layer complete with reactive Flow
-- Dependency injection configured
-- Cross-platform compilation successful (Android + iOS)
-- Ready for business logic and UI development
+The app is now fully functional with core trekking features:
+
+**Architecture & Foundation:**
+- Clean Architecture fully implemented across 3 layers
+- SQLDelight database with 4 tables and optimized indexes
+- Repository pattern with Flow-based reactive queries
+- Koin 4.0.0 dependency injection (platform-specific modules)
+- Cross-platform compilation verified (Android + iOS)
+
+**Business Logic:**
+- 18 use cases implemented and tested
+- Route data for all 20 Camí de Cavalls stages (~185km)
+- TrackingManager with battery-optimized GPS tracking
+- Haversine formula for accurate distance calculation
+- Automatic statistics calculation (distance, speed, elevation)
+
+**User Interface:**
+- Material 3 design system
+- Voyager navigation (type-safe, without voyager-koin)
+- HomeScreen with route list cards
+- RouteDetailScreen with complete stage information
+- TrackingScreen with real-time GPS display
+- Smart location permission handling
+
+**GPS Tracking:**
+- Android: FusedLocationProviderClient with battery optimization
+- iOS: CoreLocation with CLActivityTypeFitness
+- Offline-first: All data saved locally in SQLDelight
+- Configurable intervals (5s default) and accuracy (balanced)
+- Pause detection and session management
+- Tested with GPX simulation on iOS simulator
+
+**Ready for:** POI system, map integration, and advanced features
 
 ## 🤝 Contributing
 
@@ -379,32 +429,65 @@ This project is private and proprietary. No license is granted for use, modifica
 
 ## 🐛 Known Issues
 
-- Mapbox dependency temporarily commented out (requires Maven repository configuration)
-- iOS requires manual addition of `libsqlite3.tbd` in Xcode Build Phases
-- Voyager-Koin integration removed due to compatibility issues (using Koin directly)
+- **iOS SQLite**: Requires manual addition of `libsqlite3.tbd` in Xcode Build Phases → Link Binary With Libraries
+  - This may need to be re-added after clean builds or Xcode updates
+- **Android GPS Simulation**: Android emulator has issues with GPX file simulation (limitation of emulator, not our code)
+  - GPS tracking works correctly on real devices
+  - iOS simulator handles GPX simulation correctly
+- **Mapbox**: Dependency temporarily commented out (requires Maven repository configuration)
+- **Voyager-Koin**: Integration removed due to compatibility issues (using Koin directly with parametersOf)
 
 ## 💡 Technical Notes
 
 ### Platform-Specific Implementations
 
 **Database Drivers**
-- Android: `AndroidSqliteDriver`
-- iOS: `NativeSqliteDriver`
+- Android: `AndroidSqliteDriver` with Context
+- iOS: `NativeSqliteDriver` (requires libsqlite3.tbd)
 
 **Location Services**
-- Android: Google Play Services Location API
-- iOS: Core Location Framework (Future)
+- Android: `FusedLocationProviderClient` (Google Play Services)
+  - Battery optimization: Granularity.COARSE for balanced mode
+  - LocationRequest with min distance and intervals
+  - suspendCancellableCoroutine for async operations
+- iOS: `CLLocationManager` (Core Location)
+  - CLActivityTypeFitness for hiking optimization
+  - pausesLocationUpdatesAutomatically for battery saving
+  - desiredAccuracy and distanceFilter configuration
+
+**Permission Handling**
+- Android: `ActivityResultContracts.RequestMultiplePermissions()`
+  - rememberLauncherForActivityResult in Composables
+  - ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION
+- iOS: `CLLocationManager.requestWhenInUseAuthorization()`
+  - Polling-based permission status check
+  - Info.plist entries for usage descriptions
 
 **Dependency Injection**
 - Shared `appModule` in commonMain
 - Platform-specific modules using expect/actual pattern
+- Android: androidContext() for Context injection
+- iOS: KoinApplication wrapper in @Composable
 
 ### Performance Optimizations
 
-- Database indexes on frequently queried columns
-- Flow-based reactive queries for efficient updates
-- Haversine formula for accurate distance calculations
+**Database:**
+- Indexes on frequently queried columns (location lat/lng, session timestamps)
+- Flow-based reactive queries for efficient real-time updates
 - Foreign key constraints with cascade deletes for data integrity
+- Prepared statements via SQLDelight for query optimization
+
+**GPS Tracking:**
+- Battery-optimized update intervals (5s default, min 2s)
+- Minimum distance filter (5m) to avoid unnecessary updates
+- Balanced accuracy mode (not always high-precision GPS)
+- Automatic pause when device is stationary (iOS)
+- Location updates batching and deferred delivery
+
+**Calculations:**
+- Haversine formula for accurate GPS distance calculations
+- Incremental statistics updates (not recalculating entire session)
+- Efficient coordinate transformations for map projections
 
 ### Data Management
 

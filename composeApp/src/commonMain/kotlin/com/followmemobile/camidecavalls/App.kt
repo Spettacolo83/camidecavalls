@@ -1,36 +1,23 @@
 package com.followmemobile.camidecavalls
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import com.followmemobile.camidecavalls.di.appModule
-import com.followmemobile.camidecavalls.di.platformModule
-import org.koin.compose.KoinApplication
+import cafe.adriel.voyager.navigator.Navigator
+import com.followmemobile.camidecavalls.presentation.home.HomeScreen
 
 @Composable
 fun App() {
-    KoinApplication(
-        application = {
-            modules(appModule, platformModule)
-        }
-    ) {
+    KoinInitializer {
         MaterialTheme {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Camí de Cavalls",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            Navigator(HomeScreen())
         }
     }
 }
+
+/**
+ * Platform-specific Koin initialization wrapper.
+ * On Android: Koin is already initialized in Application class, so this is just a passthrough.
+ * On iOS: Koin is initialized here using KoinApplication.
+ */
+@Composable
+expect fun KoinInitializer(content: @Composable () -> Unit)
