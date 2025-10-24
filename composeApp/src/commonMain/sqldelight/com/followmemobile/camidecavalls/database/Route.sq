@@ -1,0 +1,43 @@
+-- Table for storing the 20 routes of Camí de Cavalls
+CREATE TABLE RouteEntity (
+    id INTEGER PRIMARY KEY NOT NULL,
+    number INTEGER NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    startPoint TEXT NOT NULL,
+    endPoint TEXT NOT NULL,
+    distanceKm REAL NOT NULL,
+    elevationGainMeters INTEGER NOT NULL,
+    elevationLossMeters INTEGER NOT NULL,
+    maxAltitudeMeters INTEGER NOT NULL,
+    minAltitudeMeters INTEGER NOT NULL,
+    asphaltPercentage INTEGER NOT NULL,
+    difficulty TEXT NOT NULL,
+    estimatedDurationMinutes INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    gpxData TEXT,
+    imageUrl TEXT
+);
+
+-- Queries
+selectAll:
+SELECT * FROM RouteEntity ORDER BY number ASC;
+
+selectById:
+SELECT * FROM RouteEntity WHERE id = ?;
+
+selectByNumber:
+SELECT * FROM RouteEntity WHERE number = ?;
+
+insert:
+INSERT OR REPLACE INTO RouteEntity(
+    id, number, name, startPoint, endPoint, distanceKm,
+    elevationGainMeters, elevationLossMeters, maxAltitudeMeters,
+    minAltitudeMeters, asphaltPercentage, difficulty,
+    estimatedDurationMinutes, description, gpxData, imageUrl
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM RouteEntity;
+
+count:
+SELECT COUNT(*) FROM RouteEntity;

@@ -1,0 +1,50 @@
+-- Table for storing Points of Interest
+CREATE TABLE PointOfInterestEntity (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    description TEXT NOT NULL,
+    images TEXT NOT NULL, -- JSON array as string
+    routeId INTEGER,
+    isAdvertisement INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
+);
+
+-- Index for location queries
+CREATE INDEX poi_location_idx ON PointOfInterestEntity(latitude, longitude);
+
+-- Index for type queries
+CREATE INDEX poi_type_idx ON PointOfInterestEntity(type);
+
+-- Queries
+selectAll:
+SELECT * FROM PointOfInterestEntity;
+
+selectById:
+SELECT * FROM PointOfInterestEntity WHERE id = ?;
+
+selectByType:
+SELECT * FROM PointOfInterestEntity WHERE type = ?;
+
+selectByRoute:
+SELECT * FROM PointOfInterestEntity WHERE routeId = ?;
+
+-- Get POIs within a bounding box (for location-based queries)
+selectNearLocation:
+SELECT * FROM PointOfInterestEntity
+WHERE latitude BETWEEN ? AND ?
+AND longitude BETWEEN ? AND ?;
+
+insert:
+INSERT OR REPLACE INTO PointOfInterestEntity(
+    id, name, type, latitude, longitude, description,
+    images, routeId, isAdvertisement
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM PointOfInterestEntity;
+
+count:
+SELECT COUNT(*) FROM PointOfInterestEntity;

@@ -9,19 +9,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.followmemobile.camidecavalls.di.appModule
+import com.followmemobile.camidecavalls.di.platformModule
+import org.koin.compose.KoinApplication
 
 @Composable
 fun App() {
-    MaterialTheme {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Camí de Cavalls",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
-            )
+    KoinApplication(
+        application = {
+            modules(appModule, platformModule)
+        }
+    ) {
+        MaterialTheme {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Camí de Cavalls",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }

@@ -1,0 +1,45 @@
+-- Table for storing tracking sessions (Notebook)
+CREATE TABLE TrackingSessionEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    routeId INTEGER,
+    startTime INTEGER NOT NULL, -- Unix timestamp in milliseconds
+    endTime INTEGER, -- Unix timestamp in milliseconds
+    distanceMeters REAL NOT NULL DEFAULT 0.0,
+    durationSeconds INTEGER NOT NULL DEFAULT 0,
+    averageSpeedKmh REAL NOT NULL DEFAULT 0.0,
+    maxSpeedKmh REAL NOT NULL DEFAULT 0.0,
+    elevationGainMeters INTEGER NOT NULL DEFAULT 0,
+    elevationLossMeters INTEGER NOT NULL DEFAULT 0,
+    isCompleted INTEGER NOT NULL DEFAULT 0,
+    notes TEXT NOT NULL DEFAULT '',
+    FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
+);
+
+-- TrackingSession Queries
+selectAllSessions:
+SELECT * FROM TrackingSessionEntity ORDER BY startTime DESC;
+
+selectSessionById:
+SELECT * FROM TrackingSessionEntity WHERE id = ?;
+
+selectSessionsByRoute:
+SELECT * FROM TrackingSessionEntity WHERE routeId = ? ORDER BY startTime DESC;
+
+selectActiveSession:
+SELECT * FROM TrackingSessionEntity WHERE isCompleted = 0 LIMIT 1;
+
+insertSession:
+INSERT OR REPLACE INTO TrackingSessionEntity(
+    id, routeId, startTime, endTime, distanceMeters, durationSeconds,
+    averageSpeedKmh, maxSpeedKmh, elevationGainMeters, elevationLossMeters,
+    isCompleted, notes
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteSession:
+DELETE FROM TrackingSessionEntity WHERE id = ?;
+
+deleteAllSessions:
+DELETE FROM TrackingSessionEntity;
+
+countSessions:
+SELECT COUNT(*) FROM TrackingSessionEntity;

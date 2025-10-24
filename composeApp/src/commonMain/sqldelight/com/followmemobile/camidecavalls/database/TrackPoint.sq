@@ -1,0 +1,30 @@
+-- Table for storing track points
+CREATE TABLE TrackPointEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sessionId TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    altitude REAL,
+    timestamp INTEGER NOT NULL, -- Unix timestamp in milliseconds
+    speedKmh REAL,
+    FOREIGN KEY (sessionId) REFERENCES TrackingSessionEntity(id) ON DELETE CASCADE
+);
+
+-- Index for session queries
+CREATE INDEX track_point_session_idx ON TrackPointEntity(sessionId);
+CREATE INDEX track_point_timestamp_idx ON TrackPointEntity(timestamp);
+
+-- TrackPoint Queries
+selectTrackPointsBySession:
+SELECT * FROM TrackPointEntity WHERE sessionId = ? ORDER BY timestamp ASC;
+
+insertTrackPoint:
+INSERT INTO TrackPointEntity(
+    sessionId, latitude, longitude, altitude, timestamp, speedKmh
+) VALUES (?, ?, ?, ?, ?, ?);
+
+deleteTrackPointsBySession:
+DELETE FROM TrackPointEntity WHERE sessionId = ?;
+
+countTrackPoints:
+SELECT COUNT(*) FROM TrackPointEntity WHERE sessionId = ?;
