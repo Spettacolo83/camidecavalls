@@ -10,23 +10,24 @@ androidx-core-ktx = "1.15.0"
 androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
-compose-plugin = "1.7.3"
+compose-plugin = "1.9.1"
 junit = "4.13.2"
-kotlin = "2.1.0"
+kotlin = "2.2.0"
 
 # KMP Libraries
 koin = "4.0.0"
 sqldelight = "2.0.2"
 ktor = "3.0.1"
 kotlinx-coroutines = "1.9.0"
-kotlinx-serialization = "1.7.3"
-kotlinx-datetime = "0.6.1"
+kotlinx-serialization = "1.8.0"
+kotlinx-datetime = "0.7.1-0.6.x-compat"
 multiplatform-settings = "1.2.0"
 voyager = "1.1.0-beta02"
 napier = "2.7.1"
 
-# Mapbox
+# Maps
 mapbox = "11.7.1"
+maplibre-compose = "0.11.1"
 
 # Location
 play-services-location = "21.3.0"
@@ -79,8 +80,9 @@ voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voy
 # Logging
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
-# Mapbox (Android)
+# Maps
 mapbox-android = { module = "com.mapbox.maps:android", version.ref = "mapbox" }
+maplibre-compose = { module = "org.maplibre.compose:maplibre-compose", version.ref = "maplibre-compose" }
 
 # Location (Android)
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }

@@ -10,10 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,6 +35,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
+import com.followmemobile.camidecavalls.presentation.map.MapScreen
 import org.koin.compose.koinInject
 
 /**
@@ -48,6 +53,9 @@ class HomeScreen : Screen {
             uiState = uiState,
             onRouteClick = { route ->
                 navigator.push(RouteDetailScreen(route.id))
+            },
+            onMapClick = {
+                navigator.push(MapScreen())
             }
         )
     }
@@ -57,7 +65,8 @@ class HomeScreen : Screen {
 @Composable
 private fun HomeScreenContent(
     uiState: HomeUiState,
-    onRouteClick: (Route) -> Unit
+    onRouteClick: (Route) -> Unit,
+    onMapClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -68,6 +77,11 @@ private fun HomeScreenContent(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = onMapClick) {
+                Icon(Icons.Default.Place, contentDescription = "Show Map")
+            }
         }
     ) { paddingValues ->
         Box(
