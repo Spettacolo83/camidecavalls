@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
@@ -36,8 +38,13 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
+import io.github.dellisd.spatialk.geojson.Position
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
+import org.maplibre.compose.camera.CameraPosition
+import org.maplibre.compose.camera.rememberCameraState
+import org.maplibre.compose.map.MaplibreMap
+import org.maplibre.compose.style.BaseStyle
 
 /**
  * Route Detail screen showing detailed information about a specific trail stage.
@@ -150,6 +157,11 @@ private fun RouteDetailContent(route: Route) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Map preview
+        RouteMapPreview(route = route)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         // Route Info
         InfoRow(label = "Start Point", value = route.startPoint)
         InfoRow(label = "End Point", value = route.endPoint)
@@ -199,6 +211,31 @@ private fun InfoRow(label: String, value: String) {
             text = value,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium
+        )
+    }
+}
+
+@Composable
+private fun RouteMapPreview(route: Route) {
+    // Camera position centered on Menorca island
+    // TODO: In the future, use actual route coordinates from GPX data
+    val cameraState = rememberCameraState(
+        firstPosition = CameraPosition(
+            target = Position(4.05, 39.95), // Menorca center (longitude, latitude)
+            zoom = 10.5
+        )
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .clip(RoundedCornerShape(12.dp))
+    ) {
+        MaplibreMap(
+            cameraState = cameraState,
+            baseStyle = BaseStyle.Uri("https://tiles.openfreemap.org/styles/liberty"),
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
