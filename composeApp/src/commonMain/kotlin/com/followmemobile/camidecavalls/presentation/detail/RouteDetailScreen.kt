@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
@@ -37,18 +38,14 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
+import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
-import io.github.dellisd.spatialk.geojson.Position
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
-import org.maplibre.compose.camera.CameraPosition
-import org.maplibre.compose.camera.rememberCameraState
-import org.maplibre.compose.map.MaplibreMap
-import org.maplibre.compose.style.BaseStyle
 
 /**
  * Route Detail screen showing detailed information about a specific trail stage.
@@ -225,21 +222,13 @@ private fun RouteMapPreview(route: Route) {
     val routeCoordinates = route.gpxData?.let { parseGeoJsonLineString(it) } ?: emptyList()
 
     // Calculate camera position based on route coordinates or use Menorca center
-    val cameraPosition = if (routeCoordinates.isNotEmpty()) {
-        val centerLat = routeCoordinates.map { it.second }.average()
-        val centerLon = routeCoordinates.map { it.first }.average()
-        CameraPosition(
-            target = Position(centerLon, centerLat),
-            zoom = 12.0
-        )
+    val (centerLat, centerLon, zoom) = if (routeCoordinates.isNotEmpty()) {
+        val lat = routeCoordinates.map { it.second }.average()
+        val lon = routeCoordinates.map { it.first }.average()
+        Triple(lat, lon, 12.0)
     } else {
-        CameraPosition(
-            target = Position(4.05, 39.95), // Menorca center
-            zoom = 10.5
-        )
+        Triple(39.95, 4.05, 10.5)
     }
-
-    val cameraState = rememberCameraState(firstPosition = cameraPosition)
 
     Box(
         modifier = Modifier
@@ -247,16 +236,58 @@ private fun RouteMapPreview(route: Route) {
             .height(200.dp)
             .clip(RoundedCornerShape(12.dp))
     ) {
-        MaplibreMap(
-            cameraState = cameraState,
-            baseStyle = BaseStyle.Uri("https://tiles.openfreemap.org/styles/liberty"),
-            modifier = Modifier.fillMaxSize()
-        ) {
-            // TODO: Add route path visualization with LineLayer when MapLibre Compose is updated
-            // TODO: Add start/end markers with CircleLayer
-            // TODO: Add POI markers along the route
-            // For now, map is centered on route area. Route data is available in route.gpxData
-        }
+        MapWithLayers(
+            modifier = Modifier.fillMaxSize(),
+            latitude = centerLat,
+            longitude = centerLon,
+            zoom = zoom,
+            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+            onMapReady = { controller ->
+                // Add route path if GPX data is available
+                if (route.gpxData != null && routeCoordinates.isNotEmpty()) {
+                    // Add route path with blue color
+                    controller.addRoutePath(
+                        routeId = "route-${route.id}",
+                        geoJsonLineString = route.gpxData,
+                        color = "#2196F3",
+                        width = 4f
+                    )
+
+                    // Add start marker (green)
+                    val startPoint = routeCoordinates.first()
+                    controller.addMarker(
+                        markerId = "start-${route.id}",
+                        latitude = startPoint.second,
+                        longitude = startPoint.first,
+                        color = "#4CAF50",
+                        radius = 6f
+                    )
+
+                    // Add end marker (red)
+                    val endPoint = routeCoordinates.last()
+                    controller.addMarker(
+                        markerId = "end-${route.id}",
+                        latitude = endPoint.second,
+                        longitude = endPoint.first,
+                        color = "#F44336",
+                        radius = 6f
+                    )
+
+                    // Add POI marker at midpoint (orange) for routes with GPX data
+                    if (route.id <= 3) {
+                        val midIndex = routeCoordinates.size / 2
+                        val midPoint = routeCoordinates[midIndex]
+                        controller.addMarker(
+                            markerId = "poi-${route.id}",
+                            latitude = midPoint.second,
+                            longitude = midPoint.first,
+                            color = "#FF9800",
+                            radius = 5f
+                        )
+                    }
+                }
+            }
+        )
     }
 }
 
