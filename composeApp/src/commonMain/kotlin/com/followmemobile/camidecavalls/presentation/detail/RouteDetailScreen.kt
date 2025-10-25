@@ -39,6 +39,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import io.github.dellisd.spatialk.geojson.Position
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import org.maplibre.compose.camera.CameraPosition
@@ -217,14 +221,25 @@ private fun InfoRow(label: String, value: String) {
 
 @Composable
 private fun RouteMapPreview(route: Route) {
-    // Camera position centered on Menorca island
-    // TODO: In the future, use actual route coordinates from GPX data
-    val cameraState = rememberCameraState(
-        firstPosition = CameraPosition(
-            target = Position(4.05, 39.95), // Menorca center (longitude, latitude)
+    // Parse route coordinates if GPX data is available
+    val routeCoordinates = route.gpxData?.let { parseGeoJsonLineString(it) } ?: emptyList()
+
+    // Calculate camera position based on route coordinates or use Menorca center
+    val cameraPosition = if (routeCoordinates.isNotEmpty()) {
+        val centerLat = routeCoordinates.map { it.second }.average()
+        val centerLon = routeCoordinates.map { it.first }.average()
+        CameraPosition(
+            target = Position(centerLon, centerLat),
+            zoom = 12.0
+        )
+    } else {
+        CameraPosition(
+            target = Position(4.05, 39.95), // Menorca center
             zoom = 10.5
         )
-    )
+    }
+
+    val cameraState = rememberCameraState(firstPosition = cameraPosition)
 
     Box(
         modifier = Modifier
@@ -236,6 +251,31 @@ private fun RouteMapPreview(route: Route) {
             cameraState = cameraState,
             baseStyle = BaseStyle.Uri("https://tiles.openfreemap.org/styles/liberty"),
             modifier = Modifier.fillMaxSize()
-        )
+        ) {
+            // TODO: Add route path visualization with LineLayer when MapLibre Compose is updated
+            // TODO: Add start/end markers with CircleLayer
+            // TODO: Add POI markers along the route
+            // For now, map is centered on route area. Route data is available in route.gpxData
+        }
+    }
+}
+
+/**
+ * Parse GeoJSON LineString coordinates from JSON string.
+ * Returns list of (longitude, latitude) pairs.
+ */
+private fun parseGeoJsonLineString(geoJson: String): List<Pair<Double, Double>> {
+    return try {
+        val json = Json.parseToJsonElement(geoJson).jsonObject
+        val coordinates = json["coordinates"]?.jsonArray ?: return emptyList()
+
+        coordinates.map { coord ->
+            val array = coord.jsonArray
+            val lon = array[0].jsonPrimitive.content.toDouble()
+            val lat = array[1].jsonPrimitive.content.toDouble()
+            Pair(lon, lat)
+        }
+    } catch (e: Exception) {
+        emptyList()
     }
 }

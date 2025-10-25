@@ -9,6 +9,9 @@ import com.followmemobile.camidecavalls.domain.model.Route
  *
  * Data sourced from official Camí de Cavalls information.
  * All routes follow the trail in a counter-clockwise direction.
+ *
+ * NOTE: GPX data includes simplified route coordinates in GeoJSON LineString format.
+ * These are example coordinates for demonstration. For production, replace with official GPX data.
  */
 object RouteData {
 
@@ -27,7 +30,10 @@ object RouteData {
             asphaltPercentage = 25,
             difficulty = Difficulty.LOW,
             estimatedDurationMinutes = 150,
-            description = "Tappa facile che parte dal porto di Maó e segue la costa fino alla spiaggia di Es Grau. Il percorso attraversa zone urbane inizialmente, per poi entrare nel Parco Naturale di s'Albufera des Grau. Ideale per iniziare il cammino con paesaggi costieri e lagune."
+            description = "Tappa facile che parte dal porto di Maó e segue la costa fino alla spiaggia di Es Grau. Il percorso attraversa zone urbane inizialmente, per poi entrare nel Parco Naturale di s'Albufera des Grau. Ideale per iniziare il cammino con paesaggi costieri e lagune.",
+            gpxData = """
+                {"type":"LineString","coordinates":[[4.2633,39.8885],[4.2680,39.8920],[4.2730,39.8955],[4.2780,39.8990],[4.2830,39.9015],[4.2880,39.9035],[4.2930,39.9050],[4.2980,39.9070],[4.3030,39.9085],[4.3080,39.9100]]}
+            """.trimIndent()
         ),
         Route(
             id = 2,
@@ -43,7 +49,10 @@ object RouteData {
             asphaltPercentage = 15,
             difficulty = Difficulty.LOW,
             estimatedDurationMinutes = 135,
-            description = "Percorso costiero attraverso il Parco Naturale, caratterizzato da spiagge vergini e paesaggi lunari. Si arriva al faro di Favàritx, uno dei più fotografati di Menorca, circondato da rocce nere di ardesia."
+            description = "Percorso costiero attraverso il Parco Naturale, caratterizzato da spiagge vergini e paesaggi lunari. Si arriva al faro di Favàritx, uno dei più fotografati di Menorca, circondato da rocce nere di ardesia.",
+            gpxData = """
+                {"type":"LineString","coordinates":[[4.3080,39.9100],[4.3130,39.9120],[4.3180,39.9145],[4.3230,39.9165],[4.3280,39.9180],[4.3330,39.9195],[4.3380,39.9210],[4.3430,39.9220],[4.3480,39.9230],[4.3530,39.9240]]}
+            """.trimIndent()
         ),
         Route(
             id = 3,
@@ -59,7 +68,10 @@ object RouteData {
             asphaltPercentage = 20,
             difficulty = Difficulty.MEDIUM,
             estimatedDurationMinutes = 195,
-            description = "Tappa di media difficoltà con saliscendi costanti. Il sentiero attraversa calette nascoste e offre viste panoramiche sulla costa nord. Termina nella bella baia di Arenal d'en Castell."
+            description = "Tappa di media difficoltà con saliscendi costanti. Il sentiero attraversa calette nascoste e offre viste panoramiche sulla costa nord. Termina nella bella baia di Arenal d'en Castell.",
+            gpxData = """
+                {"type":"LineString","coordinates":[[4.3530,39.9240],[4.3480,39.9265],[4.3430,39.9290],[4.3380,39.9310],[4.3330,39.9330],[4.3280,39.9345],[4.3230,39.9360],[4.3180,39.9375],[4.3130,39.9390],[4.3080,39.9405],[4.3030,39.9415],[4.2980,39.9425]]}
+            """.trimIndent()
         ),
         Route(
             id = 4,
