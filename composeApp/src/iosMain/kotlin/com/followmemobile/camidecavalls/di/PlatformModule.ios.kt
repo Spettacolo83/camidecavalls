@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.di
 
+import com.followmemobile.camidecavalls.data.local.AppPreferences
 import com.followmemobile.camidecavalls.data.local.DatabaseDriverFactory
 import com.followmemobile.camidecavalls.data.service.IOSLocationService
 import com.followmemobile.camidecavalls.data.service.IOSPermissionHandler
@@ -13,6 +14,7 @@ import org.koin.dsl.module
  */
 actual val platformModule = module {
     single { DatabaseDriverFactory() }
+    single { AppPreferences() }
 
     // Permission Handler
     single { IOSPermissionHandler() } bind PermissionHandler::class

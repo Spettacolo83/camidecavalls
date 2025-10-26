@@ -1,12 +1,10 @@
 package com.followmemobile.camidecavalls.presentation.map
 
-import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import org.maplibre.android.MapLibre
 import org.maplibre.android.camera.CameraPosition
@@ -41,9 +39,23 @@ actual class MapLayerController {
         removeLayer(routeId)
 
         try {
-            // Add GeoJSON source
-            val source = GeoJsonSource("source-$routeId", geoJsonLineString)
+            Log.d("MapLayer", "=== Adding Route Path ===")
+            Log.d("MapLayer", "RouteId: $routeId")
+            Log.d("MapLayer", "Style: $currentStyle")
+            Log.d("MapLayer", "Color: $color, Width: $width")
+
+            // Use the GPX data from the route parameter
+            val cleanedGeometry = geoJsonLineString.trim()
+            val featureGeoJson = """{"type":"Feature","geometry":$cleanedGeometry,"properties":{}}"""
+
+            Log.d("MapLayer", "=== Adding Route Path ===")
+            Log.d("MapLayer", "RouteId: $routeId")
+            Log.d("MapLayer", "GeoJSON geometry length: ${cleanedGeometry.length} chars")
+
+            // Try passing the Feature to GeoJsonSource
+            val source = GeoJsonSource("source-$routeId", featureGeoJson)
             currentStyle.addSource(source)
+            Log.d("MapLayer", "Source added successfully")
 
             // Add white casing (outline)
             val casingLayer = LineLayer("$routeId-casing", "source-$routeId")
@@ -54,6 +66,7 @@ actual class MapLayerController {
                     lineJoin("round")
                 )
             currentStyle.addLayer(casingLayer)
+            Log.d("MapLayer", "Casing layer added")
 
             // Add colored route line
             val lineLayer = LineLayer(routeId, "source-$routeId")
@@ -64,7 +77,9 @@ actual class MapLayerController {
                     lineJoin("round")
                 )
             currentStyle.addLayer(lineLayer)
+            Log.d("MapLayer", "Line layer added - Route rendering complete!")
         } catch (e: Exception) {
+            Log.e("MapLayer", "Error adding route path", e)
             e.printStackTrace()
         }
     }
@@ -82,9 +97,14 @@ actual class MapLayerController {
         removeLayer("$markerId-outer")
 
         try {
-            // Create point GeoJSON
-            val geoJson = """{"type":"Point","coordinates":[$longitude,$latitude]}"""
-            val source = GeoJsonSource("source-$markerId", geoJson)
+            // Create point GeoJSON directly
+            val pointGeometry = """{"type":"Point","coordinates":[$longitude,$latitude]}"""
+
+            Log.d("MapLayer", "=== Adding Marker ===")
+            Log.d("MapLayer", "MarkerId: $markerId, Lat: $latitude, Lon: $longitude")
+            Log.d("MapLayer", "Color: $color, Radius: $radius")
+
+            val source = GeoJsonSource("source-$markerId", pointGeometry)
             currentStyle.addSource(source)
 
             // Add outer white circle
@@ -135,22 +155,18 @@ actual fun MapWithLayers(
     styleUrl: String,
     onMapReady: (MapLayerController) -> Unit
 ) {
-    val context = LocalContext.current
     val controller = remember { MapLayerController() }
-
-    // Initialize MapLibre with custom tile server (no API key needed)
-    DisposableEffect(Unit) {
-        try {
-            MapLibre.getInstance(context, null, null)
-        } catch (e: Exception) {
-            // Already initialized, ignore
-        }
-        onDispose { }
-    }
 
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
+            // Initialize MapLibre before creating MapView
+            try {
+                MapLibre.getInstance(ctx)
+            } catch (e: Exception) {
+                // Already initialized, ignore
+            }
+
             MapView(ctx).apply {
                 getMapAsync { map ->
                     map.setStyle(styleUrl) { style ->

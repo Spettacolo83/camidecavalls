@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.presentation.detail
 
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
@@ -235,6 +237,10 @@ private fun RouteMapPreview(route: Route) {
             .fillMaxWidth()
             .height(200.dp)
             .clip(RoundedCornerShape(12.dp))
+            .pointerInput(Unit) {
+                // Consume all drag gestures to prevent scroll conflict with parent
+                detectDragGestures { _, _ -> }
+            }
     ) {
         MapWithLayers(
             modifier = Modifier.fillMaxSize(),
