@@ -2,6 +2,7 @@ package com.followmemobile.camidecavalls.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import kotlin.math.ln
+import kotlin.math.max
+import kotlin.math.min
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
@@ -221,28 +226,72 @@ private fun RouteMapPreview(route: Route) {
     // Parse route coordinates if GPX data is available
     val routeCoordinates = route.gpxData?.let { parseGeoJsonLineString(it) } ?: emptyList()
 
-    // Calculate camera position based on route coordinates or use Menorca center
-    val (centerLat, centerLon, zoom) = if (routeCoordinates.isNotEmpty()) {
-        val lat = routeCoordinates.map { it.second }.average()
-        val lon = routeCoordinates.map { it.first }.average()
-        Triple(lat, lon, 12.0)
-    } else {
-        Triple(39.95, 4.05, 10.5)
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .clip(RoundedCornerShape(12.dp))
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxWidth()
     ) {
-        MapWithLayers(
-            modifier = Modifier.fillMaxSize(),
-            latitude = centerLat,
-            longitude = centerLon,
-            zoom = zoom,
-            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
-            onMapReady = { controller ->
+        // Calculate map aspect ratio from available space
+        val mapHeight = 350.dp
+        val mapWidthPx = maxWidth.value
+        val mapHeightPx = mapHeight.value
+        val mapAspectRatio = mapWidthPx / mapHeightPx // width / height
+
+        // Calculate camera position and zoom based on route coordinates
+        val (centerLat, centerLon, zoom) = if (routeCoordinates.isNotEmpty()) {
+            // Calculate bounding box
+            val lats = routeCoordinates.map { it.second }
+            val lons = routeCoordinates.map { it.first }
+
+            val minLat = lats.minOrNull() ?: 0.0
+            val maxLat = lats.maxOrNull() ?: 0.0
+            val minLon = lons.minOrNull() ?: 0.0
+            val maxLon = lons.maxOrNull() ?: 0.0
+
+            // Calculate center
+            val centerLat = (minLat + maxLat) / 2.0
+            val centerLon = (minLon + maxLon) / 2.0
+
+            // Calculate zoom level to fit entire route
+            // Add padding factor to ensure route doesn't touch edges
+            val paddingFactor = 1.4
+
+            // Calculate deltas in degrees
+            val latDelta = (maxLat - minLat) * paddingFactor
+            val lonDelta = (maxLon - minLon) * paddingFactor
+
+            // Adjust longitude delta by map aspect ratio
+            // If map is wider than tall, we can fit more longitude degrees
+            val adjustedLonDelta = lonDelta / mapAspectRatio
+
+            // Use the larger delta to calculate zoom
+            val maxDelta = max(latDelta, adjustedLonDelta)
+
+            // Calculate zoom: smaller delta = higher zoom
+            // Formula: zoom ≈ log2(360 / delta) - rough approximation
+            val calculatedZoom = if (maxDelta > 0) {
+                val baseZoom = ln(360.0 / maxDelta) / ln(2.0)
+                min(15.0, max(8.0, baseZoom - 0.8)) // Clamp between 8 and 15, subtract 0.8 for more margin
+            } else {
+                12.0
+            }
+
+            Triple(centerLat, centerLon, calculatedZoom)
+        } else {
+            Triple(39.95, 4.05, 10.5)
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(mapHeight)
+                .clip(RoundedCornerShape(12.dp))
+        ) {
+            MapWithLayers(
+                modifier = Modifier.fillMaxSize(),
+                latitude = centerLat,
+                longitude = centerLon,
+                zoom = zoom,
+                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+                onMapReady = { controller ->
                 // Add route path if GPX data is available
                 if (route.gpxData != null && routeCoordinates.isNotEmpty()) {
                     // Add route path with blue color
@@ -272,22 +321,10 @@ private fun RouteMapPreview(route: Route) {
                         color = "#F44336",
                         radius = 6f
                     )
-
-                    // Add POI marker at midpoint (orange) for routes with GPX data
-                    if (route.id <= 3) {
-                        val midIndex = routeCoordinates.size / 2
-                        val midPoint = routeCoordinates[midIndex]
-                        controller.addMarker(
-                            markerId = "poi-${route.id}",
-                            latitude = midPoint.second,
-                            longitude = midPoint.first,
-                            color = "#FF9800",
-                            radius = 5f
-                        )
-                    }
                 }
             }
         )
+        }
     }
 }
 
