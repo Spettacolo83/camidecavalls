@@ -20,12 +20,18 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.LocationData
+import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
@@ -103,10 +109,20 @@ private fun TrackingScreenContent(
         ) {
             when (uiState) {
                 is TrackingUiState.Idle -> {
-                    IdleContent(onStartTracking = onStartTracking)
+                    IdleContent(
+                        route = uiState.route,
+                        currentLocation = uiState.currentLocation,
+                        onStartTracking = onStartTracking
+                    )
                 }
 
                 is TrackingUiState.AwaitingConfirmation -> {
+                    // Show idle map with confirmation dialog on top
+                    IdleContent(
+                        route = uiState.route,
+                        currentLocation = uiState.currentLocation,
+                        onStartTracking = onStartTracking
+                    )
                     ConfirmationDialog(
                         distanceKm = uiState.distanceFromRoute / 1000.0,
                         onConfirm = onStartTrackingForced,
@@ -116,8 +132,10 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Tracking -> {
                     TrackingContent(
+                        route = uiState.route,
                         sessionId = uiState.sessionId,
-                        location = uiState.currentLocation,
+                        currentLocation = uiState.currentLocation,
+                        trackPoints = uiState.trackPoints,
                         onStopTracking = onStopTracking
                     )
                 }
@@ -142,189 +160,198 @@ private fun TrackingScreenContent(
 }
 
 @Composable
-private fun IdleContent(onStartTracking: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = Icons.Default.LocationOn,
-            contentDescription = null,
-            modifier = Modifier.size(120.dp),
-            tint = MaterialTheme.colorScheme.primary
+private fun IdleContent(
+    route: Route?,
+    currentLocation: LocationData?,
+    onStartTracking: () -> Unit
+) {
+    val cameraPosition = calculateCameraPosition(route, currentLocation)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Fullscreen map
+        MapWithLayers(
+            modifier = Modifier.fillMaxSize(),
+            latitude = cameraPosition.latitude,
+            longitude = cameraPosition.longitude,
+            zoom = cameraPosition.zoom,
+            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+            onMapReady = { controller ->
+                // Add route path if available
+                route?.gpxData?.let { geoJson ->
+                    controller.addRoutePath(
+                        routeId = "route-${route.id}",
+                        geoJsonLineString = geoJson,
+                        color = "#2196F3",  // Blue
+                        width = 4f
+                    )
+                }
+
+                // Add current location marker if available
+                currentLocation?.let { location ->
+                    controller.addMarker(
+                        markerId = "current-location",
+                        latitude = location.latitude,
+                        longitude = location.longitude,
+                        color = "#4CAF50",  // Green
+                        radius = 8f
+                    )
+                }
+            }
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "Ready to Track",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Start tracking your hike on the Camí de Cavalls",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        FilledTonalButton(
+        // Start Tracking FAB
+        FloatingActionButton(
             onClick = onStartTracking,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
         ) {
-            Icon(Icons.Default.PlayArrow, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Start Tracking")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = "Battery Optimized",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "• Updates every 5 seconds\n• Works completely offline\n• GPS-only tracking",
-                    style = MaterialTheme.typography.bodySmall
-                )
+                Icon(Icons.Default.PlayArrow, contentDescription = null)
+                Text("Start Tracking")
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TrackingContent(
+    route: Route?,
     sessionId: String,
-    location: LocationData?,
+    currentLocation: LocationData?,
+    trackPoints: List<TrackPoint>,
     onStopTracking: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Status card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            )
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    val cameraPosition = calculateCameraPosition(route, currentLocation)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Fullscreen map with route and user track
+        MapWithLayers(
+            modifier = Modifier.fillMaxSize(),
+            latitude = cameraPosition.latitude,
+            longitude = cameraPosition.longitude,
+            zoom = cameraPosition.zoom,
+            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+            onMapReady = { controller ->
+                // Add route path (blue) if available
+                route?.gpxData?.let { geoJson ->
+                    controller.addRoutePath(
+                        routeId = "route-${route.id}",
+                        geoJsonLineString = geoJson,
+                        color = "#2196F3",  // Blue
+                        width = 4f
+                    )
+                }
+
+                // Add user track path (green) if we have track points
+                if (trackPoints.size >= 2) {
+                    val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
+                    controller.addRoutePath(
+                        routeId = "user-track",
+                        geoJsonLineString = userTrackGeoJson,
+                        color = "#4CAF50",  // Green
+                        width = 5f
+                    )
+                }
+
+                // Add current location marker
+                currentLocation?.let { location ->
+                    controller.addMarker(
+                        markerId = "current-location",
+                        latitude = location.latitude,
+                        longitude = location.longitude,
+                        color = "#FF5722",  // Deep Orange for active tracking
+                        radius = 10f
+                    )
+                }
+            }
+        )
+
+        // Bottom FAB row with Stop and Stats buttons
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Row(
+            // Stats FAB
+            FloatingActionButton(
+                onClick = { showBottomSheet = true },
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
+            ) {
+                Icon(Icons.Default.Info, contentDescription = "Show Statistics")
+            }
+
+            // Stop Tracking FAB
+            FloatingActionButton(
+                onClick = onStopTracking,
+                containerColor = MaterialTheme.colorScheme.errorContainer
+            ) {
+                Icon(Icons.Default.Close, contentDescription = "Stop Tracking")
+            }
+        }
+    }
+
+    // Bottom Sheet with statistics
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            sheetState = sheetState
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Default.LocationOn,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "Tracking Active",
-                    style = MaterialTheme.typography.titleMedium,
+                    text = "Tracking Statistics",
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-            }
-        }
 
-        // Location data
-        if (location != null) {
-            Card(modifier = Modifier.fillMaxWidth()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Text(
-                        text = "Current Position",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+                if (currentLocation != null) {
+                    LocationInfoRow("Latitude", "${(currentLocation.latitude * 1000000).toInt() / 1000000.0}°")
+                    LocationInfoRow("Longitude", "${(currentLocation.longitude * 1000000).toInt() / 1000000.0}°")
 
-                    LocationInfoRow("Latitude", "${(location.latitude * 1000000).toInt() / 1000000.0}°")
-                    LocationInfoRow("Longitude", "${(location.longitude * 1000000).toInt() / 1000000.0}°")
-
-                    location.altitude?.let {
+                    currentLocation.altitude?.let {
                         LocationInfoRow("Altitude", "${(it * 10).toInt() / 10.0} m")
                     }
 
-                    location.accuracy?.let {
+                    currentLocation.accuracy?.let {
                         LocationInfoRow("Accuracy", "±${(it * 10).toInt() / 10.0} m")
                     }
 
-                    location.speed?.let {
-                        val speedKmh = it * 3.6 // Convert m/s to km/h
+                    currentLocation.speed?.let {
+                        val speedKmh = it * 3.6
                         LocationInfoRow("Speed", "${(speedKmh * 10).toInt() / 10.0} km/h")
                     }
+                } else {
+                    Text(
+                        text = "Acquiring GPS signal...",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
-            }
-        } else {
-            Card(modifier = Modifier.fillMaxWidth()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(32.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        CircularProgressIndicator()
-                        Text(
-                            text = "Acquiring GPS signal...",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Session: ${sessionId.take(8)}...",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        // Stop button
-        Button(
-            onClick = onStopTracking,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.error
-            )
-        ) {
-            Icon(Icons.Default.Close, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Stop Tracking")
-        }
-
-        Text(
-            text = "Session ID: ${sessionId.take(8)}...",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
     }
 }
 
@@ -521,4 +548,79 @@ private fun ConfirmationDialog(
             }
         }
     )
+}
+
+/**
+ * Convert list of TrackPoints to GeoJSON LineString format
+ */
+private fun trackPointsToGeoJson(trackPoints: List<TrackPoint>): String {
+    val coordinates = trackPoints.map { point ->
+        JsonArray(listOf(
+            JsonPrimitive(point.longitude),
+            JsonPrimitive(point.latitude)
+        ))
+    }
+
+    return buildJsonObject {
+        put("type", JsonPrimitive("LineString"))
+        put("coordinates", JsonArray(coordinates))
+    }.toString()
+}
+
+/**
+ * Parse GeoJSON LineString coordinates from JSON string.
+ * Returns list of (longitude, latitude) pairs.
+ */
+private fun parseGeoJsonLineString(geoJson: String): List<Pair<Double, Double>> {
+    return try {
+        val json = Json.parseToJsonElement(geoJson).jsonObject
+        val coordinates = json["coordinates"]?.jsonArray ?: return emptyList()
+
+        coordinates.map { coord ->
+            val array = coord.jsonArray
+            val lon = array[0].jsonPrimitive.content.toDouble()
+            val lat = array[1].jsonPrimitive.content.toDouble()
+            Pair(lon, lat)
+        }
+    } catch (e: Exception) {
+        emptyList()
+    }
+}
+
+/**
+ * Calculate camera position from route or location
+ */
+private data class CameraPosition(
+    val latitude: Double,
+    val longitude: Double,
+    val zoom: Double
+)
+
+private fun calculateCameraPosition(
+    route: Route?,
+    location: LocationData?
+): CameraPosition {
+    // If we have current location, center on it
+    location?.let {
+        return CameraPosition(
+            latitude = it.latitude,
+            longitude = it.longitude,
+            zoom = 14.0
+        )
+    }
+
+    // Otherwise, if we have route, center on route center
+    route?.gpxData?.let { geoJson ->
+        val coordinates = parseGeoJsonLineString(geoJson)
+        if (coordinates.isNotEmpty()) {
+            val lats = coordinates.map { it.second }
+            val lons = coordinates.map { it.first }
+            val centerLat = (lats.minOrNull()!! + lats.maxOrNull()!!) / 2.0
+            val centerLon = (lons.minOrNull()!! + lons.maxOrNull()!!) / 2.0
+            return CameraPosition(centerLat, centerLon, 12.0)
+        }
+    }
+
+    // Default: Menorca center
+    return CameraPosition(39.95, 4.05, 10.5)
 }
