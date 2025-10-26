@@ -352,18 +352,21 @@ Build in Xcode with Release configuration for App Store distribution.
 - [x] Route visualization
   - [x] GeoJSON LineString rendering with LineLayer
   - [x] Route path with colored lines and white casing
-  - [x] Start/end markers with CircleLayer
-  - [x] Camera positioning centered on route bounds
+  - [x] Start/end markers with CircleLayer (green for start, red for end)
+  - [x] Smart camera positioning with automatic zoom calculation
+  - [x] Bounding box calculation to fit entire route
+  - [x] Aspect-ratio aware zoom for balanced framing
 - [x] Accurate route data
   - [x] All 20 routes converted from official KML source
   - [x] Coordinate simplification (~130 points per route)
-  - [x] Fixed Route 11 (Ciutadella - Cap d'Artrutx) path accuracy
-  - [x] Database versioning with AppPreferences for data updates
+  - [x] Fixed Route 11 (Ciutadella - Cap d'Artrutx) with correct segment order
+  - [x] Database versioning with AppPreferences for automatic data updates
 - [x] Map interactions
-  - [x] Pan, zoom, and rotate gestures
-  - [x] Fixed Android scroll conflict with parent views
-  - [x] Smooth map interaction on both platforms
-  - [x] Map preview in RouteDetailScreen
+  - [x] Pan, zoom, and rotate gestures on both platforms
+  - [x] Fixed Android scroll conflict with requestDisallowInterceptTouchEvent
+  - [x] Smooth map interaction without parent scroll interference
+  - [x] Map preview in RouteDetailScreen (350dp height, rounded corners)
+  - [x] Equal margins for both vertical (N-S) and horizontal (E-W) routes
 
 ### 📋 Next: POI System
 - [ ] POI data collection and database population
@@ -430,10 +433,13 @@ The app is now fully functional with core trekking features and interactive maps
 - MapLibre integration with native rendering on both platforms
 - OpenFreeMap tiles for offline-capable map display
 - Route visualization with colored LineLayer and white casing
-- Start/end markers with CircleLayer
+- Start/end markers with CircleLayer (green/red)
+- Smart camera positioning with bounding box calculation
+- Aspect-ratio aware zoom for balanced route framing
+- Equal margins for vertical (N-S) and horizontal (E-W) routes
 - Smooth pan, zoom, and rotate gestures
-- Fixed scroll conflicts on Android for seamless interaction
-- Map preview in RouteDetailScreen (200dp height, rounded corners)
+- Fixed scroll conflicts on Android with requestDisallowInterceptTouchEvent
+- Map preview in RouteDetailScreen (350dp height, rounded corners)
 - Platform-specific implementations (AndroidView, UIKitView)
 
 **Ready for:** POI system, proximity alerts, and advanced features
@@ -546,6 +552,9 @@ This project is private and proprietary. No license is granted for use, modifica
 - Haversine formula for accurate GPS distance calculations
 - Incremental statistics updates (not recalculating entire session)
 - Efficient coordinate transformations for map projections
+- Smart zoom calculation with logarithmic formula for route fitting
+- Bounding box analysis with padding factor for optimal route visibility
+- Aspect-ratio compensation for balanced map framing
 
 ### Data Management
 
