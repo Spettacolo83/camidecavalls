@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
@@ -13,12 +14,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.LocationData
+import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
@@ -54,6 +61,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     permissionRequester()
                 }
             },
+            onStartTrackingForced = { screenModel.startTrackingForced() },
+            onCancelConfirmation = { screenModel.cancelConfirmation() },
             onStopTracking = { screenModel.stopTracking() },
             onBackClick = { navigator.pop() },
             onClearError = { screenModel.clearError() }
@@ -66,6 +75,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
 private fun TrackingScreenContent(
     uiState: TrackingUiState,
     onStartTracking: () -> Unit,
+    onStartTrackingForced: () -> Unit,
+    onCancelConfirmation: () -> Unit,
     onStopTracking: () -> Unit,
     onBackClick: () -> Unit,
     onClearError: () -> Unit
@@ -93,6 +104,14 @@ private fun TrackingScreenContent(
             when (uiState) {
                 is TrackingUiState.Idle -> {
                     IdleContent(onStartTracking = onStartTracking)
+                }
+
+                is TrackingUiState.AwaitingConfirmation -> {
+                    ConfirmationDialog(
+                        distanceKm = uiState.distanceFromRoute / 1000.0,
+                        onConfirm = onStartTrackingForced,
+                        onCancel = onCancelConfirmation
+                    )
                 }
 
                 is TrackingUiState.Tracking -> {
@@ -465,4 +484,41 @@ private fun ErrorContent(
             }
         }
     }
+}
+
+@Composable
+private fun ConfirmationDialog(
+    distanceKm: Double,
+    onConfirm: () -> Unit,
+    onCancel: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onCancel,
+        icon = {
+            Icon(
+                imageVector = Icons.Default.Warning,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.error
+            )
+        },
+        title = {
+            Text("Sei lontano dal percorso")
+        },
+        text = {
+            val distanceFormatted = (distanceKm * 10).toInt() / 10.0
+            Text(
+                "Ti trovi a $distanceFormatted km dal percorso più vicino. Vuoi iniziare il tracking comunque?"
+            )
+        },
+        confirmButton = {
+            FilledTonalButton(onClick = onConfirm) {
+                Text("Inizia comunque")
+            }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = onCancel) {
+                Text("Annulla")
+            }
+        }
+    )
 }

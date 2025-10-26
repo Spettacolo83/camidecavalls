@@ -91,7 +91,15 @@ val appModule = module {
     // ScreenModels
     factoryOf(::HomeScreenModel)
     factory { params -> RouteDetailScreenModel(params.get(), get()) }
-    factory { params -> TrackingScreenModel(get(), get(), params.getOrNull()) }
+    factory { params ->
+        TrackingScreenModel(
+            trackingManager = get(),
+            permissionHandler = get(),
+            getRouteByIdUseCase = get(),
+            getActiveSessionUseCase = get(),
+            routeId = params.getOrNull()
+        )
+    }
 }
 
 /**
