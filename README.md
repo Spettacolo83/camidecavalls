@@ -13,11 +13,12 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 📴 **Offline Mode**: Complete offline support - all data stored locally in SQLDelight, GPS works without internet
 - 📝 **Notebook**: Track hiking sessions with automatic statistics calculation (distance via Haversine formula, duration, elevation, speed)
 - 🔐 **Location Permissions**: Smart permission handling with native dialogs for Android and iOS
-- 🗺️ **Route Database**: Complete data for all 20 Camí de Cavalls stages (~185km, ~2,480m elevation gain, ~55 hours)
+- 🗺️ **Route Database**: Complete data for all 20 Camí de Cavalls stages with accurate KML data (~185km, ~2,480m elevation gain, ~55 hours)
 - 📊 **Session Statistics**: Automatic calculation of distance, speed, elevation gain/loss during tracking
+- 🗺️ **Interactive Maps**: MapLibre integration with route visualization, markers, and smooth map interaction on both platforms
+- 🎯 **Accurate Route Data**: All 20 routes converted from official KML source with ~130 optimized points per route
 
 **Planned:**
-- 🗺️ **Interactive Maps**: Detailed maps for all 20 stages using Mapbox
 - 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
 - 🌍 **Multilingual**: Support for 6 languages (Catalan, Spanish, English, French, German, Italian)
@@ -139,8 +140,14 @@ composeApp/
 #### Logging
 - **Napier 2.7.1**: Multiplatform logging
 
-#### Maps (Android)
-- **Mapbox 11.7.1**: Interactive maps (To be configured)
+#### Maps
+- **MapLibre Compose 0.0.7**: Interactive maps with native rendering
+  - Android: MapLibre Native Android with AndroidView integration
+  - iOS: MapLibre Native iOS with UIKitView integration
+  - OpenFreeMap tiles for offline-capable map rendering
+  - Route path rendering with LineLayer
+  - Marker support with CircleLayer
+  - Platform-specific MapLayerController with expect/actual pattern
 
 #### Location
 - **Google Play Services Location 21.3.0**: GPS tracking (Android)
@@ -336,15 +343,33 @@ Build in Xcode with Release configuration for App Store distribution.
   - [x] Real-time statistics calculation (Haversine formula)
   - [x] Session state management (Idle, Tracking, Completed, Error)
 
-### 📋 Next: POI System & Maps
+### ✅ Milestone 5: Interactive Maps & Route Visualization (COMPLETED)
+- [x] MapLibre integration
+  - [x] MapLibre Compose integration on both platforms
+  - [x] Platform-specific implementations (AndroidView, UIKitView)
+  - [x] OpenFreeMap tile provider for offline-capable maps
+  - [x] MapLayerController with expect/actual pattern
+- [x] Route visualization
+  - [x] GeoJSON LineString rendering with LineLayer
+  - [x] Route path with colored lines and white casing
+  - [x] Start/end markers with CircleLayer
+  - [x] Camera positioning centered on route bounds
+- [x] Accurate route data
+  - [x] All 20 routes converted from official KML source
+  - [x] Coordinate simplification (~130 points per route)
+  - [x] Fixed Route 11 (Ciutadella - Cap d'Artrutx) path accuracy
+  - [x] Database versioning with AppPreferences for data updates
+- [x] Map interactions
+  - [x] Pan, zoom, and rotate gestures
+  - [x] Fixed Android scroll conflict with parent views
+  - [x] Smooth map interaction on both platforms
+  - [x] Map preview in RouteDetailScreen
+
+### 📋 Next: POI System
 - [ ] POI data collection and database population
 - [ ] POI list and detail screens
-- [ ] Mapbox integration
-  - [ ] Display routes on map
-  - [ ] Current location marker
-  - [ ] Route polyline rendering
-  - [ ] POI markers
-- [ ] Offline maps support
+- [ ] POI markers on map
+- [ ] POI filtering by type and route
 
 ### 🔔 Future: Advanced Features
 - [ ] Proximity alerts for POIs
@@ -365,9 +390,9 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestones 1-4 Completed** ✅
+**Milestones 1-5 Completed** ✅
 
-The app is now fully functional with core trekking features:
+The app is now fully functional with core trekking features and interactive maps:
 
 **Architecture & Foundation:**
 - Clean Architecture fully implemented across 3 layers
@@ -375,10 +400,12 @@ The app is now fully functional with core trekking features:
 - Repository pattern with Flow-based reactive queries
 - Koin 4.0.0 dependency injection (platform-specific modules)
 - Cross-platform compilation verified (Android + iOS)
+- AppPreferences system for database versioning
 
 **Business Logic:**
 - 18 use cases implemented and tested
-- Route data for all 20 Camí de Cavalls stages (~185km)
+- Accurate route data for all 20 Camí de Cavalls stages (~185km)
+- All routes converted from official KML source
 - TrackingManager with battery-optimized GPS tracking
 - Haversine formula for accurate distance calculation
 - Automatic statistics calculation (distance, speed, elevation)
@@ -387,7 +414,7 @@ The app is now fully functional with core trekking features:
 - Material 3 design system
 - Voyager navigation (type-safe, without voyager-koin)
 - HomeScreen with route list cards
-- RouteDetailScreen with complete stage information
+- RouteDetailScreen with complete stage information and map preview
 - TrackingScreen with real-time GPS display
 - Smart location permission handling
 
@@ -399,7 +426,17 @@ The app is now fully functional with core trekking features:
 - Pause detection and session management
 - Tested with GPX simulation on iOS simulator
 
-**Ready for:** POI system, map integration, and advanced features
+**Interactive Maps:**
+- MapLibre integration with native rendering on both platforms
+- OpenFreeMap tiles for offline-capable map display
+- Route visualization with colored LineLayer and white casing
+- Start/end markers with CircleLayer
+- Smooth pan, zoom, and rotate gestures
+- Fixed scroll conflicts on Android for seamless interaction
+- Map preview in RouteDetailScreen (200dp height, rounded corners)
+- Platform-specific implementations (AndroidView, UIKitView)
+
+**Ready for:** POI system, proximity alerts, and advanced features
 
 ## 🤝 Contributing
 
@@ -426,6 +463,9 @@ This project is private and proprietary. No license is granted for use, modifica
 - [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)
 - [SQLDelight](https://cashapp.github.io/sqldelight/)
 - [Koin Documentation](https://insert-koin.io/)
+- [MapLibre](https://maplibre.org/) - Open-source mapping platform
+- [MapLibre Compose](https://github.com/Rallista/maplibre-compose-playground) - MapLibre integration for Compose Multiplatform
+- [OpenFreeMap](https://openfreemap.org/) - Free tile provider
 
 ## 🐛 Known Issues
 
@@ -434,8 +474,8 @@ This project is private and proprietary. No license is granted for use, modifica
 - **Android GPS Simulation**: Android emulator has issues with GPX file simulation (limitation of emulator, not our code)
   - GPS tracking works correctly on real devices
   - iOS simulator handles GPX simulation correctly
-- **Mapbox**: Dependency temporarily commented out (requires Maven repository configuration)
 - **Voyager-Koin**: Integration removed due to compatibility issues (using Koin directly with parametersOf)
+- **iOS Map UIKitView**: Uses deprecated UIKitView API (newer API available but current version stable)
 
 ## 💡 Technical Notes
 
@@ -468,6 +508,24 @@ This project is private and proprietary. No license is granted for use, modifica
 - Platform-specific modules using expect/actual pattern
 - Android: androidContext() for Context injection
 - iOS: KoinApplication wrapper in @Composable
+- AppPreferences injection for database versioning
+
+**Map Integration**
+- MapLibre Native with platform-specific rendering
+- Android: `MapView` wrapped in `AndroidView` Composable
+  - `MapLibreMap` for map instance management
+  - `GeoJsonSource` for route data
+  - `LineLayer` for route paths with casing
+  - `CircleLayer` for start/end markers
+  - Color.parseColor() for hex color support
+- iOS: `MLNMapView` wrapped in `UIKitView` Composable
+  - `MLNShapeSource` for route data
+  - `MLNLineStyleLayer` for route paths
+  - `MLNCircleStyleLayer` for markers
+  - NSData conversion for GeoJSON handling
+- MapLayerController: expect/actual pattern for platform abstraction
+- OpenFreeMap tiles: Free, offline-capable tile provider
+- Gesture handling: Fixed scroll conflicts with pointerInput on Android
 
 ### Performance Optimizations
 

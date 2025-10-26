@@ -1,7 +1,9 @@
 package com.followmemobile.camidecavalls.presentation.map
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.util.Log
+import android.view.MotionEvent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -168,6 +170,24 @@ actual fun MapWithLayers(
             }
 
             MapView(ctx).apply {
+                // Request parent to not intercept touch events when touching the map
+                // This prevents scroll conflicts with parent scrollable containers
+                @SuppressLint("ClickableViewAccessibility")
+                setOnTouchListener { view, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
+                            // Tell parent to not intercept touch events
+                            view.parent?.requestDisallowInterceptTouchEvent(true)
+                        }
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                            // Allow parent to intercept again
+                            view.parent?.requestDisallowInterceptTouchEvent(false)
+                        }
+                    }
+                    // Return false to let MapView handle the event
+                    false
+                }
+
                 getMapAsync { map ->
                     map.setStyle(styleUrl) { style ->
                         // Set camera position
