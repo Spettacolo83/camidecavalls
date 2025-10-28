@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.GpsFixed
+import androidx.compose.material.icons.filled.GpsNotFixed
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.PlayArrow
@@ -12,6 +14,8 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,6 +50,13 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
         val screenModel: TrackingScreenModel = koinInject { parametersOf(routeId) }
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
+
+        // Cleanup when screen leaves composition
+        DisposableEffect(screenModel) {
+            onDispose {
+                screenModel.onDispose()
+            }
+        }
 
         val permissionRequester = rememberPermissionRequester { granted ->
             if (granted) {
@@ -169,35 +180,37 @@ private fun IdleContent(
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Fullscreen map
-        MapWithLayers(
-            modifier = Modifier.fillMaxSize(),
-            latitude = cameraPosition.latitude,
-            longitude = cameraPosition.longitude,
-            zoom = cameraPosition.zoom,
-            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
-            onMapReady = { controller ->
-                // Add route path if available
-                route?.gpxData?.let { geoJson ->
-                    controller.addRoutePath(
-                        routeId = "route-${route.id}",
-                        geoJsonLineString = geoJson,
-                        color = "#2196F3",  // Blue
-                        width = 4f
-                    )
-                }
+        key("idle-map-${route?.id ?: "no-route"}") {
+            MapWithLayers(
+                modifier = Modifier.fillMaxSize(),
+                latitude = cameraPosition.latitude,
+                longitude = cameraPosition.longitude,
+                zoom = cameraPosition.zoom,
+                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+                onMapReady = { controller ->
+                    // Add route path if available
+                    route?.gpxData?.let { geoJson ->
+                        controller.addRoutePath(
+                            routeId = "route-${route.id}",
+                            geoJsonLineString = geoJson,
+                            color = "#2196F3",  // Blue
+                            width = 4f
+                        )
+                    }
 
-                // Add current location marker if available
-                currentLocation?.let { location ->
-                    controller.addMarker(
-                        markerId = "current-location",
-                        latitude = location.latitude,
-                        longitude = location.longitude,
-                        color = "#4CAF50",  // Green
-                        radius = 8f
-                    )
+                    // Add current location marker if available
+                    currentLocation?.let { location ->
+                        controller.addMarker(
+                            markerId = "current-location",
+                            latitude = location.latitude,
+                            longitude = location.longitude,
+                            color = "#4CAF50",  // Green
+                            radius = 8f
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
 
         // Start Tracking FAB
         FloatingActionButton(
@@ -229,50 +242,152 @@ private fun TrackingContent(
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
-    val cameraPosition = calculateCameraPosition(route, currentLocation)
+
+    // GPS following state - enabled by default
+    var followGpsLocation by remember { mutableStateOf(true) }
+    var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
+    var currentZoom by remember { mutableStateOf<Double?>(null) }
+
+    // Calculate camera position based on GPS following state
+    val cameraPosition = if (followGpsLocation) {
+        calculateCameraPosition(route, currentLocation).also {
+            lastKnownPosition = it
+        }
+    } else {
+        lastKnownPosition ?: calculateCameraPosition(route, currentLocation)
+    }
+
+    // Remember the map controller for dynamic updates
+    var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+
+    // LaunchedEffect 1: Draw route (blue) - ONLY once when route is loaded
+    LaunchedEffect(mapController, route) {
+        val controller = mapController ?: return@LaunchedEffect
+
+        route?.gpxData?.let { geoJson ->
+            controller.addRoutePath(
+                routeId = "route-${route.id}",
+                geoJsonLineString = geoJson,
+                color = "#2196F3",
+                width = 4f
+            )
+        }
+    }
+
+    // LaunchedEffect 2: Update user track (green) - ONLY when trackPoints change
+    LaunchedEffect(mapController, trackPoints.size) {
+        val controller = mapController ?: return@LaunchedEffect
+
+        if (trackPoints.size >= 2) {
+            val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
+            controller.addRoutePath(
+                routeId = "user-track",
+                geoJsonLineString = userTrackGeoJson,
+                color = "#4CAF50",
+                width = 5f
+            )
+        }
+    }
+
+    // LaunchedEffect 3: Update marker (red) - ONLY when location changes
+    LaunchedEffect(mapController, currentLocation?.latitude, currentLocation?.longitude) {
+        val controller = mapController ?: return@LaunchedEffect
+
+        currentLocation?.let { location ->
+            controller.removeLayer("current-location")
+            controller.addMarker(
+                markerId = "current-location",
+                latitude = location.latitude,
+                longitude = location.longitude,
+                color = "#FF5722",
+                radius = 10f
+            )
+        }
+    }
+
+    // Separate LaunchedEffect to update camera position (when GPS following is enabled)
+    LaunchedEffect(mapController, followGpsLocation, cameraPosition) {
+        val controller = mapController ?: return@LaunchedEffect
+
+        if (followGpsLocation) {
+            controller.updateCamera(
+                latitude = cameraPosition.latitude,
+                longitude = cameraPosition.longitude,
+                zoom = null,
+                animated = true
+            )
+        }
+    }
+
+    // Clean up when leaving the screen
+    DisposableEffect(Unit) {
+        onDispose {
+            mapController = null
+        }
+    }
+
+    // Initial camera position (only used once at map creation)
+    val initialPosition = remember { calculateCameraPosition(route, currentLocation) }
+
+    // Stabilize callbacks to prevent recomposition
+    val onMapReadyCallback = remember {
+        { controller: MapLayerController ->
+            mapController = controller
+            currentZoom = controller.getCurrentZoom()
+        }
+    }
+
+    val onCameraMovedCallback = remember {
+        {
+            followGpsLocation = false
+        }
+    }
+
+    val onZoomChangedCallback = remember {
+        { newZoom: Double ->
+            currentZoom = newZoom
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Fullscreen map with route and user track
-        MapWithLayers(
-            modifier = Modifier.fillMaxSize(),
-            latitude = cameraPosition.latitude,
-            longitude = cameraPosition.longitude,
-            zoom = cameraPosition.zoom,
-            styleUrl = "https://tiles.openfreemap.org/styles/liberty",
-            onMapReady = { controller ->
-                // Add route path (blue) if available
-                route?.gpxData?.let { geoJson ->
-                    controller.addRoutePath(
-                        routeId = "route-${route.id}",
-                        geoJsonLineString = geoJson,
-                        color = "#2196F3",  // Blue
-                        width = 4f
-                    )
-                }
+        key("tracking-map-$sessionId") {
+            MapWithLayers(
+                modifier = Modifier.fillMaxSize(),
+                latitude = initialPosition.latitude,
+                longitude = initialPosition.longitude,
+                zoom = initialPosition.zoom,
+                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+                onMapReady = onMapReadyCallback,
+                onCameraMoved = onCameraMovedCallback,
+                onZoomChanged = onZoomChangedCallback
+            )
+        }
 
-                // Add user track path (green) if we have track points
-                if (trackPoints.size >= 2) {
-                    val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
-                    controller.addRoutePath(
-                        routeId = "user-track",
-                        geoJsonLineString = userTrackGeoJson,
-                        color = "#4CAF50",  // Green
-                        width = 5f
-                    )
-                }
-
-                // Add current location marker
-                currentLocation?.let { location ->
-                    controller.addMarker(
-                        markerId = "current-location",
-                        latitude = location.latitude,
-                        longitude = location.longitude,
-                        color = "#FF5722",  // Deep Orange for active tracking
-                        radius = 10f
-                    )
-                }
+        // GPS following toggle button (left side)
+        FloatingActionButton(
+            onClick = {
+                followGpsLocation = !followGpsLocation
+            },
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(16.dp),
+            containerColor = if (followGpsLocation) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
             }
-        )
+        ) {
+            Icon(
+                imageVector = if (followGpsLocation) Icons.Default.GpsFixed else Icons.Default.GpsNotFixed,
+                contentDescription = if (followGpsLocation) "GPS Following Enabled" else "GPS Following Disabled",
+                tint = if (followGpsLocation) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                }
+            )
+        }
 
         // Bottom FAB row with Stop and Stats buttons
         Row(

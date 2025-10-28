@@ -1,6 +1,7 @@
 package com.followmemobile.camidecavalls.presentation.map
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
@@ -37,6 +38,26 @@ actual class MapLayerController {
         this.style = loadedStyle
     }
 
+    actual fun updateCamera(
+        latitude: Double,
+        longitude: Double,
+        zoom: Double?,
+        animated: Boolean
+    ) {
+        val map = mapView ?: return
+        val targetZoom = zoom ?: map.zoomLevel
+
+        map.setCenterCoordinate(
+            centerCoordinate = CLLocationCoordinate2DMake(latitude, longitude),
+            zoomLevel = targetZoom,
+            animated = animated
+        )
+    }
+
+    actual fun getCurrentZoom(): Double {
+        return mapView?.zoomLevel ?: 14.0
+    }
+
     actual fun addRoutePath(
         routeId: String,
         geoJsonLineString: String,
@@ -50,62 +71,40 @@ actual class MapLayerController {
         removeLayer(routeId)
 
         try {
-            // Parse color
             val uiColor = parseHexColor(color)
-
-            println("=== iOS Adding Route Path ===")
-            println("RouteId: $routeId")
-            println("Raw GeoJSON length: ${geoJsonLineString.length} chars")
-            println("Color: $color, Width: $width")
-
-            // Wrap LineString in a Feature (like Android)
             val cleanedGeometry = geoJsonLineString.trim()
             val featureGeoJson = """{"type":"Feature","geometry":$cleanedGeometry,"properties":{}}"""
 
-            println("iOS: Feature GeoJSON created, length: ${featureGeoJson.length}")
-
-            // Create MLNShape directly from GeoJSON string
             val geoJsonData = featureGeoJson.encodeToByteArray()
             val nsData = geoJsonData.toNSData()
-
-            println("iOS: NSData created: ${nsData != null}, size: ${nsData?.length}")
 
             nsData?.let { data ->
                 val shapes = try {
                     MLNShape.shapeWithData(data, encoding = platform.Foundation.NSUTF8StringEncoding, error = null)
                 } catch (e: Exception) {
-                    println("iOS: Error creating shape: ${e.message}")
                     null
                 }
-
-                println("iOS: Shape created: ${shapes != null}")
 
                 shapes?.let { shape ->
                     val source = MLNShapeSource(identifier = "source-$routeId", shape = shape, options = null)
                     currentStyle.addSource(source)
-                    println("iOS: Source added")
 
-                // Add white casing (outline)
-                val casingLayer = MLNLineStyleLayer(identifier = "$routeId-casing", source = source)
-                casingLayer.lineColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
-                casingLayer.lineWidth = NSExpression.expressionForConstantValue(width + 2.0)
-                casingLayer.lineCap = NSExpression.expressionForConstantValue("round")
-                casingLayer.lineJoin = NSExpression.expressionForConstantValue("round")
-                currentStyle.addLayer(casingLayer)
-                println("iOS: Casing layer added")
+                    val casingLayer = MLNLineStyleLayer(identifier = "$routeId-casing", source = source)
+                    casingLayer.lineColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
+                    casingLayer.lineWidth = NSExpression.expressionForConstantValue(width + 2.0)
+                    casingLayer.lineCap = NSExpression.expressionForConstantValue("round")
+                    casingLayer.lineJoin = NSExpression.expressionForConstantValue("round")
+                    currentStyle.addLayer(casingLayer)
 
-                // Add colored route line
-                val lineLayer = MLNLineStyleLayer(identifier = routeId, source = source)
-                lineLayer.lineColor = NSExpression.expressionForConstantValue(uiColor)
-                lineLayer.lineWidth = NSExpression.expressionForConstantValue(width.toDouble())
+                    val lineLayer = MLNLineStyleLayer(identifier = routeId, source = source)
+                    lineLayer.lineColor = NSExpression.expressionForConstantValue(uiColor)
+                    lineLayer.lineWidth = NSExpression.expressionForConstantValue(width.toDouble())
                     lineLayer.lineCap = NSExpression.expressionForConstantValue("round")
                     lineLayer.lineJoin = NSExpression.expressionForConstantValue("round")
                     currentStyle.addLayer(lineLayer)
-                    println("iOS: Line layer added - Route rendering complete!")
-                } ?: println("iOS: ERROR - Shape is null!")
-            } ?: println("iOS: ERROR - NSData is null!")
+                }
+            }
         } catch (e: Exception) {
-            println("iOS ERROR adding route path: ${e.message}")
             e.printStackTrace()
         }
     }
@@ -119,16 +118,13 @@ actual class MapLayerController {
     ) {
         val currentStyle = style ?: return
 
+        // Remove existing layers and source (if any)
         removeLayer(markerId)
-        removeLayer("$markerId-outer")
 
         try {
             val uiColor = parseHexColor(color)
-
-            // Create point GeoJSON as Feature
             val featureGeoJson = """{"type":"Feature","geometry":{"type":"Point","coordinates":[$longitude,$latitude]},"properties":{}}"""
 
-            // Create MLNShape directly from GeoJSON string
             val geoJsonData = featureGeoJson.encodeToByteArray()
             val nsData = geoJsonData.toNSData()
 
@@ -139,13 +135,11 @@ actual class MapLayerController {
                     val source = MLNShapeSource(identifier = "source-$markerId", shape = mlnShape, options = null)
                     currentStyle.addSource(source)
 
-                // Add outer white circle
-                val outerCircle = MLNCircleStyleLayer(identifier = "$markerId-outer", source = source)
-                outerCircle.circleColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
-                outerCircle.circleRadius = NSExpression.expressionForConstantValue(radius + 2.0)
-                currentStyle.addLayer(outerCircle)
+                    val outerCircle = MLNCircleStyleLayer(identifier = "$markerId-outer", source = source)
+                    outerCircle.circleColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
+                    outerCircle.circleRadius = NSExpression.expressionForConstantValue(radius + 2.0)
+                    currentStyle.addLayer(outerCircle)
 
-                    // Add inner colored circle
                     val innerCircle = MLNCircleStyleLayer(identifier = markerId, source = source)
                     innerCircle.circleColor = NSExpression.expressionForConstantValue(uiColor)
                     innerCircle.circleRadius = NSExpression.expressionForConstantValue(radius.toDouble())
@@ -153,21 +147,29 @@ actual class MapLayerController {
                 }
             }
         } catch (e: Exception) {
-            println("Error adding marker: ${e.message}")
+            // Ignore
         }
     }
 
     actual fun removeLayer(layerId: String) {
         val currentStyle = style ?: return
         try {
+            // Remove all associated layers for this ID
             currentStyle.layerWithIdentifier(layerId)?.let {
                 currentStyle.removeLayer(it)
             }
+            currentStyle.layerWithIdentifier("$layerId-outer")?.let {
+                currentStyle.removeLayer(it)
+            }
+            currentStyle.layerWithIdentifier("$layerId-casing")?.let {
+                currentStyle.removeLayer(it)
+            }
+            // Remove source last
             currentStyle.sourceWithIdentifier("source-$layerId")?.let {
                 currentStyle.removeSource(it)
             }
         } catch (e: Exception) {
-            // Layer might not exist
+            // Layer might not exist, ignore
         }
     }
 
@@ -192,9 +194,47 @@ actual fun MapWithLayers(
     longitude: Double,
     zoom: Double,
     styleUrl: String,
-    onMapReady: (MapLayerController) -> Unit
+    onMapReady: (MapLayerController) -> Unit,
+    onCameraMoved: (() -> Unit)?,
+    onZoomChanged: ((Double) -> Unit)?
 ) {
     val controller = remember { MapLayerController() }
+    var isInitialCameraSet = remember { mutableStateOf(false) }
+
+    // Create delegate OUTSIDE factory so it persists across recompositions
+    val delegate = remember {
+        object : NSObject(), MLNMapViewDelegateProtocol {
+            override fun mapView(mapView: MLNMapView, didFinishLoadingStyle: MLNStyle) {
+                controller.setMap(mapView, didFinishLoadingStyle)
+                isInitialCameraSet.value = true
+                onMapReady(controller)
+            }
+
+            @kotlinx.cinterop.ObjCSignatureOverride
+            override fun mapView(
+                mapView: MLNMapView,
+                regionWillChangeWithReason: MLNCameraChangeReason,
+                animated: Boolean
+            ) {
+                if (!isInitialCameraSet.value) return
+
+                val isUserGesture = regionWillChangeWithReason.and(MLNCameraChangeReasonGesturePan) != 0uL ||
+                                   regionWillChangeWithReason.and(MLNCameraChangeReasonGesturePinch) != 0uL ||
+                                   regionWillChangeWithReason.and(MLNCameraChangeReasonGestureZoomIn) != 0uL ||
+                                   regionWillChangeWithReason.and(MLNCameraChangeReasonGestureZoomOut) != 0uL
+
+                if (isUserGesture) {
+                    onCameraMoved?.invoke()
+                }
+            }
+
+            @kotlinx.cinterop.ObjCSignatureOverride
+            override fun mapView(mapView: MLNMapView, regionDidChangeAnimated: Boolean) {
+                if (!isInitialCameraSet.value) return
+                onZoomChanged?.invoke(mapView.zoomLevel)
+            }
+        }
+    }
 
     UIKitView(
         modifier = modifier,
@@ -204,30 +244,18 @@ actual fun MapWithLayers(
                 styleURL = NSURL.URLWithString(styleUrl)
             )
 
-            // Set camera position
             mapView.setCenterCoordinate(
                 centerCoordinate = CLLocationCoordinate2DMake(latitude, longitude),
                 zoomLevel = zoom,
                 animated = false
             )
 
-            // Set up delegate to get style loaded callback
-            val delegate = object : NSObject(), MLNMapViewDelegateProtocol {
-                override fun mapView(mapView: MLNMapView, didFinishLoadingStyle: MLNStyle) {
-                    controller.setMap(mapView, didFinishLoadingStyle)
-                    onMapReady(controller)
-                }
-            }
             mapView.delegate = delegate
-
             mapView
         },
         update = { mapView ->
-            mapView.setCenterCoordinate(
-                centerCoordinate = CLLocationCoordinate2DMake(latitude, longitude),
-                zoomLevel = zoom,
-                animated = false
-            )
+            // Restore delegate on every recomposition to prevent loss
+            mapView.delegate = delegate
         }
     )
 }

@@ -39,6 +39,25 @@ expect class MapLayerController() {
     )
 
     /**
+     * Update camera position with smooth animation
+     * @param latitude Target latitude
+     * @param longitude Target longitude
+     * @param zoom Target zoom level (if null, maintains current zoom)
+     * @param animated Whether to animate the transition
+     */
+    fun updateCamera(
+        latitude: Double,
+        longitude: Double,
+        zoom: Double? = null,
+        animated: Boolean = true
+    )
+
+    /**
+     * Get current zoom level
+     */
+    fun getCurrentZoom(): Double
+
+    /**
      * Remove a specific layer from the map
      */
     fun removeLayer(layerId: String)
@@ -59,5 +78,7 @@ expect fun MapWithLayers(
     longitude: Double,
     zoom: Double,
     styleUrl: String = "https://tiles.openfreemap.org/styles/liberty",
-    onMapReady: (MapLayerController) -> Unit
+    onMapReady: (MapLayerController) -> Unit,
+    onCameraMoved: (() -> Unit)? = null,
+    onZoomChanged: ((Double) -> Unit)? = null
 )

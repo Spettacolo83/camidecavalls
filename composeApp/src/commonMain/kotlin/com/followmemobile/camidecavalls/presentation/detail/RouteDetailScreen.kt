@@ -35,6 +35,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -285,13 +286,14 @@ private fun RouteMapPreview(route: Route) {
                 .height(mapHeight)
                 .clip(RoundedCornerShape(12.dp))
         ) {
-            MapWithLayers(
-                modifier = Modifier.fillMaxSize(),
-                latitude = centerLat,
-                longitude = centerLon,
-                zoom = zoom,
-                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
-                onMapReady = { controller ->
+            key("route-detail-map-${route.id}") {
+                MapWithLayers(
+                    modifier = Modifier.fillMaxSize(),
+                    latitude = centerLat,
+                    longitude = centerLon,
+                    zoom = zoom,
+                    styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+                    onMapReady = { controller ->
                 // Add route path if GPX data is available
                 if (route.gpxData != null && routeCoordinates.isNotEmpty()) {
                     // Add route path with blue color
@@ -324,8 +326,9 @@ private fun RouteMapPreview(route: Route) {
                 }
             }
         )
-        }
-    }
+            }  // key
+        }  // Box
+    }  // Column
 }
 
 /**

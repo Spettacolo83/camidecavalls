@@ -17,6 +17,7 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 📊 **Session Statistics**: Automatic calculation of distance, speed, elevation gain/loss during tracking
 - 🗺️ **Interactive Maps**: MapLibre integration with route visualization, markers, and smooth map interaction on both platforms
 - 🎯 **Accurate Route Data**: All 20 routes converted from official KML source with ~130 optimized points per route
+- 🧭 **GPS Toggle Button**: Smart GPS following with automatic disable on map gestures (pan, zoom) - works consistently on both Android and iOS
 
 **Planned:**
 - 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
@@ -427,6 +428,8 @@ The app is now fully functional with core trekking features and interactive maps
 - Offline-first: All data saved locally in SQLDelight
 - Configurable intervals (5s default) and accuracy (balanced)
 - Pause detection and session management
+- GPS toggle button: Automatic disable on map gestures (drag, zoom), manual toggle support
+- Platform-specific gesture detection (MLNMapViewDelegate on iOS, CameraMoveListener on Android)
 - Tested with GPX simulation on iOS simulator
 
 **Interactive Maps:**
@@ -483,6 +486,13 @@ This project is private and proprietary. No license is granted for use, modifica
 - **Voyager-Koin**: Integration removed due to compatibility issues (using Koin directly with parametersOf)
 - **iOS Map UIKitView**: Uses deprecated UIKitView API (newer API available but current version stable)
 
+## 🔧 Fixed Issues
+
+- **GPS Toggle Button on iOS** (Fixed): GPS following now correctly disables on all user gestures (was only working on first gesture)
+  - Root cause: Delegate loss during Compose recomposition
+  - Solution: Persistent delegate using `remember` + `update` block restoration
+  - See GPS_TOGGLE_FEATURE.md for detailed technical documentation
+
 ## 💡 Technical Notes
 
 ### Platform-Specific Implementations
@@ -524,14 +534,17 @@ This project is private and proprietary. No license is granted for use, modifica
   - `LineLayer` for route paths with casing
   - `CircleLayer` for start/end markers
   - Color.parseColor() for hex color support
+  - `addOnCameraMoveStartedListener` for gesture detection
 - iOS: `MLNMapView` wrapped in `UIKitView` Composable
   - `MLNShapeSource` for route data
   - `MLNLineStyleLayer` for route paths
   - `MLNCircleStyleLayer` for markers
   - NSData conversion for GeoJSON handling
+  - `MLNMapViewDelegateProtocol` with persistent delegate pattern
 - MapLayerController: expect/actual pattern for platform abstraction
 - OpenFreeMap tiles: Free, offline-capable tile provider
 - Gesture handling: Fixed scroll conflicts with pointerInput on Android
+- Delegate persistence: Using `remember` and `update` block to prevent iOS delegate loss during recomposition
 
 ### Performance Optimizations
 
