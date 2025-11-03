@@ -357,7 +357,6 @@ private fun TrackingContent(
                 latitude = initialPosition.latitude,
                 longitude = initialPosition.longitude,
                 zoom = initialPosition.zoom,
-                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
                 onMapReady = onMapReadyCallback,
                 onCameraMoved = onCameraMovedCallback,
                 onZoomChanged = onZoomChangedCallback

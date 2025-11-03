@@ -73,12 +73,15 @@ class IOSLocationService : LocationService {
         currentConfig = config
 
         // Request permission if not determined
-        if (CLLocationManager.authorizationStatus() == kCLAuthorizationStatusNotDetermined) {
+        // Request "Always" authorization for background tracking
+        val authStatus = CLLocationManager.authorizationStatus()
+        if (authStatus == kCLAuthorizationStatusNotDetermined) {
+            // First request "When In Use", then the user can upgrade to "Always" later
             locationManager.requestWhenInUseAuthorization()
-        }
-
-        if (!hasLocationPermission()) {
-            throw IllegalStateException("Location permission not granted")
+            // Note: The delegate will be called when user responds, no need to check immediately
+        } else if (authStatus == kCLAuthorizationStatusDenied ||
+                   authStatus == kCLAuthorizationStatusRestricted) {
+            throw IllegalStateException("Location permission denied. Please enable location services in Settings.")
         }
 
         // Configure location manager for battery optimization
@@ -97,15 +100,15 @@ class IOSLocationService : LocationService {
             // Only show blue bar when actually using location (better UX and battery)
             showsBackgroundLocationIndicator = false
 
-            // Allow location updates to be deferred when device is not moving
-            // This batches updates and saves battery
-            allowsBackgroundLocationUpdates = false // Will enable when implementing background mode
+            // Enable background location updates for continuous tracking
+            allowsBackgroundLocationUpdates = true
 
             // Activity type for better battery management
             // CLActivityTypeFitness is optimal for hiking/trekking
             activityType = platform.CoreLocation.CLActivityTypeFitness
         }
 
+        // Start location updates - will work once permission is granted
         locationManager.startUpdatingLocation()
     }
 
@@ -135,16 +138,21 @@ class IOSLocationService : LocationService {
 
     /**
      * Convert CLLocation to our LocationData model
+     * Note: Removed accuracy checks to be consistent with Android behavior
+     * iOS sets negative accuracy values when data is invalid/unavailable
      */
     private fun toLocationData(location: CLLocation): LocationData {
         return location.coordinate.useContents {
             LocationData(
                 latitude = latitude,
                 longitude = longitude,
-                altitude = if (location.verticalAccuracy >= 0) location.altitude else null,
+                // Always include altitude (consistent with Android)
+                altitude = location.altitude,
                 accuracy = if (location.horizontalAccuracy >= 0) location.horizontalAccuracy.toFloat() else null,
-                speed = if (location.speedAccuracy >= 0) location.speed.toFloat() else null,
-                bearing = if (location.courseAccuracy >= 0) location.course.toFloat() else null,
+                // ALWAYS include speed (0 if negative, consistent with Android)
+                speed = maxOf(0f, location.speed.toFloat()),
+                // Always include bearing when available
+                bearing = if (location.course >= 0) location.course.toFloat() else null,
                 timestamp = Clock.System.now().toEpochMilliseconds()
             )
         }

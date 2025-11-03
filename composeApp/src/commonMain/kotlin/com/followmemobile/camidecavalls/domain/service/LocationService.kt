@@ -36,15 +36,17 @@ data class LocationConfig(
     /**
      * Minimum distance between location updates in meters.
      * Device won't update location if user hasn't moved this far.
-     * Recommended: 5-10 meters for hiking trails
+     * Set to 0 to receive all updates regardless of movement (for testing/debugging).
+     * For production: 5-10 meters recommended for hiking trails.
      */
-    val minDistanceMeters: Float = 5f,
+    val minDistanceMeters: Float = 0f,
 
     /**
      * Priority for location accuracy vs battery consumption.
-     * BALANCED is recommended for trekking (good accuracy, decent battery)
+     * HIGH_ACCURACY is required for hiking trails to get GPS precision.
+     * Uses more battery but essential for accurate track recording.
      */
-    val priority: LocationPriority = LocationPriority.BALANCED
+    val priority: LocationPriority = LocationPriority.HIGH_ACCURACY
 )
 
 /**

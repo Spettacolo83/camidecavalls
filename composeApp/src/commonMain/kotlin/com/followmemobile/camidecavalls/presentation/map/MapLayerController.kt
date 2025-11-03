@@ -69,6 +69,13 @@ expect class MapLayerController() {
 }
 
 /**
+ * Map style URL for OpenFreeMap Liberty style
+ */
+object MapStyles {
+    const val LIBERTY = "https://tiles.openfreemap.org/styles/liberty"
+}
+
+/**
  * Composable wrapper for MapLibre map with custom layer support
  */
 @Composable
@@ -77,7 +84,7 @@ expect fun MapWithLayers(
     latitude: Double,
     longitude: Double,
     zoom: Double,
-    styleUrl: String = "https://tiles.openfreemap.org/styles/liberty",
+    styleUrl: String = MapStyles.LIBERTY,
     onMapReady: (MapLayerController) -> Unit,
     onCameraMoved: (() -> Unit)? = null,
     onZoomChanged: ((Double) -> Unit)? = null

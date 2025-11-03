@@ -28,6 +28,33 @@ actual class MapLayerController {
         this.style = loadedStyle
     }
 
+    actual fun updateCamera(
+        latitude: Double,
+        longitude: Double,
+        zoom: Double?,
+        animated: Boolean
+    ) {
+        val map = mapLibreMap ?: return
+        val targetZoom = zoom ?: map.cameraPosition.zoom
+        val position = CameraPosition.Builder()
+            .target(LatLng(latitude, longitude))
+            .zoom(targetZoom)
+            .build()
+
+        if (animated) {
+            map.animateCamera(
+                org.maplibre.android.camera.CameraUpdateFactory.newCameraPosition(position),
+                500 // 500ms smooth animation
+            )
+        } else {
+            map.cameraPosition = position
+        }
+    }
+
+    actual fun getCurrentZoom(): Double {
+        return mapLibreMap?.cameraPosition?.zoom ?: 14.0
+    }
+
     actual fun addRoutePath(
         routeId: String,
         geoJsonLineString: String,
@@ -36,50 +63,52 @@ actual class MapLayerController {
     ) {
         val currentStyle = style ?: return
 
-        // Remove existing layers/sources if they exist
-        removeLayer("$routeId-casing")
-        removeLayer(routeId)
-
         try {
-            Log.d("MapLayer", "=== Adding Route Path ===")
+            Log.d("MapLayer", "=== Adding/Updating Route Path ===")
             Log.d("MapLayer", "RouteId: $routeId")
-            Log.d("MapLayer", "Style: $currentStyle")
             Log.d("MapLayer", "Color: $color, Width: $width")
 
             // Use the GPX data from the route parameter
             val cleanedGeometry = geoJsonLineString.trim()
             val featureGeoJson = """{"type":"Feature","geometry":$cleanedGeometry,"properties":{}}"""
 
-            Log.d("MapLayer", "=== Adding Route Path ===")
-            Log.d("MapLayer", "RouteId: $routeId")
             Log.d("MapLayer", "GeoJSON geometry length: ${cleanedGeometry.length} chars")
 
-            // Try passing the Feature to GeoJsonSource
-            val source = GeoJsonSource("source-$routeId", featureGeoJson)
-            currentStyle.addSource(source)
-            Log.d("MapLayer", "Source added successfully")
+            // Check if source already exists
+            val existingSource = currentStyle.getSource("source-$routeId") as? GeoJsonSource
 
-            // Add white casing (outline)
-            val casingLayer = LineLayer("$routeId-casing", "source-$routeId")
-                .withProperties(
-                    lineColor(Color.WHITE),
-                    lineWidth(width + 2f),
-                    lineCap("round"),
-                    lineJoin("round")
-                )
-            currentStyle.addLayer(casingLayer)
-            Log.d("MapLayer", "Casing layer added")
+            if (existingSource != null) {
+                // Update existing source with new geometry
+                existingSource.setGeoJson(featureGeoJson)
+                Log.d("MapLayer", "Updated existing route source")
+            } else {
+                // Create new source and layers
+                val source = GeoJsonSource("source-$routeId", featureGeoJson)
+                currentStyle.addSource(source)
+                Log.d("MapLayer", "Source added successfully")
 
-            // Add colored route line
-            val lineLayer = LineLayer(routeId, "source-$routeId")
-                .withProperties(
-                    lineColor(Color.parseColor(color)),
-                    lineWidth(width),
-                    lineCap("round"),
-                    lineJoin("round")
-                )
-            currentStyle.addLayer(lineLayer)
-            Log.d("MapLayer", "Line layer added - Route rendering complete!")
+                // Add white casing (outline)
+                val casingLayer = LineLayer("$routeId-casing", "source-$routeId")
+                    .withProperties(
+                        lineColor(Color.WHITE),
+                        lineWidth(width + 2f),
+                        lineCap("round"),
+                        lineJoin("round")
+                    )
+                currentStyle.addLayer(casingLayer)
+                Log.d("MapLayer", "Casing layer added")
+
+                // Add colored route line
+                val lineLayer = LineLayer(routeId, "source-$routeId")
+                    .withProperties(
+                        lineColor(Color.parseColor(color)),
+                        lineWidth(width),
+                        lineCap("round"),
+                        lineJoin("round")
+                    )
+                currentStyle.addLayer(lineLayer)
+                Log.d("MapLayer", "Line layer added - Route rendering complete!")
+            }
         } catch (e: Exception) {
             Log.e("MapLayer", "Error adding route path", e)
             e.printStackTrace()
@@ -95,36 +124,45 @@ actual class MapLayerController {
     ) {
         val currentStyle = style ?: return
 
-        removeLayer(markerId)
-        removeLayer("$markerId-outer")
-
         try {
             // Create point GeoJSON directly
             val pointGeometry = """{"type":"Point","coordinates":[$longitude,$latitude]}"""
 
-            Log.d("MapLayer", "=== Adding Marker ===")
+            Log.d("MapLayer", "=== Adding/Updating Marker ===")
             Log.d("MapLayer", "MarkerId: $markerId, Lat: $latitude, Lon: $longitude")
             Log.d("MapLayer", "Color: $color, Radius: $radius")
 
-            val source = GeoJsonSource("source-$markerId", pointGeometry)
-            currentStyle.addSource(source)
+            // Check if source already exists
+            val existingSource = currentStyle.getSource("source-$markerId") as? GeoJsonSource
 
-            // Add outer white circle
-            val outerCircle = CircleLayer("$markerId-outer", "source-$markerId")
-                .withProperties(
-                    circleColor(Color.WHITE),
-                    circleRadius(radius + 2f)
-                )
-            currentStyle.addLayer(outerCircle)
+            if (existingSource != null) {
+                // Update existing source with new coordinates
+                existingSource.setGeoJson(pointGeometry)
+                Log.d("MapLayer", "Updated existing marker source")
+            } else {
+                // Create new source and layers
+                val source = GeoJsonSource("source-$markerId", pointGeometry)
+                currentStyle.addSource(source)
 
-            // Add inner colored circle
-            val innerCircle = CircleLayer(markerId, "source-$markerId")
-                .withProperties(
-                    circleColor(Color.parseColor(color)),
-                    circleRadius(radius)
-                )
-            currentStyle.addLayer(innerCircle)
+                // Add outer white circle
+                val outerCircle = CircleLayer("$markerId-outer", "source-$markerId")
+                    .withProperties(
+                        circleColor(Color.WHITE),
+                        circleRadius(radius + 2f)
+                    )
+                currentStyle.addLayer(outerCircle)
+
+                // Add inner colored circle
+                val innerCircle = CircleLayer(markerId, "source-$markerId")
+                    .withProperties(
+                        circleColor(Color.parseColor(color)),
+                        circleRadius(radius)
+                    )
+                currentStyle.addLayer(innerCircle)
+                Log.d("MapLayer", "Created new marker source and layers")
+            }
         } catch (e: Exception) {
+            Log.e("MapLayer", "Error adding/updating marker", e)
             e.printStackTrace()
         }
     }
@@ -132,14 +170,22 @@ actual class MapLayerController {
     actual fun removeLayer(layerId: String) {
         val currentStyle = style ?: return
         try {
+            // Remove all associated layers for this ID
             currentStyle.getLayer(layerId)?.let {
                 currentStyle.removeLayer(it)
             }
+            currentStyle.getLayer("$layerId-outer")?.let {
+                currentStyle.removeLayer(it)
+            }
+            currentStyle.getLayer("$layerId-casing")?.let {
+                currentStyle.removeLayer(it)
+            }
+            // Remove source last
             currentStyle.getSource("source-$layerId")?.let {
                 currentStyle.removeSource(it)
             }
         } catch (e: Exception) {
-            // Layer might not exist
+            // Layer might not exist, ignore
         }
     }
 
@@ -155,9 +201,12 @@ actual fun MapWithLayers(
     longitude: Double,
     zoom: Double,
     styleUrl: String,
-    onMapReady: (MapLayerController) -> Unit
+    onMapReady: (MapLayerController) -> Unit,
+    onCameraMoved: (() -> Unit)?,
+    onZoomChanged: ((Double) -> Unit)?
 ) {
     val controller = remember { MapLayerController() }
+    var isInitialCameraSet = remember { false }
 
     AndroidView(
         modifier = modifier,
@@ -196,20 +245,37 @@ actual fun MapWithLayers(
                             .zoom(zoom)
                             .build()
 
+                        isInitialCameraSet = true
+
+                        // Add camera change listener to detect user gestures
+                        onCameraMoved?.let { callback ->
+                            map.addOnCameraMoveStartedListener { reason ->
+                                // REASON_API_GESTURE = 1 means user initiated the movement
+                                // REASON_API_ANIMATION = 2 means programmatic animation
+                                // REASON_DEVELOPER_ANIMATION = 3 means developer initiated
+                                if (reason == 1 && isInitialCameraSet) {
+                                    Log.d("MapLayer", "User moved camera - disabling GPS following")
+                                    callback()
+                                }
+                            }
+                        }
+
+                        // Add zoom change listener
+                        onZoomChanged?.let { callback ->
+                            map.addOnCameraIdleListener {
+                                if (isInitialCameraSet) {
+                                    callback(map.cameraPosition.zoom)
+                                }
+                            }
+                        }
+
                         // Initialize controller
                         controller.setMap(map, style)
                         onMapReady(controller)
                     }
                 }
             }
-        },
-        update = { mapView ->
-            mapView.getMapAsync { map ->
-                map.cameraPosition = CameraPosition.Builder()
-                    .target(LatLng(latitude, longitude))
-                    .zoom(zoom)
-                    .build()
-            }
         }
+        // Note: camera updates are now handled via controller.updateCamera()
     )
 }

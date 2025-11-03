@@ -35,6 +35,9 @@ class TrackingManager(
     private var trackingJob: Job? = null
     private var currentSessionId: String? = null
 
+    // Track last location for speed calculation
+    private var lastLocationForSpeed: LocationData? = null
+
     private val _trackingState = MutableStateFlow<TrackingState>(TrackingState.Idle)
     val trackingState: StateFlow<TrackingState> = _trackingState.asStateFlow()
 
@@ -50,13 +53,14 @@ class TrackingManager(
      */
     suspend fun startTracking(
         routeId: Int? = null,
-        config: LocationConfig = LocationConfig(
-            updateIntervalMs = 5000L,      // Update every 5 seconds
-            fastestIntervalMs = 2000L,      // But max once every 2 seconds
-            minDistanceMeters = 5f,         // Only update if moved 5+ meters
-            priority = LocationPriority.BALANCED  // Good accuracy, decent battery
-        )
+        config: LocationConfig = LocationConfig()  // Use defaults: minDistance=0f, HIGH_ACCURACY
     ) {
+        // Reset any previous Completed/Error state to allow starting a new session
+        if (_trackingState.value is TrackingState.Completed ||
+            _trackingState.value is TrackingState.Error) {
+            _trackingState.value = TrackingState.Idle
+        }
+
         // Check if already tracking
         if (_trackingState.value is TrackingState.Tracking) {
             return
@@ -86,18 +90,22 @@ class TrackingManager(
                 locationService.locationUpdates
                     .filterNotNull()
                     .collect { location ->
-                        _currentLocation.value = location
+                        // Calculate speed from consecutive GPS points
+                        val calculatedSpeed = calculateSpeedFromLastLocation(location)
+                        val locationWithSpeed = location.copy(speed = calculatedSpeed)
+
+                        _currentLocation.value = locationWithSpeed
 
                         // Save track point to database (offline)
                         currentSessionId?.let { sessionId ->
                             addTrackPointUseCase(
                                 sessionId = sessionId,
-                                latitude = location.latitude,
-                                longitude = location.longitude,
-                                altitude = location.altitude,
-                                accuracy = location.accuracy,
-                                speed = location.speed,
-                                bearing = location.bearing
+                                latitude = locationWithSpeed.latitude,
+                                longitude = locationWithSpeed.longitude,
+                                altitude = locationWithSpeed.altitude,
+                                accuracy = locationWithSpeed.accuracy,
+                                speed = locationWithSpeed.speed,
+                                bearing = locationWithSpeed.bearing
                             )
                         }
 
@@ -105,8 +113,11 @@ class TrackingManager(
                         _trackingState.value = TrackingState.Tracking(
                             sessionId = session.id,
                             routeId = routeId,
-                            currentLocation = location
+                            currentLocation = locationWithSpeed
                         )
+
+                        // Store this location for next speed calculation
+                        lastLocationForSpeed = locationWithSpeed
                     }
             }
 
@@ -145,6 +156,7 @@ class TrackingManager(
         } finally {
             currentSessionId = null
             _currentLocation.value = null
+            lastLocationForSpeed = null // Reset for next session
         }
     }
 
@@ -164,6 +176,82 @@ class TrackingManager(
      */
     suspend fun getLastLocation(): LocationData? {
         return locationService.getLastKnownLocation()
+    }
+
+    /**
+     * Reset tracking state to Idle.
+     * Used when navigating to tracking screen to clear previous Completed/Error states.
+     */
+    fun resetToIdle() {
+        if (_trackingState.value is TrackingState.Completed ||
+            _trackingState.value is TrackingState.Error) {
+            _trackingState.value = TrackingState.Idle
+        }
+    }
+
+    /**
+     * Calculate speed from consecutive GPS points using distance and time.
+     * More reliable than GPS-provided speed, especially at low speeds.
+     *
+     * @param currentLocation The new GPS location
+     * @return Calculated speed in meters/second, or null if this is the first point
+     */
+    private fun calculateSpeedFromLastLocation(currentLocation: LocationData): Float? {
+        val lastLoc = lastLocationForSpeed ?: return null
+
+        // Calculate time difference in seconds
+        val timeDiffMs = currentLocation.timestamp - lastLoc.timestamp
+        if (timeDiffMs <= 0) return lastLoc.speed // Same timestamp, keep previous speed
+
+        val timeDiffSeconds = timeDiffMs / 1000.0
+
+        // Don't calculate if too much time has passed (> 30 seconds = probably paused)
+        if (timeDiffSeconds > 30) {
+            return 0f
+        }
+
+        // Calculate distance using Haversine formula
+        val distanceMeters = calculateHaversineDistance(
+            lat1 = lastLoc.latitude,
+            lon1 = lastLoc.longitude,
+            lat2 = currentLocation.latitude,
+            lon2 = currentLocation.longitude
+        )
+
+        // Speed = Distance / Time (m/s)
+        val speedMps = (distanceMeters / timeDiffSeconds).toFloat()
+
+        // Sanity check: ignore unrealistic speeds (> 50 m/s = 180 km/h)
+        return if (speedMps > 50f) {
+            lastLoc.speed // Keep previous speed if unrealistic
+        } else {
+            speedMps
+        }
+    }
+
+    /**
+     * Calculate distance between two GPS coordinates using Haversine formula.
+     * Returns distance in meters.
+     */
+    private fun calculateHaversineDistance(
+        lat1: Double, lon1: Double,
+        lat2: Double, lon2: Double
+    ): Double {
+        val earthRadiusMeters = 6371000.0 // Earth radius in meters
+
+        // Convert degrees to radians
+        val dLat = kotlin.math.PI * (lat2 - lat1) / 180.0
+        val dLon = kotlin.math.PI * (lon2 - lon1) / 180.0
+        val lat1Rad = kotlin.math.PI * lat1 / 180.0
+        val lat2Rad = kotlin.math.PI * lat2 / 180.0
+
+        val a = kotlin.math.sin(dLat / 2) * kotlin.math.sin(dLat / 2) +
+                kotlin.math.cos(lat1Rad) * kotlin.math.cos(lat2Rad) *
+                kotlin.math.sin(dLon / 2) * kotlin.math.sin(dLon / 2)
+
+        val c = 2 * kotlin.math.atan2(kotlin.math.sqrt(a), kotlin.math.sqrt(1 - a))
+
+        return earthRadiusMeters * c
     }
 }
 

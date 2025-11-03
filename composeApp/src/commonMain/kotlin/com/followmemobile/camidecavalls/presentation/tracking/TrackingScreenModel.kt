@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
@@ -43,8 +44,15 @@ class TrackingScreenModel(
     val uiState: StateFlow<TrackingUiState> = _uiState.asStateFlow()
 
     private var route: Route? = null
+    private val localTrackPoints = mutableListOf<TrackPoint>()
 
     init {
+        println("🏗️ TrackingScreenModel created: ${this.hashCode()}, routeId=$routeId")
+
+        // Reset any previous Completed/Error state when screen is opened
+        // This ensures a fresh start when navigating back to the tracking screen
+        trackingManager.resetToIdle()
+
         // Load route if routeId is provided
         routeId?.let { id ->
             screenModelScope.launch {
@@ -71,35 +79,58 @@ class TrackingScreenModel(
             }
         }
 
-        // Observe active session for track points
-        screenModelScope.launch {
-            getActiveSessionUseCase().filterNotNull().collect { session ->
-                if (_uiState.value is TrackingUiState.Tracking) {
-                    _uiState.value = TrackingUiState.Tracking(
-                        route = route,
-                        sessionId = session.id,
-                        currentLocation = trackingManager.currentLocation.value,
-                        trackPoints = session.trackPoints
-                    )
-                }
-            }
-        }
-
-        // Observe tracking state
+        // Observe tracking state - ONLY track points received in real-time
+        // Never load from database to avoid confusion with old sessions
         screenModelScope.launch {
             trackingManager.trackingState.collect { state ->
                 _uiState.value = when (state) {
-                    is TrackingState.Idle -> TrackingUiState.Idle(
-                        route = route,
-                        currentLocation = trackingManager.currentLocation.value
-                    )
-                    is TrackingState.Tracking -> TrackingUiState.Tracking(
-                        route = route,
-                        sessionId = state.sessionId,
-                        currentLocation = state.currentLocation,
-                        trackPoints = emptyList() // Will be updated by session observer
-                    )
-                    is TrackingState.Completed -> TrackingUiState.Completed(state.session)
+                    is TrackingState.Idle -> {
+                        // Clear track points when idle
+                        if (localTrackPoints.isNotEmpty()) {
+                            println("🧹 TrackingScreenModel(${this@TrackingScreenModel.hashCode()}): Clearing ${localTrackPoints.size} track points (now Idle)")
+                            localTrackPoints.clear()
+                        }
+                        TrackingUiState.Idle(
+                            route = route,
+                            currentLocation = trackingManager.currentLocation.value
+                        )
+                    }
+                    is TrackingState.Tracking -> {
+                        // Only add new location when state changes (not on init)
+                        state.currentLocation?.let { location ->
+                            // Check if this is a new point (not duplicate)
+                            val isDuplicate = localTrackPoints.lastOrNull()?.let { last ->
+                                last.latitude == location.latitude &&
+                                last.longitude == location.longitude
+                            } ?: false
+
+                            if (!isDuplicate) {
+                                val trackPoint = TrackPoint(
+                                    latitude = location.latitude,
+                                    longitude = location.longitude,
+                                    altitude = location.altitude,
+                                    timestamp = kotlinx.datetime.Clock.System.now(),
+                                    speedKmh = location.speed?.times(3.6) // m/s to km/h
+                                )
+                                localTrackPoints.add(trackPoint)
+                                println("📍 TrackingScreenModel(${this@TrackingScreenModel.hashCode()}): Added track point #${localTrackPoints.size}: ${location.latitude}, ${location.longitude}")
+                            }
+                        }
+
+                        TrackingUiState.Tracking(
+                            route = route,
+                            sessionId = state.sessionId,
+                            currentLocation = state.currentLocation,
+                            trackPoints = localTrackPoints.toList()
+                        )
+                    }
+                    is TrackingState.Completed -> {
+                        if (localTrackPoints.isNotEmpty()) {
+                            println("🧹 TrackingScreenModel: Clearing ${localTrackPoints.size} track points (Completed)")
+                            localTrackPoints.clear()
+                        }
+                        TrackingUiState.Completed(state.session)
+                    }
                     is TrackingState.Error -> TrackingUiState.Error(state.message)
                 }
             }
@@ -331,6 +362,11 @@ class TrackingScreenModel(
         } catch (e: Exception) {
             emptyList()
         }
+    }
+
+    override fun onDispose() {
+        super.onDispose()
+        println("🗑️ TrackingScreenModel(${this.hashCode()}) disposed, had ${localTrackPoints.size} points")
     }
 }
 

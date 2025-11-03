@@ -39,6 +39,6 @@ class InitializeDatabaseUseCase(
 
     companion object {
         // Increment this version when RouteData changes to force re-seed
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 7
     }
 }
