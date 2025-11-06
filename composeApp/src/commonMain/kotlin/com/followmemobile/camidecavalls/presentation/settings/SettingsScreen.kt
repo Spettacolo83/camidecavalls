@@ -43,21 +43,23 @@ fun SettingsContent(
     onBackClick: () -> Unit,
     onLanguageSelected: (String) -> Unit
 ) {
+    val strings = state.strings
+
     val languages = remember {
         listOf(
-            LanguageItem("ca", "language_ca"),
-            LanguageItem("es", "language_es"),
-            LanguageItem("en", "language_en"),
-            LanguageItem("de", "language_de"),
-            LanguageItem("fr", "language_fr"),
-            LanguageItem("it", "language_it")
+            LanguageItem("ca"),
+            LanguageItem("es"),
+            LanguageItem("en"),
+            LanguageItem("de"),
+            LanguageItem("fr"),
+            LanguageItem("it")
         )
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.settings_title)) },
+                title = { Text(strings.settingsTitle) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
@@ -76,7 +78,7 @@ fun SettingsContent(
             // Language Section Header
             item {
                 Text(
-                    text = stringResource(Res.string.settings_language),
+                    text = strings.settingsLanguage,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(vertical = 8.dp)
@@ -87,6 +89,7 @@ fun SettingsContent(
             items(languages) { language ->
                 LanguageOptionItem(
                     languageItem = language,
+                    strings = strings,
                     isSelected = state.selectedLanguage == language.code,
                     onSelect = { onLanguageSelected(language.code) }
                 )
@@ -98,16 +101,17 @@ fun SettingsContent(
 @Composable
 fun LanguageOptionItem(
     languageItem: LanguageItem,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings,
     isSelected: Boolean,
     onSelect: () -> Unit
 ) {
-    val languageName = when (languageItem.stringKey) {
-        "language_ca" -> stringResource(Res.string.language_ca)
-        "language_es" -> stringResource(Res.string.language_es)
-        "language_en" -> stringResource(Res.string.language_en)
-        "language_de" -> stringResource(Res.string.language_de)
-        "language_fr" -> stringResource(Res.string.language_fr)
-        "language_it" -> stringResource(Res.string.language_it)
+    val languageName = when (languageItem.code) {
+        "ca" -> strings.languageCa
+        "es" -> strings.languageEs
+        "en" -> strings.languageEn
+        "de" -> strings.languageDe
+        "fr" -> strings.languageFr
+        "it" -> strings.languageIt
         else -> languageItem.code
     }
 
@@ -151,6 +155,5 @@ fun LanguageOptionItem(
 }
 
 data class LanguageItem(
-    val code: String,
-    val stringKey: String
+    val code: String
 )

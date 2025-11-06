@@ -55,6 +55,7 @@ class InitializeDatabaseUseCase(
         // Version 9: Reordered Route 11 coordinates to fix 7.7km jump (start/end were swapped)
         // Version 10: Added multilingual route descriptions (CA, ES, EN, DE, FR, IT)
         // Version 11: Added database schema columns for multilingual descriptions
-        private const val DATABASE_VERSION = 11
+        // Version 12: Added GPX data with elevation for all 20 routes
+        private const val DATABASE_VERSION = 12
     }
 }

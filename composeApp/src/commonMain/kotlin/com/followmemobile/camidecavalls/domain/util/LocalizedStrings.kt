@@ -42,8 +42,24 @@ class LocalizedStrings(private val languageCode: String) {
     val routeDetailHours: (Double) -> String = { hours -> strings.routeDetailHours(hours) }
     val routeDetailPercent: (Int) -> String = { percent -> strings.routeDetailPercent(percent) }
     val routeDetailDescription: String get() = strings.routeDetailDescription
+    val routeDetailElevationProfile: String get() = strings.routeDetailElevationProfile
+    val routeDetailNoElevationData: String get() = strings.routeDetailNoElevationData
+    val elevationChartDistance: String get() = strings.elevationChartDistance
+    val elevationChartElevation: String get() = strings.elevationChartElevation
+    val elevationChartMin: String get() = strings.elevationChartMin
+    val elevationChartMax: String get() = strings.elevationChartMax
     val startPoint: String get() = strings.startPoint
     val endPoint: String get() = strings.endPoint
+
+    // Settings
+    val settingsTitle: String get() = strings.settingsTitle
+    val settingsLanguage: String get() = strings.settingsLanguage
+    val languageCa: String get() = strings.languageCa
+    val languageEs: String get() = strings.languageEs
+    val languageEn: String get() = strings.languageEn
+    val languageDe: String get() = strings.languageDe
+    val languageFr: String get() = strings.languageFr
+    val languageIt: String get() = strings.languageIt
 }
 
 private interface Strings {
@@ -73,8 +89,24 @@ private interface Strings {
     fun routeDetailHours(hours: Double): String
     fun routeDetailPercent(percent: Int): String
     val routeDetailDescription: String
+    val routeDetailElevationProfile: String
+    val routeDetailNoElevationData: String
+    val elevationChartDistance: String
+    val elevationChartElevation: String
+    val elevationChartMin: String
+    val elevationChartMax: String
     val startPoint: String
     val endPoint: String
+
+    // Settings
+    val settingsTitle: String
+    val settingsLanguage: String
+    val languageCa: String
+    val languageEs: String
+    val languageEn: String
+    val languageDe: String
+    val languageFr: String
+    val languageIt: String
 }
 
 private object StringsCa : Strings {
@@ -102,8 +134,23 @@ private object StringsCa : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} h"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Descripció"
+    override val routeDetailElevationProfile = "Perfil d'Elevació"
+    override val routeDetailNoElevationData = "No hi ha dades d'elevació disponibles"
+    override val elevationChartDistance = "Distància"
+    override val elevationChartElevation = "Elevació"
+    override val elevationChartMin = "Mín"
+    override val elevationChartMax = "Màx"
     override val startPoint = "Punt d'Inici"
     override val endPoint = "Punt Final"
+
+    override val settingsTitle = "Configuració"
+    override val settingsLanguage = "Idioma"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }
 
 private object StringsEs : Strings {
@@ -131,8 +178,23 @@ private object StringsEs : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} h"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Descripción"
+    override val routeDetailElevationProfile = "Perfil de Elevación"
+    override val routeDetailNoElevationData = "No hay datos de elevación disponibles"
+    override val elevationChartDistance = "Distancia"
+    override val elevationChartElevation = "Elevación"
+    override val elevationChartMin = "Mín"
+    override val elevationChartMax = "Máx"
     override val startPoint = "Punto de Inicio"
     override val endPoint = "Punto Final"
+
+    override val settingsTitle = "Configuración"
+    override val settingsLanguage = "Idioma"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }
 
 private object StringsEn : Strings {
@@ -160,8 +222,23 @@ private object StringsEn : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} h"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Description"
+    override val routeDetailElevationProfile = "Elevation Profile"
+    override val routeDetailNoElevationData = "No elevation data available"
+    override val elevationChartDistance = "Distance"
+    override val elevationChartElevation = "Elevation"
+    override val elevationChartMin = "Min"
+    override val elevationChartMax = "Max"
     override val startPoint = "Start Point"
     override val endPoint = "End Point"
+
+    override val settingsTitle = "Settings"
+    override val settingsLanguage = "Language"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }
 
 private object StringsDe : Strings {
@@ -189,8 +266,23 @@ private object StringsDe : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} Std"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Beschreibung"
+    override val routeDetailElevationProfile = "Höhenprofil"
+    override val routeDetailNoElevationData = "Keine Höhendaten verfügbar"
+    override val elevationChartDistance = "Entfernung"
+    override val elevationChartElevation = "Höhe"
+    override val elevationChartMin = "Min"
+    override val elevationChartMax = "Max"
     override val startPoint = "Startpunkt"
     override val endPoint = "Endpunkt"
+
+    override val settingsTitle = "Einstellungen"
+    override val settingsLanguage = "Sprache"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }
 
 private object StringsFr : Strings {
@@ -218,8 +310,23 @@ private object StringsFr : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} h"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Description"
+    override val routeDetailElevationProfile = "Profil d'Altitude"
+    override val routeDetailNoElevationData = "Aucune donnée d'altitude disponible"
+    override val elevationChartDistance = "Distance"
+    override val elevationChartElevation = "Altitude"
+    override val elevationChartMin = "Min"
+    override val elevationChartMax = "Max"
     override val startPoint = "Point de Départ"
     override val endPoint = "Point d'Arrivée"
+
+    override val settingsTitle = "Paramètres"
+    override val settingsLanguage = "Langue"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }
 
 private object StringsIt : Strings {
@@ -247,6 +354,21 @@ private object StringsIt : Strings {
     override fun routeDetailHours(hours: Double) = "${(hours * 10).toInt() / 10.0} h"
     override fun routeDetailPercent(percent: Int) = "$percent%"
     override val routeDetailDescription = "Descrizione"
+    override val routeDetailElevationProfile = "Profilo Altimetrico"
+    override val routeDetailNoElevationData = "Nessun dato altimetrico disponibile"
+    override val elevationChartDistance = "Distanza"
+    override val elevationChartElevation = "Altitudine"
+    override val elevationChartMin = "Min"
+    override val elevationChartMax = "Max"
     override val startPoint = "Punto di Partenza"
     override val endPoint = "Punto di Arrivo"
+
+    override val settingsTitle = "Impostazioni"
+    override val settingsLanguage = "Lingua"
+    override val languageCa = "Català"
+    override val languageEs = "Español"
+    override val languageEn = "English"
+    override val languageDe = "Deutsch"
+    override val languageFr = "Français"
+    override val languageIt = "Italiano"
 }

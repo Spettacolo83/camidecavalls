@@ -33,9 +33,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +50,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
+import com.followmemobile.camidecavalls.presentation.components.ElevationChart
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -171,6 +176,9 @@ private fun RouteDetailContent(
     currentLanguage: String,
     strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 ) {
+    // Track selected point from elevation chart
+    var selectedChartPoint by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -194,7 +202,39 @@ private fun RouteDetailContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Map preview
-        RouteMapPreview(route = route)
+        RouteMapPreview(
+            route = route,
+            selectedPoint = selectedChartPoint
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Elevation Profile Chart (moved here - below the map)
+        Text(
+            text = strings.routeDetailElevationProfile,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+
+        if (route.gpxData != null) {
+            ElevationChart(
+                gpxData = route.gpxData,
+                strings = strings,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                onPointSelected = { coordinates ->
+                    selectedChartPoint = coordinates
+                }
+            )
+        } else {
+            Text(
+                text = strings.routeDetailNoElevationData,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(vertical = 8.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -263,9 +303,34 @@ private fun InfoRow(label: String, value: String) {
 }
 
 @Composable
-private fun RouteMapPreview(route: Route) {
+private fun RouteMapPreview(
+    route: Route,
+    selectedPoint: Pair<Double, Double>? = null
+) {
     // Parse route coordinates if GPX data is available
     val routeCoordinates = route.gpxData?.let { parseGeoJsonLineString(it) } ?: emptyList()
+
+    // Store map controller to update marker without recreating map
+    var mapController by remember { mutableStateOf<com.followmemobile.camidecavalls.presentation.map.MapLayerController?>(null) }
+
+    // Update marker when selected point changes, without recreating entire map
+    LaunchedEffect(selectedPoint) {
+        mapController?.let { controller ->
+            // Remove old marker layer if exists
+            controller.removeLayer("selected-point-${route.id}")
+
+            // Add new marker if point is selected
+            selectedPoint?.let { point ->
+                controller.addMarker(
+                    markerId = "selected-point-${route.id}",
+                    latitude = point.second,
+                    longitude = point.first,
+                    color = "#FFEB3B",
+                    radius = 5f  // Smaller radius
+                )
+            }
+        }
+    }
 
     BoxWithConstraints(
         modifier = Modifier.fillMaxWidth()
@@ -334,6 +399,8 @@ private fun RouteMapPreview(route: Route) {
                     zoom = zoom,
                     styleUrl = "https://tiles.openfreemap.org/styles/liberty",
                     onMapReady = { controller ->
+                // Save controller for updating markers
+                mapController = controller
                 // Add route path if GPX data is available
                 if (route.gpxData != null && routeCoordinates.isNotEmpty()) {
                     // Add route path with blue color
