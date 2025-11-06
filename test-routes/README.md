@@ -194,6 +194,58 @@ For a trail hiking app like Camí de Cavalls:
 - **Elevation profile**: You mentioned wanting to show altitude charts
 - **Training data**: Essential for calculating climbing/descending stats
 
+## 🔧 Route 11 Fix (Ciutadella - Cap d'Artrutx)
+
+Route 11 had coordinate issues that caused visual artifacts on the map:
+
+### Problem Identified
+
+**Symptoms**:
+- Red and green markers overlapped at the same position
+- A line connecting end to start (closing an incorrect loop)
+- Route appeared to start and end at the same coordinate
+
+**Root Cause**:
+1. **Duplicate coordinate**: `[3.83370108, 39.9789560747]` appeared 3 times (indices 0, 355, 641)
+2. **Wrong coordinate order**: A 7.7km jump between index 354→355 indicated the route was split at the wrong point
+3. **Start = End**: The first and last coordinates were identical, making it appear circular when it should be linear
+
+### Solution Applied
+
+**Fix Script**: `scripts/fix_test_route11_gpx_v2.py`
+
+**Steps**:
+1. **Removed duplicate**: Deleted the middle occurrence at index 355
+2. **Reordered coordinates**: Applied transformation `[355→639] + [0→354]`
+3. **Result**:
+   - Android: 642 → 640 points
+   - iOS: 642 → 641 points
+   - START: `[3.83296486, 40.00149427]` (Ciutadella)
+   - END: `[3.82330099, 39.93185160]` (Cap d'Artrutx)
+   - Maximum jump: 163m (was 7773m)
+
+**Database Version**: Incremented to v9 in `InitializeDatabaseUseCase.kt` to force route data reload
+
+### Verification
+
+```bash
+# Verify the fix (should show START ≠ END with reasonable distance)
+cd scripts
+python3 analyze_route11_jumps.py
+
+# Expected output:
+# - Biggest jump: < 200m (not 7700m)
+# - Distance START→END: ~7-8km (linear route)
+```
+
+### Files Fixed
+
+- ✅ `composeApp/src/commonMain/kotlin/.../data/RouteData.kt` (GeoJSON in code)
+- ✅ `test-routes/android/route_11.gpx` (Android emulator test file)
+- ✅ `test-routes/ios/route_11.gpx` (iOS simulator test file)
+
+**Important**: The same fix was applied to all three locations to ensure consistency across app data and test files.
+
 ## 🔄 Regenerating Files
 
 If RouteData.kt changes or original GPX files are updated:

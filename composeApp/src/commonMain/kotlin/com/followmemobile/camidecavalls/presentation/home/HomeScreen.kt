@@ -12,12 +12,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,7 +37,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
-import com.followmemobile.camidecavalls.presentation.map.MapScreen
+import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
+import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import org.koin.compose.koinInject
 
 /**
@@ -55,7 +58,10 @@ class HomeScreen : Screen {
                 navigator.push(RouteDetailScreen(route.id))
             },
             onMapClick = {
-                navigator.push(MapScreen())
+                navigator.push(FullMapScreen())
+            },
+            onSettingsClick = {
+                navigator.push(SettingsScreen())
             }
         )
     }
@@ -66,7 +72,8 @@ class HomeScreen : Screen {
 private fun HomeScreenContent(
     uiState: HomeUiState,
     onRouteClick: (Route) -> Unit,
-    onMapClick: () -> Unit
+    onMapClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -75,7 +82,12 @@ private fun HomeScreenContent(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                ),
+                actions = {
+                    IconButton(onClick = onSettingsClick) {
+                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+                    }
+                }
             )
         },
         floatingActionButton = {
@@ -98,7 +110,7 @@ private fun HomeScreenContent(
 
                 is HomeUiState.Empty -> {
                     Text(
-                        text = "No routes available",
+                        text = uiState.strings.homeNoRoutes,
                         modifier = Modifier.align(Alignment.Center),
                         style = MaterialTheme.typography.bodyLarge
                     )
@@ -107,8 +119,31 @@ private fun HomeScreenContent(
                 is HomeUiState.Success -> {
                     RouteList(
                         routes = uiState.routes,
+                        currentLanguage = uiState.currentLanguage,
+                        strings = uiState.strings,
                         onRouteClick = onRouteClick
                     )
+                }
+
+                is HomeUiState.Error -> {
+                    Column(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Error loading routes",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                        Text(
+                            text = uiState.message,
+                            modifier = Modifier.padding(top = 8.dp),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }
@@ -118,6 +153,8 @@ private fun HomeScreenContent(
 @Composable
 private fun RouteList(
     routes: List<Route>,
+    currentLanguage: String,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings,
     onRouteClick: (Route) -> Unit
 ) {
     LazyColumn(
@@ -128,6 +165,8 @@ private fun RouteList(
         items(routes, key = { it.id }) { route ->
             RouteItem(
                 route = route,
+                currentLanguage = currentLanguage,
+                strings = strings,
                 onClick = { onRouteClick(route) }
             )
         }
@@ -137,6 +176,8 @@ private fun RouteList(
 @Composable
 private fun RouteItem(
     route: Route,
+    currentLanguage: String,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings,
     onClick: () -> Unit
 ) {
     Card(
@@ -157,12 +198,12 @@ private fun RouteItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Stage ${route.number}",
+                    text = strings.routeStage(route.number),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 )
-                DifficultyChip(difficulty = route.difficulty)
+                DifficultyChip(difficulty = route.difficulty, strings = strings)
             }
 
             Text(
@@ -180,15 +221,15 @@ private fun RouteItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 InfoItem(
-                    label = "Distance",
+                    label = strings.homeDistance,
                     value = "${route.distanceKm} km"
                 )
                 InfoItem(
-                    label = "Elevation",
+                    label = strings.homeElevation,
                     value = "+${route.elevationGainMeters}m"
                 )
                 InfoItem(
-                    label = "Duration",
+                    label = strings.homeDuration,
                     value = "${route.estimatedDurationMinutes / 60}h ${route.estimatedDurationMinutes % 60}m"
                 )
             }
@@ -197,15 +238,24 @@ private fun RouteItem(
 }
 
 @Composable
-private fun DifficultyChip(difficulty: com.followmemobile.camidecavalls.domain.model.Difficulty) {
+private fun DifficultyChip(
+    difficulty: com.followmemobile.camidecavalls.domain.model.Difficulty,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+) {
     val color = when (difficulty) {
         com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> MaterialTheme.colorScheme.tertiary
         com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> MaterialTheme.colorScheme.secondary
         com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> MaterialTheme.colorScheme.error
     }
 
+    val text = when (difficulty) {
+        com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> strings.difficultyLow
+        com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> strings.difficultyMedium
+        com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> strings.difficultyHigh
+    }
+
     Text(
-        text = difficulty.name,
+        text = text,
         style = MaterialTheme.typography.labelSmall,
         color = color,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)

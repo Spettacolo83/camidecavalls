@@ -1,0 +1,4372 @@
+[
+  {
+    "id": "9792",
+    "type": "BEACH",
+    "latitude": 40.05783988870746,
+    "longitude": 3.8825368671010954,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9191doc3.JPG",
+    "names": {
+      "ca": "Assentament costaner de Cala Morell",
+      "es": "Assentament costaner de Cala Morell",
+      "en": "Assentament costaner de Cala Morell",
+      "fr": "Assentament costaner de Cala Morell",
+      "de": "Assentament costaner de Cala Morell",
+      "it": "Assentament costaner de Cala Morell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9635",
+    "type": "BEACH",
+    "latitude": 39.89310901601455,
+    "longitude": 4.264792066733123,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9061doc3.jpg",
+    "names": {
+      "ca": "Port de Maó",
+      "es": "Port de Maó",
+      "en": "Port de Maó",
+      "fr": "Port de Maó",
+      "de": "Port de Maó",
+      "it": "Port de Maó"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9637",
+    "type": "BEACH",
+    "latitude": 39.992294737843935,
+    "longitude": 4.254836340823306,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9023doc3.jpg",
+    "names": {
+      "ca": "Cala Tortuga i Cala Presili",
+      "es": "Cala Tortuga i Cala Presili",
+      "en": "Cala Tortuga i Cala Presili",
+      "fr": "Cala Tortuga i Cala Presili",
+      "de": "Cala Tortuga i Cala Presili",
+      "it": "Cala Tortuga i Cala Presili"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9639",
+    "type": "BEACH",
+    "latitude": 39.94835301502129,
+    "longitude": 4.251714922605628,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9025doc3.jpg",
+    "names": {
+      "ca": "S'Albufera des Grau",
+      "es": "S'Albufera des Grau",
+      "en": "S'Albufera des Grau",
+      "fr": "S'Albufera des Grau",
+      "de": "S'Albufera des Grau",
+      "it": "S'Albufera des Grau"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9641",
+    "type": "BEACH",
+    "latitude": 40.016149733931506,
+    "longitude": 4.200599733425968,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9116doc3.jpg",
+    "names": {
+      "ca": "Na Macaret",
+      "es": "Na Macaret",
+      "en": "Na Macaret",
+      "fr": "Na Macaret",
+      "de": "Na Macaret",
+      "it": "Na Macaret"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9642",
+    "type": "BEACH",
+    "latitude": 40.0217483853177,
+    "longitude": 4.182710118669901,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9117doc3.jpg",
+    "names": {
+      "ca": "Arenal d’en Castell",
+      "es": "Arenal d’en Castell",
+      "en": "Arenal d’en Castell",
+      "fr": "Arenal d’en Castell",
+      "de": "Arenal d’en Castell",
+      "it": "Arenal d’en Castell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9643",
+    "type": "BEACH",
+    "latitude": 40.03364290634719,
+    "longitude": 4.161127251968557,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9118doc3.jpg",
+    "names": {
+      "ca": "Arenal de Son Saura",
+      "es": "Arenal de Son Saura",
+      "en": "Arenal de Son Saura",
+      "fr": "Arenal de Son Saura",
+      "de": "Arenal de Son Saura",
+      "it": "Arenal de Son Saura"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9644",
+    "type": "BEACH",
+    "latitude": 40.04002840771936,
+    "longitude": 4.130372679566122,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9119doc3.jpg",
+    "names": {
+      "ca": "Badia de Fornells",
+      "es": "Badia de Fornells",
+      "en": "Badia de Fornells",
+      "fr": "Badia de Fornells",
+      "de": "Badia de Fornells",
+      "it": "Badia de Fornells"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9645",
+    "type": "BEACH",
+    "latitude": 40.04498562783211,
+    "longitude": 4.104946532524825,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9120doc3.jpg",
+    "names": {
+      "ca": "Cala Tirant",
+      "es": "Cala Tirant",
+      "en": "Cala Tirant",
+      "fr": "Cala Tirant",
+      "de": "Cala Tirant",
+      "it": "Cala Tirant"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9646",
+    "type": "BEACH",
+    "latitude": 40.059731020353546,
+    "longitude": 4.076564015386593,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9122doc3.jpg",
+    "names": {
+      "ca": "Platja de Cavalleria",
+      "es": "Platja de Cavalleria",
+      "en": "Platja de Cavalleria",
+      "fr": "Platja de Cavalleria",
+      "de": "Platja de Cavalleria",
+      "it": "Platja de Cavalleria"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9647",
+    "type": "BEACH",
+    "latitude": 40.05629329662798,
+    "longitude": 4.06640347290813,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9123doc3.jpg",
+    "names": {
+      "ca": "Cala Mica",
+      "es": "Cala Mica",
+      "en": "Cala Mica",
+      "fr": "Cala Mica",
+      "de": "Cala Mica",
+      "it": "Cala Mica"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9648",
+    "type": "BEACH",
+    "latitude": 40.051931223496595,
+    "longitude": 4.053767708816558,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9124doc3.jpg",
+    "names": {
+      "ca": "Platja de Binimel·là",
+      "es": "Platja de Binimel·là",
+      "en": "Platja de Binimel·là",
+      "fr": "Platja de Binimel·là",
+      "de": "Platja de Binimel·là",
+      "it": "Platja de Binimel·là"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9649",
+    "type": "BEACH",
+    "latitude": 40.062281232062354,
+    "longitude": 4.028916766512117,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9125doc3.jpg",
+    "names": {
+      "ca": "Cala Pregonda",
+      "es": "Cala Pregonda",
+      "en": "Cala Pregonda",
+      "fr": "Cala Pregonda",
+      "de": "Cala Pregonda",
+      "it": "Cala Pregonda"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9651",
+    "type": "BEACH",
+    "latitude": 40.05554669945886,
+    "longitude": 4.016153212647576,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9127doc3.JPG",
+    "names": {
+      "ca": "Cala en Calderer",
+      "es": "Cala en Calderer",
+      "en": "Cala en Calderer",
+      "fr": "Cala en Calderer",
+      "de": "Cala en Calderer",
+      "it": "Cala en Calderer"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9653",
+    "type": "BEACH",
+    "latitude": 40.05112520577296,
+    "longitude": 3.9782204151054046,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9129doc3.JPG",
+    "names": {
+      "ca": "Cala Pilar",
+      "es": "Cala Pilar",
+      "en": "Cala Pilar",
+      "fr": "Cala Pilar",
+      "de": "Cala Pilar",
+      "it": "Cala Pilar"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9654",
+    "type": "BEACH",
+    "latitude": 40.045766639652264,
+    "longitude": 3.9219335659849914,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9130doc3.jpg",
+    "names": {
+      "ca": "Platges d’Algaiarens o La Vall",
+      "es": "Platges d’Algaiarens o La Vall",
+      "en": "Platges d’Algaiarens o La Vall",
+      "fr": "Platges d’Algaiarens o La Vall",
+      "de": "Platges d’Algaiarens o La Vall",
+      "it": "Platges d’Algaiarens o La Vall"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9655",
+    "type": "BEACH",
+    "latitude": 40.046509262607906,
+    "longitude": 3.9146285275904247,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9131doc3.JPG",
+    "names": {
+      "ca": "Platja de ses Fontanelles",
+      "es": "Platja de ses Fontanelles",
+      "en": "Platja de ses Fontanelles",
+      "fr": "Platja de ses Fontanelles",
+      "de": "Platja de ses Fontanelles",
+      "it": "Platja de ses Fontanelles"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9656",
+    "type": "BEACH",
+    "latitude": 40.04927671200392,
+    "longitude": 3.9087100797664145,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9132doc3.jpg",
+    "names": {
+      "ca": "Codolar de Biniatram",
+      "es": "Codolar de Biniatram",
+      "en": "Codolar de Biniatram",
+      "fr": "Codolar de Biniatram",
+      "de": "Codolar de Biniatram",
+      "it": "Codolar de Biniatram"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9657",
+    "type": "BEACH",
+    "latitude": 40.05315539320191,
+    "longitude": 3.8824764375958023,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9133doc3.jpg",
+    "names": {
+      "ca": "Cala Morell",
+      "es": "Cala Morell",
+      "en": "Cala Morell",
+      "fr": "Cala Morell",
+      "de": "Cala Morell",
+      "it": "Cala Morell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9658",
+    "type": "BEACH",
+    "latitude": 40.04909216817623,
+    "longitude": 3.835061899278204,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9134doc3.JPG",
+    "names": {
+      "ca": "Codolar de Torrenova",
+      "es": "Codolar de Torrenova",
+      "en": "Codolar de Torrenova",
+      "fr": "Codolar de Torrenova",
+      "de": "Codolar de Torrenova",
+      "it": "Codolar de Torrenova"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9659",
+    "type": "BEACH",
+    "latitude": 40.050937269075646,
+    "longitude": 3.8265261659630236,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9135doc3.JPG",
+    "names": {
+      "ca": "Calespous",
+      "es": "Calespous",
+      "en": "Calespous",
+      "fr": "Calespous",
+      "de": "Calespous",
+      "it": "Calespous"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9660",
+    "type": "BEACH",
+    "latitude": 40.05161453063302,
+    "longitude": 3.8250454308283817,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9136doc3.JPG",
+    "names": {
+      "ca": "Bufador de Sa Torre Vella",
+      "es": "Bufador de Sa Torre Vella",
+      "en": "Bufador de Sa Torre Vella",
+      "fr": "Bufador de Sa Torre Vella",
+      "de": "Bufador de Sa Torre Vella",
+      "it": "Bufador de Sa Torre Vella"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9661",
+    "type": "BEACH",
+    "latitude": 40.003521320119695,
+    "longitude": 3.798024271795215,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9137doc3.JPG",
+    "names": {
+      "ca": "Pont d’en Gil",
+      "es": "Pont d’en Gil",
+      "en": "Pont d’en Gil",
+      "fr": "Pont d’en Gil",
+      "de": "Pont d’en Gil",
+      "it": "Pont d’en Gil"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9663",
+    "type": "BEACH",
+    "latitude": 40.00060492594971,
+    "longitude": 3.813184711743838,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9139doc3.jpg",
+    "names": {
+      "ca": "Cala en Blanes",
+      "es": "Cala en Blanes",
+      "en": "Cala en Blanes",
+      "fr": "Cala en Blanes",
+      "de": "Cala en Blanes",
+      "it": "Cala en Blanes"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9664",
+    "type": "BEACH",
+    "latitude": 39.967567606171954,
+    "longitude": 3.8358254514803893,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9141doc3.jpg",
+    "names": {
+      "ca": "Cala Santandria",
+      "es": "Cala Santandria",
+      "en": "Cala Santandria",
+      "fr": "Cala Santandria",
+      "de": "Cala Santandria",
+      "it": "Cala Santandria"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9665",
+    "type": "BEACH",
+    "latitude": 40.00123767330537,
+    "longitude": 3.836938783087822,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9142doc3.jpg",
+    "names": {
+      "ca": "Cala Blanca",
+      "es": "Cala Blanca",
+      "en": "Cala Blanca",
+      "fr": "Cala Blanca",
+      "de": "Cala Blanca",
+      "it": "Cala Blanca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9666",
+    "type": "BEACH",
+    "latitude": 39.926165071105906,
+    "longitude": 3.837474946157089,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9140doc3.jpg",
+    "names": {
+      "ca": "Ciutadella",
+      "es": "Ciutadella",
+      "en": "Ciutadella",
+      "fr": "Ciutadella",
+      "de": "Ciutadella",
+      "it": "Ciutadella"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9668",
+    "type": "BEACH",
+    "latitude": 39.925300472220705,
+    "longitude": 3.841162294878487,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9144doc3.tif",
+    "names": {
+      "ca": "Platja de Son Xoriguer",
+      "es": "Platja de Son Xoriguer",
+      "en": "Platja de Son Xoriguer",
+      "fr": "Platja de Son Xoriguer",
+      "de": "Platja de Son Xoriguer",
+      "it": "Platja de Son Xoriguer"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9669",
+    "type": "BEACH",
+    "latitude": 39.927628758390505,
+    "longitude": 3.895982107217853,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9145doc3.jpg",
+    "names": {
+      "ca": "Son Saura del sud",
+      "es": "Son Saura del sud",
+      "en": "Son Saura del sud",
+      "fr": "Son Saura del sud",
+      "de": "Son Saura del sud",
+      "it": "Son Saura del sud"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9670",
+    "type": "BEACH",
+    "latitude": 39.92683730045134,
+    "longitude": 3.902770879107188,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9146doc3.JPG",
+    "names": {
+      "ca": "Es Talaier",
+      "es": "Es Talaier",
+      "en": "Es Talaier",
+      "fr": "Es Talaier",
+      "de": "Es Talaier",
+      "it": "Es Talaier"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9671",
+    "type": "BEACH",
+    "latitude": 39.93223937639276,
+    "longitude": 3.914744113853569,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9147doc3.jpg",
+    "names": {
+      "ca": "Cala en Turqueta",
+      "es": "Cala en Turqueta",
+      "en": "Cala en Turqueta",
+      "fr": "Cala en Turqueta",
+      "de": "Cala en Turqueta",
+      "it": "Cala en Turqueta"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9672",
+    "type": "BEACH",
+    "latitude": 39.938314897361984,
+    "longitude": 3.9369344927913628,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9148doc3.JPG",
+    "names": {
+      "ca": "Macarella i Macarelleta",
+      "es": "Macarella i Macarelleta",
+      "en": "Macarella i Macarelleta",
+      "fr": "Macarella i Macarelleta",
+      "de": "Macarella i Macarelleta",
+      "it": "Macarella i Macarelleta"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9673",
+    "type": "BEACH",
+    "latitude": 39.934592758091846,
+    "longitude": 3.9731651444054816,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9149doc3.jpg",
+    "names": {
+      "ca": "Cala Galdana",
+      "es": "Cala Galdana",
+      "en": "Cala Galdana",
+      "fr": "Cala Galdana",
+      "de": "Cala Galdana",
+      "it": "Cala Galdana"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9675",
+    "type": "BEACH",
+    "latitude": 39.92062927592322,
+    "longitude": 4.0252604307878075,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9151doc3.jpg",
+    "names": {
+      "ca": "Binigaus",
+      "es": "Binigaus",
+      "en": "Binigaus",
+      "fr": "Binigaus",
+      "de": "Binigaus",
+      "it": "Binigaus"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9676",
+    "type": "BEACH",
+    "latitude": 39.931357631856145,
+    "longitude": 3.989211106642942,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9152doc3.JPG",
+    "names": {
+      "ca": "Trebalúger, Fustam i Escorxada",
+      "es": "Trebalúger, Fustam i Escorxada",
+      "en": "Trebalúger, Fustam i Escorxada",
+      "fr": "Trebalúger, Fustam i Escorxada",
+      "de": "Trebalúger, Fustam i Escorxada",
+      "it": "Trebalúger, Fustam i Escorxada"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9677",
+    "type": "BEACH",
+    "latitude": 39.89833302044672,
+    "longitude": 4.075683287017338,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9153doc3.jpg",
+    "names": {
+      "ca": "Sant Tomàs",
+      "es": "Sant Tomàs",
+      "en": "Sant Tomàs",
+      "fr": "Sant Tomàs",
+      "de": "Sant Tomàs",
+      "it": "Sant Tomàs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9679",
+    "type": "BEACH",
+    "latitude": 39.90739685861822,
+    "longitude": 4.054088342174642,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9155doc3.jpg",
+    "names": {
+      "ca": "Platges de Talis",
+      "es": "Platges de Talis",
+      "en": "Platges de Talis",
+      "fr": "Platges de Talis",
+      "de": "Platges de Talis",
+      "it": "Platges de Talis"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9680",
+    "type": "BEACH",
+    "latitude": 39.89083492756453,
+    "longitude": 4.080747460563987,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9156doc3.jpg",
+    "names": {
+      "ca": "Penyes d’Alaior",
+      "es": "Penyes d’Alaior",
+      "en": "Penyes d’Alaior",
+      "fr": "Penyes d’Alaior",
+      "de": "Penyes d’Alaior",
+      "it": "Penyes d’Alaior"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9681",
+    "type": "BEACH",
+    "latitude": 39.89133771774919,
+    "longitude": 4.081901588723241,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9157doc3.JPG",
+    "names": {
+      "ca": "Cala Llucalari",
+      "es": "Cala Llucalari",
+      "en": "Cala Llucalari",
+      "fr": "Cala Llucalari",
+      "de": "Cala Llucalari",
+      "it": "Cala Llucalari"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9682",
+    "type": "BEACH",
+    "latitude": 39.87961505603378,
+    "longitude": 4.125558989770671,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9158doc3.JPG",
+    "names": {
+      "ca": "Barranc de Cala en Porter",
+      "es": "Barranc de Cala en Porter",
+      "en": "Barranc de Cala en Porter",
+      "fr": "Barranc de Cala en Porter",
+      "de": "Barranc de Cala en Porter",
+      "it": "Barranc de Cala en Porter"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9683",
+    "type": "BEACH",
+    "latitude": 39.871208670188715,
+    "longitude": 4.132074760093021,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9159doc3.JPG",
+    "names": {
+      "ca": "Cala en Porter",
+      "es": "Cala en Porter",
+      "en": "Cala en Porter",
+      "fr": "Cala en Porter",
+      "de": "Cala en Porter",
+      "it": "Cala en Porter"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9685",
+    "type": "BEACH",
+    "latitude": 39.86411978251451,
+    "longitude": 4.145660756364425,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9161doc3.JPG",
+    "names": {
+      "ca": "Calescoves",
+      "es": "Calescoves",
+      "en": "Calescoves",
+      "fr": "Calescoves",
+      "de": "Calescoves",
+      "it": "Calescoves"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9686",
+    "type": "BEACH",
+    "latitude": 39.82908352799439,
+    "longitude": 4.218791211842016,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9162doc3.jpg",
+    "names": {
+      "ca": "Platja de Binissafúller",
+      "es": "Platja de Binissafúller",
+      "en": "Platja de Binissafúller",
+      "fr": "Platja de Binissafúller",
+      "de": "Platja de Binissafúller",
+      "it": "Platja de Binissafúller"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9687",
+    "type": "BEACH",
+    "latitude": 39.82281714444913,
+    "longitude": 4.229476955963348,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9163doc3.jpg",
+    "names": {
+      "ca": "Poblat de pescadors de Binibeca Vell",
+      "es": "Poblat de pescadors de Binibeca Vell",
+      "en": "Poblat de pescadors de Binibeca Vell",
+      "fr": "Poblat de pescadors de Binibeca Vell",
+      "de": "Poblat de pescadors de Binibeca Vell",
+      "it": "Poblat de pescadors de Binibeca Vell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9688",
+    "type": "BEACH",
+    "latitude": 39.81652602204035,
+    "longitude": 4.239856551246259,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9164doc3.jpg",
+    "names": {
+      "ca": "Platja de Binibèquer",
+      "es": "Platja de Binibèquer",
+      "en": "Platja de Binibèquer",
+      "fr": "Platja de Binibèquer",
+      "de": "Platja de Binibèquer",
+      "it": "Platja de Binibèquer"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9689",
+    "type": "BEACH",
+    "latitude": 39.828989232367896,
+    "longitude": 4.293237994314782,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9165doc3.JPG",
+    "names": {
+      "ca": "Punta Prima",
+      "es": "Punta Prima",
+      "en": "Punta Prima",
+      "fr": "Punta Prima",
+      "de": "Punta Prima",
+      "it": "Punta Prima"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9691",
+    "type": "BEACH",
+    "latitude": 39.84089814516206,
+    "longitude": 4.298241587503766,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9167doc3.jpg",
+    "names": {
+      "ca": "Cala de Rafalet",
+      "es": "Cala de Rafalet",
+      "en": "Cala de Rafalet",
+      "fr": "Cala de Rafalet",
+      "de": "Cala de Rafalet",
+      "it": "Cala de Rafalet"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9692",
+    "type": "BEACH",
+    "latitude": 39.87915077439256,
+    "longitude": 4.292788305679549,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9168doc3.JPG",
+    "names": {
+      "ca": "Cala Sant Esteve",
+      "es": "Cala Sant Esteve",
+      "en": "Cala Sant Esteve",
+      "fr": "Cala Sant Esteve",
+      "de": "Cala Sant Esteve",
+      "it": "Cala Sant Esteve"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9693",
+    "type": "BEACH",
+    "latitude": 39.88899127242756,
+    "longitude": 4.263172545679895,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9169doc3.jpg",
+    "names": {
+      "ca": "Es Castell",
+      "es": "Es Castell",
+      "en": "Es Castell",
+      "fr": "Es Castell",
+      "de": "Es Castell",
+      "it": "Es Castell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9634",
+    "type": "BEACH",
+    "latitude": 39.91502359036802,
+    "longitude": 4.288220978986272,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9060doc3.jpg",
+    "names": {
+      "ca": "Cala Mesquida",
+      "es": "Cala Mesquida",
+      "en": "Cala Mesquida",
+      "fr": "Cala Mesquida",
+      "de": "Cala Mesquida",
+      "it": "Cala Mesquida"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9636",
+    "type": "BEACH",
+    "latitude": 39.92529191951801,
+    "longitude": 4.280315749787117,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9062doc3.jpg",
+    "names": {
+      "ca": "El misteri de Binillautí",
+      "es": "El misteri de Binillautí",
+      "en": "El misteri de Binillautí",
+      "fr": "El misteri de Binillautí",
+      "de": "El misteri de Binillautí",
+      "it": "El misteri de Binillautí"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9695",
+    "type": "NATURAL",
+    "latitude": 39.91667094005793,
+    "longitude": 4.285911770244446,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9044doc3.jpg",
+    "names": {
+      "ca": "Els espais protegits de Menorca",
+      "es": "Els espais protegits de Menorca",
+      "en": "Els espais protegits de Menorca",
+      "fr": "Els espais protegits de Menorca",
+      "de": "Els espais protegits de Menorca",
+      "it": "Els espais protegits de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9696",
+    "type": "NATURAL",
+    "latitude": 39.91606545568157,
+    "longitude": 4.2589897525548075,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9046doc3.jpg",
+    "names": {
+      "ca": "Els residus de Menorca",
+      "es": "Els residus de Menorca",
+      "en": "Els residus de Menorca",
+      "fr": "Els residus de Menorca",
+      "de": "Els residus de Menorca",
+      "it": "Els residus de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9700",
+    "type": "NATURAL",
+    "latitude": 39.91871400240153,
+    "longitude": 4.284475695702468,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9051doc3.jpg",
+    "names": {
+      "ca": "Una primavera espectacular",
+      "es": "Una primavera espectacular",
+      "en": "Una primavera espectacular",
+      "fr": "Una primavera espectacular",
+      "de": "Una primavera espectacular",
+      "it": "Una primavera espectacular"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9701",
+    "type": "NATURAL",
+    "latitude": 39.92746951378275,
+    "longitude": 4.278928647605999,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9053doc3.jpg",
+    "names": {
+      "ca": "Les marines, els boscos de Menorca",
+      "es": "Les marines, els boscos de Menorca",
+      "en": "Les marines, els boscos de Menorca",
+      "fr": "Les marines, els boscos de Menorca",
+      "de": "Les marines, els boscos de Menorca",
+      "it": "Les marines, els boscos de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9702",
+    "type": "NATURAL",
+    "latitude": 39.99549419856227,
+    "longitude": 4.2303660491186985,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9054doc3.jpg",
+    "names": {
+      "ca": "El so de la natura",
+      "es": "El so de la natura",
+      "en": "El so de la natura",
+      "fr": "El so de la natura",
+      "de": "El so de la natura",
+      "it": "El so de la natura"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9707",
+    "type": "NATURAL",
+    "latitude": 39.980512407407296,
+    "longitude": 4.208009686284303,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9069doc3.jpg",
+    "names": {
+      "ca": "Endemismes botànics",
+      "es": "Endemismes botànics",
+      "en": "Endemismes botànics",
+      "fr": "Endemismes botànics",
+      "de": "Endemismes botànics",
+      "it": "Endemismes botànics"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9709",
+    "type": "NATURAL",
+    "latitude": 39.99128604206719,
+    "longitude": 4.206442506296691,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9071doc3.jpg",
+    "names": {
+      "ca": "Salines d'Addaia",
+      "es": "Salines d'Addaia",
+      "en": "Salines d'Addaia",
+      "fr": "Salines d'Addaia",
+      "de": "Salines d'Addaia",
+      "it": "Salines d'Addaia"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9710",
+    "type": "NATURAL",
+    "latitude": 40.002957330594185,
+    "longitude": 4.200848919421991,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9072doc3.jpg",
+    "names": {
+      "ca": "El port d'Addaia",
+      "es": "El port d'Addaia",
+      "en": "El port d'Addaia",
+      "fr": "El port d'Addaia",
+      "de": "El port d'Addaia",
+      "it": "El port d'Addaia"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9711",
+    "type": "NATURAL",
+    "latitude": 40.02522991638296,
+    "longitude": 4.169902768933283,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9078doc3.JPG",
+    "names": {
+      "ca": "Una àrea de resistència natural",
+      "es": "Una àrea de resistència natural",
+      "en": "Una àrea de resistència natural",
+      "fr": "Una àrea de resistència natural",
+      "de": "Una àrea de resistència natural",
+      "it": "Una àrea de resistència natural"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9712",
+    "type": "NATURAL",
+    "latitude": 40.033141598717634,
+    "longitude": 4.161704768596401,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9081doc3.png",
+    "names": {
+      "ca": "Un sistema dunar recuperat",
+      "es": "Un sistema dunar recuperat",
+      "en": "Un sistema dunar recuperat",
+      "fr": "Un sistema dunar recuperat",
+      "de": "Un sistema dunar recuperat",
+      "it": "Un sistema dunar recuperat"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9713",
+    "type": "NATURAL",
+    "latitude": 40.02877918696256,
+    "longitude": 4.156485834272857,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9082doc3.png",
+    "names": {
+      "ca": "La vida amagada entre les joncs",
+      "es": "La vida amagada entre les joncs",
+      "en": "La vida amagada entre les joncs",
+      "fr": "La vida amagada entre les joncs",
+      "de": "La vida amagada entre les joncs",
+      "it": "La vida amagada entre les joncs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9714",
+    "type": "NATURAL",
+    "latitude": 40.03040750034295,
+    "longitude": 4.154919428769826,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9083doc3.png",
+    "names": {
+      "ca": "Tots els fruits del bosc",
+      "es": "Tots els fruits del bosc",
+      "en": "Tots els fruits del bosc",
+      "fr": "Tots els fruits del bosc",
+      "de": "Tots els fruits del bosc",
+      "it": "Tots els fruits del bosc"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9715",
+    "type": "NATURAL",
+    "latitude": 40.0542934269074,
+    "longitude": 4.100102409454234,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9084doc3.png",
+    "names": {
+      "ca": "Les roques més antigues de Menorca",
+      "es": "Les roques més antigues de Menorca",
+      "en": "Les roques més antigues de Menorca",
+      "fr": "Les roques més antigues de Menorca",
+      "de": "Les roques més antigues de Menorca",
+      "it": "Les roques més antigues de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9716",
+    "type": "NATURAL",
+    "latitude": 40.061368339825385,
+    "longitude": 4.092219570453894,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9085doc3.png",
+    "names": {
+      "ca": "Papallones migratòries",
+      "es": "Papallones migratòries",
+      "en": "Papallones migratòries",
+      "fr": "Papallones migratòries",
+      "de": "Papallones migratòries",
+      "it": "Papallones migratòries"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9717",
+    "type": "NATURAL",
+    "latitude": 40.05971972412231,
+    "longitude": 4.076810062408964,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9086doc3.png",
+    "names": {
+      "ca": "Plantes d’arena",
+      "es": "Plantes d’arena",
+      "en": "Plantes d’arena",
+      "fr": "Plantes d’arena",
+      "de": "Plantes d’arena",
+      "it": "Plantes d’arena"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9718",
+    "type": "NATURAL",
+    "latitude": 40.0522139397325,
+    "longitude": 4.054381696616925,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9087doc3.png",
+    "names": {
+      "ca": "Un desert florit",
+      "es": "Un desert florit",
+      "en": "Un desert florit",
+      "fr": "Un desert florit",
+      "de": "Un desert florit",
+      "it": "Un desert florit"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9719",
+    "type": "NATURAL",
+    "latitude": 40.07186281270802,
+    "longitude": 4.087590834774591,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9260doc3.jpg",
+    "names": {
+      "ca": "Observació d’aus",
+      "es": "Observació d’aus",
+      "en": "Observació d’aus",
+      "fr": "Observació d’aus",
+      "de": "Observació d’aus",
+      "it": "Observació d’aus"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9720",
+    "type": "NATURAL",
+    "latitude": 40.052402787311316,
+    "longitude": 4.0484641113518505,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9088doc3.png",
+    "names": {
+      "ca": "Un bosc davall l’aigua",
+      "es": "Un bosc davall l’aigua",
+      "en": "Un bosc davall l’aigua",
+      "fr": "Un bosc davall l’aigua",
+      "de": "Un bosc davall l’aigua",
+      "it": "Un bosc davall l’aigua"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9721",
+    "type": "NATURAL",
+    "latitude": 40.06812265760591,
+    "longitude": 4.031584480086575,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9089doc3.png",
+    "names": {
+      "ca": "Refugi de fauna primigènia",
+      "es": "Refugi de fauna primigènia",
+      "en": "Refugi de fauna primigènia",
+      "fr": "Refugi de fauna primigènia",
+      "de": "Refugi de fauna primigènia",
+      "it": "Refugi de fauna primigènia"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9722",
+    "type": "NATURAL",
+    "latitude": 40.05535180667353,
+    "longitude": 4.015775140728136,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9090doc3.png",
+    "names": {
+      "ca": "La platja torna petita",
+      "es": "La platja torna petita",
+      "en": "La platja torna petita",
+      "fr": "La platja torna petita",
+      "de": "La platja torna petita",
+      "it": "La platja torna petita"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9723",
+    "type": "NATURAL",
+    "latitude": 40.050966418950665,
+    "longitude": 3.9778195441083017,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9091doc3.png",
+    "names": {
+      "ca": "L’arena escaladora",
+      "es": "L’arena escaladora",
+      "en": "L’arena escaladora",
+      "fr": "L’arena escaladora",
+      "de": "L’arena escaladora",
+      "it": "L’arena escaladora"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9724",
+    "type": "NATURAL",
+    "latitude": 40.061190974678375,
+    "longitude": 3.9585603093656365,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9092doc3.png",
+    "names": {
+      "ca": "Roca de mals auguris",
+      "es": "Roca de mals auguris",
+      "en": "Roca de mals auguris",
+      "fr": "Roca de mals auguris",
+      "de": "Roca de mals auguris",
+      "it": "Roca de mals auguris"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9725",
+    "type": "NATURAL",
+    "latitude": 40.03670853216926,
+    "longitude": 3.973044622496138,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9106doc3.jpg",
+    "names": {
+      "ca": "L’alzina d’Alfurí de Dalt",
+      "es": "L’alzina d’Alfurí de Dalt",
+      "en": "L’alzina d’Alfurí de Dalt",
+      "fr": "L’alzina d’Alfurí de Dalt",
+      "de": "L’alzina d’Alfurí de Dalt",
+      "it": "L’alzina d’Alfurí de Dalt"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9726",
+    "type": "NATURAL",
+    "latitude": 40.046861982222055,
+    "longitude": 3.9601179951952035,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9107doc3.jpg",
+    "names": {
+      "ca": "La miloca i l’àguila peixatera",
+      "es": "La miloca i l’àguila peixatera",
+      "en": "La miloca i l’àguila peixatera",
+      "fr": "La miloca i l’àguila peixatera",
+      "de": "La miloca i l’àguila peixatera",
+      "it": "La miloca i l’àguila peixatera"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9727",
+    "type": "NATURAL",
+    "latitude": 40.0494174671312,
+    "longitude": 3.9777387923414778,
+    "image_url": "",
+    "names": {
+      "ca": "Cant del reietó cellablanca",
+      "es": "Cant del reietó cellablanca",
+      "en": "Cant del reietó cellablanca",
+      "fr": "Cant del reietó cellablanca",
+      "de": "Cant del reietó cellablanca",
+      "it": "Cant del reietó cellablanca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9729",
+    "type": "NATURAL",
+    "latitude": 40.051193765334496,
+    "longitude": 3.9032019838560044,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9096doc3.png",
+    "names": {
+      "ca": "Garbons i margallons",
+      "es": "Garbons i margallons",
+      "en": "Garbons i margallons",
+      "fr": "Garbons i margallons",
+      "de": "Garbons i margallons",
+      "it": "Garbons i margallons"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9730",
+    "type": "NATURAL",
+    "latitude": 40.04847213557793,
+    "longitude": 3.870341157760339,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9099doc3.JPG",
+    "names": {
+      "ca": "L’aritja balear",
+      "es": "L’aritja balear",
+      "en": "L’aritja balear",
+      "fr": "L’aritja balear",
+      "de": "L’aritja balear",
+      "it": "L’aritja balear"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9731",
+    "type": "NATURAL",
+    "latitude": 40.05312792581299,
+    "longitude": 3.8500006357545837,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9112doc3.JPG",
+    "names": {
+      "ca": "Els socarrells",
+      "es": "Els socarrells",
+      "en": "Els socarrells",
+      "fr": "Els socarrells",
+      "de": "Els socarrells",
+      "it": "Els socarrells"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9733",
+    "type": "NATURAL",
+    "latitude": 40.04432213164657,
+    "longitude": 3.821757270812058,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9101doc3.png",
+    "names": {
+      "ca": "Tàperes i cobrómbols",
+      "es": "Tàperes i cobrómbols",
+      "en": "Tàperes i cobrómbols",
+      "fr": "Tàperes i cobrómbols",
+      "de": "Tàperes i cobrómbols",
+      "it": "Tàperes i cobrómbols"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9734",
+    "type": "NATURAL",
+    "latitude": 40.02052440476471,
+    "longitude": 3.799054337205725,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9102doc3.png",
+    "names": {
+      "ca": "Plantes de sal",
+      "es": "Plantes de sal",
+      "en": "Plantes de sal",
+      "fr": "Plantes de sal",
+      "de": "Plantes de sal",
+      "it": "Plantes de sal"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9735",
+    "type": "NATURAL",
+    "latitude": 40.051597598206214,
+    "longitude": 3.8248928179336366,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9243doc3.bmp",
+    "names": {
+      "ca": "Un conill gegant",
+      "es": "Un conill gegant",
+      "en": "Un conill gegant",
+      "fr": "Un conill gegant",
+      "de": "Un conill gegant",
+      "it": "Un conill gegant"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9736",
+    "type": "NATURAL",
+    "latitude": 40.02844507980086,
+    "longitude": 3.811839288073586,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9244doc3.jpg",
+    "names": {
+      "ca": "L’ovella menorquina",
+      "es": "L’ovella menorquina",
+      "en": "L’ovella menorquina",
+      "fr": "L’ovella menorquina",
+      "de": "L’ovella menorquina",
+      "it": "L’ovella menorquina"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9738",
+    "type": "NATURAL",
+    "latitude": 40.00058901989931,
+    "longitude": 3.8331820592015857,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9245doc3.jpg",
+    "names": {
+      "ca": "Rissaga",
+      "es": "Rissaga",
+      "en": "Rissaga",
+      "fr": "Rissaga",
+      "de": "Rissaga",
+      "it": "Rissaga"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9739",
+    "type": "NATURAL",
+    "latitude": 39.941570911963815,
+    "longitude": 3.8275496766591934,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9246doc3.JPG",
+    "names": {
+      "ca": "Estepes salines mediterrànies",
+      "es": "Estepes salines mediterrànies",
+      "en": "Estepes salines mediterrànies",
+      "fr": "Estepes salines mediterrànies",
+      "de": "Estepes salines mediterrànies",
+      "it": "Estepes salines mediterrànies"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9740",
+    "type": "NATURAL",
+    "latitude": 39.96133851129651,
+    "longitude": 3.8350470987550707,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9247doc3.JPG",
+    "names": {
+      "ca": "Romaní i sivines",
+      "es": "Romaní i sivines",
+      "en": "Romaní i sivines",
+      "fr": "Romaní i sivines",
+      "de": "Romaní i sivines",
+      "it": "Romaní i sivines"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9741",
+    "type": "NATURAL",
+    "latitude": 39.92193279109658,
+    "longitude": 3.8641732025049174,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9248doc3.jpg",
+    "names": {
+      "ca": "Perfil pla i costa baixa",
+      "es": "Perfil pla i costa baixa",
+      "en": "Perfil pla i costa baixa",
+      "fr": "Perfil pla i costa baixa",
+      "de": "Perfil pla i costa baixa",
+      "it": "Perfil pla i costa baixa"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9742",
+    "type": "NATURAL",
+    "latitude": 39.925660583233686,
+    "longitude": 3.906933103925796,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9249doc3.JPG",
+    "names": {
+      "ca": "Prat de Bellavista",
+      "es": "Prat de Bellavista",
+      "en": "Prat de Bellavista",
+      "fr": "Prat de Bellavista",
+      "de": "Prat de Bellavista",
+      "it": "Prat de Bellavista"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9744",
+    "type": "NATURAL",
+    "latitude": 39.93912130397317,
+    "longitude": 3.936371972592646,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9251doc3.JPG",
+    "names": {
+      "ca": "Pins blancs",
+      "es": "Pins blancs",
+      "en": "Pins blancs",
+      "fr": "Pins blancs",
+      "de": "Pins blancs",
+      "it": "Pins blancs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9745",
+    "type": "NATURAL",
+    "latitude": 39.931874592924885,
+    "longitude": 3.918718359565207,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9252doc3.JPG",
+    "names": {
+      "ca": "La tortuga mediterrània",
+      "es": "La tortuga mediterrània",
+      "en": "La tortuga mediterrània",
+      "fr": "La tortuga mediterrània",
+      "de": "La tortuga mediterrània",
+      "it": "La tortuga mediterrània"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9746",
+    "type": "NATURAL",
+    "latitude": 39.9335359122494,
+    "longitude": 3.9362958494858975,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9253doc3.JPG",
+    "names": {
+      "ca": "Posidònia",
+      "es": "Posidònia",
+      "en": "Posidònia",
+      "fr": "Posidònia",
+      "de": "Posidònia",
+      "it": "Posidònia"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9747",
+    "type": "NATURAL",
+    "latitude": 39.94593721538057,
+    "longitude": 3.9622172553003434,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9254doc3.JPG",
+    "names": {
+      "ca": "El cor verd de Menorca",
+      "es": "El cor verd de Menorca",
+      "en": "El cor verd de Menorca",
+      "fr": "El cor verd de Menorca",
+      "de": "El cor verd de Menorca",
+      "it": "El cor verd de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9748",
+    "type": "NATURAL",
+    "latitude": 39.93844369938624,
+    "longitude": 3.996054822430183,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9255doc3.JPG",
+    "names": {
+      "ca": "Confluència de barrancs",
+      "es": "Confluència de barrancs",
+      "en": "Confluència de barrancs",
+      "fr": "Confluència de barrancs",
+      "de": "Confluència de barrancs",
+      "it": "Confluència de barrancs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9749",
+    "type": "NATURAL",
+    "latitude": 39.901755553696354,
+    "longitude": 4.068987053705947,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9257doc3.JPG",
+    "names": {
+      "ca": "Prat de Son Bou",
+      "es": "Prat de Son Bou",
+      "en": "Prat de Son Bou",
+      "fr": "Prat de Son Bou",
+      "de": "Prat de Son Bou",
+      "it": "Prat de Son Bou"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9750",
+    "type": "NATURAL",
+    "latitude": 39.91512114125527,
+    "longitude": 4.055739498824652,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9258doc3.JPG",
+    "names": {
+      "ca": "Orquídies silvestres",
+      "es": "Orquídies silvestres",
+      "en": "Orquídies silvestres",
+      "fr": "Orquídies silvestres",
+      "de": "Orquídies silvestres",
+      "it": "Orquídies silvestres"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9751",
+    "type": "NATURAL",
+    "latitude": 39.913544872631384,
+    "longitude": 4.06062930787509,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9259doc3.jpg",
+    "names": {
+      "ca": "Un cavall de pura raça",
+      "es": "Un cavall de pura raça",
+      "en": "Un cavall de pura raça",
+      "fr": "Un cavall de pura raça",
+      "de": "Un cavall de pura raça",
+      "it": "Un cavall de pura raça"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9752",
+    "type": "NATURAL",
+    "latitude": 39.894100119441674,
+    "longitude": 4.082284229681892,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9275doc3.JPG",
+    "names": {
+      "ca": "Barranc de Llucalari",
+      "es": "Barranc de Llucalari",
+      "en": "Barranc de Llucalari",
+      "fr": "Barranc de Llucalari",
+      "de": "Barranc de Llucalari",
+      "it": "Barranc de Llucalari"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9753",
+    "type": "NATURAL",
+    "latitude": 39.87720444127354,
+    "longitude": 4.12700468943192,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9276doc3.JPG",
+    "names": {
+      "ca": "Hortals àrabs",
+      "es": "Hortals àrabs",
+      "en": "Hortals àrabs",
+      "fr": "Hortals àrabs",
+      "de": "Hortals àrabs",
+      "it": "Hortals àrabs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9754",
+    "type": "NATURAL",
+    "latitude": 39.877380174104395,
+    "longitude": 4.127463625728546,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9277doc3.JPG",
+    "names": {
+      "ca": "Arbres singulars",
+      "es": "Arbres singulars",
+      "en": "Arbres singulars",
+      "fr": "Arbres singulars",
+      "de": "Arbres singulars",
+      "it": "Arbres singulars"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9755",
+    "type": "NATURAL",
+    "latitude": 39.86380056355653,
+    "longitude": 4.14696489587014,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9262doc3.jpg",
+    "names": {
+      "ca": "Les figueres de Calescoves",
+      "es": "Les figueres de Calescoves",
+      "en": "Les figueres de Calescoves",
+      "fr": "Les figueres de Calescoves",
+      "de": "Les figueres de Calescoves",
+      "it": "Les figueres de Calescoves"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9756",
+    "type": "NATURAL",
+    "latitude": 39.83556529007911,
+    "longitude": 4.203759862603242,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9263doc3.jpg",
+    "names": {
+      "ca": "Barranc de Biniparratx",
+      "es": "Barranc de Biniparratx",
+      "en": "Barranc de Biniparratx",
+      "fr": "Barranc de Biniparratx",
+      "de": "Barranc de Biniparratx",
+      "it": "Barranc de Biniparratx"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9757",
+    "type": "NATURAL",
+    "latitude": 39.853940084321145,
+    "longitude": 4.169011409255929,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9264doc3.JPG",
+    "names": {
+      "ca": "El bosc d’oms des Canutells",
+      "es": "El bosc d’oms des Canutells",
+      "en": "El bosc d’oms des Canutells",
+      "fr": "El bosc d’oms des Canutells",
+      "de": "El bosc d’oms des Canutells",
+      "it": "El bosc d’oms des Canutells"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9758",
+    "type": "NATURAL",
+    "latitude": 39.80981338239341,
+    "longitude": 4.253310744164456,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9265doc3.jpg",
+    "names": {
+      "ca": "Escull d’en Caragol",
+      "es": "Escull d’en Caragol",
+      "en": "Escull d’en Caragol",
+      "fr": "Escull d’en Caragol",
+      "de": "Escull d’en Caragol",
+      "it": "Escull d’en Caragol"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9759",
+    "type": "NATURAL",
+    "latitude": 39.801566703571396,
+    "longitude": 4.288927798595492,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9266doc3.JPG",
+    "names": {
+      "ca": "Sargantana negra",
+      "es": "Sargantana negra",
+      "en": "Sargantana negra",
+      "fr": "Sargantana negra",
+      "de": "Sargantana negra",
+      "it": "Sargantana negra"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9760",
+    "type": "NATURAL",
+    "latitude": 39.82300416111093,
+    "longitude": 4.22457278727912,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9267doc3.jpg",
+    "names": {
+      "ca": "El paradís de l’snorkelling",
+      "es": "El paradís de l’snorkelling",
+      "en": "El paradís de l’snorkelling",
+      "fr": "El paradís de l’snorkelling",
+      "de": "El paradís de l’snorkelling",
+      "it": "El paradís de l’snorkelling"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9761",
+    "type": "NATURAL",
+    "latitude": 39.840984183653084,
+    "longitude": 4.297799082228753,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9268doc3.JPG",
+    "names": {
+      "ca": "Barranc de Rafalet",
+      "es": "Barranc de Rafalet",
+      "en": "Barranc de Rafalet",
+      "fr": "Barranc de Rafalet",
+      "de": "Barranc de Rafalet",
+      "it": "Barranc de Rafalet"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9762",
+    "type": "NATURAL",
+    "latitude": 39.84160977707082,
+    "longitude": 4.29502920574956,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9269doc3.JPG",
+    "names": {
+      "ca": "Els alzinars",
+      "es": "Els alzinars",
+      "en": "Els alzinars",
+      "fr": "Els alzinars",
+      "de": "Els alzinars",
+      "it": "Els alzinars"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9763",
+    "type": "NATURAL",
+    "latitude": 39.821087720454955,
+    "longitude": 4.2932417350053855,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9270doc3.JPG",
+    "names": {
+      "ca": "Marina baixa i pastures",
+      "es": "Marina baixa i pastures",
+      "en": "Marina baixa i pastures",
+      "fr": "Marina baixa i pastures",
+      "de": "Marina baixa i pastures",
+      "it": "Marina baixa i pastures"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9764",
+    "type": "NATURAL",
+    "latitude": 39.892492091933654,
+    "longitude": 4.2725938493871976,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9271doc3.jpg",
+    "names": {
+      "ca": "La biodiversitat del port de Maó",
+      "es": "La biodiversitat del port de Maó",
+      "en": "La biodiversitat del port de Maó",
+      "fr": "La biodiversitat del port de Maó",
+      "de": "La biodiversitat del port de Maó",
+      "it": "La biodiversitat del port de Maó"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9766",
+    "type": "NATURAL",
+    "latitude": 39.88718971587084,
+    "longitude": 4.263139476489878,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9273doc3.jpg",
+    "names": {
+      "ca": "Parcs de Maó",
+      "es": "Parcs de Maó",
+      "en": "Parcs de Maó",
+      "fr": "Parcs de Maó",
+      "de": "Parcs de Maó",
+      "it": "Parcs de Maó"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9697",
+    "type": "NATURAL",
+    "latitude": 39.90717630060199,
+    "longitude": 4.289840478646692,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9048doc3.jpg",
+    "names": {
+      "ca": "Les basses temporals",
+      "es": "Les basses temporals",
+      "en": "Les basses temporals",
+      "fr": "Les basses temporals",
+      "de": "Les basses temporals",
+      "it": "Les basses temporals"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9698",
+    "type": "NATURAL",
+    "latitude": 39.91500692756418,
+    "longitude": 4.284851035330608,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9049doc3.jpg",
+    "names": {
+      "ca": "Plantes úniques al món",
+      "es": "Plantes úniques al món",
+      "en": "Plantes úniques al món",
+      "fr": "Plantes úniques al món",
+      "de": "Plantes úniques al món",
+      "it": "Plantes úniques al món"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9699",
+    "type": "NATURAL",
+    "latitude": 39.917390872139414,
+    "longitude": 4.287610111460952,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9050doc3.jpg",
+    "names": {
+      "ca": "La geologia del nord-est de Menorca",
+      "es": "La geologia del nord-est de Menorca",
+      "en": "La geologia del nord-est de Menorca",
+      "fr": "La geologia del nord-est de Menorca",
+      "de": "La geologia del nord-est de Menorca",
+      "it": "La geologia del nord-est de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9703",
+    "type": "NATURAL",
+    "latitude": 39.958964784632514,
+    "longitude": 4.262668019921684,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9032doc3.jpg",
+    "names": {
+      "ca": "Un tresor sota l'aigua",
+      "es": "Un tresor sota l'aigua",
+      "en": "Un tresor sota l'aigua",
+      "fr": "Un tresor sota l'aigua",
+      "de": "Un tresor sota l'aigua",
+      "it": "Un tresor sota l'aigua"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9704",
+    "type": "HISTORIC",
+    "latitude": 39.99715469393117,
+    "longitude": 4.262773780083566,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9067doc3.jpg",
+    "names": {
+      "ca": "La Bassa de Morella",
+      "es": "La Bassa de Morella",
+      "en": "La Bassa de Morella",
+      "fr": "La Bassa de Morella",
+      "de": "La Bassa de Morella",
+      "it": "La Bassa de Morella"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9767",
+    "type": "HISTORIC",
+    "latitude": 39.91391581752611,
+    "longitude": 4.286562232712505,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9056doc3.JPG",
+    "names": {
+      "ca": "La torre de sa Mesquida",
+      "es": "La torre de sa Mesquida",
+      "en": "La torre de sa Mesquida",
+      "fr": "La torre de sa Mesquida",
+      "de": "La torre de sa Mesquida",
+      "it": "La torre de sa Mesquida"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9768",
+    "type": "HISTORIC",
+    "latitude": 39.91542263730373,
+    "longitude": 4.285549115356487,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9057doc3.jpg",
+    "names": {
+      "ca": "Trinxeres i blocaus, vestigis de la Guerra Civil",
+      "es": "Trinxeres i blocaus, vestigis de la Guerra Civil",
+      "en": "Trinxeres i blocaus, vestigis de la Guerra Civil",
+      "fr": "Trinxeres i blocaus, vestigis de la Guerra Civil",
+      "de": "Trinxeres i blocaus, vestigis de la Guerra Civil",
+      "it": "Trinxeres i blocaus, vestigis de la Guerra Civil"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9769",
+    "type": "HISTORIC",
+    "latitude": 39.91167125093343,
+    "longitude": 4.2899130983048375,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9058doc3.JPG",
+    "names": {
+      "ca": "Casetes de vorera, reflex d'una tradició",
+      "es": "Casetes de vorera, reflex d'una tradició",
+      "en": "Casetes de vorera, reflex d'una tradició",
+      "fr": "Casetes de vorera, reflex d'una tradició",
+      "de": "Casetes de vorera, reflex d'una tradició",
+      "it": "Casetes de vorera, reflex d'una tradició"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9771",
+    "type": "HISTORIC",
+    "latitude": 39.89251773562302,
+    "longitude": 4.270255064770411,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9104doc3.jpg",
+    "names": {
+      "ca": "El port de Maó",
+      "es": "El port de Maó",
+      "en": "El port de Maó",
+      "fr": "El port de Maó",
+      "de": "El port de Maó",
+      "it": "El port de Maó"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9773",
+    "type": "HISTORIC",
+    "latitude": 39.96647425772808,
+    "longitude": 4.242233627911831,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9172doc3.jpg",
+    "names": {
+      "ca": "Poblat talaiòtic de sa Torreta",
+      "es": "Poblat talaiòtic de sa Torreta",
+      "en": "Poblat talaiòtic de sa Torreta",
+      "fr": "Poblat talaiòtic de sa Torreta",
+      "de": "Poblat talaiòtic de sa Torreta",
+      "it": "Poblat talaiòtic de sa Torreta"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9775",
+    "type": "HISTORIC",
+    "latitude": 39.984812759529234,
+    "longitude": 4.113264176188302,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9174doc3.JPG",
+    "names": {
+      "ca": "Sant Agustí de la Florida",
+      "es": "Sant Agustí de la Florida",
+      "en": "Sant Agustí de la Florida",
+      "fr": "Sant Agustí de la Florida",
+      "de": "Sant Agustí de la Florida",
+      "it": "Sant Agustí de la Florida"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9776",
+    "type": "HISTORIC",
+    "latitude": 39.9971203697145,
+    "longitude": 4.266744239882161,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9175doc3.JPG",
+    "names": {
+      "ca": "Far de Favàritx",
+      "es": "Far de Favàritx",
+      "en": "Far de Favàritx",
+      "fr": "Far de Favàritx",
+      "de": "Far de Favàritx",
+      "it": "Far de Favàritx"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9777",
+    "type": "HISTORIC",
+    "latitude": 39.989361299164194,
+    "longitude": 4.203527277578429,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9176doc3.JPG",
+    "names": {
+      "ca": "Salines d'Addaia i Mongofra",
+      "es": "Salines d'Addaia i Mongofra",
+      "en": "Salines d'Addaia i Mongofra",
+      "fr": "Salines d'Addaia i Mongofra",
+      "de": "Salines d'Addaia i Mongofra",
+      "it": "Salines d'Addaia i Mongofra"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9778",
+    "type": "HISTORIC",
+    "latitude": 40.023900661865596,
+    "longitude": 4.182805881024357,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9177doc3.JPG",
+    "names": {
+      "ca": "El llegat de l’arxiduc Lluís Salvador d’Àustria",
+      "es": "El llegat de l’arxiduc Lluís Salvador d’Àustria",
+      "en": "El llegat de l’arxiduc Lluís Salvador d’Àustria",
+      "fr": "El llegat de l’arxiduc Lluís Salvador d’Àustria",
+      "de": "El llegat de l’arxiduc Lluís Salvador d’Àustria",
+      "it": "El llegat de l’arxiduc Lluís Salvador d’Àustria"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9779",
+    "type": "HISTORIC",
+    "latitude": 40.0220995488869,
+    "longitude": 4.169415711684213,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9178doc3.jpg",
+    "names": {
+      "ca": "Les ràtzies dels pirates",
+      "es": "Les ràtzies dels pirates",
+      "en": "Les ràtzies dels pirates",
+      "fr": "Les ràtzies dels pirates",
+      "de": "Les ràtzies dels pirates",
+      "it": "Les ràtzies dels pirates"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9780",
+    "type": "HISTORIC",
+    "latitude": 40.05735232727874,
+    "longitude": 4.133261754477732,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9179doc3.jpg",
+    "names": {
+      "ca": "Fornells, de castell a poble",
+      "es": "Fornells, de castell a poble",
+      "en": "Fornells, de castell a poble",
+      "fr": "Fornells, de castell a poble",
+      "de": "Fornells, de castell a poble",
+      "it": "Fornells, de castell a poble"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9781",
+    "type": "HISTORIC",
+    "latitude": 40.061451410109896,
+    "longitude": 4.130515611734083,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9180doc3.JPG",
+    "names": {
+      "ca": "Les torres de defensa",
+      "es": "Les torres de defensa",
+      "en": "Les torres de defensa",
+      "fr": "Les torres de defensa",
+      "de": "Les torres de defensa",
+      "it": "Les torres de defensa"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9782",
+    "type": "HISTORIC",
+    "latitude": 40.0673367409309,
+    "longitude": 4.089864101998602,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9181doc3.JPG",
+    "names": {
+      "ca": "La Menorca romana",
+      "es": "La Menorca romana",
+      "en": "La Menorca romana",
+      "fr": "La Menorca romana",
+      "de": "La Menorca romana",
+      "it": "La Menorca romana"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9783",
+    "type": "HISTORIC",
+    "latitude": 40.07433231996885,
+    "longitude": 4.088451045437939,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9182doc3.jpg",
+    "names": {
+      "ca": "Sanisera, de campament a urbs",
+      "es": "Sanisera, de campament a urbs",
+      "en": "Sanisera, de campament a urbs",
+      "fr": "Sanisera, de campament a urbs",
+      "de": "Sanisera, de campament a urbs",
+      "it": "Sanisera, de campament a urbs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9784",
+    "type": "HISTORIC",
+    "latitude": 40.08894561395904,
+    "longitude": 4.092273176514697,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9183doc3.jpg",
+    "names": {
+      "ca": "Far de Cavalleria",
+      "es": "Far de Cavalleria",
+      "en": "Far de Cavalleria",
+      "fr": "Far de Cavalleria",
+      "de": "Far de Cavalleria",
+      "it": "Far de Cavalleria"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9785",
+    "type": "HISTORIC",
+    "latitude": 40.05788474666319,
+    "longitude": 4.040000826656614,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9184doc3.JPG",
+    "names": {
+      "ca": "L'avarca, un calçat pagès i universal",
+      "es": "L'avarca, un calçat pagès i universal",
+      "en": "L'avarca, un calçat pagès i universal",
+      "fr": "L'avarca, un calçat pagès i universal",
+      "de": "L'avarca, un calçat pagès i universal",
+      "it": "L'avarca, un calçat pagès i universal"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9786",
+    "type": "HISTORIC",
+    "latitude": 40.02753622644591,
+    "longitude": 4.007897082484758,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9185doc3.jpg",
+    "names": {
+      "ca": "El castell de Santa Àgueda, l’últim reducte musulmà",
+      "es": "El castell de Santa Àgueda, l’últim reducte musulmà",
+      "en": "El castell de Santa Àgueda, l’últim reducte musulmà",
+      "fr": "El castell de Santa Àgueda, l’últim reducte musulmà",
+      "de": "El castell de Santa Àgueda, l’últim reducte musulmà",
+      "it": "El castell de Santa Àgueda, l’últim reducte musulmà"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9787",
+    "type": "HISTORIC",
+    "latitude": 39.99423161611131,
+    "longitude": 4.00436170319334,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9186doc3.JPG",
+    "names": {
+      "ca": "La talaia de s’Enclusa",
+      "es": "La talaia de s’Enclusa",
+      "en": "La talaia de s’Enclusa",
+      "fr": "La talaia de s’Enclusa",
+      "de": "La talaia de s’Enclusa",
+      "it": "La talaia de s’Enclusa"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9788",
+    "type": "HISTORIC",
+    "latitude": 40.04176232490061,
+    "longitude": 3.944807865096808,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9187doc3.JPG",
+    "names": {
+      "ca": "De la Menorca musulmana al paradís",
+      "es": "De la Menorca musulmana al paradís",
+      "en": "De la Menorca musulmana al paradís",
+      "fr": "De la Menorca musulmana al paradís",
+      "de": "De la Menorca musulmana al paradís",
+      "it": "De la Menorca musulmana al paradís"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9789",
+    "type": "HISTORIC",
+    "latitude": 40.04236611166586,
+    "longitude": 3.9480983876252655,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9188doc3.JPG",
+    "names": {
+      "ca": "L’agricultura a Menorca",
+      "es": "L’agricultura a Menorca",
+      "en": "L’agricultura a Menorca",
+      "fr": "L’agricultura a Menorca",
+      "de": "L’agricultura a Menorca",
+      "it": "L’agricultura a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9790",
+    "type": "HISTORIC",
+    "latitude": 40.05030806610759,
+    "longitude": 3.9241167021526855,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9189doc3.jpg",
+    "names": {
+      "ca": "La Guerra Civil i la postguerra a Menorca",
+      "es": "La Guerra Civil i la postguerra a Menorca",
+      "en": "La Guerra Civil i la postguerra a Menorca",
+      "fr": "La Guerra Civil i la postguerra a Menorca",
+      "de": "La Guerra Civil i la postguerra a Menorca",
+      "it": "La Guerra Civil i la postguerra a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9791",
+    "type": "HISTORIC",
+    "latitude": 40.052938223809676,
+    "longitude": 3.89900439528511,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9190doc3.JPG",
+    "names": {
+      "ca": "Aljub de Corniola",
+      "es": "Aljub de Corniola",
+      "en": "Aljub de Corniola",
+      "fr": "Aljub de Corniola",
+      "de": "Aljub de Corniola",
+      "it": "Aljub de Corniola"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9793",
+    "type": "HISTORIC",
+    "latitude": 40.049900412318806,
+    "longitude": 3.882809606682998,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9192doc3.jpg",
+    "names": {
+      "ca": "Necròpolis de cala Morell",
+      "es": "Necròpolis de cala Morell",
+      "en": "Necròpolis de cala Morell",
+      "fr": "Necròpolis de cala Morell",
+      "de": "Necròpolis de cala Morell",
+      "it": "Necròpolis de cala Morell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9794",
+    "type": "HISTORIC",
+    "latitude": 40.05021883509139,
+    "longitude": 3.823668674502557,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9193doc3.JPG",
+    "names": {
+      "ca": "Far de Punta Nati",
+      "es": "Far de Punta Nati",
+      "en": "Far de Punta Nati",
+      "fr": "Far de Punta Nati",
+      "de": "Far de Punta Nati",
+      "it": "Far de Punta Nati"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9795",
+    "type": "HISTORIC",
+    "latitude": 40.04926134978881,
+    "longitude": 3.83658799832588,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9194doc3.jpg",
+    "names": {
+      "ca": "Naufragi del Général Chanzy",
+      "es": "Naufragi del Général Chanzy",
+      "en": "Naufragi del Général Chanzy",
+      "fr": "Naufragi del Général Chanzy",
+      "de": "Naufragi del Général Chanzy",
+      "it": "Naufragi del Général Chanzy"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9796",
+    "type": "HISTORIC",
+    "latitude": 40.05106207665773,
+    "longitude": 3.8241829424322433,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9195doc3.JPG",
+    "names": {
+      "ca": "Bateria de Punta Nati",
+      "es": "Bateria de Punta Nati",
+      "en": "Bateria de Punta Nati",
+      "fr": "Bateria de Punta Nati",
+      "de": "Bateria de Punta Nati",
+      "it": "Bateria de Punta Nati"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9797",
+    "type": "HISTORIC",
+    "latitude": 40.049819033667426,
+    "longitude": 3.8709444602962138,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9196doc3.JPG",
+    "names": {
+      "ca": "Construccions de pedra seca",
+      "es": "Construccions de pedra seca",
+      "en": "Construccions de pedra seca",
+      "fr": "Construccions de pedra seca",
+      "de": "Construccions de pedra seca",
+      "it": "Construccions de pedra seca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9798",
+    "type": "HISTORIC",
+    "latitude": 40.00221509437376,
+    "longitude": 3.838825163998129,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9197doc3.jpg",
+    "names": {
+      "ca": "De l’antiga Iammona cartaginesa a la Ciutadella actual",
+      "es": "De l’antiga Iammona cartaginesa a la Ciutadella actual",
+      "en": "De l’antiga Iammona cartaginesa a la Ciutadella actual",
+      "fr": "De l’antiga Iammona cartaginesa a la Ciutadella actual",
+      "de": "De l’antiga Iammona cartaginesa a la Ciutadella actual",
+      "it": "De l’antiga Iammona cartaginesa a la Ciutadella actual"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9799",
+    "type": "HISTORIC",
+    "latitude": 40.00141361874964,
+    "longitude": 3.837526689010615,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9198doc3.JPG",
+    "names": {
+      "ca": "Ciutadella, antiga capital de Menorca",
+      "es": "Ciutadella, antiga capital de Menorca",
+      "en": "Ciutadella, antiga capital de Menorca",
+      "fr": "Ciutadella, antiga capital de Menorca",
+      "de": "Ciutadella, antiga capital de Menorca",
+      "it": "Ciutadella, antiga capital de Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9800",
+    "type": "HISTORIC",
+    "latitude": 40.00043026066023,
+    "longitude": 3.8364603253033116,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9199doc3.jpg",
+    "names": {
+      "ca": "Les festes de Sant Joan",
+      "es": "Les festes de Sant Joan",
+      "en": "Les festes de Sant Joan",
+      "fr": "Les festes de Sant Joan",
+      "de": "Les festes de Sant Joan",
+      "it": "Les festes de Sant Joan"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9801",
+    "type": "HISTORIC",
+    "latitude": 40.00383795561311,
+    "longitude": 3.838669292043072,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9200doc3.JPG",
+    "names": {
+      "ca": "El cavall, protagonista de les festes populars",
+      "es": "El cavall, protagonista de les festes populars",
+      "en": "El cavall, protagonista de les festes populars",
+      "fr": "El cavall, protagonista de les festes populars",
+      "de": "El cavall, protagonista de les festes populars",
+      "it": "El cavall, protagonista de les festes populars"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9802",
+    "type": "HISTORIC",
+    "latitude": 40.00501334079678,
+    "longitude": 3.8380978867568336,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9201doc3.JPG",
+    "names": {
+      "ca": "Francesc de Borja Moll",
+      "es": "Francesc de Borja Moll",
+      "en": "Francesc de Borja Moll",
+      "fr": "Francesc de Borja Moll",
+      "de": "Francesc de Borja Moll",
+      "it": "Francesc de Borja Moll"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9803",
+    "type": "HISTORIC",
+    "latitude": 40.00088323853236,
+    "longitude": 3.836114401115907,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9202doc3.JPG",
+    "names": {
+      "ca": "S'any de sa desgràcia",
+      "es": "S'any de sa desgràcia",
+      "en": "S'any de sa desgràcia",
+      "fr": "S'any de sa desgràcia",
+      "de": "S'any de sa desgràcia",
+      "it": "S'any de sa desgràcia"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9804",
+    "type": "HISTORIC",
+    "latitude": 40.00086936051735,
+    "longitude": 3.835540193912085,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9203doc3.JPG",
+    "names": {
+      "ca": "L’Ajuntament de Ciutadella",
+      "es": "L’Ajuntament de Ciutadella",
+      "en": "L’Ajuntament de Ciutadella",
+      "fr": "L’Ajuntament de Ciutadella",
+      "de": "L’Ajuntament de Ciutadella",
+      "it": "L’Ajuntament de Ciutadella"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9805",
+    "type": "HISTORIC",
+    "latitude": 40.00142123296666,
+    "longitude": 3.836472418247996,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9204doc3.JPG",
+    "names": {
+      "ca": "La Ciutadella senyorial i eclesiàstica",
+      "es": "La Ciutadella senyorial i eclesiàstica",
+      "en": "La Ciutadella senyorial i eclesiàstica",
+      "fr": "La Ciutadella senyorial i eclesiàstica",
+      "de": "La Ciutadella senyorial i eclesiàstica",
+      "it": "La Ciutadella senyorial i eclesiàstica"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9806",
+    "type": "HISTORIC",
+    "latitude": 39.99565910194313,
+    "longitude": 3.8258593563593033,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9205doc3.JPG",
+    "names": {
+      "ca": "Castell de Sant Nicolau",
+      "es": "Castell de Sant Nicolau",
+      "en": "Castell de Sant Nicolau",
+      "fr": "Castell de Sant Nicolau",
+      "de": "Castell de Sant Nicolau",
+      "it": "Castell de Sant Nicolau"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9807",
+    "type": "HISTORIC",
+    "latitude": 39.92710920349316,
+    "longitude": 3.8339874112070547,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9206doc3.JPG",
+    "names": {
+      "ca": "El fenomen del turisme",
+      "es": "El fenomen del turisme",
+      "en": "El fenomen del turisme",
+      "fr": "El fenomen del turisme",
+      "de": "El fenomen del turisme",
+      "it": "El fenomen del turisme"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9808",
+    "type": "HISTORIC",
+    "latitude": 39.923879363558356,
+    "longitude": 3.886782348207266,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9207doc3.JPG",
+    "names": {
+      "ca": "Blocaus de Son Saura",
+      "es": "Blocaus de Son Saura",
+      "en": "Blocaus de Son Saura",
+      "fr": "Blocaus de Son Saura",
+      "de": "Blocaus de Son Saura",
+      "it": "Blocaus de Son Saura"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9809",
+    "type": "HISTORIC",
+    "latitude": 39.92969207332919,
+    "longitude": 3.9098535127077563,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9208doc3.JPG",
+    "names": {
+      "ca": "Talaia del cap d'Artrutx o de sa Marjal",
+      "es": "Talaia del cap d'Artrutx o de sa Marjal",
+      "en": "Talaia del cap d'Artrutx o de sa Marjal",
+      "fr": "Talaia del cap d'Artrutx o de sa Marjal",
+      "de": "Talaia del cap d'Artrutx o de sa Marjal",
+      "it": "Talaia del cap d'Artrutx o de sa Marjal"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9810",
+    "type": "HISTORIC",
+    "latitude": 39.9333469918045,
+    "longitude": 3.914817377101036,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9209doc3.JPG",
+    "names": {
+      "ca": "La sínia de cala en Turqueta",
+      "es": "La sínia de cala en Turqueta",
+      "en": "La sínia de cala en Turqueta",
+      "fr": "La sínia de cala en Turqueta",
+      "de": "La sínia de cala en Turqueta",
+      "it": "La sínia de cala en Turqueta"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9811",
+    "type": "HISTORIC",
+    "latitude": 39.93705213945157,
+    "longitude": 3.9359926461863117,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9210doc3.JPG",
+    "names": {
+      "ca": "Necròpolis de Macarella",
+      "es": "Necròpolis de Macarella",
+      "en": "Necròpolis de Macarella",
+      "fr": "Necròpolis de Macarella",
+      "de": "Necròpolis de Macarella",
+      "it": "Necròpolis de Macarella"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9812",
+    "type": "HISTORIC",
+    "latitude": 39.93442937718297,
+    "longitude": 3.948304277701294,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9211doc3.JPG",
+    "names": {
+      "ca": "Es Bèrecs",
+      "es": "Es Bèrecs",
+      "en": "Es Bèrecs",
+      "fr": "Es Bèrecs",
+      "de": "Es Bèrecs",
+      "it": "Es Bèrecs"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9813",
+    "type": "HISTORIC",
+    "latitude": 39.93603355618762,
+    "longitude": 3.961376298443055,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9212doc3.JPG",
+    "names": {
+      "ca": "Necròpolis de cala Galdana",
+      "es": "Necròpolis de cala Galdana",
+      "en": "Necròpolis de cala Galdana",
+      "fr": "Necròpolis de cala Galdana",
+      "de": "Necròpolis de cala Galdana",
+      "it": "Necròpolis de cala Galdana"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9814",
+    "type": "HISTORIC",
+    "latitude": 39.93362163039794,
+    "longitude": 3.9697105586962,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9213doc3.JPG",
+    "names": {
+      "ca": "Forn de calç de cala Mitjana",
+      "es": "Forn de calç de cala Mitjana",
+      "en": "Forn de calç de cala Mitjana",
+      "fr": "Forn de calç de cala Mitjana",
+      "de": "Forn de calç de cala Mitjana",
+      "it": "Forn de calç de cala Mitjana"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9815",
+    "type": "HISTORIC",
+    "latitude": 39.93402995382962,
+    "longitude": 3.969365214338723,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9214doc3.JPG",
+    "names": {
+      "ca": "Pedrera de cala Mitjana",
+      "es": "Pedrera de cala Mitjana",
+      "en": "Pedrera de cala Mitjana",
+      "fr": "Pedrera de cala Mitjana",
+      "de": "Pedrera de cala Mitjana",
+      "it": "Pedrera de cala Mitjana"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9816",
+    "type": "HISTORIC",
+    "latitude": 39.939344552744636,
+    "longitude": 3.9960678846524322,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9215doc3.JPG",
+    "names": {
+      "ca": "L’herència musulmana des Migjorn Gran",
+      "es": "L’herència musulmana des Migjorn Gran",
+      "en": "L’herència musulmana des Migjorn Gran",
+      "fr": "L’herència musulmana des Migjorn Gran",
+      "de": "L’herència musulmana des Migjorn Gran",
+      "it": "L’herència musulmana des Migjorn Gran"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9817",
+    "type": "HISTORIC",
+    "latitude": 39.94548854002066,
+    "longitude": 4.044254876105826,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9216doc3.jpg",
+    "names": {
+      "ca": "De Binicodrellet as Migjorn Gran",
+      "es": "De Binicodrellet as Migjorn Gran",
+      "en": "De Binicodrellet as Migjorn Gran",
+      "fr": "De Binicodrellet as Migjorn Gran",
+      "de": "De Binicodrellet as Migjorn Gran",
+      "it": "De Binicodrellet as Migjorn Gran"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9818",
+    "type": "HISTORIC",
+    "latitude": 39.91091165535246,
+    "longitude": 4.052983961131597,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9217doc3.JPG",
+    "names": {
+      "ca": "El cavall de raça menorquina",
+      "es": "El cavall de raça menorquina",
+      "en": "El cavall de raça menorquina",
+      "fr": "El cavall de raça menorquina",
+      "de": "El cavall de raça menorquina",
+      "it": "El cavall de raça menorquina"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9819",
+    "type": "HISTORIC",
+    "latitude": 39.90685786634794,
+    "longitude": 4.052921890169421,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9218doc3.JPG",
+    "names": {
+      "ca": "Torre de defensa de Son Bou",
+      "es": "Torre de defensa de Son Bou",
+      "en": "Torre de defensa de Son Bou",
+      "fr": "Torre de defensa de Son Bou",
+      "de": "Torre de defensa de Son Bou",
+      "it": "Torre de defensa de Son Bou"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9820",
+    "type": "HISTORIC",
+    "latitude": 39.90993616401815,
+    "longitude": 4.061158615527274,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9219doc3.JPG",
+    "names": {
+      "ca": "El conreu de l’arròs a Son Bou",
+      "es": "El conreu de l’arròs a Son Bou",
+      "en": "El conreu de l’arròs a Son Bou",
+      "fr": "El conreu de l’arròs a Son Bou",
+      "de": "El conreu de l’arròs a Son Bou",
+      "it": "El conreu de l’arròs a Son Bou"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9821",
+    "type": "HISTORIC",
+    "latitude": 39.896148944392614,
+    "longitude": 4.078994495956114,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9220doc3.jpg",
+    "names": {
+      "ca": "La basílica paleocristiana de Son Bou",
+      "es": "La basílica paleocristiana de Son Bou",
+      "en": "La basílica paleocristiana de Son Bou",
+      "fr": "La basílica paleocristiana de Son Bou",
+      "de": "La basílica paleocristiana de Son Bou",
+      "it": "La basílica paleocristiana de Son Bou"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9822",
+    "type": "HISTORIC",
+    "latitude": 39.897380961853926,
+    "longitude": 4.112608334032122,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9221doc3.JPG",
+    "names": {
+      "ca": "Les primeres restes d'enterrament a Menorca",
+      "es": "Les primeres restes d'enterrament a Menorca",
+      "en": "Les primeres restes d'enterrament a Menorca",
+      "fr": "Les primeres restes d'enterrament a Menorca",
+      "de": "Les primeres restes d'enterrament a Menorca",
+      "it": "Les primeres restes d'enterrament a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9823",
+    "type": "HISTORIC",
+    "latitude": 39.902224636593495,
+    "longitude": 4.114850822130983,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9222doc3.jpg",
+    "names": {
+      "ca": "Poblat talaiòtic de Torre d'en Galmés",
+      "es": "Poblat talaiòtic de Torre d'en Galmés",
+      "en": "Poblat talaiòtic de Torre d'en Galmés",
+      "fr": "Poblat talaiòtic de Torre d'en Galmés",
+      "de": "Poblat talaiòtic de Torre d'en Galmés",
+      "it": "Poblat talaiòtic de Torre d'en Galmés"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9824",
+    "type": "HISTORIC",
+    "latitude": 39.87149294584212,
+    "longitude": 4.115756237148737,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9223doc3.JPG",
+    "names": {
+      "ca": "Talaia de Bini-segarra",
+      "es": "Talaia de Bini-segarra",
+      "en": "Talaia de Bini-segarra",
+      "fr": "Talaia de Bini-segarra",
+      "de": "Talaia de Bini-segarra",
+      "it": "Talaia de Bini-segarra"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9825",
+    "type": "HISTORIC",
+    "latitude": 39.880617315926685,
+    "longitude": 4.127189202846961,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9224doc3.jpg",
+    "names": {
+      "ca": "La Menorca musulmana, una nova civilització",
+      "es": "La Menorca musulmana, una nova civilització",
+      "en": "La Menorca musulmana, una nova civilització",
+      "fr": "La Menorca musulmana, una nova civilització",
+      "de": "La Menorca musulmana, una nova civilització",
+      "it": "La Menorca musulmana, una nova civilització"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9826",
+    "type": "HISTORIC",
+    "latitude": 39.864791350499594,
+    "longitude": 4.146993087095374,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9225doc3.jpg",
+    "names": {
+      "ca": "Calescoves, una gran necròpolis",
+      "es": "Calescoves, una gran necròpolis",
+      "en": "Calescoves, una gran necròpolis",
+      "fr": "Calescoves, una gran necròpolis",
+      "de": "Calescoves, una gran necròpolis",
+      "it": "Calescoves, una gran necròpolis"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9827",
+    "type": "HISTORIC",
+    "latitude": 39.84473623801501,
+    "longitude": 4.1748513613455485,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9226doc3.JPG",
+    "names": {
+      "ca": "Es Castellàs des Caparrot de Forma",
+      "es": "Es Castellàs des Caparrot de Forma",
+      "en": "Es Castellàs des Caparrot de Forma",
+      "fr": "Es Castellàs des Caparrot de Forma",
+      "de": "Es Castellàs des Caparrot de Forma",
+      "it": "Es Castellàs des Caparrot de Forma"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9828",
+    "type": "HISTORIC",
+    "latitude": 39.84652568523186,
+    "longitude": 4.193723809601177,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9227doc3.JPG",
+    "names": {
+      "ca": "L'era de Sargossam",
+      "es": "L'era de Sargossam",
+      "en": "L'era de Sargossam",
+      "fr": "L'era de Sargossam",
+      "de": "L'era de Sargossam",
+      "it": "L'era de Sargossam"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9829",
+    "type": "HISTORIC",
+    "latitude": 39.86479666710037,
+    "longitude": 4.146455358339258,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9261doc3.jpg",
+    "names": {
+      "ca": "Calescoves, santuari romà",
+      "es": "Calescoves, santuari romà",
+      "en": "Calescoves, santuari romà",
+      "fr": "Calescoves, santuari romà",
+      "de": "Calescoves, santuari romà",
+      "it": "Calescoves, santuari romà"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9830",
+    "type": "HISTORIC",
+    "latitude": 39.81096363603056,
+    "longitude": 4.27590214637561,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9228doc3.JPG",
+    "names": {
+      "ca": "Torre de Son Ganxo",
+      "es": "Torre de Son Ganxo",
+      "en": "Torre de Son Ganxo",
+      "fr": "Torre de Son Ganxo",
+      "de": "Torre de Son Ganxo",
+      "it": "Torre de Son Ganxo"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9831",
+    "type": "HISTORIC",
+    "latitude": 39.83950662105658,
+    "longitude": 4.256889136487085,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9229doc3.JPG",
+    "names": {
+      "ca": "Producció de blat i recuperació de la vinya",
+      "es": "Producció de blat i recuperació de la vinya",
+      "en": "Producció de blat i recuperació de la vinya",
+      "fr": "Producció de blat i recuperació de la vinya",
+      "de": "Producció de blat i recuperació de la vinya",
+      "it": "Producció de blat i recuperació de la vinya"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9832",
+    "type": "HISTORIC",
+    "latitude": 39.849439274039376,
+    "longitude": 4.258180739884882,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9230doc3.jpg",
+    "names": {
+      "ca": "Els francesos i la fundació de Sant Lluís",
+      "es": "Els francesos i la fundació de Sant Lluís",
+      "en": "Els francesos i la fundació de Sant Lluís",
+      "fr": "Els francesos i la fundació de Sant Lluís",
+      "de": "Els francesos i la fundació de Sant Lluís",
+      "it": "Els francesos i la fundació de Sant Lluís"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9833",
+    "type": "HISTORIC",
+    "latitude": 39.815758367577885,
+    "longitude": 4.28636554590647,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9231doc3.JPG",
+    "names": {
+      "ca": "Les salines de Punta Prima",
+      "es": "Les salines de Punta Prima",
+      "en": "Les salines de Punta Prima",
+      "fr": "Les salines de Punta Prima",
+      "de": "Les salines de Punta Prima",
+      "it": "Les salines de Punta Prima"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9834",
+    "type": "HISTORIC",
+    "latitude": 39.82513864820786,
+    "longitude": 4.295970149169224,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9232doc3.JPG",
+    "names": {
+      "ca": "Torre d'Alcalfar",
+      "es": "Torre d'Alcalfar",
+      "en": "Torre d'Alcalfar",
+      "fr": "Torre d'Alcalfar",
+      "de": "Torre d'Alcalfar",
+      "it": "Torre d'Alcalfar"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9835",
+    "type": "HISTORIC",
+    "latitude": 39.85946919730399,
+    "longitude": 4.3036652664110395,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9233doc3.JPG",
+    "names": {
+      "ca": "Torre d'en Penjat",
+      "es": "Torre d'en Penjat",
+      "en": "Torre d'en Penjat",
+      "fr": "Torre d'en Penjat",
+      "de": "Torre d'en Penjat",
+      "it": "Torre d'en Penjat"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9836",
+    "type": "HISTORIC",
+    "latitude": 39.863323193030844,
+    "longitude": 4.301446715931893,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9234doc3.JPG",
+    "names": {
+      "ca": "Fort Marlborough",
+      "es": "Fort Marlborough",
+      "en": "Fort Marlborough",
+      "fr": "Fort Marlborough",
+      "de": "Fort Marlborough",
+      "it": "Fort Marlborough"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9837",
+    "type": "HISTORIC",
+    "latitude": 39.872339241182786,
+    "longitude": 4.3064813408816525,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9235doc3.JPG",
+    "names": {
+      "ca": "L'herència britànica a Menorca",
+      "es": "L'herència britànica a Menorca",
+      "en": "L'herència britànica a Menorca",
+      "fr": "L'herència britànica a Menorca",
+      "de": "L'herència britànica a Menorca",
+      "it": "L'herència britànica a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9838",
+    "type": "HISTORIC",
+    "latitude": 39.866932995646316,
+    "longitude": 4.302520437628222,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9236doc3.jpg",
+    "names": {
+      "ca": "El saqueig de Maó",
+      "es": "El saqueig de Maó",
+      "en": "El saqueig de Maó",
+      "fr": "El saqueig de Maó",
+      "de": "El saqueig de Maó",
+      "it": "El saqueig de Maó"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9839",
+    "type": "HISTORIC",
+    "latitude": 39.879760497084995,
+    "longitude": 4.290624652573913,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9237doc3.JPG",
+    "names": {
+      "ca": "La fundació des Castell",
+      "es": "La fundació des Castell",
+      "en": "La fundació des Castell",
+      "fr": "La fundació des Castell",
+      "de": "La fundació des Castell",
+      "it": "La fundació des Castell"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9840",
+    "type": "HISTORIC",
+    "latitude": 39.88390904638458,
+    "longitude": 4.274774097430424,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9238doc3.jpg",
+    "names": {
+      "ca": "La industrialització a Menorca",
+      "es": "La industrialització a Menorca",
+      "en": "La industrialització a Menorca",
+      "fr": "La industrialització a Menorca",
+      "de": "La industrialització a Menorca",
+      "it": "La industrialització a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9841",
+    "type": "HISTORIC",
+    "latitude": 39.891227781316765,
+    "longitude": 4.262149259473879,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9239doc3.JPG",
+    "names": {
+      "ca": "El gin, la beguda més popular a Menorca",
+      "es": "El gin, la beguda més popular a Menorca",
+      "en": "El gin, la beguda més popular a Menorca",
+      "fr": "El gin, la beguda més popular a Menorca",
+      "de": "El gin, la beguda més popular a Menorca",
+      "it": "El gin, la beguda més popular a Menorca"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9842",
+    "type": "HISTORIC",
+    "latitude": 39.878667150043334,
+    "longitude": 4.2564578538333455,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9240doc3.JPG",
+    "names": {
+      "ca": "El Consell Insular de Menorca, l'autogovern de l'illa",
+      "es": "El Consell Insular de Menorca, l'autogovern de l'illa",
+      "en": "El Consell Insular de Menorca, l'autogovern de l'illa",
+      "fr": "El Consell Insular de Menorca, l'autogovern de l'illa",
+      "de": "El Consell Insular de Menorca, l'autogovern de l'illa",
+      "it": "El Consell Insular de Menorca, l'autogovern de l'illa"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9770",
+    "type": "HISTORIC",
+    "latitude": 39.91526389679732,
+    "longitude": 4.287675574795226,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9065doc3.JPG",
+    "names": {
+      "ca": "El desembarcament de sa Mesquida",
+      "es": "El desembarcament de sa Mesquida",
+      "en": "El desembarcament de sa Mesquida",
+      "fr": "El desembarcament de sa Mesquida",
+      "de": "El desembarcament de sa Mesquida",
+      "it": "El desembarcament de sa Mesquida"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9772",
+    "type": "HISTORIC",
+    "latitude": 39.96283740468914,
+    "longitude": 4.265279961090065,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9033doc3.jpg",
+    "names": {
+      "ca": "Torre de Rambla",
+      "es": "Torre de Rambla",
+      "en": "Torre de Rambla",
+      "fr": "Torre de Rambla",
+      "de": "Torre de Rambla",
+      "it": "Torre de Rambla"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  },
+  {
+    "id": "9774",
+    "type": "HISTORIC",
+    "latitude": 39.96536632802223,
+    "longitude": 4.244730949168291,
+    "image_url": "https://www.camidecavalls.com/documents/documents/9173doc3.jpg",
+    "names": {
+      "ca": "Els rituals funeraris de la Menorca talaiòtica",
+      "es": "Els rituals funeraris de la Menorca talaiòtica",
+      "en": "Els rituals funeraris de la Menorca talaiòtica",
+      "fr": "Els rituals funeraris de la Menorca talaiòtica",
+      "de": "Els rituals funeraris de la Menorca talaiòtica",
+      "it": "Els rituals funeraris de la Menorca talaiòtica"
+    },
+    "descriptions": {
+      "ca": "",
+      "es": "",
+      "en": "",
+      "fr": "",
+      "de": "",
+      "it": ""
+    }
+  }
+]

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Camí de Cavalls</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_routes">Étapes</string>
+    <string name="nav_tracking">Suivi</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_full_map">Carte Complète</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Camí de Cavalls</string>
+    <string name="home_subtitle">Découvrez le chemin historique de Minorque</string>
+    <string name="home_explore_routes">Explorer les Étapes</string>
+    <string name="home_start_tracking">Commencer le Suivi</string>
+    <string name="home_view_full_map">Voir la Carte Complète</string>
+
+    <!-- Routes Screen -->
+    <string name="routes_title">Étapes</string>
+    <string name="routes_all">Toutes les Étapes</string>
+    <string name="routes_filter_difficulty">Filtrer par difficulté</string>
+    <string name="route_stage">Étape %1$d</string>
+    <string name="route_distance">Distance : %1$s km</string>
+    <string name="route_duration">Durée : %1$s</string>
+    <string name="route_difficulty">Difficulté : %1$s</string>
+    <string name="route_view_details">Voir les Détails</string>
+
+    <!-- Route Difficulty Levels -->
+    <string name="difficulty_easy">Facile</string>
+    <string name="difficulty_medium">Moyenne</string>
+    <string name="difficulty_hard">Difficile</string>
+
+    <!-- Route Detail Screen -->
+    <string name="route_detail_overview">Aperçu</string>
+    <string name="route_detail_map">Carte</string>
+    <string name="route_detail_pois">Points d\'Intérêt</string>
+    <string name="route_detail_start_tracking">Commencer le Suivi</string>
+    <string name="route_detail_download_offline">Télécharger pour Hors Ligne</string>
+    <string name="route_detail_description">Description</string>
+    <string name="route_detail_info">Informations sur l'Itinéraire</string>
+    <string name="route_detail_elevation_gain">Dénivelé Positif</string>
+    <string name="route_detail_elevation_loss">Dénivelé Négatif</string>
+    <string name="route_detail_max_altitude">Altitude Maximale</string>
+    <string name="route_detail_min_altitude">Altitude Minimale</string>
+    <string name="route_detail_asphalt">Asphalte</string>
+    <string name="route_detail_estimated_time">Temps Estimé</string>
+    <string name="route_detail_meters">%1$d m</string>
+    <string name="route_detail_minutes">%1$d min</string>
+    <string name="route_detail_hours">%1$.1f h</string>
+    <string name="route_detail_percent">%1$d%%</string>
+
+    <!-- Tracking Screen -->
+    <string name="tracking_title">Suivi GPS</string>
+    <string name="tracking_start">Démarrer</string>
+    <string name="tracking_pause">Pause</string>
+    <string name="tracking_resume">Reprendre</string>
+    <string name="tracking_stop">Arrêter</string>
+    <string name="tracking_distance">Distance</string>
+    <string name="tracking_duration">Durée</string>
+    <string name="tracking_speed">Vitesse</string>
+    <string name="tracking_elevation">Altitude</string>
+    <string name="tracking_loading_route">Chargement de l\'étape…</string>
+    <string name="tracking_no_route">Étape non trouvée</string>
+    <string name="tracking_completed">Suivi Terminé !</string>
+    <string name="tracking_error">Erreur de Suivi</string>
+
+    <!-- POI (Points of Interest) -->
+    <string name="poi_beach">Plage</string>
+    <string name="poi_natural">Naturel</string>
+    <string name="poi_historic">Historique</string>
+    <string name="poi_view_details">Voir les Détails</string>
+    <string name="poi_nearby">Points d\'Intérêt à Proximité</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_language">Langue</string>
+    <string name="settings_units">Unités</string>
+    <string name="settings_units_metric">Métrique (km)</string>
+    <string name="settings_units_imperial">Impérial (mi)</string>
+    <string name="settings_map">Paramètres de la Carte</string>
+    <string name="settings_offline_maps">Cartes Hors Ligne</string>
+    <string name="settings_about">À Propos</string>
+
+    <!-- Languages -->
+    <string name="language_en">English</string>
+    <string name="language_ca">Català</string>
+    <string name="language_es">Español</string>
+    <string name="language_fr">Français</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_it">Italiano</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="close">Fermer</string>
+    <string name="save">Enregistrer</string>
+    <string name="delete">Supprimer</string>
+    <string name="share">Partager</string>
+    <string name="loading">Chargement…</string>
+    <string name="error">Erreur</string>
+    <string name="retry">Réessayer</string>
+    <string name="back">Retour</string>
+
+    <!-- Permissions -->
+    <string name="permission_location_title">Permission de Localisation Requise</string>
+    <string name="permission_location_message">Cette application nécessite l\'accès à la localisation pour suivre votre progression</string>
+    <string name="permission_grant">Accorder la Permission</string>
+</resources>

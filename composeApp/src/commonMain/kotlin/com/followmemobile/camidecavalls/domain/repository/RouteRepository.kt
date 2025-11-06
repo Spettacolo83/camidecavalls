@@ -33,4 +33,9 @@ interface RouteRepository {
      * Get GPX data for a specific route
      */
     suspend fun getRouteGpxData(routeId: Int): String?
+
+    /**
+     * Recreate the route table with updated schema (for migrations)
+     */
+    suspend fun recreateRouteTable()
 }

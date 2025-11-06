@@ -52,6 +52,9 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
+import camidecavalls.composeapp.generated.resources.Res
+import camidecavalls.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Route Detail screen showing detailed information about a specific trail stage.
@@ -64,13 +67,28 @@ data class RouteDetailScreen(val routeId: Int) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
 
-        RouteDetailScreenContent(
-            uiState = uiState,
-            onBackClick = { navigator.pop() },
-            onStartTracking = { route ->
-                navigator.push(TrackingScreen(routeId = route.id))
+        when (val state = uiState) {
+            is RouteDetailUiState.Success -> {
+                RouteDetailScreenContent(
+                    uiState = state,
+                    strings = state.strings,
+                    onBackClick = { navigator.pop() },
+                    onStartTracking = { route ->
+                        navigator.push(TrackingScreen(routeId = route.id))
+                    }
+                )
             }
-        )
+            else -> {
+                RouteDetailScreenContent(
+                    uiState = uiState,
+                    strings = null,
+                    onBackClick = { navigator.pop() },
+                    onStartTracking = { route ->
+                        navigator.push(TrackingScreen(routeId = route.id))
+                    }
+                )
+            }
+        }
     }
 }
 
@@ -78,13 +96,16 @@ data class RouteDetailScreen(val routeId: Int) : Screen {
 @Composable
 private fun RouteDetailScreenContent(
     uiState: RouteDetailUiState,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings?,
     onBackClick: () -> Unit,
     onStartTracking: (Route) -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Route Details") },
+                title = {
+                    Text(strings?.routeViewDetails ?: stringResource(Res.string.route_view_details))
+                },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -133,7 +154,11 @@ private fun RouteDetailScreenContent(
                 }
 
                 is RouteDetailUiState.Success -> {
-                    RouteDetailContent(route = uiState.route)
+                    RouteDetailContent(
+                        route = uiState.route,
+                        currentLanguage = uiState.currentLanguage,
+                        strings = strings!!
+                    )
                 }
             }
         }
@@ -141,7 +166,11 @@ private fun RouteDetailScreenContent(
 }
 
 @Composable
-private fun RouteDetailContent(route: Route) {
+private fun RouteDetailContent(
+    route: Route,
+    currentLanguage: String,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -150,7 +179,7 @@ private fun RouteDetailContent(route: Route) {
     ) {
         // Header
         Text(
-            text = "Stage ${route.number}",
+            text = strings.routeStage(route.number),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary
         )
@@ -170,31 +199,42 @@ private fun RouteDetailContent(route: Route) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Route Info
-        InfoRow(label = "Start Point", value = route.startPoint)
-        InfoRow(label = "End Point", value = route.endPoint)
-        InfoRow(label = "Distance", value = "${route.distanceKm} km")
-        InfoRow(label = "Difficulty", value = route.difficulty.name)
-        InfoRow(label = "Elevation Gain", value = "+${route.elevationGainMeters}m")
-        InfoRow(label = "Elevation Loss", value = "-${route.elevationLossMeters}m")
-        InfoRow(label = "Max Altitude", value = "${route.maxAltitudeMeters}m")
-        InfoRow(label = "Min Altitude", value = "${route.minAltitudeMeters}m")
-        InfoRow(label = "Asphalt", value = "${route.asphaltPercentage}%")
+        InfoRow(label = strings.startPoint, value = route.startPoint)
+        InfoRow(label = strings.endPoint, value = route.endPoint)
+        InfoRow(label = strings.trackingDistance, value = strings.routeDistance(route.distanceKm.toString()))
         InfoRow(
-            label = "Est. Duration",
-            value = "${route.estimatedDurationMinutes / 60}h ${route.estimatedDurationMinutes % 60}m"
+            label = strings.routeDifficulty,
+            value = when (route.difficulty) {
+                com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> strings.difficultyLow
+                com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> strings.difficultyMedium
+                com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> strings.difficultyHigh
+            }
+        )
+        InfoRow(label = strings.routeDetailElevationGain, value = strings.routeDetailMeters(route.elevationGainMeters))
+        InfoRow(label = strings.routeDetailElevationLoss, value = strings.routeDetailMeters(route.elevationLossMeters))
+        InfoRow(label = strings.routeDetailMaxAltitude, value = strings.routeDetailMeters(route.maxAltitudeMeters))
+        InfoRow(label = strings.routeDetailMinAltitude, value = strings.routeDetailMeters(route.minAltitudeMeters))
+        InfoRow(label = strings.routeDetailAsphalt, value = strings.routeDetailPercent(route.asphaltPercentage))
+        InfoRow(
+            label = strings.routeDetailEstimatedTime,
+            value = if (route.estimatedDurationMinutes >= 60) {
+                strings.routeDetailHours(route.estimatedDurationMinutes / 60.0)
+            } else {
+                strings.routeDetailMinutes(route.estimatedDurationMinutes)
+            }
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // Description
         Text(
-            text = "Description",
+            text = strings.routeDetailDescription,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
 
         Text(
-            text = route.description,
+            text = route.getLocalizedDescription(currentLanguage),
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(top = 8.dp)
         )

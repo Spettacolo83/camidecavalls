@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Camí de Cavalls</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_routes">Routes</string>
+    <string name="nav_tracking">Tracking</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_full_map">Full Map</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Camí de Cavalls</string>
+    <string name="home_subtitle">Discover Menorca\'s historic trail</string>
+    <string name="home_explore_routes">Explore Routes</string>
+    <string name="home_start_tracking">Start Tracking</string>
+    <string name="home_view_full_map">View Full Map</string>
+
+    <!-- Routes Screen -->
+    <string name="routes_title">Routes</string>
+    <string name="routes_all">All Routes</string>
+    <string name="routes_filter_difficulty">Filter by difficulty</string>
+    <string name="route_stage">Stage %1$d</string>
+    <string name="route_distance">Distance: %1$s km</string>
+    <string name="route_duration">Duration: %1$s</string>
+    <string name="route_difficulty">Difficulty: %1$s</string>
+    <string name="route_view_details">View Details</string>
+
+    <!-- Route Difficulty Levels -->
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+
+    <!-- Route Detail Screen -->
+    <string name="route_detail_overview">Overview</string>
+    <string name="route_detail_map">Map</string>
+    <string name="route_detail_pois">Points of Interest</string>
+    <string name="route_detail_start_tracking">Start Tracking</string>
+    <string name="route_detail_download_offline">Download for Offline</string>
+    <string name="route_detail_description">Description</string>
+    <string name="route_detail_info">Route Information</string>
+    <string name="route_detail_elevation_gain">Elevation Gain</string>
+    <string name="route_detail_elevation_loss">Elevation Loss</string>
+    <string name="route_detail_max_altitude">Max Altitude</string>
+    <string name="route_detail_min_altitude">Min Altitude</string>
+    <string name="route_detail_asphalt">Asphalt</string>
+    <string name="route_detail_estimated_time">Estimated Time</string>
+    <string name="route_detail_meters">%1$d m</string>
+    <string name="route_detail_minutes">%1$d min</string>
+    <string name="route_detail_hours">%1$.1f h</string>
+    <string name="route_detail_percent">%1$d%%</string>
+
+    <!-- Tracking Screen -->
+    <string name="tracking_title">GPS Tracking</string>
+    <string name="tracking_start">Start</string>
+    <string name="tracking_pause">Pause</string>
+    <string name="tracking_resume">Resume</string>
+    <string name="tracking_stop">Stop</string>
+    <string name="tracking_distance">Distance</string>
+    <string name="tracking_duration">Duration</string>
+    <string name="tracking_speed">Speed</string>
+    <string name="tracking_elevation">Elevation</string>
+    <string name="tracking_loading_route">Loading route…</string>
+    <string name="tracking_no_route">Route not found</string>
+    <string name="tracking_completed">Tracking Completed!</string>
+    <string name="tracking_error">Tracking Error</string>
+
+    <!-- POI (Points of Interest) -->
+    <string name="poi_beach">Beach</string>
+    <string name="poi_natural">Natural</string>
+    <string name="poi_historic">Historic</string>
+    <string name="poi_view_details">View Details</string>
+    <string name="poi_nearby">Nearby POIs</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_units">Units</string>
+    <string name="settings_units_metric">Metric (km)</string>
+    <string name="settings_units_imperial">Imperial (mi)</string>
+    <string name="settings_map">Map Settings</string>
+    <string name="settings_offline_maps">Offline Maps</string>
+    <string name="settings_about">About</string>
+
+    <!-- Languages -->
+    <string name="language_en">English</string>
+    <string name="language_ca">Català</string>
+    <string name="language_es">Español</string>
+    <string name="language_fr">Français</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_it">Italiano</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="loading">Loading…</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    <string name="back">Back</string>
+
+    <!-- Permissions -->
+    <string name="permission_location_title">Location Permission Required</string>
+    <string name="permission_location_message">This app needs location access to track your hiking progress</string>
+    <string name="permission_grant">Grant Permission</string>
+</resources>

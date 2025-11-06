@@ -87,12 +87,25 @@ class POIRepositoryImpl(
             pois.forEach { poi ->
                 database.poiQueries.insert(
                     id = poi.id.toLong(),
-                    name = poi.name,
                     type = poi.type.name,
                     latitude = poi.latitude,
                     longitude = poi.longitude,
-                    description = poi.description,
-                    images = json.encodeToString(poi.images),
+                    // Multilingual names
+                    nameCa = poi.nameCa,
+                    nameEs = poi.nameEs,
+                    nameEn = poi.nameEn,
+                    nameFr = poi.nameFr,
+                    nameDe = poi.nameDe,
+                    nameIt = poi.nameIt,
+                    // Multilingual descriptions
+                    descriptionCa = poi.descriptionCa,
+                    descriptionEs = poi.descriptionEs,
+                    descriptionEn = poi.descriptionEn,
+                    descriptionFr = poi.descriptionFr,
+                    descriptionDe = poi.descriptionDe,
+                    descriptionIt = poi.descriptionIt,
+                    // Image and metadata
+                    imageUrl = poi.imageUrl,
                     routeId = poi.routeId?.toLong(),
                     isAdvertisement = if (poi.isAdvertisement) 1 else 0
                 )
@@ -104,12 +117,25 @@ class POIRepositoryImpl(
     private fun com.followmemobile.camidecavalls.database.PointOfInterestEntity.toDomain(): PointOfInterest {
         return PointOfInterest(
             id = id.toInt(),
-            name = name,
             type = POIType.valueOf(type),
             latitude = latitude,
             longitude = longitude,
-            description = description,
-            images = json.decodeFromString(images),
+            // Multilingual names
+            nameCa = nameCa,
+            nameEs = nameEs,
+            nameEn = nameEn,
+            nameFr = nameFr,
+            nameDe = nameDe,
+            nameIt = nameIt,
+            // Multilingual descriptions
+            descriptionCa = descriptionCa,
+            descriptionEs = descriptionEs,
+            descriptionEn = descriptionEn,
+            descriptionFr = descriptionFr,
+            descriptionDe = descriptionDe,
+            descriptionIt = descriptionIt,
+            // Image and metadata
+            imageUrl = imageUrl,
             routeId = routeId?.toInt(),
             isAdvertisement = isAdvertisement == 1L
         )

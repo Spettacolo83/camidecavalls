@@ -14,6 +14,12 @@ CREATE TABLE RouteEntity (
     difficulty TEXT NOT NULL,
     estimatedDurationMinutes INTEGER NOT NULL,
     description TEXT NOT NULL,
+    descriptionCa TEXT,
+    descriptionEs TEXT,
+    descriptionEn TEXT,
+    descriptionDe TEXT,
+    descriptionFr TEXT,
+    descriptionIt TEXT,
     gpxData TEXT,
     imageUrl TEXT
 );
@@ -33,8 +39,9 @@ INSERT OR REPLACE INTO RouteEntity(
     id, number, name, startPoint, endPoint, distanceKm,
     elevationGainMeters, elevationLossMeters, maxAltitudeMeters,
     minAltitudeMeters, asphaltPercentage, difficulty,
-    estimatedDurationMinutes, description, gpxData, imageUrl
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    estimatedDurationMinutes, description, descriptionCa, descriptionEs,
+    descriptionEn, descriptionDe, descriptionFr, descriptionIt, gpxData, imageUrl
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 deleteAll:
 DELETE FROM RouteEntity;

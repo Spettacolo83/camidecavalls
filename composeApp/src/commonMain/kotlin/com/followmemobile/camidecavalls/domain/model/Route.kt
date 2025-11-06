@@ -21,10 +21,32 @@ data class Route(
     val asphaltPercentage: Int,
     val difficulty: Difficulty,
     val estimatedDurationMinutes: Int,
-    val description: String,
+    val description: String, // Default description (used as fallback)
     val gpxData: String? = null, // GPX track data
-    val imageUrl: String? = null
-)
+    val imageUrl: String? = null,
+    // Multilingual descriptions
+    val descriptionCa: String? = null,
+    val descriptionEs: String? = null,
+    val descriptionEn: String? = null,
+    val descriptionDe: String? = null,
+    val descriptionFr: String? = null,
+    val descriptionIt: String? = null
+) {
+    /**
+     * Get description in specified language, fallback to default description
+     */
+    fun getLocalizedDescription(languageCode: String): String {
+        return when (languageCode.lowercase()) {
+            "ca" -> descriptionCa
+            "es" -> descriptionEs
+            "en" -> descriptionEn
+            "de" -> descriptionDe
+            "fr" -> descriptionFr
+            "it" -> descriptionIt
+            else -> null
+        } ?: description
+    }
+}
 
 enum class Difficulty {
     LOW,    // Baixa

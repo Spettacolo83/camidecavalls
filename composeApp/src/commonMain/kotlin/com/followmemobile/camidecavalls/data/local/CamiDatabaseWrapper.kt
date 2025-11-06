@@ -9,10 +9,14 @@ import com.followmemobile.camidecavalls.database.CamiDatabase
 class CamiDatabaseWrapper(
     databaseDriverFactory: DatabaseDriverFactory
 ) {
-    private val database = CamiDatabase(databaseDriverFactory.createDriver())
+    private val _driver = databaseDriverFactory.createDriver()
+    private val database = CamiDatabase(_driver)
 
     val routeQueries = database.routeQueries
     val poiQueries = database.pointOfInterestQueries
     val trackingSessionQueries = database.trackingSessionQueries
     val trackPointQueries = database.trackPointQueries
+
+    // Expose driver for raw SQL operations (e.g., migrations)
+    val driver get() = _driver
 }

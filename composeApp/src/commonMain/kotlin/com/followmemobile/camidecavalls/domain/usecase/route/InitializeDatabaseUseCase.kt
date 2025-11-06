@@ -20,25 +20,41 @@ class InitializeDatabaseUseCase(
      */
     suspend operator fun invoke(): Boolean {
         val currentDbVersion = appPreferences.getDatabaseVersion()
-        val existingRoutes = routeRepository.getAllRoutes().first()
 
-        // Re-seed database if version changed or database is empty
-        val needsReseed = currentDbVersion < DATABASE_VERSION || existingRoutes.isEmpty()
-
-        if (!needsReseed) {
-            // Database is up to date
-            return false
+        // If database version changed (migration needed), recreate the route table FIRST
+        if (currentDbVersion > 0 && currentDbVersion < DATABASE_VERSION) {
+            routeRepository.recreateRouteTable()
+            // Re-seed database with updated route data
+            saveRoutesUseCase(RouteData.routes)
+            appPreferences.setDatabaseVersion(DATABASE_VERSION)
+            return true
         }
 
-        // Re-seed database with updated route data
-        saveRoutesUseCase(RouteData.routes)
-        appPreferences.setDatabaseVersion(DATABASE_VERSION)
+        // Check if we need to initialize (new database or empty database)
+        if (currentDbVersion == 0) {
+            // New database - SQLDelight will create tables automatically
+            saveRoutesUseCase(RouteData.routes)
+            appPreferences.setDatabaseVersion(DATABASE_VERSION)
+            return true
+        }
 
+        // Database is up to date - check if it has data
+        val existingRoutes = routeRepository.getAllRoutes().first()
+        if (existingRoutes.isNotEmpty()) {
+            return false // All good
+        }
+
+        // Database version is correct but no data - re-seed
+        saveRoutesUseCase(RouteData.routes)
         return true
     }
 
     companion object {
         // Increment this version when RouteData changes to force re-seed
-        private const val DATABASE_VERSION = 7
+        // Version 8: Fixed Route 11 duplicate coordinate issue
+        // Version 9: Reordered Route 11 coordinates to fix 7.7km jump (start/end were swapped)
+        // Version 10: Added multilingual route descriptions (CA, ES, EN, DE, FR, IT)
+        // Version 11: Added database schema columns for multilingual descriptions
+        private const val DATABASE_VERSION = 11
     }
 }

@@ -18,11 +18,12 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 🗺️ **Interactive Maps**: MapLibre integration with route visualization, markers, and smooth map interaction on both platforms
 - 🎯 **Accurate Route Data**: All 20 routes converted from official KML source with ~130 optimized points per route
 - 🧭 **GPS Toggle Button**: Smart GPS following with automatic disable on map gestures (pan, zoom) - works consistently on both Android and iOS
+- 🌍 **Multilingual**: Full support for 6 languages (Catalan, Spanish, English, French, German, Italian) with custom localization system and multilingual route descriptions
 
 **Planned:**
 - 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
-- 🌍 **Multilingual**: Support for 6 languages (Catalan, Spanish, English, French, German, Italian)
+- 📊 **Elevation Charts**: Interactive elevation profiles with map synchronization
 
 ### Business Model
 

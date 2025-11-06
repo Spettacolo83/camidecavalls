@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Camí de Cavalls</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Inici</string>
+    <string name="nav_routes">Etapes</string>
+    <string name="nav_tracking">Seguiment</string>
+    <string name="nav_profile">Perfil</string>
+    <string name="nav_full_map">Mapa Complet</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Camí de Cavalls</string>
+    <string name="home_subtitle">Descobreix el camí històric de Menorca</string>
+    <string name="home_explore_routes">Explorar Etapes</string>
+    <string name="home_start_tracking">Iniciar Seguiment</string>
+    <string name="home_view_full_map">Veure Mapa Complet</string>
+
+    <!-- Routes Screen -->
+    <string name="routes_title">Etapes</string>
+    <string name="routes_all">Totes les Etapes</string>
+    <string name="routes_filter_difficulty">Filtrar per dificultat</string>
+    <string name="route_stage">Etapa %1$d</string>
+    <string name="route_distance">Distància: %1$s km</string>
+    <string name="route_duration">Durada: %1$s</string>
+    <string name="route_difficulty">Dificultat: %1$s</string>
+    <string name="route_view_details">Veure Detalls</string>
+
+    <!-- Route Difficulty Levels -->
+    <string name="difficulty_easy">Fàcil</string>
+    <string name="difficulty_medium">Mitjana</string>
+    <string name="difficulty_hard">Difícil</string>
+
+    <!-- Route Detail Screen -->
+    <string name="route_detail_overview">Resum</string>
+    <string name="route_detail_map">Mapa</string>
+    <string name="route_detail_pois">Punts d\'Interès</string>
+    <string name="route_detail_start_tracking">Iniciar Seguiment</string>
+    <string name="route_detail_download_offline">Descarregar per Offline</string>
+    <string name="route_detail_description">Descripció</string>
+    <string name="route_detail_info">Informació de l\'Etapa</string>
+    <string name="route_detail_elevation_gain">Desnivell Positiu</string>
+    <string name="route_detail_elevation_loss">Desnivell Negatiu</string>
+    <string name="route_detail_max_altitude">Altitud Màxima</string>
+    <string name="route_detail_min_altitude">Altitud Mínima</string>
+    <string name="route_detail_asphalt">Asfalt</string>
+    <string name="route_detail_estimated_time">Temps Estimat</string>
+    <string name="route_detail_meters">%1$d m</string>
+    <string name="route_detail_minutes">%1$d min</string>
+    <string name="route_detail_hours">%1$.1f h</string>
+    <string name="route_detail_percent">%1$d%%</string>
+
+    <!-- Tracking Screen -->
+    <string name="tracking_title">Seguiment GPS</string>
+    <string name="tracking_start">Iniciar</string>
+    <string name="tracking_pause">Pausar</string>
+    <string name="tracking_resume">Reprendre</string>
+    <string name="tracking_stop">Aturar</string>
+    <string name="tracking_distance">Distància</string>
+    <string name="tracking_duration">Durada</string>
+    <string name="tracking_speed">Velocitat</string>
+    <string name="tracking_elevation">Altitud</string>
+    <string name="tracking_loading_route">Carregant etapa…</string>
+    <string name="tracking_no_route">Etapa no trobada</string>
+    <string name="tracking_completed">Seguiment Completat!</string>
+    <string name="tracking_error">Error de Seguiment</string>
+
+    <!-- POI (Points of Interest) -->
+    <string name="poi_beach">Platja</string>
+    <string name="poi_natural">Natural</string>
+    <string name="poi_historic">Històric</string>
+    <string name="poi_view_details">Veure Detalls</string>
+    <string name="poi_nearby">Punts d\'Interès Propers</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Configuració</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_units">Unitats</string>
+    <string name="settings_units_metric">Mètric (km)</string>
+    <string name="settings_units_imperial">Imperial (mi)</string>
+    <string name="settings_map">Configuració del Mapa</string>
+    <string name="settings_offline_maps">Mapes Offline</string>
+    <string name="settings_about">Sobre l\'Aplicació</string>
+
+    <!-- Languages -->
+    <string name="language_en">English</string>
+    <string name="language_ca">Català</string>
+    <string name="language_es">Español</string>
+    <string name="language_fr">Français</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_it">Italiano</string>
+
+    <!-- Common -->
+    <string name="ok">D\'acord</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="close">Tancar</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="share">Compartir</string>
+    <string name="loading">Carregant…</string>
+    <string name="error">Error</string>
+    <string name="retry">Tornar a intentar</string>
+    <string name="back">Enrere</string>
+
+    <!-- Permissions -->
+    <string name="permission_location_title">Permís d\'Ubicació Requerit</string>
+    <string name="permission_location_message">Aquesta aplicació necessita accés a la ubicació per seguir el teu progrés</string>
+    <string name="permission_grant">Concedir Permís</string>
+</resources>

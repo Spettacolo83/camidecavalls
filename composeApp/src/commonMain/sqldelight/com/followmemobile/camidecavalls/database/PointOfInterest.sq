@@ -1,14 +1,39 @@
--- Table for storing Points of Interest
+-- Table for storing Points of Interest with multilingual support (Approach A)
 CREATE TABLE PointOfInterestEntity (
     id INTEGER PRIMARY KEY NOT NULL,
-    name TEXT NOT NULL,
+
+    -- POI type: BEACH, NATURAL, HISTORIC
     type TEXT NOT NULL,
+
+    -- Location
     latitude REAL NOT NULL,
     longitude REAL NOT NULL,
-    description TEXT NOT NULL,
-    images TEXT NOT NULL, -- JSON array as string
+
+    -- Multilingual names (6 languages)
+    nameCa TEXT NOT NULL,
+    nameEs TEXT NOT NULL,
+    nameEn TEXT NOT NULL, -- English is default
+    nameFr TEXT NOT NULL,
+    nameDe TEXT NOT NULL,
+    nameIt TEXT NOT NULL,
+
+    -- Multilingual descriptions (6 languages)
+    descriptionCa TEXT NOT NULL,
+    descriptionEs TEXT NOT NULL,
+    descriptionEn TEXT NOT NULL, -- English is default
+    descriptionFr TEXT NOT NULL,
+    descriptionDe TEXT NOT NULL,
+    descriptionIt TEXT NOT NULL,
+
+    -- Image URL (from official website)
+    imageUrl TEXT NOT NULL,
+
+    -- Optional: Associated route
     routeId INTEGER,
+
+    -- Flag for commercial POIs (future feature)
     isAdvertisement INTEGER NOT NULL DEFAULT 0,
+
     FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
 );
 
@@ -39,9 +64,11 @@ AND longitude BETWEEN ? AND ?;
 
 insert:
 INSERT OR REPLACE INTO PointOfInterestEntity(
-    id, name, type, latitude, longitude, description,
-    images, routeId, isAdvertisement
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+    id, type, latitude, longitude,
+    nameCa, nameEs, nameEn, nameFr, nameDe, nameIt,
+    descriptionCa, descriptionEs, descriptionEn, descriptionFr, descriptionDe, descriptionIt,
+    imageUrl, routeId, isAdvertisement
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 deleteAll:
 DELETE FROM PointOfInterestEntity;

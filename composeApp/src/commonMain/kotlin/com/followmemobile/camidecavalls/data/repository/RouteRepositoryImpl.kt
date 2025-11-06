@@ -61,6 +61,12 @@ class RouteRepositoryImpl(
                     difficulty = route.difficulty.name,
                     estimatedDurationMinutes = route.estimatedDurationMinutes.toLong(),
                     description = route.description,
+                    descriptionCa = route.descriptionCa,
+                    descriptionEs = route.descriptionEs,
+                    descriptionEn = route.descriptionEn,
+                    descriptionDe = route.descriptionDe,
+                    descriptionFr = route.descriptionFr,
+                    descriptionIt = route.descriptionIt,
                     gpxData = route.gpxData,
                     imageUrl = route.imageUrl
                 )
@@ -73,6 +79,46 @@ class RouteRepositoryImpl(
             .selectById(routeId.toLong())
             .executeAsOneOrNull()
             ?.gpxData
+    }
+
+    override suspend fun recreateRouteTable(): Unit = withContext(Dispatchers.IO) {
+        val driver = database.driver
+        driver.execute(
+            null,
+            "DROP TABLE IF EXISTS RouteEntity",
+            0
+        )
+
+        driver.execute(
+            null,
+            """
+            CREATE TABLE RouteEntity (
+                id INTEGER PRIMARY KEY NOT NULL,
+                number INTEGER NOT NULL UNIQUE,
+                name TEXT NOT NULL,
+                startPoint TEXT NOT NULL,
+                endPoint TEXT NOT NULL,
+                distanceKm REAL NOT NULL,
+                elevationGainMeters INTEGER NOT NULL,
+                elevationLossMeters INTEGER NOT NULL,
+                maxAltitudeMeters INTEGER NOT NULL,
+                minAltitudeMeters INTEGER NOT NULL,
+                asphaltPercentage INTEGER NOT NULL,
+                difficulty TEXT NOT NULL,
+                estimatedDurationMinutes INTEGER NOT NULL,
+                description TEXT NOT NULL,
+                descriptionCa TEXT,
+                descriptionEs TEXT,
+                descriptionEn TEXT,
+                descriptionDe TEXT,
+                descriptionFr TEXT,
+                descriptionIt TEXT,
+                gpxData TEXT,
+                imageUrl TEXT
+            )
+            """.trimIndent(),
+            0
+        )
     }
 
     // Extension function to map database entity to domain model
@@ -92,6 +138,12 @@ class RouteRepositoryImpl(
             difficulty = Difficulty.valueOf(difficulty),
             estimatedDurationMinutes = estimatedDurationMinutes.toInt(),
             description = description,
+            descriptionCa = descriptionCa,
+            descriptionEs = descriptionEs,
+            descriptionEn = descriptionEn,
+            descriptionDe = descriptionDe,
+            descriptionFr = descriptionFr,
+            descriptionIt = descriptionIt,
             gpxData = gpxData,
             imageUrl = imageUrl
         )

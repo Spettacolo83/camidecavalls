@@ -1,9 +1,11 @@
 package com.followmemobile.camidecavalls.di
 
 import com.followmemobile.camidecavalls.data.local.CamiDatabaseWrapper
+import com.followmemobile.camidecavalls.data.repository.LanguageRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.POIRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.RouteRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.TrackingRepositoryImpl
+import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.repository.POIRepository
 import com.followmemobile.camidecavalls.domain.repository.RouteRepository
 import com.followmemobile.camidecavalls.domain.repository.TrackingRepository
@@ -12,6 +14,7 @@ import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsByRouteUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsByTypeUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsNearLocationUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.SavePOIsUseCase
+import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetAllRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetRouteByIdUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetRouteByNumberUseCase
@@ -30,7 +33,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
+import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreenModel
 import com.followmemobile.camidecavalls.presentation.home.HomeScreenModel
+import com.followmemobile.camidecavalls.presentation.settings.SettingsScreenModel
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreenModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -50,6 +55,7 @@ val appModule = module {
     singleOf(::RouteRepositoryImpl) bind RouteRepository::class
     singleOf(::POIRepositoryImpl) bind POIRepository::class
     singleOf(::TrackingRepositoryImpl) bind TrackingRepository::class
+    singleOf(::LanguageRepositoryImpl) bind LanguageRepository::class
 
     // Route Use Cases
     factoryOf(::GetAllRoutesUseCase)
@@ -57,6 +63,7 @@ val appModule = module {
     factoryOf(::GetRouteByNumberUseCase)
     factoryOf(::SaveRoutesUseCase)
     factoryOf(::InitializeDatabaseUseCase)
+    factoryOf(::GetSimplifiedRoutesUseCase)
 
     // POI Use Cases
     factoryOf(::GetAllPOIsUseCase)
@@ -90,7 +97,9 @@ val appModule = module {
 
     // ScreenModels
     factoryOf(::HomeScreenModel)
-    factory { params -> RouteDetailScreenModel(params.get(), get()) }
+    factoryOf(::FullMapScreenModel)
+    factoryOf(::SettingsScreenModel)
+    factory { params -> RouteDetailScreenModel(params.get(), get(), get()) }
     factory { params ->
         TrackingScreenModel(
             trackingManager = get(),
