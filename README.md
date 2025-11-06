@@ -18,12 +18,13 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 🗺️ **Interactive Maps**: MapLibre integration with route visualization, markers, and smooth map interaction on both platforms
 - 🎯 **Accurate Route Data**: All 20 routes converted from official KML source with ~130 optimized points per route
 - 🧭 **GPS Toggle Button**: Smart GPS following with automatic disable on map gestures (pan, zoom) - works consistently on both Android and iOS
-- 🌍 **Multilingual**: Full support for 6 languages (Catalan, Spanish, English, French, German, Italian) with custom localization system and multilingual route descriptions
+- 🌍 **Multilingual**: Full support for 6 languages (Catalan, Spanish, English, French, German, Italian) with custom localization system, multilingual route descriptions, and localized settings screen
+- 📊 **Elevation Charts**: Interactive elevation profiles with tap/drag gestures, centered tooltips, map synchronization, and smooth curve rendering
+- ⚙️ **Settings**: In-app language selection with full localization support
 
 **Planned:**
 - 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
-- 📊 **Elevation Charts**: Interactive elevation profiles with map synchronization
 
 ### Business Model
 
@@ -96,8 +97,9 @@ composeApp/
    - Platform-specific implementations (expect/actual)
 
 3. **Presentation Layer**
-   - ScreenModels (Voyager): HomeScreenModel, RouteDetailScreenModel, TrackingScreenModel
-   - UI screens: Home (route list), RouteDetail, Tracking (GPS)
+   - ScreenModels (Voyager): HomeScreenModel, RouteDetailScreenModel, TrackingScreenModel, SettingsScreenModel
+   - UI screens: Home (route list), RouteDetail (with elevation chart), Tracking (GPS), Settings (language selection)
+   - Interactive components: ElevationChart with Canvas API
    - Navigation with Voyager
    - Material 3 UI components
 
@@ -376,13 +378,26 @@ Build in Xcode with Release configuration for App Store distribution.
 - [ ] POI markers on map
 - [ ] POI filtering by type and route
 
+### ✅ Milestone 6: Elevation Charts & Settings (COMPLETED)
+- [x] Interactive elevation charts
+  - [x] ElevationChart component with Canvas API
+  - [x] GeoJSON parsing and elevation data extraction
+  - [x] Haversine distance calculation for cumulative distance
+  - [x] Smooth curve rendering with quadratic Bezier curves
+  - [x] Interactive tap and drag gestures for point selection
+  - [x] Centered tooltip with elevation and distance info
+  - [x] Transparent overlay for chart visibility
+  - [x] Map marker synchronization
+- [x] Settings screen
+  - [x] In-app language selection (6 languages)
+  - [x] Settings localization with custom LocalizedStrings
+  - [x] Language persistence across app launches
+
 ### 🔔 Future: Advanced Features
 - [ ] Proximity alerts for POIs
 - [ ] Route navigation with turn-by-turn
 - [ ] Statistics and achievements
 - [ ] Photo gallery for routes
-- [ ] Multilingual support (6 languages)
-- [ ] Settings screen
 
 ### 🌐 Future: Backend Integration (V2)
 - [ ] Custom backend API (optional)
@@ -395,9 +410,9 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestones 1-5 Completed** ✅
+**Milestones 1-6 Completed** ✅
 
-The app is now fully functional with core trekking features and interactive maps:
+The app is now fully functional with core trekking features, interactive maps, elevation charts, and settings:
 
 **Architecture & Foundation:**
 - Clean Architecture fully implemented across 3 layers
@@ -419,8 +434,10 @@ The app is now fully functional with core trekking features and interactive maps
 - Material 3 design system
 - Voyager navigation (type-safe, without voyager-koin)
 - HomeScreen with route list cards
-- RouteDetailScreen with complete stage information and map preview
+- RouteDetailScreen with complete stage information, map preview, and elevation chart
 - TrackingScreen with real-time GPS display
+- SettingsScreen with in-app language selection
+- ElevationChart component with interactive visualization
 - Smart location permission handling
 
 **GPS Tracking:**
@@ -445,6 +462,25 @@ The app is now fully functional with core trekking features and interactive maps
 - Fixed scroll conflicts on Android with requestDisallowInterceptTouchEvent
 - Map preview in RouteDetailScreen (350dp height, rounded corners)
 - Platform-specific implementations (AndroidView, UIKitView)
+
+**Elevation Charts:**
+- Interactive elevation profile component with Compose Canvas API
+- GeoJSON parsing for elevation data extraction
+- Haversine formula for accurate cumulative distance calculation
+- Smooth curve rendering using quadratic Bezier curves
+- Interactive tap and drag gestures for point selection
+- Centered tooltip with elevation and distance information
+- Transparent overlay (70% opacity) for chart visibility
+- Real-time map marker synchronization on point selection
+- Positioned below map for optimal user experience
+
+**Settings & Localization:**
+- Settings screen with Material 3 design
+- In-app language selection (6 languages: CA, ES, EN, DE, FR, IT)
+- Custom LocalizedStrings system for app-controlled localization
+- Language persistence across app launches
+- Full settings localization (titles, language names)
+- Independent from system language settings
 
 **Ready for:** POI system, proximity alerts, and advanced features
 
