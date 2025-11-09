@@ -4,6 +4,7 @@ import android.app.Application
 import com.followmemobile.camidecavalls.di.appModule
 import com.followmemobile.camidecavalls.di.platformModule
 import com.followmemobile.camidecavalls.domain.usecase.route.InitializeDatabaseUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -21,6 +22,7 @@ import org.koin.core.logger.Level
 class CamiApp : Application() {
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val initializeDatabaseUseCase: InitializeDatabaseUseCase by inject()
+    private val initializePOIsUseCase: InitializePOIsUseCase by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -36,6 +38,12 @@ class CamiApp : Application() {
             val initialized = initializeDatabaseUseCase()
             if (initialized) {
                 println("Database initialized with ${com.followmemobile.camidecavalls.data.RouteData.routes.size} routes")
+            }
+
+            // Initialize POIs from JSON file
+            val poisInitialized = initializePOIsUseCase()
+            if (poisInitialized) {
+                println("POIs initialized successfully")
             }
         }
     }

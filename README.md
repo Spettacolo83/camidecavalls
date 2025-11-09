@@ -21,9 +21,9 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 🌍 **Multilingual**: Full support for 6 languages (Catalan, Spanish, English, French, German, Italian) with custom localization system, multilingual route descriptions, and localized settings screen
 - 📊 **Elevation Charts**: Interactive elevation profiles with tap/drag gestures, centered tooltips, map synchronization, and smooth curve rendering
 - ⚙️ **Settings**: In-app language selection with full localization support
+- 🏛️ **Points of Interest**: Complete database of 190 POIs with multilingual content (6 languages) - coastal zones, natural areas, and historic sites with accurate coordinates from official map
 
 **Planned:**
-- 🏛️ **Points of Interest**: Discover natural, historic, and commercial POIs along the trail
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
 
 ### Business Model
@@ -372,11 +372,12 @@ Build in Xcode with Release configuration for App Store distribution.
   - [x] Map preview in RouteDetailScreen (350dp height, rounded corners)
   - [x] Equal margins for both vertical (N-S) and horizontal (E-W) routes
 
-### 📋 Next: POI System
-- [ ] POI data collection and database population
-- [ ] POI list and detail screens
-- [ ] POI markers on map
-- [ ] POI filtering by type and route
+### ✅ Milestone 7: POI System (COMPLETED)
+- [x] POI data collection (190 POIs from official website)
+- [x] Multilingual scraping (6 languages: CA, ES, EN, DE, FR, IT)
+- [x] Coordinate correction (UTM to WGS84 conversion)
+- [x] POI database with versioning system
+- [x] POI categories: Coastal zones, Natural areas, Historic sites
 
 ### ✅ Milestone 6: Elevation Charts & Settings (COMPLETED)
 - [x] Interactive elevation charts
@@ -410,9 +411,9 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestones 1-6 Completed** ✅
+**Milestones 1-7 Completed** ✅
 
-The app is now fully functional with core trekking features, interactive maps, elevation charts, and settings:
+The app is now fully functional with core trekking features, interactive maps, elevation charts, settings, and complete POI database:
 
 **Architecture & Foundation:**
 - Clean Architecture fully implemented across 3 layers
@@ -482,7 +483,19 @@ The app is now fully functional with core trekking features, interactive maps, e
 - Full settings localization (titles, language names)
 - Independent from system language settings
 
-**Ready for:** POI system, proximity alerts, and advanced features
+**Points of Interest (POI):**
+- Complete database of 190 POIs from official Camí de Cavalls website
+- Multilingual content in 6 languages (CA, ES, EN, DE, FR, IT)
+- Three POI categories with color-coded badges:
+  - Coastal zones (blue): Beaches, coves, coastal areas
+  - Natural areas (green): Protected spaces, flora, fauna
+  - Historic sites (red): Towers, lighthouses, prehistoric sites
+- Accurate coordinates corrected from official map (UTM Zone 31N → WGS84)
+- POI versioning system for automatic updates
+- Custom scraping tools for data collection and coordinate validation
+- Fixed 16 POIs with coordinate errors > 800m (up to 8.3 km corrections)
+
+**Ready for:** POI visualization on map, proximity alerts, and advanced features
 
 ## 🤝 Contributing
 

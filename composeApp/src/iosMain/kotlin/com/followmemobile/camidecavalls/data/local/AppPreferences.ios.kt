@@ -16,7 +16,16 @@ actual class AppPreferences {
         defaults.setInteger(version.toLong(), KEY_DATABASE_VERSION)
     }
 
+    actual fun getPOIVersion(): Int {
+        return defaults.integerForKey(KEY_POI_VERSION).toInt()
+    }
+
+    actual fun setPOIVersion(version: Int) {
+        defaults.setInteger(version.toLong(), KEY_POI_VERSION)
+    }
+
     companion object {
         private const val KEY_DATABASE_VERSION = "database_version"
+        private const val KEY_POI_VERSION = "poi_version"
     }
 }

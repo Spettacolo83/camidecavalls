@@ -68,7 +68,7 @@ data class PointOfInterest(
 }
 
 enum class POIType {
-    BEACH,      // Platges i cales (Blue marker - marker16.png)
+    BEACH,      // Zones costaneres (Blue marker - marker16.png)
     NATURAL,    // Espais protegits, flora, fauna (Green marker - marker17.png)
     HISTORIC,   // Torres, fars, fortificacions (Red marker - marker18.png)
     COMMERCIAL  // For V2: Bars, restaurants, shops

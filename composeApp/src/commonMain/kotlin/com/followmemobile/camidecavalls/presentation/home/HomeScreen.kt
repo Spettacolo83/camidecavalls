@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -38,6 +39,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
+import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import org.koin.compose.koinInject
 
@@ -60,6 +62,9 @@ class HomeScreen : Screen {
             onMapClick = {
                 navigator.push(FullMapScreen())
             },
+            onPOIsClick = {
+                navigator.push(POIsScreen())
+            },
             onSettingsClick = {
                 navigator.push(SettingsScreen())
             }
@@ -73,6 +78,7 @@ private fun HomeScreenContent(
     uiState: HomeUiState,
     onRouteClick: (Route) -> Unit,
     onMapClick: () -> Unit,
+    onPOIsClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
     Scaffold(
@@ -84,6 +90,9 @@ private fun HomeScreenContent(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 actions = {
+                    IconButton(onClick = onPOIsClick) {
+                        Icon(Icons.Default.Explore, contentDescription = "Points of Interest")
+                    }
                     IconButton(onClick = onSettingsClick) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }

@@ -105,6 +105,10 @@ kotlin {
 
             // Maps
             implementation(libs.maplibre.compose)
+
+            // Image Loading
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
         }
     }
 }
@@ -113,6 +117,7 @@ sqldelight {
     databases {
         create("CamiDatabase") {
             packageName.set("com.followmemobile.camidecavalls.database")
+            version = 3
         }
     }
 }

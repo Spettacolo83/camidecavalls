@@ -6,12 +6,13 @@ import com.followmemobile.camidecavalls.database.CamiDatabase
 
 /**
  * iOS implementation of DatabaseDriverFactory.
+ * Database version 2: Added POI support with multilingual fields
  */
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
         return NativeSqliteDriver(
-            schema = CamiDatabase.Schema,
-            name = "cami_database.db"
+            CamiDatabase.Schema,
+            "cami_database.db"
         )
     }
 }

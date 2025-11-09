@@ -13,6 +13,7 @@ import com.followmemobile.camidecavalls.domain.usecase.poi.GetAllPOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsByRouteUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsByTypeUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsNearLocationUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.SavePOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetAllRoutesUseCase
@@ -35,6 +36,7 @@ import kotlinx.coroutines.SupervisorJob
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreenModel
 import com.followmemobile.camidecavalls.presentation.home.HomeScreenModel
+import com.followmemobile.camidecavalls.presentation.pois.POIsScreenModel
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreenModel
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreenModel
 import org.koin.core.module.Module
@@ -71,6 +73,7 @@ val appModule = module {
     factoryOf(::GetPOIsNearLocationUseCase)
     factoryOf(::GetPOIsByRouteUseCase)
     factoryOf(::SavePOIsUseCase)
+    factoryOf(::InitializePOIsUseCase)
 
     // Tracking Use Cases
     factoryOf(::CalculateSessionStatsUseCase)
@@ -98,6 +101,7 @@ val appModule = module {
     // ScreenModels
     factoryOf(::HomeScreenModel)
     factoryOf(::FullMapScreenModel)
+    factoryOf(::POIsScreenModel)
     factoryOf(::SettingsScreenModel)
     factory { params -> RouteDetailScreenModel(params.get(), get(), get()) }
     factory { params ->

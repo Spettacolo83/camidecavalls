@@ -22,10 +22,46 @@ import org.maplibre.android.style.sources.GeoJsonSource
 actual class MapLayerController {
     private var mapLibreMap: MapLibreMap? = null
     private var style: Style? = null
+    private var onMarkerClick: ((String) -> Unit)? = null
 
     internal fun setMap(map: MapLibreMap, loadedStyle: Style) {
         this.mapLibreMap = map
         this.style = loadedStyle
+
+        // Set up click listener for map
+        map.addOnMapClickListener { latLng ->
+            // Query for features at the clicked point
+            val pixel = map.projection.toScreenLocation(latLng)
+            val features = map.queryRenderedFeatures(pixel)
+
+            Log.d("MapLayer", "Map clicked, found ${features.size} features at point")
+
+            // Find if a marker was clicked by checking each feature's properties
+            for (feature in features) {
+                try {
+                    // Check if this feature has our marker properties
+                    val featureType = feature.getStringProperty("type")
+                    val markerId = feature.getStringProperty("markerId")
+
+                    Log.d("MapLayer", "Feature type: $featureType, markerId: $markerId")
+
+                    if (featureType == "poi-marker" && markerId != null) {
+                        Log.d("MapLayer", "✅ POI marker clicked: $markerId")
+                        onMarkerClick?.invoke(markerId)
+                        return@addOnMapClickListener true
+                    }
+                } catch (e: Exception) {
+                    Log.e("MapLayer", "Error checking feature properties", e)
+                }
+            }
+
+            Log.d("MapLayer", "No POI marker clicked")
+            false
+        }
+    }
+
+    actual fun setOnMarkerClickListener(onClick: (String) -> Unit) {
+        onMarkerClick = onClick
     }
 
     actual fun updateCamera(
@@ -125,8 +161,18 @@ actual class MapLayerController {
         val currentStyle = style ?: return
 
         try {
-            // Create point GeoJSON directly
-            val pointGeometry = """{"type":"Point","coordinates":[$longitude,$latitude]}"""
+            // Create point GeoJSON with properties to identify the marker
+            val featureGeoJson = """{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [$longitude, $latitude]
+                },
+                "properties": {
+                    "markerId": "$markerId",
+                    "type": "poi-marker"
+                }
+            }"""
 
             Log.d("MapLayer", "=== Adding/Updating Marker ===")
             Log.d("MapLayer", "MarkerId: $markerId, Lat: $latitude, Lon: $longitude")
@@ -137,11 +183,11 @@ actual class MapLayerController {
 
             if (existingSource != null) {
                 // Update existing source with new coordinates
-                existingSource.setGeoJson(pointGeometry)
+                existingSource.setGeoJson(featureGeoJson)
                 Log.d("MapLayer", "Updated existing marker source")
             } else {
                 // Create new source and layers
-                val source = GeoJsonSource("source-$markerId", pointGeometry)
+                val source = GeoJsonSource("source-$markerId", featureGeoJson)
                 currentStyle.addSource(source)
 
                 // Add outer white circle

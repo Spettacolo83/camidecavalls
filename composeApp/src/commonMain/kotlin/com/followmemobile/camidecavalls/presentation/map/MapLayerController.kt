@@ -9,6 +9,11 @@ import androidx.compose.ui.Modifier
  */
 expect class MapLayerController() {
     /**
+     * Set click listener for markers
+     * @param onClick Callback when a marker is clicked, receives markerId
+     */
+    fun setOnMarkerClickListener(onClick: (String) -> Unit)
+    /**
      * Add a route path to the map
      * @param routeId Unique identifier for this route
      * @param geoJsonLineString GeoJSON LineString data

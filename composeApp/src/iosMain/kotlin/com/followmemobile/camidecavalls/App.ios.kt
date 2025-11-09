@@ -6,6 +6,7 @@ import com.followmemobile.camidecavalls.data.RouteData
 import com.followmemobile.camidecavalls.di.appModule
 import com.followmemobile.camidecavalls.di.platformModule
 import com.followmemobile.camidecavalls.domain.usecase.route.InitializeDatabaseUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 
@@ -22,11 +23,18 @@ actual fun KoinInitializer(content: @Composable () -> Unit) {
     ) {
         // Initialize database on first launch
         val initializeDatabaseUseCase: InitializeDatabaseUseCase = koinInject()
+        val initializePOIsUseCase: InitializePOIsUseCase = koinInject()
 
         LaunchedEffect(Unit) {
             val initialized = initializeDatabaseUseCase()
             if (initialized) {
                 println("Database initialized with ${RouteData.routes.size} routes")
+            }
+
+            // Initialize POIs from JSON file
+            val poisInitialized = initializePOIsUseCase()
+            if (poisInitialized) {
+                println("POIs initialized successfully")
             }
         }
 

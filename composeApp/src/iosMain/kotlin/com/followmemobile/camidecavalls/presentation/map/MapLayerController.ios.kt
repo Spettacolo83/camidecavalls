@@ -6,17 +6,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ObjCAction
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.usePinned
 import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGRectMake
+import platform.CoreGraphics.CGPointMake
 import platform.CoreLocation.CLLocationCoordinate2DMake
 import platform.Foundation.NSURL
 import platform.Foundation.NSExpression
 import platform.Foundation.NSData
 import platform.Foundation.create
 import platform.UIKit.UIColor
+import platform.UIKit.UITapGestureRecognizer
 import platform.darwin.NSObject
+import platform.objc.sel_registerName
 import MapLibre.*
 
 // Extension function to convert ByteArray to NSData
@@ -30,12 +35,19 @@ private fun ByteArray.toNSData(): NSData? {
 
 @OptIn(ExperimentalForeignApi::class)
 actual class MapLayerController {
-    private var mapView: MLNMapView? = null
+    internal var mapView: MLNMapView? = null
     private var style: MLNStyle? = null
+    internal var onMarkerClick: ((String) -> Unit)? = null
+    // Store marker coordinates for tap detection
+    internal val markerCoordinates = mutableMapOf<String, Pair<Double, Double>>()
 
     internal fun setMap(map: MLNMapView, loadedStyle: MLNStyle) {
         this.mapView = map
         this.style = loadedStyle
+    }
+
+    actual fun setOnMarkerClickListener(onClick: (String) -> Unit) {
+        onMarkerClick = onClick
     }
 
     actual fun updateCamera(
@@ -118,12 +130,16 @@ actual class MapLayerController {
     ) {
         val currentStyle = style ?: return
 
+        // Store coordinates for tap detection
+        markerCoordinates[markerId] = Pair(latitude, longitude)
+
         // Remove existing layers and source (if any)
         removeLayer(markerId)
 
         try {
             val uiColor = parseHexColor(color)
-            val featureGeoJson = """{"type":"Feature","geometry":{"type":"Point","coordinates":[$longitude,$latitude]},"properties":{}}"""
+            // Add markerId and type as properties so we can identify it when tapped
+            val featureGeoJson = """{"type":"Feature","geometry":{"type":"Point","coordinates":[$longitude,$latitude]},"properties":{"markerId":"$markerId","type":"poi-marker"}}"""
 
             val geoJsonData = featureGeoJson.encodeToByteArray()
             val nsData = geoJsonData.toNSData()
@@ -236,6 +252,68 @@ actual fun MapWithLayers(
         }
     }
 
+    // Tap gesture recognizer delegate to allow simultaneous gestures
+    val gestureDelegate = remember {
+        object : NSObject(), platform.UIKit.UIGestureRecognizerDelegateProtocol {
+            override fun gestureRecognizer(
+                gestureRecognizer: platform.UIKit.UIGestureRecognizer,
+                shouldRecognizeSimultaneouslyWithGestureRecognizer: platform.UIKit.UIGestureRecognizer
+            ): Boolean {
+                // Allow this recognizer to work simultaneously with other recognizers
+                return true
+            }
+        }
+    }
+
+    // Tap gesture recognizer handler to detect taps on markers
+    val tapHandler = remember {
+        object : NSObject() {
+            @ObjCAction
+            fun handleTap(recognizer: UITapGestureRecognizer) {
+                val mapView = controller.mapView ?: return
+                val tapPoint = recognizer.locationInView(mapView)
+
+                println("🔍 Tap at screen: ${tapPoint.useContents { "x=$x, y=$y" }}")
+
+                // Find the closest marker by converting each marker's geographic coords to screen coords
+                var closestMarkerId: String? = null
+                var closestDistance = Double.MAX_VALUE
+
+                controller.markerCoordinates.forEach { (markerId, markerCoord) ->
+                    // Convert marker's geographic coordinate to screen point
+                    val markerGeoCoord = CLLocationCoordinate2DMake(
+                        latitude = markerCoord.first,
+                        longitude = markerCoord.second
+                    )
+                    val markerScreenPoint = mapView.convertCoordinate(
+                        markerGeoCoord,
+                        toPointToView = mapView
+                    )
+
+                    // Calculate screen distance in pixels
+                    val dx = tapPoint.useContents { x } - markerScreenPoint.useContents { x }
+                    val dy = tapPoint.useContents { y } - markerScreenPoint.useContents { y }
+                    val screenDistance = dx * dx + dy * dy  // squared distance
+
+                    if (screenDistance < closestDistance) {
+                        closestDistance = screenDistance
+                        closestMarkerId = markerId
+                    }
+                }
+
+                // Threshold in screen pixels squared (about 40 pixels radius)
+                val threshold = 40.0 * 40.0
+
+                println("🎯 Closest: $closestMarkerId at screen distance $closestDistance pixels² (threshold: $threshold)")
+
+                if (closestDistance < threshold && closestMarkerId != null) {
+                    println("✅ iOS Marker tapped: $closestMarkerId")
+                    controller.onMarkerClick?.invoke(closestMarkerId)
+                }
+            }
+        }
+    }
+
     UIKitView(
         modifier = modifier,
         factory = {
@@ -251,6 +329,15 @@ actual fun MapWithLayers(
             )
 
             mapView.delegate = delegate
+
+            // Add tap gesture recognizer for marker clicks
+            val tapGesture = platform.UIKit.UITapGestureRecognizer(
+                target = tapHandler,
+                action = platform.objc.sel_registerName("handleTap:")
+            )
+            tapGesture.delegate = gestureDelegate
+            mapView.addGestureRecognizer(tapGesture)
+
             mapView
         },
         update = { mapView ->

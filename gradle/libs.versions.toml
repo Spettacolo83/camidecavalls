@@ -32,6 +32,9 @@ maplibre-compose = "0.11.1"
 # Location
 play-services-location = "21.3.0"
 
+# Image Loading
+coil = "3.0.4"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -75,6 +78,7 @@ multiplatform-settings-noarg = { module = "com.russhwolf:multiplatform-settings-
 # Voyager Navigation
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-bottom-sheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 
 # Logging
@@ -86,6 +90,10 @@ maplibre-compose = { module = "org.maplibre.compose:maplibre-compose", version.r
 
 # Location (Android)
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
+
+# Coil Image Loading
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

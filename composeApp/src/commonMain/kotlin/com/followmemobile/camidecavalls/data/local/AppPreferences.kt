@@ -14,4 +14,15 @@ expect class AppPreferences {
      * Set the database version.
      */
     fun setDatabaseVersion(version: Int)
+
+    /**
+     * Get the stored POI data version.
+     * @return POI version, or 0 if not set
+     */
+    fun getPOIVersion(): Int
+
+    /**
+     * Set the POI data version.
+     */
+    fun setPOIVersion(version: Int)
 }

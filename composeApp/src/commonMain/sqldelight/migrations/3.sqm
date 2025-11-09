@@ -1,0 +1,45 @@
+-- Migration from version 2 to 3: Add multilingual support and additional POI fields
+
+-- Add new multilingual name columns
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameCa TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameEs TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameEn TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameFr TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameDe TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN nameIt TEXT NOT NULL DEFAULT '';
+
+-- Add new multilingual description columns
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionCa TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionEs TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionEn TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionFr TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionDe TEXT NOT NULL DEFAULT '';
+ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionIt TEXT NOT NULL DEFAULT '';
+
+-- Add imageUrl column
+ALTER TABLE PointOfInterestEntity ADD COLUMN imageUrl TEXT NOT NULL DEFAULT '';
+
+-- Add routeId column (nullable, foreign key to RouteEntity)
+ALTER TABLE PointOfInterestEntity ADD COLUMN routeId INTEGER;
+
+-- Add isAdvertisement flag
+ALTER TABLE PointOfInterestEntity ADD COLUMN isAdvertisement INTEGER NOT NULL DEFAULT 0;
+
+-- Copy data from old columns to new columns (use existing values as default for all languages temporarily)
+-- The POI initialization code will populate these with correct translations from JSON
+UPDATE PointOfInterestEntity SET
+    nameCa = COALESCE(name, ''),
+    nameEs = COALESCE(name, ''),
+    nameEn = COALESCE(name, ''),
+    nameFr = COALESCE(name, ''),
+    nameDe = COALESCE(name, ''),
+    nameIt = COALESCE(name, ''),
+    descriptionCa = COALESCE(description, ''),
+    descriptionEs = COALESCE(description, ''),
+    descriptionEn = COALESCE(description, ''),
+    descriptionFr = COALESCE(description, ''),
+    descriptionDe = COALESCE(description, ''),
+    descriptionIt = COALESCE(description, '');
+
+-- Note: We keep the old 'name' and 'description' columns for backward compatibility
+-- SQLite does not easily support DROP COLUMN, and leaving them doesn't cause issues
