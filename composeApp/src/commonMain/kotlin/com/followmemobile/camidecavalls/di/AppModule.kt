@@ -33,6 +33,7 @@ import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import com.followmemobile.camidecavalls.presentation.about.AboutScreenModel
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreenModel
 import com.followmemobile.camidecavalls.presentation.home.HomeScreenModel
@@ -99,6 +100,7 @@ val appModule = module {
     }
 
     // ScreenModels
+    factoryOf(::AboutScreenModel)
     factoryOf(::HomeScreenModel)
     factoryOf(::FullMapScreenModel)
     factoryOf(::POIsScreenModel)

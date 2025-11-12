@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,11 +22,18 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.SubcomposeAsyncImage
 import com.followmemobile.camidecavalls.domain.model.Language
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
+import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
+import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
+import com.followmemobile.camidecavalls.presentation.home.DrawerContent
+import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
+import com.followmemobile.camidecavalls.presentation.home.HomeScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 /**
@@ -46,69 +53,114 @@ class POIsScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
 
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+
         // State for detail bottom sheet
         var selectedPoiForDetail by remember { mutableStateOf<PointOfInterest?>(null) }
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-        POIsScreenContent(
-            uiState = uiState,
-            onBackClick = { navigator.pop() },
-            onMapReady = { controller -> screenModel.onMapReady(controller) },
-            onClosePopup = { screenModel.closePopup() },
-            onShowDetails = { poi ->
-                // Show POI detail in bottom sheet (map stays loaded underneath)
-                selectedPoiForDetail = poi
-            }
-        )
-
-        // Material 3 ModalBottomSheet for POI detail
-        selectedPoiForDetail?.let { poi ->
-            ModalBottomSheet(
-                onDismissRequest = { selectedPoiForDetail = null },
-                sheetState = sheetState
-            ) {
-                POIDetailContent(
-                    poi = poi,
-                    currentLanguage = uiState.currentLanguage,
-                    onBackClick = { selectedPoiForDetail = null },
-                    onNavigateClick = { poiToNavigate ->
-                        openInMaps(
-                            poiToNavigate.latitude,
-                            poiToNavigate.longitude,
-                            poiToNavigate.getName(uiState.currentLanguage)
-                        )
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                DrawerContent(
+                    uiState = convertToHomeUiState(uiState),
+                    currentScreen = DrawerScreen.POIS,
+                    onAboutClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(AboutScreen())
+                    },
+                    onRoutesClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(HomeScreen())
+                    },
+                    onMapClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(FullMapScreen())
+                    },
+                    onPOIsClick = {
+                        scope.launch { drawerState.close() }
+                    },
+                    onNotebookClick = {
+                        scope.launch { drawerState.close() }
+                        // TODO: Navigate to Notebook/Sessions screen
+                    },
+                    onSettingsClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(SettingsScreen())
+                    },
+                    onCloseDrawer = {
+                        scope.launch { drawerState.close() }
                     }
                 )
             }
+        ) {
+            POIsScreenContent(
+                uiState = uiState,
+                onMenuClick = {
+                    scope.launch { drawerState.open() }
+                },
+                onMapReady = { controller -> screenModel.onMapReady(controller) },
+                onClosePopup = { screenModel.closePopup() },
+                onShowDetails = { poi ->
+                    // Show POI detail in bottom sheet (map stays loaded underneath)
+                    selectedPoiForDetail = poi
+                }
+            )
+
+            // Material 3 ModalBottomSheet for POI detail
+            selectedPoiForDetail?.let { poi ->
+                ModalBottomSheet(
+                    onDismissRequest = { selectedPoiForDetail = null },
+                    sheetState = sheetState
+                ) {
+                    POIDetailContent(
+                        poi = poi,
+                        currentLanguage = uiState.currentLanguage,
+                        onBackClick = { selectedPoiForDetail = null },
+                        onNavigateClick = { poiToNavigate ->
+                            openInMaps(
+                                poiToNavigate.latitude,
+                                poiToNavigate.longitude,
+                                poiToNavigate.getName(uiState.currentLanguage)
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
+}
+
+// Helper to convert POIsUiState to HomeUiState for drawer
+private fun convertToHomeUiState(poisUiState: POIsUiState): com.followmemobile.camidecavalls.presentation.home.HomeUiState {
+    return com.followmemobile.camidecavalls.presentation.home.HomeUiState.Success(
+        routes = emptyList(),
+        currentLanguage = "en",
+        strings = poisUiState.strings
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun POIsScreenContent(
     uiState: POIsUiState,
-    onBackClick: () -> Unit,
+    onMenuClick: () -> Unit,
     onMapReady: (MapLayerController) -> Unit,
     onClosePopup: () -> Unit,
     onShowDetails: (PointOfInterest) -> Unit
 ) {
-    val screenTitle = when (uiState.currentLanguage) {
-        Language.CATALAN -> "Punts d'Interès"
-        Language.SPANISH -> "Puntos de Interés"
-        Language.ENGLISH -> "Points of Interest"
-        Language.FRENCH -> "Points d'Intérêt"
-        Language.GERMAN -> "Sehenswürdigkeiten"
-        Language.ITALIAN -> "Punti di Interesse"
-    }
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(screenTitle) },
+                title = { Text(uiState.strings.poisTitle) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    IconButton(onClick = onMenuClick) {
+                        Icon(Icons.Default.Menu, contentDescription = "Open Menu")
                     }
                 }
             )

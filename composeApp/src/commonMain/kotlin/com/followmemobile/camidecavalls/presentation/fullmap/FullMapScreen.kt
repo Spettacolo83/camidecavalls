@@ -2,7 +2,7 @@ package com.followmemobile.camidecavalls.presentation.fullmap
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -10,9 +10,16 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.followmemobile.camidecavalls.presentation.about.AboutScreen
+import com.followmemobile.camidecavalls.presentation.home.DrawerContent
+import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
+import com.followmemobile.camidecavalls.presentation.home.HomeScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
+import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 /**
@@ -31,30 +38,84 @@ class FullMapScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
 
-        FullMapScreenContent(
-            uiState = uiState,
-            onBackClick = { navigator.pop() },
-            onRouteClick = { routeId -> screenModel.selectRoute(routeId) },
-            onMapReady = { controller -> screenModel.onMapReady(controller) }
-        )
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                DrawerContent(
+                    uiState = convertToHomeUiState(uiState),
+                    currentScreen = DrawerScreen.MAP,
+                    onAboutClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(AboutScreen())
+                    },
+                    onRoutesClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(HomeScreen())
+                    },
+                    onMapClick = {
+                        scope.launch { drawerState.close() }
+                    },
+                    onPOIsClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(POIsScreen())
+                    },
+                    onNotebookClick = {
+                        scope.launch { drawerState.close() }
+                        // TODO: Navigate to Notebook/Sessions screen
+                    },
+                    onSettingsClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(SettingsScreen())
+                    },
+                    onCloseDrawer = {
+                        scope.launch { drawerState.close() }
+                    }
+                )
+            }
+        ) {
+            FullMapScreenContent(
+                uiState = uiState,
+                onMenuClick = {
+                    scope.launch { drawerState.open() }
+                },
+                onRouteClick = { routeId -> screenModel.selectRoute(routeId) },
+                onMapReady = { controller -> screenModel.onMapReady(controller) }
+            )
+        }
     }
+}
+
+// Helper to convert FullMapUiState to HomeUiState for drawer
+private fun convertToHomeUiState(fullMapUiState: FullMapUiState): com.followmemobile.camidecavalls.presentation.home.HomeUiState {
+    return com.followmemobile.camidecavalls.presentation.home.HomeUiState.Success(
+        routes = emptyList(),
+        currentLanguage = "en",
+        strings = fullMapUiState.strings
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun FullMapScreenContent(
     uiState: FullMapUiState,
-    onBackClick: () -> Unit,
+    onMenuClick: () -> Unit,
     onRouteClick: (Int) -> Unit,
     onMapReady: (MapLayerController) -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Camí de Cavalls - Mappa Completa") },
+                title = { Text(uiState.strings.mapTitle) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    IconButton(onClick = onMenuClick) {
+                        Icon(Icons.Default.Menu, contentDescription = "Open Menu")
                     }
                 }
             )

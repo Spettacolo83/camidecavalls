@@ -3,7 +3,9 @@ package com.followmemobile.camidecavalls.presentation.fullmap
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.followmemobile.camidecavalls.domain.model.Route
+import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,11 +18,23 @@ import kotlinx.coroutines.launch
  * Handles loading and displaying all 20 routes on the map.
  */
 class FullMapScreenModel(
-    private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase
+    private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
+    private val languageRepository: LanguageRepository
 ) : ScreenModel {
 
     private val _uiState = MutableStateFlow(FullMapUiState())
     val uiState: StateFlow<FullMapUiState> = _uiState.asStateFlow()
+
+    init {
+        loadLanguage()
+    }
+
+    private fun loadLanguage() {
+        screenModelScope.launch {
+            val currentLang = languageRepository.getCurrentLanguage()
+            _uiState.update { it.copy(strings = LocalizedStrings(currentLang)) }
+        }
+    }
 
     private var mapController: MapLayerController? = null
 
@@ -145,5 +159,6 @@ data class FullMapUiState(
     val selectedRoute: Route? = null,
     val isLoading: Boolean = false,
     val error: String? = null,
-    val simplificationStats: String? = null
+    val simplificationStats: String? = null,
+    val strings: LocalizedStrings = LocalizedStrings("en")
 )

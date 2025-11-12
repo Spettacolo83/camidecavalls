@@ -60,6 +60,30 @@ class LocalizedStrings(private val languageCode: String) {
     val languageDe: String get() = strings.languageDe
     val languageFr: String get() = strings.languageFr
     val languageIt: String get() = strings.languageIt
+
+    // Drawer Menu
+    val menuAbout: String get() = strings.menuAbout
+    val menuRoutes: String get() = strings.menuRoutes
+    val menuMap: String get() = strings.menuMap
+    val menuPOIs: String get() = strings.menuPOIs
+    val menuNotebook: String get() = strings.menuNotebook
+    val menuSettings: String get() = strings.menuSettings
+
+    // Screen Titles (unified with menu labels)
+    val aboutTitle: String get() = strings.aboutTitle
+    val routesTitle: String get() = strings.routesTitle
+    val mapTitle: String get() = strings.mapTitle
+    val poisTitle: String get() = strings.poisTitle
+    val notebookTitle: String get() = strings.notebookTitle
+
+    // About Screen
+    val aboutWelcome: String get() = strings.aboutWelcome
+    val aboutDescription: String get() = strings.aboutDescription
+    val aboutUNESCO: String get() = strings.aboutUNESCO
+    val aboutLength: String get() = strings.aboutLength
+    val aboutStages: String get() = strings.aboutStages
+    val aboutCTA: String get() = strings.aboutCTA
+    val aboutExplore: String get() = strings.aboutExplore
 }
 
 private interface Strings {
@@ -107,6 +131,30 @@ private interface Strings {
     val languageDe: String
     val languageFr: String
     val languageIt: String
+
+    // Drawer Menu
+    val menuAbout: String
+    val menuRoutes: String
+    val menuMap: String
+    val menuPOIs: String
+    val menuNotebook: String
+    val menuSettings: String
+
+    // Screen Titles (unified with menu labels)
+    val aboutTitle: String
+    val routesTitle: String
+    val mapTitle: String
+    val poisTitle: String
+    val notebookTitle: String
+
+    // About Screen
+    val aboutWelcome: String
+    val aboutDescription: String
+    val aboutUNESCO: String
+    val aboutLength: String
+    val aboutStages: String
+    val aboutCTA: String
+    val aboutExplore: String
 }
 
 private object StringsCa : Strings {
@@ -151,6 +199,27 @@ private object StringsCa : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Rutes"
+    override val menuMap = "Mapa"
+    override val menuPOIs = "Punts d'Interès"
+    override val menuNotebook = "Quadern"
+    override val menuSettings = "Configuració"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Rutes"
+    override val mapTitle = "Mapa"
+    override val poisTitle = "Punts d'Interès"
+    override val notebookTitle = "Quadern"
+
+    override val aboutWelcome = "Benvingut al Camí de Cavalls"
+    override val aboutDescription = "El Camí de Cavalls és una de les millors maneres de viure Menorca en totes les seves dimensions. Aquest històric camí costaner rodeja l'illa oferint un viatge immersiu per paisatges naturals, gastronomia, cultura i història.\n\nEl recorregut comprèn 20 etapes distintives, cadascuna dissenyada per mostrar diferents aspectes ambientals i històrics de l'illa."
+    override val aboutUNESCO = "Menorca va ser declarada Reserva de la Biosfera per la UNESCO l'octubre de 1993, reconeixent l'equilibri entre la preservació del seu ric patrimoni natural i cultural i el desenvolupament econòmic."
+    override val aboutLength = "185 km de senderisme costaner"
+    override val aboutStages = "20 etapes · GR-223"
+    override val aboutCTA = "Conèixer és estimar. Descobreix els valors ambientals que fan de Menorca un lloc tan excepcional."
+    override val aboutExplore = "Comença la teva aventura"
 }
 
 private object StringsEs : Strings {
@@ -195,6 +264,27 @@ private object StringsEs : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Rutas"
+    override val menuMap = "Mapa"
+    override val menuPOIs = "Puntos de Interés"
+    override val menuNotebook = "Diario"
+    override val menuSettings = "Configuración"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Rutas"
+    override val mapTitle = "Mapa"
+    override val poisTitle = "Puntos de Interés"
+    override val notebookTitle = "Diario"
+
+    override val aboutWelcome = "Bienvenido al Camí de Cavalls"
+    override val aboutDescription = "El Camí de Cavalls es una de las mejores maneras de experimentar Menorca en todas sus dimensiones. Este histórico sendero costero rodea la isla ofreciendo un viaje inmersivo a través de paisajes naturales, gastronomía, cultura e historia.\n\nEl recorrido comprende 20 etapas distintivas, cada una diseñada para mostrar diferentes aspectos ambientales e históricos de la isla."
+    override val aboutUNESCO = "Menorca fue declarada Reserva de la Biosfera por la UNESCO en octubre de 1993, reconociendo el equilibrio entre la preservación de su rico patrimonio natural y cultural y el desarrollo económico."
+    override val aboutLength = "185 km de senderismo costero"
+    override val aboutStages = "20 etapas · GR-223"
+    override val aboutCTA = "Conocer es amar. Descubre los valores ambientales que hacen de Menorca un lugar tan excepcional."
+    override val aboutExplore = "Comienza tu aventura"
 }
 
 private object StringsEn : Strings {
@@ -239,6 +329,27 @@ private object StringsEn : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Routes"
+    override val menuMap = "Map"
+    override val menuPOIs = "Points of Interest"
+    override val menuNotebook = "Notebook"
+    override val menuSettings = "Settings"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Routes"
+    override val mapTitle = "Map"
+    override val poisTitle = "Points of Interest"
+    override val notebookTitle = "Notebook"
+
+    override val aboutWelcome = "Welcome to Camí de Cavalls"
+    override val aboutDescription = "The Camí de Cavalls is one of the best ways to experience Menorca in all its dimensions. This historic coastal path encircles the island, offering an immersive journey through natural landscapes, gastronomy, culture, and history.\n\nThe trail comprises 20 distinctive stages, each designed to showcase different environmental and historical aspects of the island."
+    override val aboutUNESCO = "Menorca has held UNESCO Biosphere Reserve designation since October 1993, recognizing the balance between preserving its rich natural and cultural heritage while supporting economic development."
+    override val aboutLength = "185 km of coastal hiking"
+    override val aboutStages = "20 stages · GR-223"
+    override val aboutCTA = "Knowing is loving. Discover the environmental values that make Menorca such an exceptional place."
+    override val aboutExplore = "Start your adventure"
 }
 
 private object StringsDe : Strings {
@@ -283,6 +394,27 @@ private object StringsDe : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Routen"
+    override val menuMap = "Karte"
+    override val menuPOIs = "Sehenswürdigkeiten"
+    override val menuNotebook = "Tagebuch"
+    override val menuSettings = "Einstellungen"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Routen"
+    override val mapTitle = "Karte"
+    override val poisTitle = "Sehenswürdigkeiten"
+    override val notebookTitle = "Tagebuch"
+
+    override val aboutWelcome = "Willkommen beim Camí de Cavalls"
+    override val aboutDescription = "Der Camí de Cavalls ist eine der besten Möglichkeiten, Menorca in all seinen Dimensionen zu erleben. Dieser historische Küstenweg umrundet die Insel und bietet eine immersive Reise durch Naturlandschaften, Gastronomie, Kultur und Geschichte.\n\nDer Weg umfasst 20 unterschiedliche Etappen, jede entworfen, um verschiedene Umwelt- und historische Aspekte der Insel zu zeigen."
+    override val aboutUNESCO = "Menorca wurde im Oktober 1993 von der UNESCO zum Biosphärenreservat erklärt und würdigt damit das Gleichgewicht zwischen der Erhaltung des reichen Natur- und Kulturerbes und der wirtschaftlichen Entwicklung."
+    override val aboutLength = "185 km Küstenwanderung"
+    override val aboutStages = "20 Etappen · GR-223"
+    override val aboutCTA = "Kennen bedeutet lieben. Entdecken Sie die Umweltwerte, die Menorca zu einem so außergewöhnlichen Ort machen."
+    override val aboutExplore = "Starten Sie Ihr Abenteuer"
 }
 
 private object StringsFr : Strings {
@@ -327,6 +459,27 @@ private object StringsFr : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Itinéraires"
+    override val menuMap = "Carte"
+    override val menuPOIs = "Points d'Intérêt"
+    override val menuNotebook = "Carnet"
+    override val menuSettings = "Paramètres"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Itinéraires"
+    override val mapTitle = "Carte"
+    override val poisTitle = "Points d'Intérêt"
+    override val notebookTitle = "Carnet"
+
+    override val aboutWelcome = "Bienvenue sur le Camí de Cavalls"
+    override val aboutDescription = "Le Camí de Cavalls est l'une des meilleures façons de découvrir Minorque dans toutes ses dimensions. Ce sentier côtier historique fait le tour de l'île, offrant un voyage immersif à travers les paysages naturels, la gastronomie, la culture et l'histoire.\n\nLe parcours comprend 20 étapes distinctives, chacune conçue pour présenter différents aspects environnementaux et historiques de l'île."
+    override val aboutUNESCO = "Minorque a été désignée Réserve de Biosphère de l'UNESCO en octobre 1993, reconnaissant l'équilibre entre la préservation de son riche patrimoine naturel et culturel et le développement économique."
+    override val aboutLength = "185 km de randonnée côtière"
+    override val aboutStages = "20 étapes · GR-223"
+    override val aboutCTA = "Connaître c'est aimer. Découvrez les valeurs environnementales qui font de Minorque un lieu si exceptionnel."
+    override val aboutExplore = "Commencez votre aventure"
 }
 
 private object StringsIt : Strings {
@@ -371,4 +524,25 @@ private object StringsIt : Strings {
     override val languageDe = "Deutsch"
     override val languageFr = "Français"
     override val languageIt = "Italiano"
+
+    override val menuAbout = "Camí de Cavalls"
+    override val menuRoutes = "Percorsi"
+    override val menuMap = "Mappa"
+    override val menuPOIs = "Punti di Interesse"
+    override val menuNotebook = "Diario"
+    override val menuSettings = "Impostazioni"
+
+    override val aboutTitle = "Camí de Cavalls"
+    override val routesTitle = "Percorsi"
+    override val mapTitle = "Mappa"
+    override val poisTitle = "Punti di Interesse"
+    override val notebookTitle = "Diario"
+
+    override val aboutWelcome = "Benvenuto al Camí de Cavalls"
+    override val aboutDescription = "Il Camí de Cavalls è uno dei modi migliori per vivere Minorca in tutte le sue dimensioni. Questo storico sentiero costiero circonda l'isola offrendo un viaggio immersivo attraverso paesaggi naturali, gastronomia, cultura e storia.\n\nIl percorso comprende 20 tappe distintive, ognuna progettata per mostrare diversi aspetti ambientali e storici dell'isola."
+    override val aboutUNESCO = "Minorca è stata designata Riserva della Biosfera UNESCO nell'ottobre 1993, riconoscendo l'equilibrio tra la preservazione del suo ricco patrimonio naturale e culturale e lo sviluppo economico."
+    override val aboutLength = "185 km di escursionismo costiero"
+    override val aboutStages = "20 tappe · GR-223"
+    override val aboutCTA = "Conoscere è amare. Scopri i valori ambientali che rendono Minorca un luogo così eccezionale."
+    override val aboutExplore = "Inizia la tua avventura"
 }

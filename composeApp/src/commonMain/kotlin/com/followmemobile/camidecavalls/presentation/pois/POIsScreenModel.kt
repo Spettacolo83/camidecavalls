@@ -6,6 +6,7 @@ import com.followmemobile.camidecavalls.domain.model.Language
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetAllPOIsUseCase
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +34,12 @@ class POIsScreenModel(
         screenModelScope.launch {
             languageRepository.observeCurrentLanguage().collect { languageCode ->
                 val language = Language.fromCode(languageCode)
-                _uiState.update { it.copy(currentLanguage = language) }
+                _uiState.update {
+                    it.copy(
+                        currentLanguage = language,
+                        strings = LocalizedStrings(languageCode)
+                    )
+                }
             }
         }
     }
@@ -168,6 +174,7 @@ data class POIsUiState(
     val pois: List<PointOfInterest> = emptyList(),
     val selectedPoi: PointOfInterest? = null,
     val currentLanguage: Language = Language.CATALAN,
+    val strings: LocalizedStrings = LocalizedStrings("ca"),
     val isLoading: Boolean = false,
     val error: String? = null
 )
