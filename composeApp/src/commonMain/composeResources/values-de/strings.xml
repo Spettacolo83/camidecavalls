@@ -68,10 +68,17 @@
     <string name="tracking_navigation_open_menu">Menü öffnen</string>
     <string name="tracking_altitude">Höhe</string>
     <string name="tracking_accuracy">Genauigkeit</string>
+    <string name="tracking_latitude">Breitengrad</string>
+    <string name="tracking_longitude">Längengrad</string>
     <string name="tracking_elevation_gain">Höhengewinn</string>
     <string name="tracking_session_prefix">Sitzung: %1$s…</string>
     <string name="tracking_acquiring_signal">GPS-Signal wird gesucht…</string>
     <string name="tracking_session_summary">Sitzungsübersicht</string>
+    <string name="tracking_statistics_title">Live-Statistiken</string>
+    <string name="tracking_show_statistics">Statistiken anzeigen</string>
+    <string name="tracking_avg_speed">Durchschnittsgeschwindigkeit</string>
+    <string name="tracking_gps_follow_enabled">GPS-Nachführung aktiviert</string>
+    <string name="tracking_gps_follow_disabled">GPS-Nachführung deaktiviert</string>
     <string name="tracking_start_new_session">Neue Sitzung starten</string>
     <string name="tracking_far_title">Sie sind weit von der Route entfernt</string>
     <string name="tracking_far_message">Sie befinden sich %1$.1f km von der nächsten Route entfernt. Möchten Sie das Tracking trotzdem starten?</string>

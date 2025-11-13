@@ -68,10 +68,17 @@
     <string name="tracking_navigation_open_menu">Open menu</string>
     <string name="tracking_altitude">Altitude</string>
     <string name="tracking_accuracy">Accuracy</string>
+    <string name="tracking_latitude">Latitude</string>
+    <string name="tracking_longitude">Longitude</string>
     <string name="tracking_elevation_gain">Elevation gain</string>
     <string name="tracking_session_prefix">Session: %1$s…</string>
     <string name="tracking_acquiring_signal">Acquiring GPS signal…</string>
     <string name="tracking_session_summary">Session Summary</string>
+    <string name="tracking_statistics_title">Live statistics</string>
+    <string name="tracking_show_statistics">Show statistics</string>
+    <string name="tracking_avg_speed">Average speed</string>
+    <string name="tracking_gps_follow_enabled">GPS follow enabled</string>
+    <string name="tracking_gps_follow_disabled">GPS follow disabled</string>
     <string name="tracking_start_new_session">Start New Session</string>
     <string name="tracking_far_title">You are far from the route</string>
     <string name="tracking_far_message">You are %1$.1f km away from the nearest route. Do you want to start tracking anyway?</string>
