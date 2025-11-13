@@ -28,7 +28,7 @@ import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.home.DrawerContent
 import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.HomeScreen
+import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.coroutines.launch
@@ -59,14 +59,14 @@ class AboutScreen : Screen {
             drawerState = drawerState,
             drawerContent = {
                 DrawerContent(
-                    uiState = convertToHomeUiState(uiState),
+                    uiState = convertToRoutesUiState(uiState),
                     currentScreen = DrawerScreen.ABOUT,
                     onAboutClick = {
                         scope.launch { drawerState.close() }
                     },
                     onRoutesClick = {
                         scope.launch { drawerState.close() }
-                        navigator.replaceAll(HomeScreen())
+                        navigator.replaceAll(RoutesScreen())
                     },
                     onMapClick = {
                         scope.launch { drawerState.close() }
@@ -104,9 +104,9 @@ class AboutScreen : Screen {
     }
 }
 
-// Helper to convert AboutUiState to HomeUiState for drawer
-private fun convertToHomeUiState(aboutUiState: AboutUiState): com.followmemobile.camidecavalls.presentation.home.HomeUiState {
-    return com.followmemobile.camidecavalls.presentation.home.HomeUiState.Success(
+// Helper to convert AboutUiState to RoutesUiState for drawer
+private fun convertToRoutesUiState(aboutUiState: AboutUiState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
+    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
         routes = emptyList(),
         currentLanguage = "en",
         strings = aboutUiState.strings
@@ -218,8 +218,7 @@ private fun AboutScreenContent(
                     Text(
                         text = uiState.strings.aboutDescription,
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(16.dp),
-                        lineHeight = MaterialTheme.typography.bodyLarge.lineHeight * 1.5
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
 
@@ -242,9 +241,8 @@ private fun AboutScreenContent(
                         )
                         Text(
                             text = uiState.strings.aboutUNESCO,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.5
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
                 }
@@ -304,7 +302,7 @@ private fun StatCard(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier

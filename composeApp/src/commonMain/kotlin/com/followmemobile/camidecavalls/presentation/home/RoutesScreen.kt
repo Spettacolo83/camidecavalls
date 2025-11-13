@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import camidecavalls.composeapp.generated.resources.Res
+import coil3.compose.SubcomposeAsyncImage
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Place
@@ -20,7 +27,6 @@ import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -47,6 +53,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -54,19 +61,20 @@ import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
+import com.followmemobile.camidecavalls.presentation.icons.CamiDeCavallsIcon
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 /**
- * Home screen displaying the list of all 20 routes of Camí de Cavalls.
+ * Routes screen displaying the list of all 20 routes of Camí de Cavalls.
  */
-class HomeScreen : Screen {
+class RoutesScreen : Screen {
 
     @Composable
     override fun Content() {
-        val screenModel: HomeScreenModel = koinInject()
+        val screenModel: RoutesScreenModel = koinInject()
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
 
@@ -108,7 +116,7 @@ class HomeScreen : Screen {
                 )
             }
         ) {
-            HomeScreenContent(
+            RoutesScreenContent(
                 uiState = uiState,
                 onMenuClick = {
                     scope.launch { drawerState.open() }
@@ -123,14 +131,14 @@ class HomeScreen : Screen {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreenContent(
-    uiState: HomeUiState,
+private fun RoutesScreenContent(
+    uiState: RoutesUiState,
     onMenuClick: () -> Unit,
     onRouteClick: (Route) -> Unit
 ) {
     val title = when (uiState) {
-        is HomeUiState.Success -> uiState.strings.routesTitle
-        is HomeUiState.Empty -> uiState.strings.routesTitle
+        is RoutesUiState.Success -> uiState.strings.routesTitle
+        is RoutesUiState.Empty -> uiState.strings.routesTitle
         else -> "Routes"
     }
 
@@ -156,13 +164,13 @@ private fun HomeScreenContent(
                 .padding(paddingValues)
         ) {
             when (uiState) {
-                is HomeUiState.Loading -> {
+                is RoutesUiState.Loading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
 
-                is HomeUiState.Empty -> {
+                is RoutesUiState.Empty -> {
                     Text(
                         text = uiState.strings.homeNoRoutes,
                         modifier = Modifier.align(Alignment.Center),
@@ -170,7 +178,7 @@ private fun HomeScreenContent(
                     )
                 }
 
-                is HomeUiState.Success -> {
+                is RoutesUiState.Success -> {
                     RouteList(
                         routes = uiState.routes,
                         currentLanguage = uiState.currentLanguage,
@@ -179,7 +187,7 @@ private fun HomeScreenContent(
                     )
                 }
 
-                is HomeUiState.Error -> {
+                is RoutesUiState.Error -> {
                     Column(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -211,7 +219,7 @@ enum class DrawerScreen {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DrawerContent(
-    uiState: HomeUiState,
+    uiState: RoutesUiState,
     currentScreen: DrawerScreen,
     onAboutClick: () -> Unit,
     onRoutesClick: () -> Unit,
@@ -222,8 +230,8 @@ fun DrawerContent(
     onCloseDrawer: () -> Unit
 ) {
     val strings = when (uiState) {
-        is HomeUiState.Success -> uiState.strings
-        is HomeUiState.Empty -> uiState.strings
+        is RoutesUiState.Success -> uiState.strings
+        is RoutesUiState.Empty -> uiState.strings
         else -> com.followmemobile.camidecavalls.domain.util.LocalizedStrings("en")
     }
 
@@ -261,7 +269,7 @@ fun DrawerContent(
 
             // About (Camí de Cavalls)
             NavigationDrawerItem(
-                icon = { Icon(Icons.Default.Favorite, contentDescription = null) },
+                icon = { Icon(CamiDeCavallsIcon, contentDescription = null) },
                 label = { Text(strings.menuAbout) },
                 selected = currentScreen == DrawerScreen.ABOUT,
                 onClick = onAboutClick,
@@ -348,60 +356,133 @@ private fun RouteItem(
     strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings,
     onClick: () -> Unit
 ) {
+    // Load route image
+    val routeImageBytes by produceState<ByteArray?>(initialValue = null) {
+        value = try {
+            Res.readBytes("files/images/routes/route_${route.id}.jpg")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .height(200.dp)
         ) {
-            // Stage number and name
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = strings.routeStage(route.number),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
+            // Background image without transparency
+            routeImageBytes?.let { imageBytes ->
+                SubcomposeAsyncImage(
+                    model = imageBytes,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
                 )
-                DifficultyChip(difficulty = route.difficulty, strings = strings)
             }
 
-            Text(
-                text = route.name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-
-            // Route info
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+            // Content with gradients
+            Box(
+                modifier = Modifier.fillMaxSize()
             ) {
-                InfoItem(
-                    label = strings.homeDistance,
-                    value = "${route.distanceKm} km"
-                )
-                InfoItem(
-                    label = strings.homeElevation,
-                    value = "+${route.elevationGainMeters}m"
-                )
-                InfoItem(
-                    label = strings.homeDuration,
-                    value = "${route.estimatedDurationMinutes / 60}h ${route.estimatedDurationMinutes % 60}m"
-                )
+                // Top section with horizontal gradient (white left to transparent right)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopStart)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                0.0f to Color.White.copy(alpha = 0.8f),
+                                0.5f to Color.White.copy(alpha = 0.5f),
+                                1.0f to Color.White.copy(alpha = 0.0f)
+                            )
+                        )
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = strings.routeStage(route.number).uppercase(),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = route.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                }
+
+                // Bottom section with vertical gradient (transparent top to white bottom)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomStart)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                0.0f to Color.Transparent,
+                                0.7f to Color.White.copy(alpha = 0.9f),
+                                1.0f to Color.White
+                            )
+                        )
+                        .padding(start = 16.dp, end = 16.dp, top = 40.dp, bottom = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    InfoItem(
+                        label = strings.homeDistance,
+                        value = "${route.distanceKm} km"
+                    )
+                    InfoItem(
+                        label = strings.homeElevation,
+                        value = "+${route.elevationGainMeters}m"
+                    )
+                    InfoItem(
+                        label = strings.homeDuration,
+                        value = "${route.estimatedDurationMinutes / 60}h ${route.estimatedDurationMinutes % 60}m"
+                    )
+                    DifficultyInfo(difficulty = route.difficulty, strings = strings)
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun DifficultyInfo(
+    difficulty: com.followmemobile.camidecavalls.domain.model.Difficulty,
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+) {
+    val color = when (difficulty) {
+        com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> Color(0xFF4CAF50) // Green
+        com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> Color(0xFFFF9800) // Orange
+        com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> Color(0xFFF44336) // Bright Red
+    }
+
+    val text = when (difficulty) {
+        com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> strings.difficultyLow
+        com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> strings.difficultyMedium
+        com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> strings.difficultyHigh
+    }
+
+    Column {
+        Text(
+            text = strings.routeDifficulty,
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 13.sp),
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            color = color
+        )
     }
 }
 
@@ -411,9 +492,9 @@ private fun DifficultyChip(
     strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 ) {
     val color = when (difficulty) {
-        com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> MaterialTheme.colorScheme.tertiary
-        com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> MaterialTheme.colorScheme.secondary
-        com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> MaterialTheme.colorScheme.error
+        com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> Color(0xFF4CAF50) // Green
+        com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> Color(0xFFFF9800) // Orange
+        com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> Color(0xFFF44336) // Bright Red
     }
 
     val text = when (difficulty) {
@@ -435,7 +516,8 @@ private fun InfoItem(label: String, value: String) {
     Column {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 13.sp),
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(

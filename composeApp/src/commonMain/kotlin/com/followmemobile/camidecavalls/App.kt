@@ -4,11 +4,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
+import com.followmemobile.camidecavalls.ui.theme.AppTypography
 
 @Composable
 fun App() {
     KoinInitializer {
-        MaterialTheme {
+        MaterialTheme(
+            typography = AppTypography()
+        ) {
             Navigator(AboutScreen())
         }
     }

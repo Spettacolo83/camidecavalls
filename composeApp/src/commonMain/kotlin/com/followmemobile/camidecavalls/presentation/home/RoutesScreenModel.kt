@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * ScreenModel for the Home screen.
+ * ScreenModel for the Routes screen.
  * Displays the list of all 20 routes.
  */
-class HomeScreenModel(
+class RoutesScreenModel(
     private val getAllRoutesUseCase: GetAllRoutesUseCase,
     private val languageRepository: LanguageRepository
 ) : ScreenModel {
 
-    private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<RoutesUiState>(RoutesUiState.Loading)
+    val uiState: StateFlow<RoutesUiState> = _uiState.asStateFlow()
 
     init {
         loadRoutes()
@@ -29,7 +29,7 @@ class HomeScreenModel(
 
     private fun loadRoutes() {
         screenModelScope.launch {
-            _uiState.value = HomeUiState.Loading
+            _uiState.value = RoutesUiState.Loading
 
             try {
                 // Combine routes and language flows
@@ -38,15 +38,15 @@ class HomeScreenModel(
                     val strings = LocalizedStrings(currentLanguage)
 
                     _uiState.value = if (routes.isEmpty()) {
-                        HomeUiState.Empty(strings)
+                        RoutesUiState.Empty(strings)
                     } else {
-                        HomeUiState.Success(routes, currentLanguage, strings)
+                        RoutesUiState.Success(routes, currentLanguage, strings)
                     }
                 }
             } catch (e: Exception) {
-                println("HomeScreenModel: Error loading routes: ${e.message}")
+                println("RoutesScreenModel: Error loading routes: ${e.message}")
                 e.printStackTrace()
-                _uiState.value = HomeUiState.Error("Failed to load routes: ${e.message}")
+                _uiState.value = RoutesUiState.Error("Failed to load routes: ${e.message}")
             }
         }
     }
@@ -59,19 +59,19 @@ class HomeScreenModel(
                 val newStrings = LocalizedStrings(newLanguage)
 
                 when (currentState) {
-                    is HomeUiState.Empty -> {
-                        _uiState.value = HomeUiState.Empty(newStrings)
+                    is RoutesUiState.Empty -> {
+                        _uiState.value = RoutesUiState.Empty(newStrings)
                     }
-                    is HomeUiState.Success -> {
+                    is RoutesUiState.Success -> {
                         _uiState.value = currentState.copy(
                             currentLanguage = newLanguage,
                             strings = newStrings
                         )
                     }
-                    HomeUiState.Loading -> {
+                    RoutesUiState.Loading -> {
                         // Skip updates during loading
                     }
-                    is HomeUiState.Error -> {
+                    is RoutesUiState.Error -> {
                         // Skip updates during error state
                     }
                 }
@@ -84,13 +84,13 @@ class HomeScreenModel(
     }
 }
 
-sealed interface HomeUiState {
-    data object Loading : HomeUiState
-    data class Empty(val strings: LocalizedStrings) : HomeUiState
+sealed interface RoutesUiState {
+    data object Loading : RoutesUiState
+    data class Empty(val strings: LocalizedStrings) : RoutesUiState
     data class Success(
         val routes: List<Route>,
         val currentLanguage: String,
         val strings: LocalizedStrings
-    ) : HomeUiState
-    data class Error(val message: String) : HomeUiState
+    ) : RoutesUiState
+    data class Error(val message: String) : RoutesUiState
 }

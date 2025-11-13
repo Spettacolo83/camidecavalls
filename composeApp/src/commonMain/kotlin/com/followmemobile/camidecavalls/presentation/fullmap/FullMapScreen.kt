@@ -13,7 +13,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.home.DrawerContent
 import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.HomeScreen
+import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
@@ -45,7 +45,7 @@ class FullMapScreen : Screen {
             drawerState = drawerState,
             drawerContent = {
                 DrawerContent(
-                    uiState = convertToHomeUiState(uiState),
+                    uiState = convertToRoutesUiState(uiState),
                     currentScreen = DrawerScreen.MAP,
                     onAboutClick = {
                         scope.launch { drawerState.close() }
@@ -53,7 +53,7 @@ class FullMapScreen : Screen {
                     },
                     onRoutesClick = {
                         scope.launch { drawerState.close() }
-                        navigator.replaceAll(HomeScreen())
+                        navigator.replaceAll(RoutesScreen())
                     },
                     onMapClick = {
                         scope.launch { drawerState.close() }
@@ -88,9 +88,9 @@ class FullMapScreen : Screen {
     }
 }
 
-// Helper to convert FullMapUiState to HomeUiState for drawer
-private fun convertToHomeUiState(fullMapUiState: FullMapUiState): com.followmemobile.camidecavalls.presentation.home.HomeUiState {
-    return com.followmemobile.camidecavalls.presentation.home.HomeUiState.Success(
+// Helper to convert FullMapUiState to RoutesUiState for drawer
+private fun convertToRoutesUiState(fullMapUiState: FullMapUiState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
+    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
         routes = emptyList(),
         currentLanguage = "en",
         strings = fullMapUiState.strings

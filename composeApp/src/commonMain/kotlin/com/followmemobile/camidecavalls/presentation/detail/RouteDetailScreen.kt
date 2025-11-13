@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.presentation.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -14,7 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import kotlin.math.ln
 import kotlin.math.max
@@ -38,10 +43,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import coil3.compose.SubcomposeAsyncImage
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -105,11 +113,37 @@ private fun RouteDetailScreenContent(
     onBackClick: () -> Unit,
     onStartTracking: (Route) -> Unit
 ) {
+    // Get route name for collapsing toolbar
+    val routeName = if (uiState is RouteDetailUiState.Success) {
+        uiState.route.name
+    } else {
+        ""
+    }
+
+    // Track scroll position for collapsing title
+    var titleAlpha by remember { mutableStateOf(0f) }
+
+    // Interpolate toolbar color based on scroll
+    val defaultToolbarColor = MaterialTheme.colorScheme.primaryContainer
+    val scrolledToolbarColor = Color(0xFF80DEEA) // Light cyan/turquoise to match beach/sea images
+    val toolbarColor = lerp(defaultToolbarColor, scrolledToolbarColor, titleAlpha)
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(strings?.routeViewDetails ?: stringResource(Res.string.route_view_details))
+                    Box {
+                        // Default title (visible when not scrolled)
+                        Text(
+                            text = strings?.routeViewDetails ?: stringResource(Res.string.route_view_details),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 1f - titleAlpha)
+                        )
+                        // Route name title (visible when scrolled)
+                        Text(
+                            text = routeName,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = titleAlpha)
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
@@ -120,7 +154,7 @@ private fun RouteDetailScreenContent(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    containerColor = toolbarColor,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
@@ -162,7 +196,8 @@ private fun RouteDetailScreenContent(
                     RouteDetailContent(
                         route = uiState.route,
                         currentLanguage = uiState.currentLanguage,
-                        strings = strings!!
+                        strings = strings!!,
+                        onTitleAlphaChange = { alpha -> titleAlpha = alpha }
                     )
                 }
             }
@@ -174,38 +209,101 @@ private fun RouteDetailScreenContent(
 private fun RouteDetailContent(
     route: Route,
     currentLanguage: String,
-    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+    strings: com.followmemobile.camidecavalls.domain.util.LocalizedStrings,
+    onTitleAlphaChange: (Float) -> Unit
 ) {
     // Track selected point from elevation chart
     var selectedChartPoint by remember { mutableStateOf<Pair<Double, Double>?>(null) }
 
+    // Load route image
+    val routeImageBytes by produceState<ByteArray?>(initialValue = null) {
+        value = try {
+            Res.readBytes("files/images/routes/route_${route.id}.jpg")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    // Track scroll for collapsing toolbar
+    val scrollState = rememberScrollState()
+
+    // Get image height in pixels
+    val density = LocalDensity.current
+    val imageHeightPx = with(density) { 250.dp.toPx() }
+
+    // Update title alpha based on scroll position
+    LaunchedEffect(scrollState.value) {
+        // Hero image is 250dp tall
+        // Title transition occurs as image scrolls out (0px = alpha 0, imageHeightPx = alpha 1)
+        val alpha = (scrollState.value / imageHeightPx).coerceIn(0f, 1f)
+        onTitleAlphaChange(alpha)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .verticalScroll(scrollState)
     ) {
-        // Header
-        Text(
-            text = strings.routeStage(route.number),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary
-        )
+        // Hero image with route header
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp)
+        ) {
+            // Background image
+            routeImageBytes?.let { imageBytes ->
+                SubcomposeAsyncImage(
+                    model = imageBytes,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
 
-        Text(
-            text = route.name,
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 4.dp)
-        )
+            // Gradient overlay + header text
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            0.0f to Color.Black.copy(alpha = 0.0f),
+                            0.5f to Color.Black.copy(alpha = 0.0f),
+                            1.0f to Color.Black.copy(alpha = 0.8f)
+                        )
+                    )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = strings.routeStage(route.number).uppercase(),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = route.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Map preview
-        RouteMapPreview(
-            route = route,
-            selectedPoint = selectedChartPoint
-        )
+        Box(modifier = Modifier.padding(horizontal = 16.dp)) {
+            RouteMapPreview(
+                route = route,
+                selectedPoint = selectedChartPoint
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -213,7 +311,8 @@ private fun RouteDetailContent(
         Text(
             text = strings.routeDetailElevationProfile,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         if (route.gpxData != null) {
@@ -222,7 +321,7 @@ private fun RouteDetailContent(
                 strings = strings,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 onPointSelected = { coordinates ->
                     selectedChartPoint = coordinates
                 }
@@ -231,7 +330,7 @@ private fun RouteDetailContent(
             Text(
                 text = strings.routeDetailNoElevationData,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -239,45 +338,49 @@ private fun RouteDetailContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Route Info
-        InfoRow(label = strings.startPoint, value = route.startPoint)
-        InfoRow(label = strings.endPoint, value = route.endPoint)
-        InfoRow(label = strings.trackingDistance, value = strings.routeDistance(route.distanceKm.toString()))
-        InfoRow(
-            label = strings.routeDifficulty,
-            value = when (route.difficulty) {
-                com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> strings.difficultyLow
-                com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> strings.difficultyMedium
-                com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> strings.difficultyHigh
-            }
-        )
-        InfoRow(label = strings.routeDetailElevationGain, value = strings.routeDetailMeters(route.elevationGainMeters))
-        InfoRow(label = strings.routeDetailElevationLoss, value = strings.routeDetailMeters(route.elevationLossMeters))
-        InfoRow(label = strings.routeDetailMaxAltitude, value = strings.routeDetailMeters(route.maxAltitudeMeters))
-        InfoRow(label = strings.routeDetailMinAltitude, value = strings.routeDetailMeters(route.minAltitudeMeters))
-        InfoRow(label = strings.routeDetailAsphalt, value = strings.routeDetailPercent(route.asphaltPercentage))
-        InfoRow(
-            label = strings.routeDetailEstimatedTime,
-            value = if (route.estimatedDurationMinutes >= 60) {
-                strings.routeDetailHours(route.estimatedDurationMinutes / 60.0)
-            } else {
-                strings.routeDetailMinutes(route.estimatedDurationMinutes)
-            }
-        )
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            InfoRow(label = strings.startPoint, value = route.startPoint)
+            InfoRow(label = strings.endPoint, value = route.endPoint)
+            InfoRow(label = strings.trackingDistance, value = strings.routeDistance(route.distanceKm.toString()))
+            InfoRow(
+                label = strings.routeDifficulty,
+                value = when (route.difficulty) {
+                    com.followmemobile.camidecavalls.domain.model.Difficulty.LOW -> strings.difficultyLow
+                    com.followmemobile.camidecavalls.domain.model.Difficulty.MEDIUM -> strings.difficultyMedium
+                    com.followmemobile.camidecavalls.domain.model.Difficulty.HIGH -> strings.difficultyHigh
+                }
+            )
+            InfoRow(label = strings.routeDetailElevationGain, value = strings.routeDetailMeters(route.elevationGainMeters))
+            InfoRow(label = strings.routeDetailElevationLoss, value = strings.routeDetailMeters(route.elevationLossMeters))
+            InfoRow(label = strings.routeDetailMaxAltitude, value = strings.routeDetailMeters(route.maxAltitudeMeters))
+            InfoRow(label = strings.routeDetailMinAltitude, value = strings.routeDetailMeters(route.minAltitudeMeters))
+            InfoRow(label = strings.routeDetailAsphalt, value = strings.routeDetailPercent(route.asphaltPercentage))
+            InfoRow(
+                label = strings.routeDetailEstimatedTime,
+                value = if (route.estimatedDurationMinutes >= 60) {
+                    strings.routeDetailHours(route.estimatedDurationMinutes / 60.0)
+                } else {
+                    strings.routeDetailMinutes(route.estimatedDurationMinutes)
+                }
+            )
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // Description
-        Text(
-            text = strings.routeDetailDescription,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
-        )
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Text(
+                text = strings.routeDetailDescription,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
 
-        Text(
-            text = route.getLocalizedDescription(currentLanguage),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(top = 8.dp)
-        )
+            Text(
+                text = route.getLocalizedDescription(currentLanguage),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+            )
+        }
     }
 }
 
@@ -335,11 +438,17 @@ private fun RouteMapPreview(
     BoxWithConstraints(
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Calculate map aspect ratio from available space
-        val mapHeight = 350.dp
-        val mapWidthPx = maxWidth.value
-        val mapHeightPx = mapHeight.value
-        val mapAspectRatio = mapWidthPx / mapHeightPx // width / height
+        // Map dimensions
+        val mapHeight = 250.dp
+        val mapWidth = maxWidth
+
+        // Get density for conversion
+        val density = LocalDensity.current
+
+        // Calculate map aspect ratio in Dp (this is dimensionless)
+        val mapAspectRatio = with(density) {
+            maxWidth.toPx() / mapHeight.toPx()
+        }
 
         // Calculate camera position and zoom based on route coordinates
         val (centerLat, centerLon, zoom) = if (routeCoordinates.isNotEmpty()) {
@@ -356,26 +465,35 @@ private fun RouteMapPreview(
             val centerLat = (minLat + maxLat) / 2.0
             val centerLon = (minLon + maxLon) / 2.0
 
-            // Calculate zoom level to fit entire route
+            // Calculate deltas in degrees (route extent)
+            val latDelta = maxLat - minLat
+            val lonDelta = maxLon - minLon
+
             // Add padding factor to ensure route doesn't touch edges
-            val paddingFactor = 1.4
+            // Use more padding for latitude (vertical) since map is wider than tall
+            val latPaddingFactor = 2.5
+            val lonPaddingFactor = 2.0
 
-            // Calculate deltas in degrees
-            val latDelta = (maxLat - minLat) * paddingFactor
-            val lonDelta = (maxLon - minLon) * paddingFactor
+            // Apply padding
+            val paddedLatDelta = latDelta * latPaddingFactor
+            val paddedLonDelta = lonDelta * lonPaddingFactor
 
-            // Adjust longitude delta by map aspect ratio
-            // If map is wider than tall, we can fit more longitude degrees
-            val adjustedLonDelta = lonDelta / mapAspectRatio
+            // The key insight: we need to compare deltas accounting for map dimensions
+            // Normalize both deltas to a "vertical equivalent" scale
+            // - latDelta directly maps to map height
+            // - lonDelta maps to map width, so we need to adjust it by aspect ratio
+            //   (if map is 2x wider than tall, the same lonDelta needs half the zoom)
 
-            // Use the larger delta to calculate zoom
-            val maxDelta = max(latDelta, adjustedLonDelta)
+            val effectiveLatDelta = paddedLatDelta
+            val effectiveLonDelta = paddedLonDelta / mapAspectRatio
+
+            // Use the larger effective delta (the dimension that needs more zoom out)
+            val limitingDelta = max(effectiveLatDelta, effectiveLonDelta)
 
             // Calculate zoom: smaller delta = higher zoom
-            // Formula: zoom ≈ log2(360 / delta) - rough approximation
-            val calculatedZoom = if (maxDelta > 0) {
-                val baseZoom = ln(360.0 / maxDelta) / ln(2.0)
-                min(15.0, max(8.0, baseZoom - 0.8)) // Clamp between 8 and 15, subtract 0.8 for more margin
+            val calculatedZoom = if (limitingDelta > 0) {
+                val baseZoom = ln(360.0 / limitingDelta) / ln(2.0)
+                min(15.0, max(8.0, baseZoom - 0.3))
             } else {
                 12.0
             }

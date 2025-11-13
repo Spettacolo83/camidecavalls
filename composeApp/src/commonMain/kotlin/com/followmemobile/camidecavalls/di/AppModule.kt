@@ -36,7 +36,7 @@ import kotlinx.coroutines.SupervisorJob
 import com.followmemobile.camidecavalls.presentation.about.AboutScreenModel
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreenModel
-import com.followmemobile.camidecavalls.presentation.home.HomeScreenModel
+import com.followmemobile.camidecavalls.presentation.home.RoutesScreenModel
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreenModel
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreenModel
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreenModel
@@ -101,7 +101,7 @@ val appModule = module {
 
     // ScreenModels
     factoryOf(::AboutScreenModel)
-    factoryOf(::HomeScreenModel)
+    factoryOf(::RoutesScreenModel)
     factoryOf(::FullMapScreenModel)
     factoryOf(::POIsScreenModel)
     factoryOf(::SettingsScreenModel)

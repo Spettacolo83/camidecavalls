@@ -21,7 +21,7 @@ import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.home.DrawerContent
 import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.HomeScreen
+import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -42,7 +42,7 @@ class SettingsScreen : Screen {
             drawerState = drawerState,
             drawerContent = {
                 DrawerContent(
-                    uiState = convertToHomeUiState(state),
+                    uiState = convertToRoutesUiState(state),
                     currentScreen = DrawerScreen.SETTINGS,
                     onAboutClick = {
                         scope.launch { drawerState.close() }
@@ -50,7 +50,7 @@ class SettingsScreen : Screen {
                     },
                     onRoutesClick = {
                         scope.launch { drawerState.close() }
-                        navigator.replaceAll(HomeScreen())
+                        navigator.replaceAll(RoutesScreen())
                     },
                     onMapClick = {
                         scope.launch { drawerState.close() }
@@ -84,9 +84,9 @@ class SettingsScreen : Screen {
     }
 }
 
-// Helper to convert SettingsState to HomeUiState for drawer
-private fun convertToHomeUiState(settingsState: SettingsState): com.followmemobile.camidecavalls.presentation.home.HomeUiState {
-    return com.followmemobile.camidecavalls.presentation.home.HomeUiState.Success(
+// Helper to convert SettingsState to RoutesUiState for drawer
+private fun convertToRoutesUiState(settingsState: SettingsState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
+    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
         routes = emptyList(),
         currentLanguage = "en",
         strings = settingsState.strings
