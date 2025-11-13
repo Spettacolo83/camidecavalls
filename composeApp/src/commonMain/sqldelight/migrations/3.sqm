@@ -1,45 +1,49 @@
 -- Migration from version 2 to 3: Add multilingual support and additional POI fields
+-- Since we're adding many columns and the table might be empty or have minimal data,
+-- we recreate the table with the new schema for a clean migration
 
--- Add new multilingual name columns
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameCa TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameEs TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameEn TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameFr TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameDe TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN nameIt TEXT NOT NULL DEFAULT '';
+-- Step 1: Rename old table (if it exists and has data)
+ALTER TABLE PointOfInterestEntity RENAME TO PointOfInterestEntity_old;
 
--- Add new multilingual description columns
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionCa TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionEs TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionEn TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionFr TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionDe TEXT NOT NULL DEFAULT '';
-ALTER TABLE PointOfInterestEntity ADD COLUMN descriptionIt TEXT NOT NULL DEFAULT '';
+-- Step 2: Create new table with full multilingual schema
+CREATE TABLE PointOfInterestEntity (
+    id INTEGER PRIMARY KEY NOT NULL,
+    type TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    nameCa TEXT NOT NULL DEFAULT '',
+    nameEs TEXT NOT NULL DEFAULT '',
+    nameEn TEXT NOT NULL DEFAULT '',
+    nameFr TEXT NOT NULL DEFAULT '',
+    nameDe TEXT NOT NULL DEFAULT '',
+    nameIt TEXT NOT NULL DEFAULT '',
+    descriptionCa TEXT NOT NULL DEFAULT '',
+    descriptionEs TEXT NOT NULL DEFAULT '',
+    descriptionEn TEXT NOT NULL DEFAULT '',
+    descriptionFr TEXT NOT NULL DEFAULT '',
+    descriptionDe TEXT NOT NULL DEFAULT '',
+    descriptionIt TEXT NOT NULL DEFAULT '',
+    imageUrl TEXT NOT NULL DEFAULT '',
+    routeId INTEGER,
+    isAdvertisement INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
+);
 
--- Add imageUrl column
-ALTER TABLE PointOfInterestEntity ADD COLUMN imageUrl TEXT NOT NULL DEFAULT '';
+-- Step 3: Migrate data from old table (if columns exist)
+-- Using COALESCE to handle missing columns gracefully
+INSERT INTO PointOfInterestEntity (id, type, latitude, longitude, nameEn, descriptionEn)
+SELECT
+    id,
+    type,
+    latitude,
+    longitude,
+    COALESCE(name, ''),
+    COALESCE(description, '')
+FROM PointOfInterestEntity_old;
 
--- Add routeId column (nullable, foreign key to RouteEntity)
-ALTER TABLE PointOfInterestEntity ADD COLUMN routeId INTEGER;
+-- Step 4: Drop old table
+DROP TABLE PointOfInterestEntity_old;
 
--- Add isAdvertisement flag
-ALTER TABLE PointOfInterestEntity ADD COLUMN isAdvertisement INTEGER NOT NULL DEFAULT 0;
-
--- Copy data from old columns to new columns (use existing values as default for all languages temporarily)
--- The POI initialization code will populate these with correct translations from JSON
-UPDATE PointOfInterestEntity SET
-    nameCa = COALESCE(name, ''),
-    nameEs = COALESCE(name, ''),
-    nameEn = COALESCE(name, ''),
-    nameFr = COALESCE(name, ''),
-    nameDe = COALESCE(name, ''),
-    nameIt = COALESCE(name, ''),
-    descriptionCa = COALESCE(description, ''),
-    descriptionEs = COALESCE(description, ''),
-    descriptionEn = COALESCE(description, ''),
-    descriptionFr = COALESCE(description, ''),
-    descriptionDe = COALESCE(description, ''),
-    descriptionIt = COALESCE(description, '');
-
--- Note: We keep the old 'name' and 'description' columns for backward compatibility
--- SQLite does not easily support DROP COLUMN, and leaving them doesn't cause issues
+-- Step 5: Recreate indices
+CREATE INDEX poi_location_idx ON PointOfInterestEntity(latitude, longitude);
+CREATE INDEX poi_type_idx ON PointOfInterestEntity(type);

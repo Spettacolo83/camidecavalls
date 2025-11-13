@@ -56,6 +56,7 @@ class InitializeDatabaseUseCase(
         // Version 10: Added multilingual route descriptions (CA, ES, EN, DE, FR, IT)
         // Version 11: Added database schema columns for multilingual descriptions
         // Version 12: Added GPX data with elevation for all 20 routes
-        private const val DATABASE_VERSION = 12
+        // Version 13: Fixed SQLDelight migrations to handle POI table creation properly
+        private const val DATABASE_VERSION = 13
     }
 }

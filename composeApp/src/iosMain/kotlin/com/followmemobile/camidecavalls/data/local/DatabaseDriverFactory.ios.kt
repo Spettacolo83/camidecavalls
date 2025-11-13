@@ -6,7 +6,7 @@ import com.followmemobile.camidecavalls.database.CamiDatabase
 
 /**
  * iOS implementation of DatabaseDriverFactory.
- * Database version 2: Added POI support with multilingual fields
+ * Uses SQLDelight's automatic migrations from .sqm files.
  */
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
