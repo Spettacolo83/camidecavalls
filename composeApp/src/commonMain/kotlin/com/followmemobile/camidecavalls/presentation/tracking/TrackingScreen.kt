@@ -2,20 +2,22 @@ package com.followmemobile.camidecavalls.presentation.tracking
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.GpsNotFixed
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,11 +26,49 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import camidecavalls.composeapp.generated.resources.Res
+import camidecavalls.composeapp.generated.resources.tracking_acquiring_signal
+import camidecavalls.composeapp.generated.resources.tracking_avg_speed
+import camidecavalls.composeapp.generated.resources.tracking_completed
+import camidecavalls.composeapp.generated.resources.tracking_distance
+import camidecavalls.composeapp.generated.resources.tracking_duration
+import camidecavalls.composeapp.generated.resources.tracking_error
+import camidecavalls.composeapp.generated.resources.tracking_altitude
+import camidecavalls.composeapp.generated.resources.tracking_far_message
+import camidecavalls.composeapp.generated.resources.tracking_far_title
+import camidecavalls.composeapp.generated.resources.tracking_gps_follow_disabled
+import camidecavalls.composeapp.generated.resources.tracking_gps_follow_enabled
+import camidecavalls.composeapp.generated.resources.tracking_navigation_open_menu
+import camidecavalls.composeapp.generated.resources.tracking_latitude
+import camidecavalls.composeapp.generated.resources.tracking_longitude
+import camidecavalls.composeapp.generated.resources.tracking_accuracy
+import camidecavalls.composeapp.generated.resources.tracking_session_prefix
+import camidecavalls.composeapp.generated.resources.tracking_session_summary
+import camidecavalls.composeapp.generated.resources.tracking_show_statistics
+import camidecavalls.composeapp.generated.resources.tracking_start
+import camidecavalls.composeapp.generated.resources.tracking_start_anyway
+import camidecavalls.composeapp.generated.resources.tracking_start_new_session
+import camidecavalls.composeapp.generated.resources.tracking_statistics_title
+import camidecavalls.composeapp.generated.resources.tracking_stop
+import camidecavalls.composeapp.generated.resources.tracking_title
+import camidecavalls.composeapp.generated.resources.tracking_speed
+import camidecavalls.composeapp.generated.resources.tracking_elevation_gain
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.LocationData
+import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import com.followmemobile.camidecavalls.presentation.about.AboutScreen
+import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
+import com.followmemobile.camidecavalls.presentation.home.DrawerContent
+import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
+import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
+import com.followmemobile.camidecavalls.presentation.home.RoutesUiState
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
+import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
+import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonPrimitive
@@ -36,8 +76,10 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Screen for GPS tracking functionality.
@@ -69,42 +111,127 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
             }
         }
 
-        TrackingScreenContent(
-            uiState = uiState,
-            onStartTracking = {
-                if (screenModel.isPermissionGranted()) {
-                    screenModel.startTracking()
-                } else {
-                    permissionRequester()
+        val languageRepository: LanguageRepository = koinInject()
+        val systemLanguage = remember { languageRepository.getSystemLanguage() }
+        val currentLanguage by languageRepository.observeCurrentLanguage().collectAsState(initial = systemLanguage)
+        val localizedStrings = remember(currentLanguage) { LocalizedStrings(currentLanguage) }
+
+        val onStartTracking = {
+            if (screenModel.isPermissionGranted()) {
+                screenModel.startTracking()
+            } else {
+                permissionRequester()
+            }
+        }
+
+        if (routeId == null) {
+            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            val scope = rememberCoroutineScope()
+
+            ModalNavigationDrawer(
+                drawerState = drawerState,
+                drawerContent = {
+                    DrawerContent(
+                        uiState = convertTrackingToRoutesUiState(localizedStrings, currentLanguage),
+                        currentScreen = DrawerScreen.TRACKING,
+                        onAboutClick = {
+                            scope.launch { drawerState.close() }
+                            navigator.replaceAll(AboutScreen())
+                        },
+                        onRoutesClick = {
+                            scope.launch { drawerState.close() }
+                            navigator.replaceAll(RoutesScreen())
+                        },
+                        onMapClick = {
+                            scope.launch { drawerState.close() }
+                            navigator.replaceAll(FullMapScreen())
+                        },
+                        onTrackingClick = {
+                            scope.launch { drawerState.close() }
+                        },
+                        onPOIsClick = {
+                            scope.launch { drawerState.close() }
+                            navigator.replaceAll(POIsScreen())
+                        },
+                        onNotebookClick = {
+                            scope.launch { drawerState.close() }
+                            // TODO: Navigate to Notebook/Sessions screen
+                        },
+                        onSettingsClick = {
+                            scope.launch { drawerState.close() }
+                            navigator.replaceAll(SettingsScreen())
+                        },
+                        onCloseDrawer = {
+                            scope.launch { drawerState.close() }
+                        }
+                    )
                 }
-            },
-            onStartTrackingForced = { screenModel.startTrackingForced() },
-            onCancelConfirmation = { screenModel.cancelConfirmation() },
-            onStopTracking = { screenModel.stopTracking() },
-            onBackClick = { navigator.pop() },
-            onClearError = { screenModel.clearError() }
-        )
+            ) {
+                TrackingScreenContent(
+                    uiState = uiState,
+                    showMenuButton = true,
+                    onMenuClick = { scope.launch { drawerState.open() } },
+                    onBackClick = { navigator.pop() },
+                    onStartTracking = onStartTracking,
+                    onStartTrackingForced = { screenModel.startTrackingForced() },
+                    onCancelConfirmation = { screenModel.cancelConfirmation() },
+                    onStopTracking = { screenModel.stopTracking() },
+                    onClearError = { screenModel.clearError() }
+                )
+            }
+        } else {
+            TrackingScreenContent(
+                uiState = uiState,
+                showMenuButton = false,
+                onMenuClick = {},
+                onBackClick = { navigator.pop() },
+                onStartTracking = onStartTracking,
+                onStartTrackingForced = { screenModel.startTrackingForced() },
+                onCancelConfirmation = { screenModel.cancelConfirmation() },
+                onStopTracking = { screenModel.stopTracking() },
+                onClearError = { screenModel.clearError() }
+            )
+        }
     }
+}
+
+private fun convertTrackingToRoutesUiState(strings: LocalizedStrings, currentLanguage: String): RoutesUiState {
+    return RoutesUiState.Success(
+        routes = emptyList(),
+        currentLanguage = currentLanguage,
+        strings = strings
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TrackingScreenContent(
     uiState: TrackingUiState,
+    showMenuButton: Boolean,
+    onMenuClick: () -> Unit,
+    onBackClick: () -> Unit,
     onStartTracking: () -> Unit,
     onStartTrackingForced: () -> Unit,
     onCancelConfirmation: () -> Unit,
     onStopTracking: () -> Unit,
-    onBackClick: () -> Unit,
     onClearError: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("GPS Tracking") },
+                title = { Text(stringResource(Res.string.tracking_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    if (showMenuButton) {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(Icons.Default.Menu, contentDescription = stringResource(Res.string.tracking_navigation_open_menu))
+                        }
+                    } else {
+                        IconButton(onClick = onBackClick) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(Res.string.back)
+                            )
+                        }
                     }
                 }
             )
@@ -121,7 +248,8 @@ private fun TrackingScreenContent(
             when (uiState) {
                 is TrackingUiState.Idle -> {
                     IdleContent(
-                        route = uiState.route,
+                        routes = uiState.routes,
+                        selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
                         onStartTracking = onStartTracking
                     )
@@ -130,7 +258,8 @@ private fun TrackingScreenContent(
                 is TrackingUiState.AwaitingConfirmation -> {
                     // Show idle map with confirmation dialog on top
                     IdleContent(
-                        route = uiState.route,
+                        routes = uiState.routes,
+                        selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
                         onStartTracking = onStartTracking
                     )
@@ -143,7 +272,8 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Tracking -> {
                     TrackingContent(
-                        route = uiState.route,
+                        routes = uiState.routes,
+                        selectedRoute = uiState.selectedRoute,
                         sessionId = uiState.sessionId,
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
@@ -172,30 +302,35 @@ private fun TrackingScreenContent(
 
 @Composable
 private fun IdleContent(
-    route: Route?,
+    routes: List<Route>,
+    selectedRoute: Route?,
     currentLocation: LocationData?,
     onStartTracking: () -> Unit
 ) {
-    val cameraPosition = calculateCameraPosition(route, currentLocation)
+    val cameraPosition = calculateCameraPosition(routes, selectedRoute, currentLocation)
+    val routesKey = routes.joinToString("-") { it.id.toString() }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Fullscreen map
-        key("idle-map-${route?.id ?: "no-route"}") {
+        key("idle-map-${selectedRoute?.id ?: "all"}-$routesKey") {
             MapWithLayers(
                 modifier = Modifier.fillMaxSize(),
                 latitude = cameraPosition.latitude,
                 longitude = cameraPosition.longitude,
                 zoom = cameraPosition.zoom,
-                styleUrl = "https://tiles.openfreemap.org/styles/liberty",
+                styleUrl = MapStyles.LIBERTY,
                 onMapReady = { controller ->
-                    // Add route path if available
-                    route?.gpxData?.let { geoJson ->
-                        controller.addRoutePath(
-                            routeId = "route-${route.id}",
-                            geoJsonLineString = geoJson,
-                            color = "#2196F3",  // Blue
-                            width = 4f
-                        )
+                    controller.clearAll()
+
+                    routes.forEachIndexed { index, route ->
+                        route.gpxData?.let { geoJson ->
+                            controller.addRoutePath(
+                                routeId = "tracking-route-${route.id}",
+                                geoJsonLineString = geoJson,
+                                color = getTrackingRouteColor(index),
+                                width = 4f
+                            )
+                        }
                     }
 
                     // Add current location marker if available
@@ -213,28 +348,22 @@ private fun IdleContent(
         }
 
         // Start Tracking FAB
-        FloatingActionButton(
+        ExtendedFloatingActionButton(
             onClick = onStartTracking,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Icon(Icons.Default.PlayArrow, contentDescription = null)
-                Text("Start Tracking")
-            }
-        }
+                .padding(16.dp),
+            icon = { Icon(Icons.Default.Flag, contentDescription = null) },
+            text = { Text(stringResource(Res.string.tracking_start)) }
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TrackingContent(
-    route: Route?,
+    routes: List<Route>,
+    selectedRoute: Route?,
     sessionId: String,
     currentLocation: LocationData?,
     trackPoints: List<TrackPoint>,
@@ -248,34 +377,60 @@ private fun TrackingContent(
     var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
     var currentZoom by remember { mutableStateOf<Double?>(null) }
 
+    val routesKey = routes.joinToString("-") { it.id.toString() }
+
     // Calculate camera position based on GPS following state
     val cameraPosition = if (followGpsLocation) {
-        calculateCameraPosition(route, currentLocation).also {
+        calculateCameraPosition(routes, selectedRoute, currentLocation).also {
             lastKnownPosition = it
         }
     } else {
-        lastKnownPosition ?: calculateCameraPosition(route, currentLocation)
+        lastKnownPosition ?: calculateCameraPosition(routes, selectedRoute, currentLocation)
     }
 
     // Remember the map controller for dynamic updates
     var mapController by remember { mutableStateOf<MapLayerController?>(null) }
 
-    // LaunchedEffect 1: Draw route (blue) - ONLY once when route is loaded
-    LaunchedEffect(mapController, route) {
+    // LaunchedEffect 1: Draw routes when map is ready or routes change
+    LaunchedEffect(mapController, routesKey) {
         val controller = mapController ?: return@LaunchedEffect
 
-        route?.gpxData?.let { geoJson ->
+        controller.clearAll()
+
+        routes.forEachIndexed { index, route ->
+            route.gpxData?.let { geoJson ->
+                controller.addRoutePath(
+                    routeId = "tracking-route-${route.id}",
+                    geoJsonLineString = geoJson,
+                    color = getTrackingRouteColor(index),
+                    width = 4f
+                )
+            }
+        }
+
+        if (trackPoints.size >= 2) {
+            val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
             controller.addRoutePath(
-                routeId = "route-${route.id}",
-                geoJsonLineString = geoJson,
-                color = "#2196F3",
-                width = 4f
+                routeId = "user-track",
+                geoJsonLineString = userTrackGeoJson,
+                color = "#4CAF50",
+                width = 5f
+            )
+        }
+
+        currentLocation?.let { location ->
+            controller.addMarker(
+                markerId = "current-location",
+                latitude = location.latitude,
+                longitude = location.longitude,
+                color = "#FF5722",
+                radius = 10f
             )
         }
     }
 
     // LaunchedEffect 2: Update user track (green) - ONLY when trackPoints change
-    LaunchedEffect(mapController, trackPoints.size) {
+    LaunchedEffect(mapController, trackPoints.size, routesKey) {
         val controller = mapController ?: return@LaunchedEffect
 
         if (trackPoints.size >= 2) {
@@ -290,7 +445,7 @@ private fun TrackingContent(
     }
 
     // LaunchedEffect 3: Update marker (red) - ONLY when location changes
-    LaunchedEffect(mapController, currentLocation?.latitude, currentLocation?.longitude) {
+    LaunchedEffect(mapController, currentLocation?.latitude, currentLocation?.longitude, routesKey) {
         val controller = mapController ?: return@LaunchedEffect
 
         currentLocation?.let { location ->
@@ -327,7 +482,7 @@ private fun TrackingContent(
     }
 
     // Initial camera position (only used once at map creation)
-    val initialPosition = remember { calculateCameraPosition(route, currentLocation) }
+    val initialPosition = remember { calculateCameraPosition(routes, selectedRoute, currentLocation) }
 
     // Stabilize callbacks to prevent recomposition
     val onMapReadyCallback = remember {
@@ -357,6 +512,7 @@ private fun TrackingContent(
                 latitude = initialPosition.latitude,
                 longitude = initialPosition.longitude,
                 zoom = initialPosition.zoom,
+                styleUrl = MapStyles.LIBERTY,
                 onMapReady = onMapReadyCallback,
                 onCameraMoved = onCameraMovedCallback,
                 onZoomChanged = onZoomChangedCallback
@@ -379,7 +535,11 @@ private fun TrackingContent(
         ) {
             Icon(
                 imageVector = if (followGpsLocation) Icons.Default.GpsFixed else Icons.Default.GpsNotFixed,
-                contentDescription = if (followGpsLocation) "GPS Following Enabled" else "GPS Following Disabled",
+                contentDescription = if (followGpsLocation) {
+                    stringResource(Res.string.tracking_gps_follow_enabled)
+                } else {
+                    stringResource(Res.string.tracking_gps_follow_disabled)
+                },
                 tint = if (followGpsLocation) {
                     MaterialTheme.colorScheme.primary
                 } else {
@@ -400,7 +560,10 @@ private fun TrackingContent(
                 onClick = { showBottomSheet = true },
                 containerColor = MaterialTheme.colorScheme.secondaryContainer
             ) {
-                Icon(Icons.Default.Info, contentDescription = "Show Statistics")
+                Icon(
+                    Icons.Default.Info,
+                    contentDescription = stringResource(Res.string.tracking_show_statistics)
+                )
             }
 
             // Stop Tracking FAB
@@ -408,7 +571,10 @@ private fun TrackingContent(
                 onClick = onStopTracking,
                 containerColor = MaterialTheme.colorScheme.errorContainer
             ) {
-                Icon(Icons.Default.Close, contentDescription = "Stop Tracking")
+                Icon(
+                    Icons.Default.Close,
+                    contentDescription = stringResource(Res.string.tracking_stop)
+                )
             }
         }
     }
@@ -426,30 +592,45 @@ private fun TrackingContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
-                    text = "Tracking Statistics",
+                    text = stringResource(Res.string.tracking_statistics_title),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
                 if (currentLocation != null) {
-                    LocationInfoRow("Latitude", "${(currentLocation.latitude * 1000000).toInt() / 1000000.0}°")
-                    LocationInfoRow("Longitude", "${(currentLocation.longitude * 1000000).toInt() / 1000000.0}°")
+                    LocationInfoRow(
+                        stringResource(Res.string.tracking_latitude),
+                        "${(currentLocation.latitude * 1000000).toInt() / 1000000.0}°"
+                    )
+                    LocationInfoRow(
+                        stringResource(Res.string.tracking_longitude),
+                        "${(currentLocation.longitude * 1000000).toInt() / 1000000.0}°"
+                    )
 
                     currentLocation.altitude?.let {
-                        LocationInfoRow("Altitude", "${(it * 10).toInt() / 10.0} m")
+                        LocationInfoRow(
+                            stringResource(Res.string.tracking_altitude),
+                            "${(it * 10).toInt() / 10.0} m"
+                        )
                     }
 
                     currentLocation.accuracy?.let {
-                        LocationInfoRow("Accuracy", "±${(it * 10).toInt() / 10.0} m")
+                        LocationInfoRow(
+                            stringResource(Res.string.tracking_accuracy),
+                            "±${(it * 10).toInt() / 10.0} m"
+                        )
                     }
 
                     currentLocation.speed?.let {
                         val speedKmh = it * 3.6
-                        LocationInfoRow("Speed", "${(speedKmh * 10).toInt() / 10.0} km/h")
+                        LocationInfoRow(
+                            stringResource(Res.string.tracking_speed),
+                            "${(speedKmh * 10).toInt() / 10.0} km/h"
+                        )
                     }
                 } else {
                     Text(
-                        text = "Acquiring GPS signal...",
+                        text = stringResource(Res.string.tracking_acquiring_signal),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -458,7 +639,7 @@ private fun TrackingContent(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Session: ${sessionId.take(8)}...",
+                    text = stringResource(Res.string.tracking_session_prefix, sessionId.take(8)),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -508,7 +689,7 @@ private fun CompletedContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "Tracking Completed!",
+            text = stringResource(Res.string.tracking_completed),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -524,25 +705,25 @@ private fun CompletedContent(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "Session Summary",
+                        text = stringResource(Res.string.tracking_session_summary),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
 
                     LocationInfoRow(
-                        "Distance",
+                        stringResource(Res.string.tracking_distance),
                         "${((session.distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
                     )
                     LocationInfoRow(
-                        "Duration",
+                        stringResource(Res.string.tracking_duration),
                         "${session.durationSeconds / 3600}h ${(session.durationSeconds % 3600) / 60}m"
                     )
                     LocationInfoRow(
-                        "Avg Speed",
+                        stringResource(Res.string.tracking_avg_speed),
                         "${(session.averageSpeedKmh * 10).toInt() / 10.0} km/h"
                     )
                     LocationInfoRow(
-                        "Elevation Gain",
+                        stringResource(Res.string.tracking_elevation_gain),
                         "+${session.elevationGainMeters} m"
                     )
                 }
@@ -559,7 +740,7 @@ private fun CompletedContent(
         ) {
             Icon(Icons.Default.Refresh, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Start New Session")
+            Text(stringResource(Res.string.tracking_start_new_session))
         }
     }
 }
@@ -585,7 +766,7 @@ private fun ErrorContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "Error",
+            text = stringResource(Res.string.tracking_error),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -610,7 +791,7 @@ private fun ErrorContent(
                     .weight(1f)
                     .height(56.dp)
             ) {
-                Text("Dismiss")
+                Text(stringResource(Res.string.cancel))
             }
 
             FilledTonalButton(
@@ -621,7 +802,7 @@ private fun ErrorContent(
             ) {
                 Icon(Icons.Default.Refresh, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Retry")
+                Text(stringResource(Res.string.retry))
             }
         }
     }
@@ -643,22 +824,22 @@ private fun ConfirmationDialog(
             )
         },
         title = {
-            Text("Sei lontano dal percorso")
+            Text(stringResource(Res.string.tracking_far_title))
         },
         text = {
             val distanceFormatted = (distanceKm * 10).toInt() / 10.0
             Text(
-                "Ti trovi a $distanceFormatted km dal percorso più vicino. Vuoi iniziare il tracking comunque?"
+                stringResource(Res.string.tracking_far_message, distanceFormatted)
             )
         },
         confirmButton = {
             FilledTonalButton(onClick = onConfirm) {
-                Text("Inizia comunque")
+                Text(stringResource(Res.string.tracking_start_anyway))
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onCancel) {
-                Text("Annulla")
+                Text(stringResource(Res.string.cancel))
             }
         }
     )
@@ -711,7 +892,8 @@ private data class CameraPosition(
 )
 
 private fun calculateCameraPosition(
-    route: Route?,
+    routes: List<Route>,
+    selectedRoute: Route?,
     location: LocationData?
 ): CameraPosition {
     // If we have current location, center on it
@@ -723,18 +905,37 @@ private fun calculateCameraPosition(
         )
     }
 
-    // Otherwise, if we have route, center on route center
-    route?.gpxData?.let { geoJson ->
-        val coordinates = parseGeoJsonLineString(geoJson)
-        if (coordinates.isNotEmpty()) {
-            val lats = coordinates.map { it.second }
-            val lons = coordinates.map { it.first }
-            val centerLat = (lats.minOrNull()!! + lats.maxOrNull()!!) / 2.0
-            val centerLon = (lons.minOrNull()!! + lons.maxOrNull()!!) / 2.0
-            return CameraPosition(centerLat, centerLon, 12.0)
-        }
+    // Otherwise, if we have a selected route with data, center on it
+    val primaryCoordinates = selectedRoute?.gpxData?.let { geoJson ->
+        parseGeoJsonLineString(geoJson)
+    }
+
+    val coordinates = when {
+        primaryCoordinates != null && primaryCoordinates.isNotEmpty() -> primaryCoordinates
+        else -> routes.mapNotNull { route ->
+            route.gpxData?.let { parseGeoJsonLineString(it) }
+        }.flatten()
+    }
+
+    if (coordinates.isNotEmpty()) {
+        val lats = coordinates.map { it.second }
+        val lons = coordinates.map { it.first }
+        val centerLat = (lats.minOrNull()!! + lats.maxOrNull()!!) / 2.0
+        val centerLon = (lons.minOrNull()!! + lons.maxOrNull()!!) / 2.0
+        val zoom = if (selectedRoute != null || routes.size == 1) 12.0 else 10.5
+        return CameraPosition(centerLat, centerLon, zoom)
     }
 
     // Default: Menorca center
     return CameraPosition(39.95, 4.05, 10.5)
+}
+
+private fun getTrackingRouteColor(index: Int): String {
+    val colors = listOf(
+        "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
+        "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A",
+        "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
+        "#F44336", "#795548", "#607D8B", "#9E9E9E", "#000000"
+    )
+    return colors[index % colors.size]
 }

@@ -110,8 +110,8 @@ val appModule = module {
         TrackingScreenModel(
             trackingManager = get(),
             permissionHandler = get(),
-            getRouteByIdUseCase = get(),
             getActiveSessionUseCase = get(),
+            getSimplifiedRoutesUseCase = get(),
             routeId = params.getOrNull()
         )
     }

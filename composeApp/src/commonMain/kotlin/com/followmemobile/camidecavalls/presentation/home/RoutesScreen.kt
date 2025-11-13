@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -64,6 +65,7 @@ import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.icons.CamiDeCavallsIcon
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
+import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -97,6 +99,10 @@ class RoutesScreen : Screen {
                     onMapClick = {
                         scope.launch { drawerState.close() }
                         navigator.replaceAll(FullMapScreen())
+                    },
+                    onTrackingClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.replaceAll(TrackingScreen())
                     },
                     onPOIsClick = {
                         scope.launch { drawerState.close() }
@@ -213,7 +219,7 @@ private fun RoutesScreenContent(
 }
 
 enum class DrawerScreen {
-    ABOUT, ROUTES, MAP, POIS, NOTEBOOK, SETTINGS
+    ABOUT, ROUTES, MAP, TRACKING, POIS, NOTEBOOK, SETTINGS
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -224,6 +230,7 @@ fun DrawerContent(
     onAboutClick: () -> Unit,
     onRoutesClick: () -> Unit,
     onMapClick: () -> Unit,
+    onTrackingClick: () -> Unit,
     onPOIsClick: () -> Unit,
     onNotebookClick: () -> Unit,
     onSettingsClick: () -> Unit,
@@ -291,6 +298,15 @@ fun DrawerContent(
                 label = { Text(strings.menuMap) },
                 selected = currentScreen == DrawerScreen.MAP,
                 onClick = onMapClick,
+                modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+            )
+
+            // Tracking
+            NavigationDrawerItem(
+                icon = { Icon(Icons.Default.Flag, contentDescription = null) },
+                label = { Text(strings.menuTracking) },
+                selected = currentScreen == DrawerScreen.TRACKING,
+                onClick = onTrackingClick,
                 modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
             )
 
