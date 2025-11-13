@@ -28,6 +28,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import camidecavalls.composeapp.generated.resources.Res
 import camidecavalls.composeapp.generated.resources.back
+import camidecavalls.composeapp.generated.resources.cancel
+import camidecavalls.composeapp.generated.resources.retry
 import camidecavalls.composeapp.generated.resources.tracking_acquiring_signal
 import camidecavalls.composeapp.generated.resources.tracking_avg_speed
 import camidecavalls.composeapp.generated.resources.tracking_completed
