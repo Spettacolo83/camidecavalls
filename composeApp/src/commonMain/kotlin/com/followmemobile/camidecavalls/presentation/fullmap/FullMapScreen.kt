@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.followmemobile.camidecavalls.presentation.fullmap
 
 import androidx.compose.foundation.background
@@ -159,8 +161,8 @@ class FullMapScreen : Screen {
 // Helper to convert FullMapUiState to RoutesUiState for drawer
 private fun convertToRoutesUiState(fullMapUiState: FullMapUiState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
     return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = "en",
+        routes = fullMapUiState.routes,
+        currentLanguage = fullMapUiState.currentLanguage.code,
         strings = fullMapUiState.strings
     )
 }
