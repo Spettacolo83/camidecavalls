@@ -2,8 +2,11 @@ package com.followmemobile.camidecavalls.presentation.fullmap
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
+import com.followmemobile.camidecavalls.domain.usecase.poi.GetAllPOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
@@ -12,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.pow
 
 /**
  * ScreenModel for FullMapScreen.
@@ -19,6 +23,7 @@ import kotlinx.coroutines.launch
  */
 class FullMapScreenModel(
     private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
+    private val getAllPOIsUseCase: GetAllPOIsUseCase,
     private val languageRepository: LanguageRepository
 ) : ScreenModel {
 
@@ -26,13 +31,27 @@ class FullMapScreenModel(
     val uiState: StateFlow<FullMapUiState> = _uiState.asStateFlow()
 
     init {
-        loadLanguage()
+        observeLanguage()
     }
 
-    private fun loadLanguage() {
+    private fun observeLanguage() {
         screenModelScope.launch {
             val currentLang = languageRepository.getCurrentLanguage()
-            _uiState.update { it.copy(strings = LocalizedStrings(currentLang)) }
+            _uiState.update {
+                it.copy(
+                    strings = LocalizedStrings(currentLang),
+                    currentLanguage = Language.fromCode(currentLang)
+                )
+            }
+
+            languageRepository.observeCurrentLanguage().collect { languageCode ->
+                _uiState.update {
+                    it.copy(
+                        strings = LocalizedStrings(languageCode),
+                        currentLanguage = Language.fromCode(languageCode)
+                    )
+                }
+            }
         }
     }
 
@@ -44,7 +63,12 @@ class FullMapScreenModel(
     fun onMapReady(controller: MapLayerController) {
         println("🗺️  FullMapScreen: onMapReady called")
         mapController = controller
+        controller.setOnMarkerClickListener { markerId ->
+            onMarkerClick(markerId)
+        }
+
         loadAllRoutes()
+        loadAllPOIs()
     }
 
     /**
@@ -54,7 +78,7 @@ class FullMapScreenModel(
         println("🗺️  FullMapScreen: loadAllRoutes called")
         screenModelScope.launch {
             try {
-                _uiState.update { it.copy(isLoading = true, error = null) }
+                _uiState.update { it.copy(isLoadingRoutes = true, errorRoutes = null) }
                 println("🗺️  FullMapScreen: Starting to load routes...")
 
                 // Get simplified routes with full map tolerance (≈11m precision)
@@ -87,7 +111,7 @@ class FullMapScreenModel(
                     _uiState.update {
                         it.copy(
                             routes = routes,
-                            isLoading = false,
+                            isLoadingRoutes = false,
                             simplificationStats = result.stats.toString()
                         )
                     }
@@ -98,14 +122,84 @@ class FullMapScreenModel(
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
-                        isLoading = false,
-                        error = "Error loading routes: ${e.message}"
+                        isLoadingRoutes = false,
+                        errorRoutes = "Error loading routes: ${e.message}"
                     )
                 }
                 println("❌ Error loading routes: ${e.message}")
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun loadAllPOIs() {
+        println("🗺️  FullMapScreen: loadAllPOIs called")
+        screenModelScope.launch {
+            try {
+                _uiState.update { it.copy(isLoadingPOIs = true, errorPOIs = null) }
+
+                getAllPOIsUseCase().collect { pois ->
+                    println("🗺️  FullMapScreen: Received ${pois.size} POIs from database")
+
+                    pois.forEach { poi ->
+                        val color = getColorForPOIType(poi.type.name)
+                        mapController?.addMarker(
+                            markerId = "poi-marker-${poi.id}",
+                            latitude = poi.latitude,
+                            longitude = poi.longitude,
+                            color = color,
+                            radius = 8f
+                        )
+                    }
+
+                    println("🗺️  FullMapScreen: Added ${pois.size} POI markers to map")
+
+                    _uiState.update {
+                        it.copy(
+                            pois = pois,
+                            isLoadingPOIs = false
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoadingPOIs = false,
+                        errorPOIs = "Error loading POIs: ${e.message}"
+                    )
+                }
+                println("❌ Error loading POIs: ${e.message}")
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun onMarkerClick(markerId: String) {
+        println("🎯 FullMap marker clicked: $markerId")
+
+        val poiId = markerId.removePrefix("poi-marker-").toIntOrNull() ?: return
+        val poi = _uiState.value.pois.find { it.id == poiId } ?: return
+
+        val currentZoom = mapController?.getCurrentZoom() ?: 10.0
+        val baseOffset = 0.015
+        val zoomFactor = 2.0.pow(currentZoom - 10.0)
+        val latitudeOffset = baseOffset / zoomFactor
+
+        println("🎯 Zoom: $currentZoom, Offset: $latitudeOffset")
+
+        val offsetLatitude = poi.latitude - latitudeOffset
+        mapController?.updateCamera(
+            latitude = offsetLatitude,
+            longitude = poi.longitude,
+            zoom = null,
+            animated = true
+        )
+
+        _uiState.update { it.copy(selectedPoi = poi) }
+    }
+
+    fun closePoiPopup() {
+        _uiState.update { it.copy(selectedPoi = null) }
     }
 
     /**
@@ -149,16 +243,26 @@ class FullMapScreenModel(
         )
         return colors[index % colors.size]
     }
+    private fun getColorForPOIType(type: String): String {
+        return when (type) {
+            "BEACH" -> "#6FBAFF"
+            "NATURAL" -> "#7FD17F"
+            "HISTORIC" -> "#FF8080"
+            else -> "#9E9E9E"
+        }
+    }
 }
 
-/**
- * UI State for FullMapScreen
- */
 data class FullMapUiState(
     val routes: List<Route> = emptyList(),
+    val pois: List<PointOfInterest> = emptyList(),
     val selectedRoute: Route? = null,
-    val isLoading: Boolean = false,
-    val error: String? = null,
+    val selectedPoi: PointOfInterest? = null,
+    val isLoadingRoutes: Boolean = false,
+    val isLoadingPOIs: Boolean = false,
+    val errorRoutes: String? = null,
+    val errorPOIs: String? = null,
     val simplificationStats: String? = null,
-    val strings: LocalizedStrings = LocalizedStrings("en")
+    val strings: LocalizedStrings = LocalizedStrings("en"),
+    val currentLanguage: Language = Language.ENGLISH
 )

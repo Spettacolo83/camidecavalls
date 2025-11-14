@@ -29,7 +29,6 @@ import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.home.DrawerContent
 import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
 import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -71,10 +70,6 @@ class AboutScreen : Screen {
                     onMapClick = {
                         scope.launch { drawerState.close() }
                         navigator.replaceAll(FullMapScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(POIsScreen())
                     },
                     onNotebookClick = {
                         scope.launch { drawerState.close() }
