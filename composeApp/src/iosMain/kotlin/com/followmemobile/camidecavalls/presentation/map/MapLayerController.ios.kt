@@ -203,11 +203,6 @@ actual class MapLayerController {
         markerCoordinates.clear()
     }
 
-    actual fun requestRender() {
-        mapView?.setNeedsDisplay()
-        mapView?.setNeedsLayout()
-    }
-
     private fun parseHexColor(hex: String): UIColor {
         val cleanHex = hex.removePrefix("#")
         val r = cleanHex.substring(0, 2).toInt(16) / 255.0

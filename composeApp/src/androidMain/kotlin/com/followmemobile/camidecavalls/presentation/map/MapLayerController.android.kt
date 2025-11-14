@@ -252,10 +252,6 @@ actual class MapLayerController {
         managedLayerIds.clear()
     }
 
-    actual fun requestRender() {
-        mapLibreMap?.triggerRepaint()
-        mapView?.invalidate()
-    }
 }
 
 @Composable

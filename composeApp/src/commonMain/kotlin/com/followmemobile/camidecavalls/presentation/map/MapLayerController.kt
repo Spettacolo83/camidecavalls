@@ -72,10 +72,6 @@ expect class MapLayerController() {
      */
     fun clearAll()
 
-    /**
-     * Request the map view to render pending changes immediately.
-     */
-    fun requestRender()
 }
 
 /**

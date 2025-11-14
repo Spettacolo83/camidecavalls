@@ -10,11 +10,15 @@ import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
+import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -42,6 +46,7 @@ class TrackingScreenModel(
     private var selectedRoute: Route? = null
     private var routes: List<Route> = emptyList()
     private var cachedTrackPoints: List<TrackPoint> = emptyList()
+    private var mapController: MapLayerController? = null
 
     init {
         println("🏗️ TrackingScreenModel created: ${this.hashCode()}, routeId=$routeId")
@@ -94,6 +99,10 @@ class TrackingScreenModel(
                         )
                     }
                 }
+
+                mapController?.let { controller ->
+                    renderRoutes(controller)
+                }
             }
         } else {
             screenModelScope.launch {
@@ -131,6 +140,10 @@ class TrackingScreenModel(
                             )
                         }
                     }
+
+                    mapController?.let { controller ->
+                        renderRoutes(controller)
+                    }
                 }
             }
         }
@@ -158,6 +171,10 @@ class TrackingScreenModel(
                     else -> {
                         // No-op for other states
                     }
+                }
+
+                mapController?.let { controller ->
+                    renderCurrentLocation(controller)
                 }
             }
         }
@@ -188,6 +205,10 @@ class TrackingScreenModel(
                         // No-op for other states
                     }
                 }
+
+                mapController?.let { controller ->
+                    renderTrack(controller)
+                }
             }
         }
 
@@ -198,6 +219,10 @@ class TrackingScreenModel(
                 _uiState.value = when (state) {
                     is TrackingState.Stopped -> {
                         cachedTrackPoints = emptyList()
+                        mapController?.let { controller ->
+                            renderTrack(controller)
+                            renderCurrentLocation(controller)
+                        }
                         TrackingUiState.Idle(
                             routes = routes,
                             selectedRoute = selectedRoute,
@@ -235,6 +260,91 @@ class TrackingScreenModel(
             }
         }
 
+    }
+
+    fun onMapReady(controller: MapLayerController) {
+        mapController = controller
+        renderRoutes(controller)
+    }
+
+    fun onMapReleased(controller: MapLayerController) {
+        if (mapController === controller) {
+            mapController = null
+        }
+    }
+
+    private fun renderRoutes(controller: MapLayerController) {
+        controller.clearAll()
+
+        routes.forEachIndexed { index, route ->
+            route.gpxData?.let { geoJson ->
+                controller.addRoutePath(
+                    routeId = "tracking-route-${route.id}",
+                    geoJsonLineString = geoJson,
+                    color = getTrackingRouteColor(index),
+                    width = 4f
+                )
+            }
+        }
+
+        renderTrack(controller)
+        renderCurrentLocation(controller)
+    }
+
+    private fun renderTrack(controller: MapLayerController) {
+        if (cachedTrackPoints.size >= 2) {
+            val geoJson = trackPointsToGeoJson(cachedTrackPoints)
+            controller.addRoutePath(
+                routeId = "user-track",
+                geoJsonLineString = geoJson,
+                color = "#4CAF50",
+                width = 5f
+            )
+        } else {
+            controller.removeLayer("user-track")
+        }
+    }
+
+    private fun renderCurrentLocation(controller: MapLayerController) {
+        val location = trackingManager.currentLocation.value
+        if (location != null) {
+            controller.removeLayer("current-location")
+            controller.addMarker(
+                markerId = "current-location",
+                latitude = location.latitude,
+                longitude = location.longitude,
+                color = "#FF5722",
+                radius = 10f
+            )
+        } else {
+            controller.removeLayer("current-location")
+        }
+    }
+
+    private fun trackPointsToGeoJson(trackPoints: List<TrackPoint>): String {
+        val coordinates = trackPoints.map { point ->
+            JsonArray(
+                listOf(
+                    JsonPrimitive(point.longitude),
+                    JsonPrimitive(point.latitude)
+                )
+            )
+        }
+
+        return buildJsonObject {
+            put("type", JsonPrimitive("LineString"))
+            put("coordinates", JsonArray(coordinates))
+        }.toString()
+    }
+
+    private fun getTrackingRouteColor(index: Int): String {
+        val colors = listOf(
+            "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
+            "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A",
+            "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
+            "#F44336", "#795548", "#607D8B", "#9E9E9E", "#000000"
+        )
+        return colors[index % colors.size]
     }
 
     /**
@@ -371,6 +481,11 @@ class TrackingScreenModel(
                 selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
             )
+
+            mapController?.let { controller ->
+                renderTrack(controller)
+                renderCurrentLocation(controller)
+            }
         }
     }
 
@@ -401,6 +516,11 @@ class TrackingScreenModel(
                 selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
             )
+
+            mapController?.let { controller ->
+                renderTrack(controller)
+                renderCurrentLocation(controller)
+            }
         }
     }
 

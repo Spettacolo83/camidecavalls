@@ -2,7 +2,6 @@ package com.followmemobile.camidecavalls.presentation.tracking
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -24,11 +23,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.IntOffset
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -81,9 +77,6 @@ import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -91,7 +84,6 @@ import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import org.jetbrains.compose.resources.stringResource
-import kotlin.math.roundToInt
 
 /**
  * Screen for GPS tracking functionality.
@@ -188,6 +180,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     showMenuButton = true,
                     onMenuClick = { scope.launch { drawerState.open() } },
                     onBackClick = { navigator.pop() },
+                    onMapReady = screenModel::onMapReady,
+                    onMapReleased = screenModel::onMapReleased,
                     onStartTracking = onStartTracking,
                     onStartTrackingForced = { screenModel.startTrackingForced() },
                     onPauseTracking = { screenModel.pauseTracking() },
@@ -204,6 +198,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 showMenuButton = false,
                 onMenuClick = {},
                 onBackClick = { navigator.pop() },
+                onMapReady = screenModel::onMapReady,
+                onMapReleased = screenModel::onMapReleased,
                 onStartTracking = onStartTracking,
                 onStartTrackingForced = { screenModel.startTrackingForced() },
                 onPauseTracking = { screenModel.pauseTracking() },
@@ -232,6 +228,8 @@ private fun TrackingScreenContent(
     showMenuButton: Boolean,
     onMenuClick: () -> Unit,
     onBackClick: () -> Unit,
+    onMapReady: (MapLayerController) -> Unit,
+    onMapReleased: (MapLayerController) -> Unit,
     onStartTracking: () -> Unit,
     onStartTrackingForced: () -> Unit,
     onPauseTracking: () -> Unit,
@@ -273,6 +271,8 @@ private fun TrackingScreenContent(
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
+                        onMapReady = onMapReady,
+                        onMapReleased = onMapReleased,
                         onStartTracking = onStartTracking,
                         modifier = Modifier.fillMaxSize()
                     )
@@ -284,6 +284,8 @@ private fun TrackingScreenContent(
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
+                        onMapReady = onMapReady,
+                        onMapReleased = onMapReleased,
                         onStartTracking = onStartTracking,
                         modifier = Modifier.fillMaxSize()
                     )
@@ -302,6 +304,8 @@ private fun TrackingScreenContent(
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
                         isPaused = false,
+                        onMapReady = onMapReady,
+                        onMapReleased = onMapReleased,
                         onPauseOrResume = onPauseTracking,
                         onStopTracking = onStopTracking,
                         modifier = Modifier.fillMaxSize()
@@ -316,6 +320,8 @@ private fun TrackingScreenContent(
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
                         isPaused = true,
+                        onMapReady = onMapReady,
+                        onMapReleased = onMapReleased,
                         onPauseOrResume = onResumeTracking,
                         onStopTracking = onStopTracking,
                         modifier = Modifier.fillMaxSize()
@@ -352,56 +358,32 @@ private fun IdleContent(
     routes: List<Route>,
     selectedRoute: Route?,
     currentLocation: LocationData?,
+    onMapReady: (MapLayerController) -> Unit,
+    onMapReleased: (MapLayerController) -> Unit,
     onStartTracking: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val cameraPosition = calculateCameraPosition(routes, selectedRoute, currentLocation)
-    val routesKey = routes.joinToString("-") { it.id.toString() }
+    var mapController by remember { mutableStateOf<MapLayerController?>(null) }
 
     Box(modifier = Modifier.fillMaxSize().then(modifier)) {
-        // Fullscreen map
-        key("idle-map-${selectedRoute?.id ?: "all"}-$routesKey") {
-            MapWithLayers(
-                modifier = Modifier.fillMaxSize(),
-                latitude = cameraPosition.latitude,
-                longitude = cameraPosition.longitude,
-                zoom = cameraPosition.zoom,
-                styleUrl = MapStyles.LIBERTY,
-                onMapReady = { controller ->
-                    controller.clearAll()
-
-                    routes.forEachIndexed { index, route ->
-                        route.gpxData?.let { geoJson ->
-                            controller.addRoutePath(
-                                routeId = "tracking-route-${route.id}",
-                                geoJsonLineString = geoJson,
-                                color = getTrackingRouteColor(index),
-                                width = 4f
-                            )
-                        }
-                    }
-
-                    // Add current location marker if available
-                    currentLocation?.let { location ->
-                        controller.addMarker(
-                            markerId = "current-location",
-                            latitude = location.latitude,
-                            longitude = location.longitude,
-                            color = "#4CAF50",  // Green
-                            radius = 8f
-                        )
-                    }
-
-                    controller.updateCamera(
-                        latitude = cameraPosition.latitude,
-                        longitude = cameraPosition.longitude,
-                        zoom = cameraPosition.zoom,
-                        animated = false
-                    )
-                    controller.requestRender()
-                }
-            )
-        }
+        MapWithLayers(
+            modifier = Modifier.fillMaxSize(),
+            latitude = cameraPosition.latitude,
+            longitude = cameraPosition.longitude,
+            zoom = cameraPosition.zoom,
+            styleUrl = MapStyles.LIBERTY,
+            onMapReady = { controller ->
+                mapController = controller
+                onMapReady(controller)
+                controller.updateCamera(
+                    latitude = cameraPosition.latitude,
+                    longitude = cameraPosition.longitude,
+                    zoom = cameraPosition.zoom,
+                    animated = false
+                )
+            }
+        )
 
         // Start Tracking FAB
         ExtendedFloatingActionButton(
@@ -412,6 +394,25 @@ private fun IdleContent(
             icon = { Icon(Icons.Default.Flag, contentDescription = null) },
             text = { Text(stringResource(Res.string.tracking_start)) }
         )
+    }
+
+    LaunchedEffect(mapController, cameraPosition) {
+        val controller = mapController ?: return@LaunchedEffect
+        controller.updateCamera(
+            latitude = cameraPosition.latitude,
+            longitude = cameraPosition.longitude,
+            zoom = cameraPosition.zoom,
+            animated = false
+        )
+    }
+
+    DisposableEffect(mapController) {
+        val controller = mapController
+        onDispose {
+            if (controller != null) {
+                onMapReleased(controller)
+            }
+        }
     }
 }
 
@@ -424,6 +425,8 @@ private fun ActiveTrackingContent(
     currentLocation: LocationData?,
     trackPoints: List<TrackPoint>,
     isPaused: Boolean,
+    onMapReady: (MapLayerController) -> Unit,
+    onMapReleased: (MapLayerController) -> Unit,
     onPauseOrResume: () -> Unit,
     onStopTracking: () -> Unit,
     modifier: Modifier = Modifier
@@ -434,9 +437,6 @@ private fun ActiveTrackingContent(
     // GPS following state - enabled by default
     var followGpsLocation by remember { mutableStateOf(true) }
     var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
-    var currentZoom by remember { mutableStateOf<Double?>(null) }
-
-    val routesKey = routes.joinToString("-") { it.id.toString() }
 
     // Calculate camera position based on GPS following state
     val cameraPosition = if (followGpsLocation) {
@@ -449,121 +449,32 @@ private fun ActiveTrackingContent(
 
     // Remember the map controller for dynamic updates
     var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+    val cameraState = rememberUpdatedState(cameraPosition)
 
-    // LaunchedEffect 1: Draw routes when map is ready or routes change
-    LaunchedEffect(mapController, routesKey) {
-        val controller = mapController ?: return@LaunchedEffect
-
-        controller.clearAll()
-
-        routes.forEachIndexed { index, route ->
-            route.gpxData?.let { geoJson ->
-                controller.addRoutePath(
-                    routeId = "tracking-route-${route.id}",
-                    geoJsonLineString = geoJson,
-                    color = getTrackingRouteColor(index),
-                    width = 4f
-                )
-            }
-        }
-
-        if (trackPoints.size >= 2) {
-            val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
-            controller.addRoutePath(
-                routeId = "user-track",
-                geoJsonLineString = userTrackGeoJson,
-                color = "#4CAF50",
-                width = 5f
-            )
-        }
-
-        currentLocation?.let { location ->
-            controller.addMarker(
-                markerId = "current-location",
-                latitude = location.latitude,
-                longitude = location.longitude,
-                color = "#FF5722",
-                radius = 10f
-            )
-        }
-
-        controller.requestRender()
-    }
-
-    // LaunchedEffect 2: Update user track (green) - ONLY when trackPoints change
-    LaunchedEffect(mapController, trackPoints.size, routesKey) {
-        val controller = mapController ?: return@LaunchedEffect
-
-        if (trackPoints.size >= 2) {
-            val userTrackGeoJson = trackPointsToGeoJson(trackPoints)
-            controller.addRoutePath(
-                routeId = "user-track",
-                geoJsonLineString = userTrackGeoJson,
-                color = "#4CAF50",
-                width = 5f
-            )
-        } else {
-            controller.removeLayer("user-track")
-        }
-
-        controller.requestRender()
-    }
-
-    // LaunchedEffect 3: Update marker (red) - ONLY when location changes
-    LaunchedEffect(mapController, currentLocation?.latitude, currentLocation?.longitude, routesKey) {
-        val controller = mapController ?: return@LaunchedEffect
-
-        currentLocation?.let { location ->
-            controller.removeLayer("current-location")
-            controller.addMarker(
-                markerId = "current-location",
-                latitude = location.latitude,
-                longitude = location.longitude,
-                color = "#FF5722",
-                radius = 10f
-            )
-        } ?: controller.removeLayer("current-location")
-
-        controller.requestRender()
-    }
-
-    // Separate LaunchedEffect to update camera position (when GPS following is enabled)
     LaunchedEffect(mapController, followGpsLocation, cameraPosition) {
         val controller = mapController ?: return@LaunchedEffect
-
         if (followGpsLocation) {
+            val position = cameraState.value
             controller.updateCamera(
-                latitude = cameraPosition.latitude,
-                longitude = cameraPosition.longitude,
+                latitude = position.latitude,
+                longitude = position.longitude,
                 zoom = null,
                 animated = true
             )
-            controller.requestRender()
         }
     }
 
-    // Clean up when leaving the screen
-    DisposableEffect(Unit) {
-        onDispose {
-            mapController = null
-        }
-    }
-
-    // Initial camera position (only used once at map creation)
-    val initialPosition = remember { calculateCameraPosition(routes, selectedRoute, currentLocation) }
-
-    // Stabilize callbacks to prevent recomposition
-    val onMapReadyCallback = remember {
+    val onMapReadyCallback = remember(onMapReady) {
         { controller: MapLayerController ->
             mapController = controller
-            currentZoom = controller.getCurrentZoom()
+            onMapReady(controller)
+            val position = cameraState.value
             controller.updateCamera(
-                latitude = initialPosition.latitude,
-                longitude = initialPosition.longitude,
-                zoom = initialPosition.zoom,
+                latitude = position.latitude,
+                longitude = position.longitude,
+                zoom = position.zoom,
                 animated = false
             )
-            controller.requestRender()
         }
     }
 
@@ -573,26 +484,26 @@ private fun ActiveTrackingContent(
         }
     }
 
-    val onZoomChangedCallback = remember {
-        { newZoom: Double ->
-            currentZoom = newZoom
+    DisposableEffect(mapController) {
+        val controller = mapController
+        onDispose {
+            if (controller != null) {
+                onMapReleased(controller)
+            }
         }
     }
 
     Box(modifier = Modifier.fillMaxSize().then(modifier)) {
         // Fullscreen map with route and user track
-        key("tracking-map-$sessionId") {
-            MapWithLayers(
-                modifier = Modifier.fillMaxSize(),
-                latitude = initialPosition.latitude,
-                longitude = initialPosition.longitude,
-                zoom = initialPosition.zoom,
-                styleUrl = MapStyles.LIBERTY,
-                onMapReady = onMapReadyCallback,
-                onCameraMoved = onCameraMovedCallback,
-                onZoomChanged = onZoomChangedCallback
-            )
-        }
+        MapWithLayers(
+            modifier = Modifier.fillMaxSize(),
+            latitude = cameraPosition.latitude,
+            longitude = cameraPosition.longitude,
+            zoom = cameraPosition.zoom,
+            styleUrl = MapStyles.LIBERTY,
+            onMapReady = onMapReadyCallback,
+            onCameraMoved = onCameraMovedCallback
+        )
 
         // GPS following toggle button (left side)
         FloatingActionButton(
@@ -624,70 +535,47 @@ private fun ActiveTrackingContent(
         }
 
         // Bottom FAB row with Stop and Stats buttons
-        val stopFabWidth = 56.dp
         val controlsSpacing = 8.dp
-        val targetOffset = if (isPaused) stopFabWidth + controlsSpacing else 0.dp
-        val controlsOffset by animateDpAsState(
-            targetValue = targetOffset,
-            animationSpec = tween(durationMillis = 1000),
-            label = "tracking-controls-offset"
-        )
-
-        val density = LocalDensity.current
-
-        Box(
+        Row(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
+                .animateContentSize(animationSpec = tween(durationMillis = 1000)),
+            horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .offset {
-                        val pxOffset = with(density) { controlsOffset.toPx().roundToInt() }
-                        IntOffset(-pxOffset, 0)
-                    }
-                    .animateContentSize(animationSpec = tween(durationMillis = 1000)),
-                horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
-                verticalAlignment = Alignment.CenterVertically
+            FloatingActionButton(
+                onClick = { showBottomSheet = true },
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
             ) {
-                // Stats FAB
-                FloatingActionButton(
-                    onClick = { showBottomSheet = true },
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
-                ) {
-                    Icon(
-                        Icons.Default.Info,
-                        contentDescription = stringResource(Res.string.tracking_show_statistics)
-                    )
-                }
-
-                // Pause/Resume FAB
-                FloatingActionButton(
-                    onClick = onPauseOrResume,
-                    containerColor = if (isPaused) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.primaryContainer
-                    }
-                ) {
-                    Icon(
-                        imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
-                        contentDescription = stringResource(
-                            if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
-                        ),
-                        tint = if (isPaused) {
-                            MaterialTheme.colorScheme.onPrimary
-                        } else {
-                            MaterialTheme.colorScheme.primary
-                        }
-                    )
-                }
+                Icon(
+                    Icons.Default.Info,
+                    contentDescription = stringResource(Res.string.tracking_show_statistics)
+                )
             }
 
-            // Stop Tracking FAB
+            FloatingActionButton(
+                onClick = onPauseOrResume,
+                containerColor = if (isPaused) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.primaryContainer
+                }
+            ) {
+                Icon(
+                    imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                    contentDescription = stringResource(
+                        if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
+                    ),
+                    tint = if (isPaused) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    }
+                )
+            }
+
             AnimatedVisibility(
-                modifier = Modifier.align(Alignment.BottomEnd),
                 visible = isPaused,
                 enter = slideInHorizontally(
                     initialOffsetX = { fullWidth -> fullWidth },
@@ -980,23 +868,6 @@ private fun ConfirmationDialog(
 }
 
 /**
- * Convert list of TrackPoints to GeoJSON LineString format
- */
-private fun trackPointsToGeoJson(trackPoints: List<TrackPoint>): String {
-    val coordinates = trackPoints.map { point ->
-        JsonArray(listOf(
-            JsonPrimitive(point.longitude),
-            JsonPrimitive(point.latitude)
-        ))
-    }
-
-    return buildJsonObject {
-        put("type", JsonPrimitive("LineString"))
-        put("coordinates", JsonArray(coordinates))
-    }.toString()
-}
-
-/**
  * Parse GeoJSON LineString coordinates from JSON string.
  * Returns list of (longitude, latitude) pairs.
  */
@@ -1062,14 +933,4 @@ private fun calculateCameraPosition(
 
     // Default: Menorca center
     return CameraPosition(39.95, 4.05, 10.5)
-}
-
-private fun getTrackingRouteColor(index: Int): String {
-    val colors = listOf(
-        "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
-        "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A",
-        "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
-        "#F44336", "#795548", "#607D8B", "#9E9E9E", "#000000"
-    )
-    return colors[index % colors.size]
 }
