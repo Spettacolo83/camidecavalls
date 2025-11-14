@@ -1,5 +1,12 @@
 package com.followmemobile.camidecavalls.presentation.pois
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -16,9 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -157,6 +169,21 @@ private fun POIsScreenContent(
     onToggleType: (POIType) -> Unit,
     onShowDetails: (PointOfInterest) -> Unit
 ) {
+    var filtersVisible by remember { mutableStateOf(false) }
+    val filterTransitionState = remember { MutableTransitionState(false) }
+
+    LaunchedEffect(filtersVisible) {
+        filterTransitionState.targetState = filtersVisible
+    }
+
+    val density = LocalDensity.current
+    val filterPopupOffset = remember(density) {
+        IntOffset(
+            x = -with(density) { 24.dp.roundToPx() },
+            y = -with(density) { 96.dp.roundToPx() }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -224,14 +251,44 @@ private fun POIsScreenContent(
                 )
             }
 
-            POIFilterBar(
+            if (filterTransitionState.currentState || filterTransitionState.targetState) {
+                Popup(
+                    alignment = Alignment.BottomEnd,
+                    offset = filterPopupOffset,
+                    onDismissRequest = { filtersVisible = false },
+                    properties = PopupProperties(
+                        focusable = true,
+                        dismissOnClickOutside = true,
+                        dismissOnBackPress = true
+                    )
+                ) {
+                    AnimatedVisibility(
+                        visibleState = filterTransitionState,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 1000)) +
+                            slideInVertically(animationSpec = tween(durationMillis = 1000)) { it / 2 },
+                        exit = fadeOut(animationSpec = tween(durationMillis = 1000)) +
+                            slideOutVertically(animationSpec = tween(durationMillis = 1000)) { it / 2 }
+                    ) {
+                        POIFilterBar(
+                            visibleTypes = uiState.visibleTypes,
+                            strings = uiState.strings,
+                            onToggleType = onToggleType
+                        )
+                    }
+                }
+            }
+
+            FloatingActionButton(
+                onClick = { filtersVisible = !filtersVisible },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 24.dp, end = 24.dp),
-                visibleTypes = uiState.visibleTypes,
-                strings = uiState.strings,
-                onToggleType = onToggleType
-            )
+                    .padding(bottom = 24.dp, end = 24.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.FilterList,
+                    contentDescription = uiState.strings.poisFiltersLabel
+                )
+            }
         }
     }
 }
