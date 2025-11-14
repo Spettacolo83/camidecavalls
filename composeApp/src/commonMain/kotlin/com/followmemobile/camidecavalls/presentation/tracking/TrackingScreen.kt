@@ -262,13 +262,10 @@ private fun TrackingScreenContent(
             )
         }
     ) { paddingValues ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             when (uiState) {
                 is TrackingUiState.Idle -> {
@@ -276,7 +273,8 @@ private fun TrackingScreenContent(
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
-                        onStartTracking = onStartTracking
+                        onStartTracking = onStartTracking,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
 
@@ -286,7 +284,8 @@ private fun TrackingScreenContent(
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
-                        onStartTracking = onStartTracking
+                        onStartTracking = onStartTracking,
+                        modifier = Modifier.fillMaxSize()
                     )
                     ConfirmationDialog(
                         distanceKm = uiState.distanceFromRoute / 1000.0,
@@ -304,7 +303,8 @@ private fun TrackingScreenContent(
                         trackPoints = uiState.trackPoints,
                         isPaused = false,
                         onPauseOrResume = onPauseTracking,
-                        onStopTracking = onStopTracking
+                        onStopTracking = onStopTracking,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
 
@@ -317,14 +317,18 @@ private fun TrackingScreenContent(
                         trackPoints = uiState.trackPoints,
                         isPaused = true,
                         onPauseOrResume = onResumeTracking,
-                        onStopTracking = onStopTracking
+                        onStopTracking = onStopTracking,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
 
                 is TrackingUiState.Completed -> {
                     CompletedContent(
                         session = uiState.session,
-                        onNewSession = onStartNewSession
+                        onNewSession = onStartNewSession,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp)
                     )
                 }
 
@@ -332,7 +336,10 @@ private fun TrackingScreenContent(
                     ErrorContent(
                         message = uiState.message,
                         onRetry = onStartTracking,
-                        onDismiss = onClearError
+                        onDismiss = onClearError,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp)
                     )
                 }
             }
@@ -345,12 +352,13 @@ private fun IdleContent(
     routes: List<Route>,
     selectedRoute: Route?,
     currentLocation: LocationData?,
-    onStartTracking: () -> Unit
+    onStartTracking: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val cameraPosition = calculateCameraPosition(routes, selectedRoute, currentLocation)
     val routesKey = routes.joinToString("-") { it.id.toString() }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().then(modifier)) {
         // Fullscreen map
         key("idle-map-${selectedRoute?.id ?: "all"}-$routesKey") {
             MapWithLayers(
@@ -383,6 +391,13 @@ private fun IdleContent(
                             radius = 8f
                         )
                     }
+
+                    controller.updateCamera(
+                        latitude = cameraPosition.latitude,
+                        longitude = cameraPosition.longitude,
+                        zoom = cameraPosition.zoom,
+                        animated = false
+                    )
                 }
             )
         }
@@ -409,7 +424,8 @@ private fun ActiveTrackingContent(
     trackPoints: List<TrackPoint>,
     isPaused: Boolean,
     onPauseOrResume: () -> Unit,
-    onStopTracking: () -> Unit
+    onStopTracking: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
@@ -531,6 +547,12 @@ private fun ActiveTrackingContent(
         { controller: MapLayerController ->
             mapController = controller
             currentZoom = controller.getCurrentZoom()
+            controller.updateCamera(
+                latitude = initialPosition.latitude,
+                longitude = initialPosition.longitude,
+                zoom = initialPosition.zoom,
+                animated = false
+            )
         }
     }
 
@@ -546,7 +568,7 @@ private fun ActiveTrackingContent(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().then(modifier)) {
         // Fullscreen map with route and user track
         key("tracking-map-$sessionId") {
             MapWithLayers(
@@ -595,7 +617,7 @@ private fun ActiveTrackingContent(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
-                .animateContentSize(),
+                .animateContentSize(animationSpec = tween(durationMillis = 1000)),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -637,11 +659,11 @@ private fun ActiveTrackingContent(
                 visible = isPaused,
                 enter = slideInHorizontally(
                     initialOffsetX = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 250)
+                    animationSpec = tween(durationMillis = 1000)
                 ),
                 exit = slideOutHorizontally(
                     targetOffsetX = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 200)
+                    animationSpec = tween(durationMillis = 1000)
                 )
             ) {
                 FloatingActionButton(
@@ -750,10 +772,11 @@ private fun LocationInfoRow(label: String, value: String) {
 @Composable
 private fun CompletedContent(
     session: com.followmemobile.camidecavalls.domain.model.TrackingSession?,
-    onNewSession: () -> Unit
+    onNewSession: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -827,10 +850,11 @@ private fun CompletedContent(
 private fun ErrorContent(
     message: String,
     onRetry: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

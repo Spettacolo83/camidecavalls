@@ -49,6 +49,11 @@ class TrackingScreenModel(
         // Reset any previous Completed/Error state when screen is opened
         // This ensures a fresh start when navigating back to the tracking screen
         trackingManager.resetToStopped()
+        if (trackingManager.trackingState.value is TrackingState.Stopped &&
+            trackingManager.activeTrackPoints.value.isNotEmpty()
+        ) {
+            trackingManager.resetToStopped(clearTrack = true)
+        }
 
         // Load routes for display
         if (routeId != null) {
