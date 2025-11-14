@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 /**
  * ScreenModel for FullMapScreen.
@@ -122,32 +124,41 @@ class FullMapScreenModel(
 
     /**
      * Get color for route based on index
-     * Uses a color palette that provides good contrast on map
+     * Generates a smooth gradient across the visible spectrum for up to 20 routes
      */
     private fun getRouteColor(index: Int): String {
-        val colors = listOf(
-            "#E91E63", // Pink
-            "#9C27B0", // Purple
-            "#673AB7", // Deep Purple
-            "#3F51B5", // Indigo
-            "#2196F3", // Blue
-            "#03A9F4", // Light Blue
-            "#00BCD4", // Cyan
-            "#009688", // Teal
-            "#4CAF50", // Green
-            "#8BC34A", // Light Green
-            "#CDDC39", // Lime
-            "#FFEB3B", // Yellow
-            "#FFC107", // Amber
-            "#FF9800", // Orange
-            "#FF5722", // Deep Orange
-            "#F44336", // Red
-            "#795548", // Brown
-            "#607D8B", // Blue Grey
-            "#9E9E9E", // Grey
-            "#000000"  // Black
-        )
-        return colors[index % colors.size]
+        val hueStep = 360f / ROUTE_COLOR_COUNT
+        val hue = (index % ROUTE_COLOR_COUNT) * hueStep
+        return hsvToHex(hue, COLOR_SATURATION, COLOR_VALUE)
+    }
+
+    private fun hsvToHex(hue: Float, saturation: Float, value: Float): String {
+        val normalizedHue = ((hue % 360f) + 360f) % 360f
+        val chroma = value * saturation
+        val huePrime = normalizedHue / 60f
+        val secondLargestComponent = chroma * (1 - abs((huePrime % 2) - 1))
+
+        val (red, green, blue) = when {
+            huePrime < 1f -> Triple(chroma, secondLargestComponent, 0f)
+            huePrime < 2f -> Triple(secondLargestComponent, chroma, 0f)
+            huePrime < 3f -> Triple(0f, chroma, secondLargestComponent)
+            huePrime < 4f -> Triple(0f, secondLargestComponent, chroma)
+            huePrime < 5f -> Triple(secondLargestComponent, 0f, chroma)
+            else -> Triple(chroma, 0f, secondLargestComponent)
+        }
+
+        val match = value - chroma
+        val r = ((red + match) * 255).roundToInt().coerceIn(0, 255)
+        val g = ((green + match) * 255).roundToInt().coerceIn(0, 255)
+        val b = ((blue + match) * 255).roundToInt().coerceIn(0, 255)
+
+        return String.format("#%02X%02X%02X", r, g, b)
+    }
+
+    companion object {
+        private const val ROUTE_COLOR_COUNT = 20
+        private const val COLOR_SATURATION = 0.85f
+        private const val COLOR_VALUE = 0.95f
     }
 }
 
