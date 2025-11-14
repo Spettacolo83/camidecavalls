@@ -2,6 +2,7 @@ package com.followmemobile.camidecavalls.presentation.tracking
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -12,7 +13,6 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.GpsNotFixed
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.filled.Flag
@@ -22,14 +22,13 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.roundToPx
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -398,6 +397,7 @@ private fun IdleContent(
                         zoom = cameraPosition.zoom,
                         animated = false
                     )
+                    controller.requestRender()
                 }
             )
         }
@@ -485,6 +485,8 @@ private fun ActiveTrackingContent(
                 radius = 10f
             )
         }
+
+        controller.requestRender()
     }
 
     // LaunchedEffect 2: Update user track (green) - ONLY when trackPoints change
@@ -499,7 +501,11 @@ private fun ActiveTrackingContent(
                 color = "#4CAF50",
                 width = 5f
             )
+        } else {
+            controller.removeLayer("user-track")
         }
+
+        controller.requestRender()
     }
 
     // LaunchedEffect 3: Update marker (red) - ONLY when location changes
@@ -515,7 +521,9 @@ private fun ActiveTrackingContent(
                 color = "#FF5722",
                 radius = 10f
             )
-        }
+        } ?: controller.removeLayer("current-location")
+
+        controller.requestRender()
     }
 
     // Separate LaunchedEffect to update camera position (when GPS following is enabled)
@@ -529,6 +537,7 @@ private fun ActiveTrackingContent(
                 zoom = null,
                 animated = true
             )
+            controller.requestRender()
         }
     }
 
@@ -553,6 +562,7 @@ private fun ActiveTrackingContent(
                 zoom = initialPosition.zoom,
                 animated = false
             )
+            controller.requestRender()
         }
     }
 
@@ -613,49 +623,65 @@ private fun ActiveTrackingContent(
         }
 
         // Bottom FAB row with Stop and Stats buttons
-        Row(
+        val stopFabWidth = 56.dp
+        val controlsSpacing = 8.dp
+        val targetOffset = if (isPaused) stopFabWidth + controlsSpacing else 0.dp
+        val controlsOffset by animateDpAsState(
+            targetValue = targetOffset,
+            animationSpec = tween(durationMillis = 1000),
+            label = "tracking-controls-offset"
+        )
+
+        Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
-                .animateContentSize(animationSpec = tween(durationMillis = 1000)),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Stats FAB
-            FloatingActionButton(
-                onClick = { showBottomSheet = true },
-                containerColor = MaterialTheme.colorScheme.secondaryContainer
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .offset { IntOffset(-controlsOffset.roundToPx(), 0) }
+                    .animateContentSize(animationSpec = tween(durationMillis = 1000)),
+                horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    Icons.Default.Info,
-                    contentDescription = stringResource(Res.string.tracking_show_statistics)
-                )
-            }
-
-            // Pause/Resume FAB
-            FloatingActionButton(
-                onClick = onPauseOrResume,
-                containerColor = if (isPaused) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.primaryContainer
+                // Stats FAB
+                FloatingActionButton(
+                    onClick = { showBottomSheet = true },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                ) {
+                    Icon(
+                        Icons.Default.Info,
+                        contentDescription = stringResource(Res.string.tracking_show_statistics)
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
-                    contentDescription = stringResource(
-                        if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
-                    ),
-                    tint = if (isPaused) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
+
+                // Pause/Resume FAB
+                FloatingActionButton(
+                    onClick = onPauseOrResume,
+                    containerColor = if (isPaused) {
                         MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer
                     }
-                )
+                ) {
+                    Icon(
+                        imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                        contentDescription = stringResource(
+                            if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
+                        ),
+                        tint = if (isPaused) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        }
+                    )
+                }
             }
 
             // Stop Tracking FAB
             AnimatedVisibility(
+                modifier = Modifier.align(Alignment.BottomEnd),
                 visible = isPaused,
                 enter = slideInHorizontally(
                     initialOffsetX = { fullWidth -> fullWidth },

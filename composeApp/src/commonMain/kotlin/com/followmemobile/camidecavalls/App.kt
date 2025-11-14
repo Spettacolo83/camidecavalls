@@ -46,7 +46,7 @@ fun App() {
                     RecordingBadge(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
-                            .padding(top = 56.dp, end = 16.dp)
+                            .padding(top = 44.dp, end = 16.dp)
                     )
                 }
             }
