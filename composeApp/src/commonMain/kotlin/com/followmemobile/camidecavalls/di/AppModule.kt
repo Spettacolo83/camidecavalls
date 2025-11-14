@@ -24,7 +24,6 @@ import com.followmemobile.camidecavalls.domain.usecase.route.SaveRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.AddTrackPointUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.CalculateSessionStatsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.DeleteSessionUseCase
-import com.followmemobile.camidecavalls.domain.usecase.tracking.GetActiveSessionUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.GetAllSessionsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.GetSessionByIdUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.StartTrackingSessionUseCase
@@ -81,7 +80,6 @@ val appModule = module {
     factoryOf(::StartTrackingSessionUseCase)
     factoryOf(::StopTrackingSessionUseCase)
     factoryOf(::AddTrackPointUseCase)
-    factoryOf(::GetActiveSessionUseCase)
     factoryOf(::GetAllSessionsUseCase)
     factoryOf(::GetSessionByIdUseCase)
     factoryOf(::DeleteSessionUseCase)
@@ -94,7 +92,6 @@ val appModule = module {
             startTrackingSessionUseCase = get(),
             stopTrackingSessionUseCase = get(),
             addTrackPointUseCase = get(),
-            getActiveSessionUseCase = get(),
             scope = scope
         )
     }
@@ -110,7 +107,6 @@ val appModule = module {
         TrackingScreenModel(
             trackingManager = get(),
             permissionHandler = get(),
-            getActiveSessionUseCase = get(),
             getSimplifiedRoutesUseCase = get(),
             routeId = params.getOrNull()
         )

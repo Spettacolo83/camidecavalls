@@ -8,7 +8,6 @@ import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
-import com.followmemobile.camidecavalls.domain.usecase.tracking.GetActiveSessionUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +32,6 @@ import kotlin.math.sqrt
 class TrackingScreenModel(
     private val trackingManager: TrackingManager,
     private val permissionHandler: PermissionHandler,
-    private val getActiveSessionUseCase: GetActiveSessionUseCase,
     private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
     private val routeId: Int? = null
 ) : ScreenModel {
@@ -232,10 +230,6 @@ class TrackingScreenModel(
             }
         }
 
-        // Try to resume active session if exists
-        screenModelScope.launch {
-            trackingManager.resumeIfActive()
-        }
     }
 
     /**
@@ -360,6 +354,18 @@ class TrackingScreenModel(
                     e.message ?: "Failed to stop tracking"
                 )
             }
+        }
+    }
+
+    fun startNewSession() {
+        screenModelScope.launch {
+            trackingManager.resetToStopped(clearTrack = true)
+            cachedTrackPoints = emptyList()
+            _uiState.value = TrackingUiState.Idle(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                currentLocation = trackingManager.currentLocation.value
+            )
         }
     }
 

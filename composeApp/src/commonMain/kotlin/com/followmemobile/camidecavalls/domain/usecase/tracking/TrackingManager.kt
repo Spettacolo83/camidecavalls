@@ -4,7 +4,6 @@ import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.service.LocationConfig
 import com.followmemobile.camidecavalls.domain.service.LocationData
-import com.followmemobile.camidecavalls.domain.service.LocationPriority
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -12,11 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import kotlinx.datetime.toEpochMilliseconds
 
 /**
  * Manages GPS tracking sessions with battery optimization and offline support.
@@ -33,7 +30,6 @@ class TrackingManager(
     private val startTrackingSessionUseCase: StartTrackingSessionUseCase,
     private val stopTrackingSessionUseCase: StopTrackingSessionUseCase,
     private val addTrackPointUseCase: AddTrackPointUseCase,
-    private val getActiveSessionUseCase: GetActiveSessionUseCase,
     private val scope: CoroutineScope
 ) {
     private var trackingJob: Job? = null
@@ -108,7 +104,6 @@ class TrackingManager(
     ) {
         if (resetLocation) {
             _activeTrackPoints.value = emptyList()
-            _currentLocation.value = null
             lastLocationForSpeed = null
         }
 
@@ -245,45 +240,8 @@ class TrackingManager(
             _trackingState.value = TrackingState.Error(e.message ?: "Failed to stop tracking")
         } finally {
             currentSessionId = null
-            _currentLocation.value = null
             lastLocationForSpeed = null
             currentConfig = LocationConfig()
-            _activeTrackPoints.value = emptyList()
-        }
-    }
-
-    /**
-     * Resume tracking if there's an active session (e.g., after app restart)
-     */
-    suspend fun resumeIfActive() {
-        if (_trackingState.value !is TrackingState.Stopped) {
-            return
-        }
-
-        val activeSession = getActiveSessionUseCase().first()
-        if (activeSession != null) {
-            currentSessionId = activeSession.id
-            _activeTrackPoints.value = activeSession.trackPoints
-
-            val lastPoint = activeSession.trackPoints.lastOrNull()
-            if (lastPoint != null) {
-                _currentLocation.value = LocationData(
-                    latitude = lastPoint.latitude,
-                    longitude = lastPoint.longitude,
-                    altitude = lastPoint.altitude,
-                    accuracy = null,
-                    speed = lastPoint.speedKmh?.div(3.6)?.toFloat(),
-                    bearing = null,
-                    timestamp = lastPoint.timestamp.toEpochMilliseconds()
-                )
-                lastLocationForSpeed = _currentLocation.value
-            }
-
-            _trackingState.value = TrackingState.Paused(
-                sessionId = activeSession.id,
-                routeId = activeSession.routeId,
-                currentLocation = _currentLocation.value
-            )
         }
     }
 
@@ -298,12 +256,17 @@ class TrackingManager(
      * Reset tracking state to Stopped.
      * Used when navigating to tracking screen to clear previous Completed/Error states.
      */
-    fun resetToStopped() {
+    fun resetToStopped(clearTrack: Boolean = false) {
         if (_trackingState.value is TrackingState.Completed ||
             _trackingState.value is TrackingState.Error) {
             _trackingState.value = TrackingState.Stopped
+        }
+
+        if (clearTrack) {
             _activeTrackPoints.value = emptyList()
-            _currentLocation.value = null
+            lastLocationForSpeed = null
+            currentConfig = LocationConfig()
+            currentSessionId = null
         }
     }
 

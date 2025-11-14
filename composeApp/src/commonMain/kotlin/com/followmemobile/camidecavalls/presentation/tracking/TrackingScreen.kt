@@ -1,10 +1,14 @@
 package com.followmemobile.camidecavalls.presentation.tracking
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.GpsNotFixed
 import androidx.compose.material.icons.filled.Info
@@ -15,6 +19,7 @@ import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
@@ -131,6 +136,10 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
             }
         }
 
+        val onStartNewSession = {
+            screenModel.startNewSession()
+        }
+
         if (routeId == null) {
             val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
             val scope = rememberCoroutineScope()
@@ -185,6 +194,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     onResumeTracking = { screenModel.resumeTracking() },
                     onCancelConfirmation = { screenModel.cancelConfirmation() },
                     onStopTracking = { screenModel.stopTracking() },
+                    onStartNewSession = onStartNewSession,
                     onClearError = { screenModel.clearError() }
                 )
             }
@@ -200,6 +210,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 onResumeTracking = { screenModel.resumeTracking() },
                 onCancelConfirmation = { screenModel.cancelConfirmation() },
                 onStopTracking = { screenModel.stopTracking() },
+                onStartNewSession = onStartNewSession,
                 onClearError = { screenModel.clearError() }
             )
         }
@@ -227,6 +238,7 @@ private fun TrackingScreenContent(
     onResumeTracking: () -> Unit,
     onCancelConfirmation: () -> Unit,
     onStopTracking: () -> Unit,
+    onStartNewSession: () -> Unit,
     onClearError: () -> Unit
 ) {
     Scaffold(
@@ -312,7 +324,7 @@ private fun TrackingScreenContent(
                 is TrackingUiState.Completed -> {
                     CompletedContent(
                         session = uiState.session,
-                        onNewSession = onStartTracking
+                        onNewSession = onStartNewSession
                     )
                 }
 
@@ -582,8 +594,10 @@ private fun ActiveTrackingContent(
         Row(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(16.dp)
+                .animateContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Stats FAB
             FloatingActionButton(
@@ -619,14 +633,26 @@ private fun ActiveTrackingContent(
             }
 
             // Stop Tracking FAB
-            FloatingActionButton(
-                onClick = onStopTracking,
-                containerColor = MaterialTheme.colorScheme.errorContainer
-            ) {
-                Icon(
-                    Icons.Default.Close,
-                    contentDescription = stringResource(Res.string.tracking_stop)
+            AnimatedVisibility(
+                visible = isPaused,
+                enter = slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 250)
+                ),
+                exit = slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 200)
                 )
+            ) {
+                FloatingActionButton(
+                    onClick = onStopTracking,
+                    containerColor = MaterialTheme.colorScheme.errorContainer
+                ) {
+                    Icon(
+                        Icons.Default.Stop,
+                        contentDescription = stringResource(Res.string.tracking_stop)
+                    )
+                }
             }
         }
     }
