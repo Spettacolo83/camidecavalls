@@ -13,6 +13,8 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
@@ -51,6 +53,8 @@ import camidecavalls.composeapp.generated.resources.tracking_show_statistics
 import camidecavalls.composeapp.generated.resources.tracking_start
 import camidecavalls.composeapp.generated.resources.tracking_start_anyway
 import camidecavalls.composeapp.generated.resources.tracking_start_new_session
+import camidecavalls.composeapp.generated.resources.tracking_pause
+import camidecavalls.composeapp.generated.resources.tracking_resume
 import camidecavalls.composeapp.generated.resources.tracking_statistics_title
 import camidecavalls.composeapp.generated.resources.tracking_stop
 import camidecavalls.composeapp.generated.resources.tracking_title
@@ -177,6 +181,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     onBackClick = { navigator.pop() },
                     onStartTracking = onStartTracking,
                     onStartTrackingForced = { screenModel.startTrackingForced() },
+                    onPauseTracking = { screenModel.pauseTracking() },
+                    onResumeTracking = { screenModel.resumeTracking() },
                     onCancelConfirmation = { screenModel.cancelConfirmation() },
                     onStopTracking = { screenModel.stopTracking() },
                     onClearError = { screenModel.clearError() }
@@ -190,6 +196,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 onBackClick = { navigator.pop() },
                 onStartTracking = onStartTracking,
                 onStartTrackingForced = { screenModel.startTrackingForced() },
+                onPauseTracking = { screenModel.pauseTracking() },
+                onResumeTracking = { screenModel.resumeTracking() },
                 onCancelConfirmation = { screenModel.cancelConfirmation() },
                 onStopTracking = { screenModel.stopTracking() },
                 onClearError = { screenModel.clearError() }
@@ -215,6 +223,8 @@ private fun TrackingScreenContent(
     onBackClick: () -> Unit,
     onStartTracking: () -> Unit,
     onStartTrackingForced: () -> Unit,
+    onPauseTracking: () -> Unit,
+    onResumeTracking: () -> Unit,
     onCancelConfirmation: () -> Unit,
     onStopTracking: () -> Unit,
     onClearError: () -> Unit
@@ -274,12 +284,27 @@ private fun TrackingScreenContent(
                 }
 
                 is TrackingUiState.Tracking -> {
-                    TrackingContent(
+                    ActiveTrackingContent(
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         sessionId = uiState.sessionId,
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
+                        isPaused = false,
+                        onPauseOrResume = onPauseTracking,
+                        onStopTracking = onStopTracking
+                    )
+                }
+
+                is TrackingUiState.Paused -> {
+                    ActiveTrackingContent(
+                        routes = uiState.routes,
+                        selectedRoute = uiState.selectedRoute,
+                        sessionId = uiState.sessionId,
+                        currentLocation = uiState.currentLocation,
+                        trackPoints = uiState.trackPoints,
+                        isPaused = true,
+                        onPauseOrResume = onResumeTracking,
                         onStopTracking = onStopTracking
                     )
                 }
@@ -364,12 +389,14 @@ private fun IdleContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TrackingContent(
+private fun ActiveTrackingContent(
     routes: List<Route>,
     selectedRoute: Route?,
     sessionId: String,
     currentLocation: LocationData?,
     trackPoints: List<TrackPoint>,
+    isPaused: Boolean,
+    onPauseOrResume: () -> Unit,
     onStopTracking: () -> Unit
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -566,6 +593,28 @@ private fun TrackingContent(
                 Icon(
                     Icons.Default.Info,
                     contentDescription = stringResource(Res.string.tracking_show_statistics)
+                )
+            }
+
+            // Pause/Resume FAB
+            FloatingActionButton(
+                onClick = onPauseOrResume,
+                containerColor = if (isPaused) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.primaryContainer
+                }
+            ) {
+                Icon(
+                    imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                    contentDescription = stringResource(
+                        if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
+                    ),
+                    tint = if (isPaused) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    }
                 )
             }
 

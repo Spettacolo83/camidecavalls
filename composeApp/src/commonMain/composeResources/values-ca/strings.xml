@@ -56,6 +56,7 @@
     <string name="tracking_start">Iniciar</string>
     <string name="tracking_pause">Pausar</string>
     <string name="tracking_resume">Reprendre</string>
+    <string name="tracking_recording_badge">GRAVANT</string>
     <string name="tracking_stop">Aturar</string>
     <string name="tracking_distance">Distància</string>
     <string name="tracking_duration">Durada</string>

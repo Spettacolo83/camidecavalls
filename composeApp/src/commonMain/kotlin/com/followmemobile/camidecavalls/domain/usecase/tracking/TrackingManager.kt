@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.domain.usecase.tracking
 
+import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.service.LocationConfig
 import com.followmemobile.camidecavalls.domain.service.LocationData
@@ -12,7 +13,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.toEpochMilliseconds
 
 /**
  * Manages GPS tracking sessions with battery optimization and offline support.
@@ -34,15 +38,19 @@ class TrackingManager(
 ) {
     private var trackingJob: Job? = null
     private var currentSessionId: String? = null
+    private var currentConfig: LocationConfig = LocationConfig()
 
     // Track last location for speed calculation
     private var lastLocationForSpeed: LocationData? = null
 
-    private val _trackingState = MutableStateFlow<TrackingState>(TrackingState.Idle)
+    private val _trackingState = MutableStateFlow<TrackingState>(TrackingState.Stopped)
     val trackingState: StateFlow<TrackingState> = _trackingState.asStateFlow()
 
     private val _currentLocation = MutableStateFlow<LocationData?>(null)
     val currentLocation: StateFlow<LocationData?> = _currentLocation.asStateFlow()
+
+    private val _activeTrackPoints = MutableStateFlow<List<TrackPoint>>(emptyList())
+    val activeTrackPoints: StateFlow<List<TrackPoint>> = _activeTrackPoints.asStateFlow()
 
     /**
      * Start a new tracking session with battery-optimized settings.
@@ -53,20 +61,21 @@ class TrackingManager(
      */
     suspend fun startTracking(
         routeId: Int? = null,
-        config: LocationConfig = LocationConfig()  // Use defaults: minDistance=0f, HIGH_ACCURACY
+        config: LocationConfig = LocationConfig()
     ) {
-        // Reset any previous Completed/Error state to allow starting a new session
-        if (_trackingState.value is TrackingState.Completed ||
-            _trackingState.value is TrackingState.Error) {
-            _trackingState.value = TrackingState.Idle
-        }
-
-        // Check if already tracking
-        if (_trackingState.value is TrackingState.Tracking) {
+        if (_trackingState.value is TrackingState.Recording) {
             return
         }
 
-        // Check permissions
+        if (_trackingState.value is TrackingState.Completed ||
+            _trackingState.value is TrackingState.Error) {
+            _trackingState.value = TrackingState.Stopped
+        }
+
+        if (_trackingState.value !is TrackingState.Stopped) {
+            return
+        }
+
         if (!locationService.hasLocationPermission()) {
             _trackingState.value = TrackingState.Error("Location permission not granted")
             return
@@ -78,26 +87,58 @@ class TrackingManager(
         }
 
         try {
-            // Create new tracking session in database
             val session = startTrackingSessionUseCase(routeId)
             currentSessionId = session.id
+            currentConfig = config
 
-            // Start location service
-            locationService.startTracking(config)
+            startLocationUpdates(
+                sessionId = session.id,
+                routeId = routeId,
+                resetLocation = true
+            )
+        } catch (e: Exception) {
+            _trackingState.value = TrackingState.Error(e.message ?: "Failed to start tracking")
+        }
+    }
 
-            // Collect location updates and save to database
-            trackingJob = scope.launch {
-                locationService.locationUpdates
-                    .filterNotNull()
-                    .collect { location ->
-                        // Calculate speed from consecutive GPS points
-                        val calculatedSpeed = calculateSpeedFromLastLocation(location)
-                        val locationWithSpeed = location.copy(speed = calculatedSpeed)
+    private suspend fun startLocationUpdates(
+        sessionId: String,
+        routeId: Int?,
+        resetLocation: Boolean
+    ) {
+        if (resetLocation) {
+            _activeTrackPoints.value = emptyList()
+            _currentLocation.value = null
+            lastLocationForSpeed = null
+        }
 
-                        _currentLocation.value = locationWithSpeed
+        locationService.startTracking(currentConfig)
 
-                        // Save track point to database (offline)
-                        currentSessionId?.let { sessionId ->
+        trackingJob?.cancel()
+        trackingJob = scope.launch {
+            locationService.locationUpdates
+                .filterNotNull()
+                .collect { location ->
+                    val calculatedSpeed = calculateSpeedFromLastLocation(location)
+                    val locationWithSpeed = location.copy(speed = calculatedSpeed)
+
+                    _currentLocation.value = locationWithSpeed
+
+                    val trackPoint = TrackPoint(
+                        latitude = locationWithSpeed.latitude,
+                        longitude = locationWithSpeed.longitude,
+                        altitude = locationWithSpeed.altitude,
+                        timestamp = Clock.System.now(),
+                        speedKmh = locationWithSpeed.speed?.times(3.6)
+                    )
+
+                    val isDuplicate = _activeTrackPoints.value.lastOrNull()?.let { last ->
+                        last.latitude == trackPoint.latitude &&
+                                last.longitude == trackPoint.longitude
+                    } ?: false
+
+                    if (!isDuplicate) {
+                        try {
                             addTrackPointUseCase(
                                 sessionId = sessionId,
                                 latitude = locationWithSpeed.latitude,
@@ -107,30 +148,73 @@ class TrackingManager(
                                 speed = locationWithSpeed.speed,
                                 bearing = locationWithSpeed.bearing
                             )
+                            _activeTrackPoints.update { it + trackPoint }
+                        } catch (e: Exception) {
+                            _trackingState.value = TrackingState.Error(
+                                e.message ?: "Failed to save track point"
+                            )
+                            locationService.stopTracking()
+                            return@collect
                         }
-
-                        // Update tracking state with current session
-                        _trackingState.value = TrackingState.Tracking(
-                            sessionId = session.id,
-                            routeId = routeId,
-                            currentLocation = locationWithSpeed
-                        )
-
-                        // Store this location for next speed calculation
-                        lastLocationForSpeed = locationWithSpeed
                     }
-            }
 
-            _trackingState.value = TrackingState.Tracking(
-                sessionId = session.id,
-                routeId = routeId,
-                currentLocation = null
-            )
+                    _trackingState.value = TrackingState.Recording(
+                        sessionId = sessionId,
+                        routeId = routeId,
+                        currentLocation = locationWithSpeed
+                    )
 
-        } catch (e: Exception) {
-            _trackingState.value = TrackingState.Error(e.message ?: "Failed to start tracking")
-            stopTracking()
+                    lastLocationForSpeed = locationWithSpeed
+                }
         }
+
+        _trackingState.value = TrackingState.Recording(
+            sessionId = sessionId,
+            routeId = routeId,
+            currentLocation = _currentLocation.value
+        )
+    }
+
+    suspend fun pauseTracking() {
+        val recordingState = _trackingState.value as? TrackingState.Recording ?: return
+
+        trackingJob?.cancel()
+        trackingJob = null
+
+        try {
+            locationService.stopTracking()
+        } catch (_: Exception) {
+            // Ignore stop errors while pausing
+        }
+
+        _trackingState.value = TrackingState.Paused(
+            sessionId = recordingState.sessionId,
+            routeId = recordingState.routeId,
+            currentLocation = _currentLocation.value
+        )
+    }
+
+    suspend fun resumeTracking() {
+        val pausedState = _trackingState.value as? TrackingState.Paused ?: return
+
+        if (!locationService.hasLocationPermission()) {
+            _trackingState.value = TrackingState.Error("Location permission not granted")
+            return
+        }
+
+        if (!locationService.isLocationEnabled()) {
+            _trackingState.value = TrackingState.Error("Location services disabled")
+            return
+        }
+
+        currentSessionId = pausedState.sessionId
+        lastLocationForSpeed = _currentLocation.value
+
+        startLocationUpdates(
+            sessionId = pausedState.sessionId,
+            routeId = pausedState.routeId,
+            resetLocation = false
+        )
     }
 
     /**
@@ -145,18 +229,26 @@ class TrackingManager(
 
         try {
             locationService.stopTracking()
+        } catch (_: Exception) {
+            // Ignore stop errors when cleaning up
+        }
 
-            currentSessionId?.let { sessionId ->
-                // Stop session and calculate final statistics
+        try {
+            val sessionId = currentSessionId
+            if (sessionId != null) {
                 val finalSession = stopTrackingSessionUseCase(sessionId, notes)
                 _trackingState.value = TrackingState.Completed(finalSession)
+            } else {
+                _trackingState.value = TrackingState.Stopped
             }
         } catch (e: Exception) {
             _trackingState.value = TrackingState.Error(e.message ?: "Failed to stop tracking")
         } finally {
             currentSessionId = null
             _currentLocation.value = null
-            lastLocationForSpeed = null // Reset for next session
+            lastLocationForSpeed = null
+            currentConfig = LocationConfig()
+            _activeTrackPoints.value = emptyList()
         }
     }
 
@@ -164,10 +256,34 @@ class TrackingManager(
      * Resume tracking if there's an active session (e.g., after app restart)
      */
     suspend fun resumeIfActive() {
+        if (_trackingState.value !is TrackingState.Stopped) {
+            return
+        }
+
         val activeSession = getActiveSessionUseCase().first()
         if (activeSession != null) {
             currentSessionId = activeSession.id
-            startTracking(activeSession.routeId)
+            _activeTrackPoints.value = activeSession.trackPoints
+
+            val lastPoint = activeSession.trackPoints.lastOrNull()
+            if (lastPoint != null) {
+                _currentLocation.value = LocationData(
+                    latitude = lastPoint.latitude,
+                    longitude = lastPoint.longitude,
+                    altitude = lastPoint.altitude,
+                    accuracy = null,
+                    speed = lastPoint.speedKmh?.div(3.6)?.toFloat(),
+                    bearing = null,
+                    timestamp = lastPoint.timestamp.toEpochMilliseconds()
+                )
+                lastLocationForSpeed = _currentLocation.value
+            }
+
+            _trackingState.value = TrackingState.Paused(
+                sessionId = activeSession.id,
+                routeId = activeSession.routeId,
+                currentLocation = _currentLocation.value
+            )
         }
     }
 
@@ -179,13 +295,15 @@ class TrackingManager(
     }
 
     /**
-     * Reset tracking state to Idle.
+     * Reset tracking state to Stopped.
      * Used when navigating to tracking screen to clear previous Completed/Error states.
      */
-    fun resetToIdle() {
+    fun resetToStopped() {
         if (_trackingState.value is TrackingState.Completed ||
             _trackingState.value is TrackingState.Error) {
-            _trackingState.value = TrackingState.Idle
+            _trackingState.value = TrackingState.Stopped
+            _activeTrackPoints.value = emptyList()
+            _currentLocation.value = null
         }
     }
 
@@ -259,9 +377,15 @@ class TrackingManager(
  * Tracking state
  */
 sealed interface TrackingState {
-    data object Idle : TrackingState
+    data object Stopped : TrackingState
 
-    data class Tracking(
+    data class Recording(
+        val sessionId: String,
+        val routeId: Int?,
+        val currentLocation: LocationData?
+    ) : TrackingState
+
+    data class Paused(
         val sessionId: String,
         val routeId: Int?,
         val currentLocation: LocationData?

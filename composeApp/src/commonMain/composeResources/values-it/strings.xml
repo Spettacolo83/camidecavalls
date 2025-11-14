@@ -56,6 +56,7 @@
     <string name="tracking_start">Inizia</string>
     <string name="tracking_pause">Pausa</string>
     <string name="tracking_resume">Riprendi</string>
+    <string name="tracking_recording_badge">REGISTRAZIONE</string>
     <string name="tracking_stop">Ferma</string>
     <string name="tracking_distance">Distanza</string>
     <string name="tracking_duration">Durata</string>
