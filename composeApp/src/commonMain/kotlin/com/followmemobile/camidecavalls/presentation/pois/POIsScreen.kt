@@ -1,10 +1,21 @@
 package com.followmemobile.camidecavalls.presentation.pois
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,15 +24,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.SubcomposeAsyncImage
 import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.POIType
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
@@ -107,6 +124,7 @@ class POIsScreen : Screen {
                 },
                 onMapReady = { controller -> screenModel.onMapReady(controller) },
                 onClosePopup = { screenModel.closePopup() },
+                onToggleType = { type -> screenModel.toggleType(type) },
                 onShowDetails = { poi ->
                     // Show POI detail in bottom sheet (map stays loaded underneath)
                     selectedPoiForDetail = poi
@@ -153,8 +171,24 @@ private fun POIsScreenContent(
     onMenuClick: () -> Unit,
     onMapReady: (MapLayerController) -> Unit,
     onClosePopup: () -> Unit,
+    onToggleType: (POIType) -> Unit,
     onShowDetails: (PointOfInterest) -> Unit
 ) {
+    var filtersVisible by remember { mutableStateOf(false) }
+    val filterTransitionState = remember { MutableTransitionState(false) }
+
+    LaunchedEffect(filtersVisible) {
+        filterTransitionState.targetState = filtersVisible
+    }
+
+    val density = LocalDensity.current
+    val filterPopupOffset = remember(density) {
+        IntOffset(
+            x = -with(density) { 24.dp.roundToPx() },
+            y = -with(density) { 96.dp.roundToPx() }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -218,7 +252,46 @@ private fun POIsScreenContent(
                     onShowDetails = { onShowDetails(poi) },
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 24.dp)
+                        .padding(bottom = 104.dp)
+                )
+            }
+
+            if (filterTransitionState.currentState || filterTransitionState.targetState) {
+                Popup(
+                    alignment = Alignment.BottomEnd,
+                    offset = filterPopupOffset,
+                    onDismissRequest = { filtersVisible = false },
+                    properties = PopupProperties(
+                        focusable = true,
+                        dismissOnClickOutside = true,
+                        dismissOnBackPress = true
+                    )
+                ) {
+                    AnimatedVisibility(
+                        visibleState = filterTransitionState,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 1000)) +
+                            slideInVertically(animationSpec = tween(durationMillis = 1000)) { it / 2 },
+                        exit = fadeOut(animationSpec = tween(durationMillis = 1000)) +
+                            slideOutVertically(animationSpec = tween(durationMillis = 1000)) { it / 2 }
+                    ) {
+                        POIFilterBar(
+                            visibleTypes = uiState.visibleTypes,
+                            strings = uiState.strings,
+                            onToggleType = onToggleType
+                        )
+                    }
+                }
+            }
+
+            FloatingActionButton(
+                onClick = { filtersVisible = !filtersVisible },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 24.dp, end = 24.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.FilterList,
+                    contentDescription = uiState.strings.poisFiltersLabel
                 )
             }
         }
@@ -427,6 +500,101 @@ private fun POIPopup(
                     style = MaterialTheme.typography.labelMedium.copy(fontSize = 13.sp)
                 )
             }
+        }
+    }
+}
+@Composable
+private fun POIFilterBar(
+    visibleTypes: Set<POIType>,
+    strings: LocalizedStrings,
+    onToggleType: (POIType) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(28.dp),
+        tonalElevation = 6.dp,
+        shadowElevation = 6.dp,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.End
+        ) {
+            POIFilterChip(
+                type = POIType.BEACH,
+                label = strings.poiTypeBeach,
+                selected = visibleTypes.contains(POIType.BEACH),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.NATURAL,
+                label = strings.poiTypeNatural,
+                selected = visibleTypes.contains(POIType.NATURAL),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.HISTORIC,
+                label = strings.poiTypeHistoric,
+                selected = visibleTypes.contains(POIType.HISTORIC),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.COMMERCIAL,
+                label = strings.poiTypeCommercial,
+                selected = visibleTypes.contains(POIType.COMMERCIAL),
+                onToggleType = onToggleType
+            )
+        }
+    }
+}
+
+@Composable
+private fun POIFilterChip(
+    type: POIType,
+    label: String,
+    selected: Boolean,
+    onToggleType: (POIType) -> Unit
+) {
+    val tint = PoiTypeColors.chipTint(type)
+    val backgroundColor = if (selected) {
+        tint.copy(alpha = 0.18f)
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+    }
+    val contentColor = if (selected) {
+        MaterialTheme.colorScheme.onSurface
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+    Surface(
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .clickable { onToggleType(type) },
+        shape = RoundedCornerShape(50),
+        color = backgroundColor,
+        tonalElevation = if (selected) 1.dp else 0.dp,
+        border = BorderStroke(1.dp, tint.copy(alpha = if (selected) 0.6f else 0.3f))
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 14.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(12.dp)
+                    .background(tint, CircleShape)
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = contentColor
+            )
         }
     }
 }
