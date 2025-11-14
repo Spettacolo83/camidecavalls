@@ -5,7 +5,11 @@ import android.graphics.Color
 import android.util.Log
 import android.view.MotionEvent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import org.maplibre.android.MapLibre
@@ -266,7 +270,7 @@ actual fun MapWithLayers(
     onZoomChanged: ((Double) -> Unit)?
 ) {
     val controller = remember { MapLayerController() }
-    var isInitialCameraSet = remember { false }
+    var isInitialCameraSet by remember { mutableStateOf(false) }
 
     AndroidView(
         modifier = modifier,
@@ -340,12 +344,16 @@ actual fun MapWithLayers(
                 }
             }
         }
-        // Note: camera updates are now handled via controller.updateCamera()
-        onRelease = { view ->
-            controller.mapView = null
-            view.onPause()
-            view.onStop()
-            view.onDestroy()
-        }
     )
+
+    DisposableEffect(controller) {
+        onDispose {
+            controller.mapView?.let { view ->
+                view.onPause()
+                view.onStop()
+                view.onDestroy()
+            }
+            controller.mapView = null
+        }
+    }
 }

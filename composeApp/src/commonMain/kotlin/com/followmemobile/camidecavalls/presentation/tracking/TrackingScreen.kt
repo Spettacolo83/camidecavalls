@@ -26,9 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.roundToPx
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -91,6 +91,7 @@ import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import org.jetbrains.compose.resources.stringResource
+import kotlin.math.roundToInt
 
 /**
  * Screen for GPS tracking functionality.
@@ -632,6 +633,8 @@ private fun ActiveTrackingContent(
             label = "tracking-controls-offset"
         )
 
+        val density = LocalDensity.current
+
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -640,7 +643,10 @@ private fun ActiveTrackingContent(
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .offset { IntOffset(-controlsOffset.roundToPx(), 0) }
+                    .offset {
+                        val pxOffset = with(density) { controlsOffset.toPx().roundToInt() }
+                        IntOffset(-pxOffset, 0)
+                    }
                     .animateContentSize(animationSpec = tween(durationMillis = 1000)),
                 horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
                 verticalAlignment = Alignment.CenterVertically
