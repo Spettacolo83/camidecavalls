@@ -1,7 +1,10 @@
 package com.followmemobile.camidecavalls.presentation.pois
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -21,7 +24,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.SubcomposeAsyncImage
 import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.POIType
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
@@ -102,6 +107,7 @@ class POIsScreen : Screen {
                 },
                 onMapReady = { controller -> screenModel.onMapReady(controller) },
                 onClosePopup = { screenModel.closePopup() },
+                onToggleType = { type -> screenModel.toggleType(type) },
                 onShowDetails = { poi ->
                     // Show POI detail in bottom sheet (map stays loaded underneath)
                     selectedPoiForDetail = poi
@@ -148,6 +154,7 @@ private fun POIsScreenContent(
     onMenuClick: () -> Unit,
     onMapReady: (MapLayerController) -> Unit,
     onClosePopup: () -> Unit,
+    onToggleType: (POIType) -> Unit,
     onShowDetails: (PointOfInterest) -> Unit
 ) {
     Scaffold(
@@ -213,9 +220,18 @@ private fun POIsScreenContent(
                     onShowDetails = { onShowDetails(poi) },
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 24.dp)
+                        .padding(bottom = 104.dp)
                 )
             }
+
+            POIFilterBar(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 24.dp),
+                visibleTypes = uiState.visibleTypes,
+                strings = uiState.strings,
+                onToggleType = onToggleType
+            )
         }
     }
 }
@@ -422,6 +438,95 @@ private fun POIPopup(
                     style = MaterialTheme.typography.labelMedium.copy(fontSize = 13.sp)
                 )
             }
+        }
+    }
+}
+@Composable
+private fun POIFilterBar(
+    visibleTypes: Set<POIType>,
+    strings: LocalizedStrings,
+    onToggleType: (POIType) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(28.dp),
+        tonalElevation = 6.dp,
+        shadowElevation = 6.dp,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 20.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            POIFilterChip(
+                type = POIType.BEACH,
+                label = strings.poiTypeBeach,
+                selected = visibleTypes.contains(POIType.BEACH),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.NATURAL,
+                label = strings.poiTypeNatural,
+                selected = visibleTypes.contains(POIType.NATURAL),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.HISTORIC,
+                label = strings.poiTypeHistoric,
+                selected = visibleTypes.contains(POIType.HISTORIC),
+                onToggleType = onToggleType
+            )
+        }
+    }
+}
+
+@Composable
+private fun POIFilterChip(
+    type: POIType,
+    label: String,
+    selected: Boolean,
+    onToggleType: (POIType) -> Unit
+) {
+    val tint = PoiTypeColors.chipTint(type)
+    val backgroundColor = if (selected) {
+        tint.copy(alpha = 0.18f)
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+    }
+    val contentColor = if (selected) {
+        MaterialTheme.colorScheme.onSurface
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+    Surface(
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .clickable { onToggleType(type) },
+        shape = RoundedCornerShape(50),
+        color = backgroundColor,
+        tonalElevation = if (selected) 1.dp else 0.dp,
+        border = BorderStroke(1.dp, tint.copy(alpha = if (selected) 0.6f else 0.3f))
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 14.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(12.dp)
+                    .background(tint, CircleShape)
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = contentColor
+            )
         }
     }
 }

@@ -3,6 +3,7 @@ package com.followmemobile.camidecavalls.presentation.pois
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.POIType
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetAllPOIsUseCase
@@ -71,26 +72,24 @@ class POIsScreenModel(
                 getAllPOIsUseCase().collect { pois ->
                     println("🗺️  POIsScreen: Received ${pois.size} POIs from database")
 
-                    // Add each POI as a marker on the map
-                    pois.forEach { poi ->
-                        val color = getColorForPOIType(poi.type.name)
-                        mapController?.addMarker(
-                            markerId = "poi-marker-${poi.id}",
-                            latitude = poi.latitude,
-                            longitude = poi.longitude,
-                            color = color,
-                            radius = 8f
-                        )
-                    }
+                    _uiState.update { state ->
+                        val refreshedSelected = state.selectedPoi?.let { selected ->
+                            pois.find { it.id == selected.id }
+                        }
 
-                    println("🗺️  POIsScreen: Added ${pois.size} markers to map")
-
-                    _uiState.update {
-                        it.copy(
+                        state.copy(
                             pois = pois,
+                            selectedPoi = refreshedSelected?.takeIf { poi ->
+                                state.visibleTypes.contains(poi.type)
+                            },
                             isLoading = false
                         )
                     }
+
+                    refreshMarkers(
+                        pois = pois,
+                        visibleTypes = _uiState.value.visibleTypes
+                    )
                 }
             } catch (e: Exception) {
                 _uiState.update {
@@ -152,18 +151,57 @@ class POIsScreenModel(
     }
 
     /**
-     * Get color for POI type
-     * - BEACH: Light blue (#6FBAFF)
-     * - NATURAL: Light green (#7FD17F)
-     * - HISTORIC: Light red/coral (#FF8080)
+     * Toggle the visibility of a POI type and refresh markers accordingly.
      */
-    private fun getColorForPOIType(type: String): String {
-        return when (type) {
-            "BEACH" -> "#6FBAFF"      // Pastel blue
-            "NATURAL" -> "#7FD17F"    // Pastel green
-            "HISTORIC" -> "#FF8080"   // Pastel red/coral
-            else -> "#9E9E9E"         // Gray for unknown types
+    fun toggleType(type: POIType) {
+        val currentState = _uiState.value
+        val newVisibleTypes = if (type in currentState.visibleTypes) {
+            currentState.visibleTypes - type
+        } else {
+            currentState.visibleTypes + type
         }
+
+        val updatedSelected = currentState.selectedPoi?.let { selected ->
+            if (newVisibleTypes.contains(selected.type)) {
+                currentState.pois.find { it.id == selected.id }
+            } else {
+                null
+            }
+        }
+
+        _uiState.update {
+            it.copy(
+                visibleTypes = newVisibleTypes,
+                selectedPoi = updatedSelected
+            )
+        }
+
+        refreshMarkers(pois = currentState.pois, visibleTypes = newVisibleTypes)
+    }
+
+    private fun refreshMarkers(
+        pois: List<PointOfInterest>,
+        visibleTypes: Set<POIType>
+    ) {
+        val controller = mapController ?: return
+
+        pois.forEach { poi ->
+            controller.removeLayer("poi-marker-${poi.id}")
+        }
+
+        val filtered = pois.filter { poi -> visibleTypes.contains(poi.type) }
+
+        filtered.forEach { poi ->
+            controller.addMarker(
+                markerId = "poi-marker-${poi.id}",
+                latitude = poi.latitude,
+                longitude = poi.longitude,
+                color = PoiTypeColors.markerHex(poi.type),
+                radius = 8f
+            )
+        }
+
+        println("🗺️  POIsScreen: Showing ${filtered.size} markers after filter update")
     }
 }
 
@@ -176,5 +214,6 @@ data class POIsUiState(
     val currentLanguage: Language = Language.CATALAN,
     val strings: LocalizedStrings = LocalizedStrings("ca"),
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val visibleTypes: Set<POIType> = POIType.entries.toSet()
 )

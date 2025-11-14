@@ -76,6 +76,11 @@ class LocalizedStrings(private val languageCode: String) {
     val poisTitle: String get() = strings.poisTitle
     val notebookTitle: String get() = strings.notebookTitle
 
+    // POI Filters
+    val poiTypeBeach: String get() = strings.poiTypeBeach
+    val poiTypeNatural: String get() = strings.poiTypeNatural
+    val poiTypeHistoric: String get() = strings.poiTypeHistoric
+
     // About Screen
     val aboutWelcome: String get() = strings.aboutWelcome
     val aboutDescription: String get() = strings.aboutDescription
@@ -147,6 +152,11 @@ private interface Strings {
     val poisTitle: String
     val notebookTitle: String
 
+    // POI Filters
+    val poiTypeBeach: String
+    val poiTypeNatural: String
+    val poiTypeHistoric: String
+
     // About Screen
     val aboutWelcome: String
     val aboutDescription: String
@@ -213,6 +223,10 @@ private object StringsCa : Strings {
     override val poisTitle = "Punts d'Interès"
     override val notebookTitle = "Quadern"
 
+    override val poiTypeBeach = "Zona Costanera"
+    override val poiTypeNatural = "Espai Natural"
+    override val poiTypeHistoric = "Patrimoni Històric"
+
     override val aboutWelcome = "Benvingut al Camí de Cavalls"
     override val aboutDescription = "El Camí de Cavalls és una de les millors maneres de viure Menorca en totes les seves dimensions. Aquest històric camí costaner rodeja l'illa oferint un viatge immersiu per paisatges naturals, gastronomia, cultura i història.\n\nEl recorregut comprèn 20 etapes distintives, cadascuna dissenyada per mostrar diferents aspectes ambientals i històrics de l'illa."
     override val aboutUNESCO = "Menorca va ser declarada Reserva de la Biosfera per la UNESCO l'octubre de 1993, reconeixent l'equilibri entre la preservació del seu ric patrimoni natural i cultural i el desenvolupament econòmic."
@@ -277,6 +291,10 @@ private object StringsEs : Strings {
     override val mapTitle = "Mapa"
     override val poisTitle = "Puntos de Interés"
     override val notebookTitle = "Diario"
+
+    override val poiTypeBeach = "Zona Costera"
+    override val poiTypeNatural = "Espacio Natural"
+    override val poiTypeHistoric = "Patrimonio Histórico"
 
     override val aboutWelcome = "Bienvenido al Camí de Cavalls"
     override val aboutDescription = "El Camí de Cavalls es una de las mejores maneras de experimentar Menorca en todas sus dimensiones. Este histórico sendero costero rodea la isla ofreciendo un viaje inmersivo a través de paisajes naturales, gastronomía, cultura e historia.\n\nEl recorrido comprende 20 etapas distintivas, cada una diseñada para mostrar diferentes aspectos ambientales e históricos de la isla."
@@ -343,6 +361,10 @@ private object StringsEn : Strings {
     override val poisTitle = "Points of Interest"
     override val notebookTitle = "Notebook"
 
+    override val poiTypeBeach = "Coastal Area"
+    override val poiTypeNatural = "Natural Site"
+    override val poiTypeHistoric = "Historic Site"
+
     override val aboutWelcome = "Welcome to Camí de Cavalls"
     override val aboutDescription = "The Camí de Cavalls is one of the best ways to experience Menorca in all its dimensions. This historic coastal path encircles the island, offering an immersive journey through natural landscapes, gastronomy, culture, and history.\n\nThe trail comprises 20 distinctive stages, each designed to showcase different environmental and historical aspects of the island."
     override val aboutUNESCO = "Menorca has held UNESCO Biosphere Reserve designation since October 1993, recognizing the balance between preserving its rich natural and cultural heritage while supporting economic development."
@@ -407,6 +429,10 @@ private object StringsDe : Strings {
     override val mapTitle = "Karte"
     override val poisTitle = "Sehenswürdigkeiten"
     override val notebookTitle = "Tagebuch"
+
+    override val poiTypeBeach = "Küstenbereich"
+    override val poiTypeNatural = "Naturraum"
+    override val poiTypeHistoric = "Historischer Ort"
 
     override val aboutWelcome = "Willkommen beim Camí de Cavalls"
     override val aboutDescription = "Der Camí de Cavalls ist eine der besten Möglichkeiten, Menorca in all seinen Dimensionen zu erleben. Dieser historische Küstenweg umrundet die Insel und bietet eine immersive Reise durch Naturlandschaften, Gastronomie, Kultur und Geschichte.\n\nDer Weg umfasst 20 unterschiedliche Etappen, jede entworfen, um verschiedene Umwelt- und historische Aspekte der Insel zu zeigen."
@@ -473,6 +499,10 @@ private object StringsFr : Strings {
     override val poisTitle = "Points d'Intérêt"
     override val notebookTitle = "Carnet"
 
+    override val poiTypeBeach = "Zone Côtière"
+    override val poiTypeNatural = "Espace Naturel"
+    override val poiTypeHistoric = "Site Historique"
+
     override val aboutWelcome = "Bienvenue sur le Camí de Cavalls"
     override val aboutDescription = "Le Camí de Cavalls est l'une des meilleures façons de découvrir Minorque dans toutes ses dimensions. Ce sentier côtier historique fait le tour de l'île, offrant un voyage immersif à travers les paysages naturels, la gastronomie, la culture et l'histoire.\n\nLe parcours comprend 20 étapes distinctives, chacune conçue pour présenter différents aspects environnementaux et historiques de l'île."
     override val aboutUNESCO = "Minorque a été désignée Réserve de Biosphère de l'UNESCO en octobre 1993, reconnaissant l'équilibre entre la préservation de son riche patrimoine naturel et culturel et le développement économique."
@@ -537,6 +567,10 @@ private object StringsIt : Strings {
     override val mapTitle = "Mappa"
     override val poisTitle = "Punti di Interesse"
     override val notebookTitle = "Diario"
+
+    override val poiTypeBeach = "Zona Costiera"
+    override val poiTypeNatural = "Area Naturale"
+    override val poiTypeHistoric = "Sito Storico"
 
     override val aboutWelcome = "Benvenuto al Camí de Cavalls"
     override val aboutDescription = "Il Camí de Cavalls è uno dei modi migliori per vivere Minorca in tutte le sue dimensioni. Questo storico sentiero costiero circonda l'isola offrendo un viaggio immersivo attraverso paesaggi naturali, gastronomia, cultura e storia.\n\nIl percorso comprende 20 tappe distintive, ognuna progettata per mostrare diversi aspetti ambientali e storici dell'isola."
