@@ -226,8 +226,8 @@ private fun POIsScreenContent(
 
             POIFilterBar(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 24.dp),
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 24.dp, end = 24.dp),
                 visibleTypes = uiState.visibleTypes,
                 strings = uiState.strings,
                 onToggleType = onToggleType
@@ -455,11 +455,11 @@ private fun POIFilterBar(
         shadowElevation = 6.dp,
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.End
         ) {
             POIFilterChip(
                 type = POIType.BEACH,
@@ -477,6 +477,12 @@ private fun POIFilterBar(
                 type = POIType.HISTORIC,
                 label = strings.poiTypeHistoric,
                 selected = visibleTypes.contains(POIType.HISTORIC),
+                onToggleType = onToggleType
+            )
+            POIFilterChip(
+                type = POIType.COMMERCIAL,
+                label = strings.poiTypeCommercial,
+                selected = visibleTypes.contains(POIType.COMMERCIAL),
                 onToggleType = onToggleType
             )
         }

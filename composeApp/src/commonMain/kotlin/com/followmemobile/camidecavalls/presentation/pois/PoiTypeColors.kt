@@ -11,11 +11,13 @@ object PoiTypeColors {
         POIType.BEACH -> "#6FBAFF"      // Pastel blue
         POIType.NATURAL -> "#7FD17F"    // Pastel green
         POIType.HISTORIC -> "#FF8080"   // Pastel red/coral
+        POIType.COMMERCIAL -> "#FFB85C" // Warm amber
     }
 
     fun chipTint(type: POIType): Color = when (type) {
         POIType.BEACH -> Color(0xFF6FBAFF)
         POIType.NATURAL -> Color(0xFF7FD17F)
         POIType.HISTORIC -> Color(0xFFFF8080)
+        POIType.COMMERCIAL -> Color(0xFFFFB85C)
     }
 }
