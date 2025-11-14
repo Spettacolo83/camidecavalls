@@ -5,7 +5,11 @@ import android.graphics.Color
 import android.util.Log
 import android.view.MotionEvent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import org.maplibre.android.MapLibre
@@ -23,6 +27,8 @@ actual class MapLayerController {
     private var mapLibreMap: MapLibreMap? = null
     private var style: Style? = null
     private var onMarkerClick: ((String) -> Unit)? = null
+    private val managedLayerIds = mutableSetOf<String>()
+    internal var mapView: MapView? = null
 
     internal fun setMap(map: MapLibreMap, loadedStyle: Style) {
         this.mapLibreMap = map
@@ -100,6 +106,7 @@ actual class MapLayerController {
         val currentStyle = style ?: return
 
         try {
+            managedLayerIds += routeId
             Log.d("MapLayer", "=== Adding/Updating Route Path ===")
             Log.d("MapLayer", "RouteId: $routeId")
             Log.d("MapLayer", "Color: $color, Width: $width")
@@ -161,6 +168,7 @@ actual class MapLayerController {
         val currentStyle = style ?: return
 
         try {
+            managedLayerIds += markerId
             // Create point GeoJSON with properties to identify the marker
             val featureGeoJson = """{
                 "type": "Feature",
@@ -230,14 +238,20 @@ actual class MapLayerController {
             currentStyle.getSource("source-$layerId")?.let {
                 currentStyle.removeSource(it)
             }
+            managedLayerIds.remove(layerId)
         } catch (e: Exception) {
             // Layer might not exist, ignore
         }
     }
 
     actual fun clearAll() {
-        // Layers will be cleared when map is disposed
+        val ids = managedLayerIds.toList()
+        ids.forEach { id ->
+            removeLayer(id)
+        }
+        managedLayerIds.clear()
     }
+
 }
 
 @Composable
@@ -252,7 +266,7 @@ actual fun MapWithLayers(
     onZoomChanged: ((Double) -> Unit)?
 ) {
     val controller = remember { MapLayerController() }
-    var isInitialCameraSet = remember { false }
+    var isInitialCameraSet by remember { mutableStateOf(false) }
 
     AndroidView(
         modifier = modifier,
@@ -265,6 +279,10 @@ actual fun MapWithLayers(
             }
 
             MapView(ctx).apply {
+                controller.mapView = this
+                onCreate(null)
+                onStart()
+                onResume()
                 // Request parent to not intercept touch events when touching the map
                 // This prevents scroll conflicts with parent scrollable containers
                 @SuppressLint("ClickableViewAccessibility")
@@ -322,6 +340,16 @@ actual fun MapWithLayers(
                 }
             }
         }
-        // Note: camera updates are now handled via controller.updateCamera()
     )
+
+    DisposableEffect(controller) {
+        onDispose {
+            controller.mapView?.let { view ->
+                view.onPause()
+                view.onStop()
+                view.onDestroy()
+            }
+            controller.mapView = null
+        }
+    }
 }

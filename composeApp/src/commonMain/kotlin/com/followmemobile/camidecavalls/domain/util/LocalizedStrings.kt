@@ -65,6 +65,7 @@ class LocalizedStrings(private val languageCode: String) {
     val menuAbout: String get() = strings.menuAbout
     val menuRoutes: String get() = strings.menuRoutes
     val menuMap: String get() = strings.menuMap
+    val menuTracking: String get() = strings.menuTracking
     val menuPOIs: String get() = strings.menuPOIs
     val menuNotebook: String get() = strings.menuNotebook
     val menuSettings: String get() = strings.menuSettings
@@ -136,6 +137,7 @@ private interface Strings {
     val menuAbout: String
     val menuRoutes: String
     val menuMap: String
+    val menuTracking: String
     val menuPOIs: String
     val menuNotebook: String
     val menuSettings: String
@@ -203,6 +205,7 @@ private object StringsCa : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Rutes"
     override val menuMap = "Mapa"
+    override val menuTracking = "Seguiment"
     override val menuPOIs = "Punts d'Interès"
     override val menuNotebook = "Quadern"
     override val menuSettings = "Configuració"
@@ -268,6 +271,7 @@ private object StringsEs : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Rutas"
     override val menuMap = "Mapa"
+    override val menuTracking = "Seguimiento"
     override val menuPOIs = "Puntos de Interés"
     override val menuNotebook = "Diario"
     override val menuSettings = "Configuración"
@@ -333,6 +337,7 @@ private object StringsEn : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Routes"
     override val menuMap = "Map"
+    override val menuTracking = "Tracking"
     override val menuPOIs = "Points of Interest"
     override val menuNotebook = "Notebook"
     override val menuSettings = "Settings"
@@ -398,6 +403,7 @@ private object StringsDe : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Routen"
     override val menuMap = "Karte"
+    override val menuTracking = "Verfolgung"
     override val menuPOIs = "Sehenswürdigkeiten"
     override val menuNotebook = "Tagebuch"
     override val menuSettings = "Einstellungen"
@@ -463,6 +469,7 @@ private object StringsFr : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Itinéraires"
     override val menuMap = "Carte"
+    override val menuTracking = "Suivi"
     override val menuPOIs = "Points d'Intérêt"
     override val menuNotebook = "Carnet"
     override val menuSettings = "Paramètres"
@@ -528,6 +535,7 @@ private object StringsIt : Strings {
     override val menuAbout = "Camí de Cavalls"
     override val menuRoutes = "Percorsi"
     override val menuMap = "Mappa"
+    override val menuTracking = "Tracciamento"
     override val menuPOIs = "Punti di Interesse"
     override val menuNotebook = "Diario"
     override val menuSettings = "Impostazioni"

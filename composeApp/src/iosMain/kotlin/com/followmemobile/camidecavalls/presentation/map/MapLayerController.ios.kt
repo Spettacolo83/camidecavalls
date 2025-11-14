@@ -40,6 +40,7 @@ actual class MapLayerController {
     internal var onMarkerClick: ((String) -> Unit)? = null
     // Store marker coordinates for tap detection
     internal val markerCoordinates = mutableMapOf<String, Pair<Double, Double>>()
+    private val managedLayerIds = mutableSetOf<String>()
 
     internal fun setMap(map: MLNMapView, loadedStyle: MLNStyle) {
         this.mapView = map
@@ -83,6 +84,7 @@ actual class MapLayerController {
         removeLayer(routeId)
 
         try {
+            managedLayerIds += routeId
             val uiColor = parseHexColor(color)
             val cleanedGeometry = geoJsonLineString.trim()
             val featureGeoJson = """{"type":"Feature","geometry":$cleanedGeometry,"properties":{}}"""
@@ -137,6 +139,7 @@ actual class MapLayerController {
         removeLayer(markerId)
 
         try {
+            managedLayerIds += markerId
             val uiColor = parseHexColor(color)
             // Add markerId and type as properties so we can identify it when tapped
             val featureGeoJson = """{"type":"Feature","geometry":{"type":"Point","coordinates":[$longitude,$latitude]},"properties":{"markerId":"$markerId","type":"poi-marker"}}"""
@@ -184,13 +187,20 @@ actual class MapLayerController {
             currentStyle.sourceWithIdentifier("source-$layerId")?.let {
                 currentStyle.removeSource(it)
             }
+            managedLayerIds.remove(layerId)
+            markerCoordinates.remove(layerId)
         } catch (e: Exception) {
             // Layer might not exist, ignore
         }
     }
 
     actual fun clearAll() {
-        // Layers will be cleared when map is disposed
+        val ids = managedLayerIds.toList()
+        ids.forEach { id ->
+            removeLayer(id)
+        }
+        managedLayerIds.clear()
+        markerCoordinates.clear()
     }
 
     private fun parseHexColor(hex: String): UIColor {

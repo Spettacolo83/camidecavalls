@@ -71,6 +71,7 @@ expect class MapLayerController() {
      * Clear all custom layers
      */
     fun clearAll()
+
 }
 
 /**

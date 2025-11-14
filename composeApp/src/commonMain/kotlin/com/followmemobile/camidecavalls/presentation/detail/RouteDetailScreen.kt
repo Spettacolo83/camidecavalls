@@ -26,7 +26,7 @@ import kotlin.math.max
 import kotlin.math.min
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -165,8 +165,8 @@ private fun RouteDetailScreenContent(
                     onClick = { onStartTracking(uiState.route) }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "Start Tracking"
+                        imageVector = Icons.Default.Flag,
+                        contentDescription = stringResource(Res.string.tracking_start)
                     )
                 }
             }

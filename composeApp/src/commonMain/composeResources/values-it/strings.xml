@@ -56,6 +56,7 @@
     <string name="tracking_start">Inizia</string>
     <string name="tracking_pause">Pausa</string>
     <string name="tracking_resume">Riprendi</string>
+    <string name="tracking_recording_badge">REGISTRAZIONE</string>
     <string name="tracking_stop">Ferma</string>
     <string name="tracking_distance">Distanza</string>
     <string name="tracking_duration">Durata</string>
@@ -65,6 +66,24 @@
     <string name="tracking_no_route">Tappa non trovata</string>
     <string name="tracking_completed">Tracciamento Completato!</string>
     <string name="tracking_error">Errore di Tracciamento</string>
+    <string name="tracking_navigation_open_menu">Apri menu</string>
+    <string name="tracking_altitude">Altitudine</string>
+    <string name="tracking_accuracy">Precisione</string>
+    <string name="tracking_latitude">Latitudine</string>
+    <string name="tracking_longitude">Longitudine</string>
+    <string name="tracking_elevation_gain">Dislivello positivo</string>
+    <string name="tracking_session_prefix">Sessione: %1$s…</string>
+    <string name="tracking_acquiring_signal">Acquisizione segnale GPS…</string>
+    <string name="tracking_session_summary">Riepilogo della sessione</string>
+    <string name="tracking_statistics_title">Statistiche in tempo reale</string>
+    <string name="tracking_show_statistics">Mostra statistiche</string>
+    <string name="tracking_avg_speed">Velocità media</string>
+    <string name="tracking_gps_follow_enabled">Aggancio GPS attivo</string>
+    <string name="tracking_gps_follow_disabled">Aggancio GPS disattivato</string>
+    <string name="tracking_start_new_session">Avvia nuova sessione</string>
+    <string name="tracking_far_title">Sei lontano dal percorso</string>
+    <string name="tracking_far_message">Ti trovi a %1$.1f km dal percorso più vicino. Vuoi avviare comunque il tracking?</string>
+    <string name="tracking_start_anyway">Avvia comunque</string>
 
     <!-- POI (Points of Interest) -->
     <string name="poi_beach">Spiaggia</string>

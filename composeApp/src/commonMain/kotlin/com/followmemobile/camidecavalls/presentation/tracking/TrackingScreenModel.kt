@@ -7,17 +7,18 @@ import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
-import com.followmemobile.camidecavalls.domain.usecase.route.GetRouteByIdUseCase
-import com.followmemobile.camidecavalls.domain.usecase.tracking.GetActiveSessionUseCase
+import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
+import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -35,34 +36,114 @@ import kotlin.math.sqrt
 class TrackingScreenModel(
     private val trackingManager: TrackingManager,
     private val permissionHandler: PermissionHandler,
-    private val getRouteByIdUseCase: GetRouteByIdUseCase,
-    private val getActiveSessionUseCase: GetActiveSessionUseCase,
+    private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
     private val routeId: Int? = null
 ) : ScreenModel {
 
     private val _uiState = MutableStateFlow<TrackingUiState>(TrackingUiState.Idle())
     val uiState: StateFlow<TrackingUiState> = _uiState.asStateFlow()
 
-    private var route: Route? = null
-    private val localTrackPoints = mutableListOf<TrackPoint>()
+    private var selectedRoute: Route? = null
+    private var routes: List<Route> = emptyList()
+    private var cachedTrackPoints: List<TrackPoint> = emptyList()
+    private var mapController: MapLayerController? = null
 
     init {
         println("🏗️ TrackingScreenModel created: ${this.hashCode()}, routeId=$routeId")
 
         // Reset any previous Completed/Error state when screen is opened
         // This ensures a fresh start when navigating back to the tracking screen
-        trackingManager.resetToIdle()
+        trackingManager.resetToStopped()
+        if (trackingManager.trackingState.value is TrackingState.Stopped &&
+            trackingManager.activeTrackPoints.value.isNotEmpty()
+        ) {
+            trackingManager.resetToStopped(clearTrack = true)
+        }
 
-        // Load route if routeId is provided
-        routeId?.let { id ->
+        // Load routes for display
+        if (routeId != null) {
             screenModelScope.launch {
-                route = getRouteByIdUseCase(id)
-                // Update UI state if still in Idle
-                if (_uiState.value is TrackingUiState.Idle) {
-                    _uiState.value = TrackingUiState.Idle(
-                        route = route,
-                        currentLocation = trackingManager.currentLocation.value
-                    )
+                selectedRoute = getSimplifiedRoutesUseCase.getSimplifiedRoute(
+                    routeId,
+                    GetSimplifiedRoutesUseCase.TOLERANCE_SINGLE_ROUTE
+                )
+                routes = selectedRoute?.let { listOf(it) } ?: emptyList()
+
+                when (val state = _uiState.value) {
+                    is TrackingUiState.Tracking -> {
+                        _uiState.value = state.copy(routes = routes, selectedRoute = selectedRoute)
+                    }
+
+                    is TrackingUiState.Paused -> {
+                        _uiState.value = state.copy(routes = routes, selectedRoute = selectedRoute)
+                    }
+
+                    is TrackingUiState.AwaitingConfirmation -> {
+                        _uiState.value = state.copy(routes = routes, selectedRoute = selectedRoute)
+                    }
+
+                    is TrackingUiState.Idle -> {
+                        _uiState.value = state.copy(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            currentLocation = state.currentLocation
+                                ?: trackingManager.currentLocation.value
+                        )
+                    }
+
+                    else -> {
+                        _uiState.value = TrackingUiState.Idle(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            currentLocation = trackingManager.currentLocation.value
+                        )
+                    }
+                }
+
+                mapController?.let { controller ->
+                    renderRoutes(controller)
+                }
+            }
+        } else {
+            screenModelScope.launch {
+                getSimplifiedRoutesUseCase(GetSimplifiedRoutesUseCase.TOLERANCE_FULL_MAP).collect { result ->
+                    selectedRoute = null
+                    routes = result.routes
+
+                    when (val state = _uiState.value) {
+                        is TrackingUiState.Tracking -> {
+                            _uiState.value = state.copy(routes = routes, selectedRoute = null)
+                        }
+
+                        is TrackingUiState.Paused -> {
+                            _uiState.value = state.copy(routes = routes, selectedRoute = null)
+                        }
+
+                        is TrackingUiState.AwaitingConfirmation -> {
+                            _uiState.value = state.copy(routes = routes, selectedRoute = null)
+                        }
+
+                        is TrackingUiState.Idle -> {
+                            _uiState.value = state.copy(
+                                routes = routes,
+                                selectedRoute = null,
+                                currentLocation = state.currentLocation
+                                    ?: trackingManager.currentLocation.value
+                            )
+                        }
+
+                        else -> {
+                            _uiState.value = TrackingUiState.Idle(
+                                routes = routes,
+                                selectedRoute = null,
+                                currentLocation = trackingManager.currentLocation.value
+                            )
+                        }
+                    }
+
+                    mapController?.let { controller ->
+                        renderRoutes(controller)
+                    }
                 }
             }
         }
@@ -70,11 +151,63 @@ class TrackingScreenModel(
         // Observe current location to update Idle state
         screenModelScope.launch {
             trackingManager.currentLocation.collect { location ->
-                if (_uiState.value is TrackingUiState.Idle) {
-                    _uiState.value = TrackingUiState.Idle(
-                        route = route,
-                        currentLocation = location
-                    )
+                when (val state = _uiState.value) {
+                    is TrackingUiState.Idle -> {
+                        _uiState.value = state.copy(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            currentLocation = location
+                        )
+                    }
+
+                    is TrackingUiState.AwaitingConfirmation -> {
+                        _uiState.value = state.copy(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            currentLocation = location
+                        )
+                    }
+
+                    else -> {
+                        // No-op for other states
+                    }
+                }
+
+                mapController?.let { controller ->
+                    renderCurrentLocation(controller)
+                }
+            }
+        }
+
+        // Observe track points so UI can be restored when returning to the screen
+        screenModelScope.launch {
+            trackingManager.activeTrackPoints.collect { points ->
+                cachedTrackPoints = points
+
+                when (val state = _uiState.value) {
+                    is TrackingUiState.Tracking -> {
+                        _uiState.value = state.copy(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            trackPoints = points
+                        )
+                    }
+
+                    is TrackingUiState.Paused -> {
+                        _uiState.value = state.copy(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            trackPoints = points
+                        )
+                    }
+
+                    else -> {
+                        // No-op for other states
+                    }
+                }
+
+                mapController?.let { controller ->
+                    renderTrack(controller)
                 }
             }
         }
@@ -84,62 +217,134 @@ class TrackingScreenModel(
         screenModelScope.launch {
             trackingManager.trackingState.collect { state ->
                 _uiState.value = when (state) {
-                    is TrackingState.Idle -> {
-                        // Clear track points when idle
-                        if (localTrackPoints.isNotEmpty()) {
-                            println("🧹 TrackingScreenModel(${this@TrackingScreenModel.hashCode()}): Clearing ${localTrackPoints.size} track points (now Idle)")
-                            localTrackPoints.clear()
+                    is TrackingState.Stopped -> {
+                        cachedTrackPoints = emptyList()
+                        mapController?.let { controller ->
+                            renderTrack(controller)
+                            renderCurrentLocation(controller)
                         }
                         TrackingUiState.Idle(
-                            route = route,
+                            routes = routes,
+                            selectedRoute = selectedRoute,
                             currentLocation = trackingManager.currentLocation.value
                         )
                     }
-                    is TrackingState.Tracking -> {
-                        // Only add new location when state changes (not on init)
-                        state.currentLocation?.let { location ->
-                            // Check if this is a new point (not duplicate)
-                            val isDuplicate = localTrackPoints.lastOrNull()?.let { last ->
-                                last.latitude == location.latitude &&
-                                last.longitude == location.longitude
-                            } ?: false
 
-                            if (!isDuplicate) {
-                                val trackPoint = TrackPoint(
-                                    latitude = location.latitude,
-                                    longitude = location.longitude,
-                                    altitude = location.altitude,
-                                    timestamp = kotlinx.datetime.Clock.System.now(),
-                                    speedKmh = location.speed?.times(3.6) // m/s to km/h
-                                )
-                                localTrackPoints.add(trackPoint)
-                                println("📍 TrackingScreenModel(${this@TrackingScreenModel.hashCode()}): Added track point #${localTrackPoints.size}: ${location.latitude}, ${location.longitude}")
-                            }
-                        }
-
+                    is TrackingState.Recording -> {
                         TrackingUiState.Tracking(
-                            route = route,
+                            routes = routes,
+                            selectedRoute = selectedRoute,
                             sessionId = state.sessionId,
                             currentLocation = state.currentLocation,
-                            trackPoints = localTrackPoints.toList()
+                            trackPoints = cachedTrackPoints
                         )
                     }
+
+                    is TrackingState.Paused -> {
+                        TrackingUiState.Paused(
+                            routes = routes,
+                            selectedRoute = selectedRoute,
+                            sessionId = state.sessionId,
+                            currentLocation = state.currentLocation
+                                ?: trackingManager.currentLocation.value,
+                            trackPoints = cachedTrackPoints
+                        )
+                    }
+
                     is TrackingState.Completed -> {
-                        if (localTrackPoints.isNotEmpty()) {
-                            println("🧹 TrackingScreenModel: Clearing ${localTrackPoints.size} track points (Completed)")
-                            localTrackPoints.clear()
-                        }
                         TrackingUiState.Completed(state.session)
                     }
+
                     is TrackingState.Error -> TrackingUiState.Error(state.message)
                 }
             }
         }
 
-        // Try to resume active session if exists
-        screenModelScope.launch {
-            trackingManager.resumeIfActive()
+    }
+
+    fun onMapReady(controller: MapLayerController) {
+        mapController = controller
+        renderRoutes(controller)
+    }
+
+    fun onMapReleased(controller: MapLayerController) {
+        if (mapController === controller) {
+            mapController = null
         }
+    }
+
+    private fun renderRoutes(controller: MapLayerController) {
+        controller.clearAll()
+
+        routes.forEachIndexed { index, route ->
+            route.gpxData?.let { geoJson ->
+                controller.addRoutePath(
+                    routeId = "tracking-route-${route.id}",
+                    geoJsonLineString = geoJson,
+                    color = getTrackingRouteColor(index),
+                    width = 4f
+                )
+            }
+        }
+
+        renderTrack(controller)
+        renderCurrentLocation(controller)
+    }
+
+    private fun renderTrack(controller: MapLayerController) {
+        if (cachedTrackPoints.size >= 2) {
+            val geoJson = trackPointsToGeoJson(cachedTrackPoints)
+            controller.addRoutePath(
+                routeId = "user-track",
+                geoJsonLineString = geoJson,
+                color = "#4CAF50",
+                width = 5f
+            )
+        } else {
+            controller.removeLayer("user-track")
+        }
+    }
+
+    private fun renderCurrentLocation(controller: MapLayerController) {
+        val location = trackingManager.currentLocation.value
+        if (location != null) {
+            controller.removeLayer("current-location")
+            controller.addMarker(
+                markerId = "current-location",
+                latitude = location.latitude,
+                longitude = location.longitude,
+                color = "#FF5722",
+                radius = 10f
+            )
+        } else {
+            controller.removeLayer("current-location")
+        }
+    }
+
+    private fun trackPointsToGeoJson(trackPoints: List<TrackPoint>): String {
+        val coordinates = trackPoints.map { point ->
+            JsonArray(
+                listOf(
+                    JsonPrimitive(point.longitude),
+                    JsonPrimitive(point.latitude)
+                )
+            )
+        }
+
+        return buildJsonObject {
+            put("type", JsonPrimitive("LineString"))
+            put("coordinates", JsonArray(coordinates))
+        }.toString()
+    }
+
+    private fun getTrackingRouteColor(index: Int): String {
+        val colors = listOf(
+            "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
+            "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A",
+            "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
+            "#F44336", "#795548", "#607D8B", "#9E9E9E", "#000000"
+        )
+        return colors[index % colors.size]
     }
 
     /**
@@ -180,32 +385,17 @@ class TrackingScreenModel(
                     return@launch
                 }
 
-                // Check if near route (only if route has GPS data)
-                val nearRoute = isNearRoute(currentLocation, route)
+                val distance = calculateDistanceToClosestRoute(currentLocation, routes)
 
-                when (nearRoute) {
-                    null -> {
-                        // Route has no GPS data, start tracking
-                        trackingManager.startTracking(routeId = routeId)
-                    }
-                    true -> {
-                        // Within 1km, start tracking
-                        trackingManager.startTracking(routeId = routeId)
-                    }
-                    false -> {
-                        // Far from route, show confirmation dialog
-                        val routeCoordinates = route?.gpxData?.let { parseGeoJsonLineString(it) }
-                        val distance = if (routeCoordinates != null) {
-                            calculateMinDistanceToRoute(currentLocation, routeCoordinates)
-                        } else {
-                            0.0
-                        }
-                        _uiState.value = TrackingUiState.AwaitingConfirmation(
-                            route = route,
-                            currentLocation = currentLocation,
-                            distanceFromRoute = distance
-                        )
-                    }
+                if (distance == null || distance <= 2000.0) {
+                    trackingManager.startTracking(routeId = routeId)
+                } else {
+                    _uiState.value = TrackingUiState.AwaitingConfirmation(
+                        routes = routes,
+                        selectedRoute = selectedRoute,
+                        currentLocation = currentLocation,
+                        distanceFromRoute = distance
+                    )
                 }
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
@@ -230,13 +420,38 @@ class TrackingScreenModel(
         }
     }
 
+    fun pauseTracking() {
+        screenModelScope.launch {
+            try {
+                trackingManager.pauseTracking()
+            } catch (e: Exception) {
+                _uiState.value = TrackingUiState.Error(
+                    e.message ?: "Failed to pause tracking"
+                )
+            }
+        }
+    }
+
+    fun resumeTracking() {
+        screenModelScope.launch {
+            try {
+                trackingManager.resumeTracking()
+            } catch (e: Exception) {
+                _uiState.value = TrackingUiState.Error(
+                    e.message ?: "Failed to resume tracking"
+                )
+            }
+        }
+    }
+
     /**
      * Cancel the awaiting confirmation state and return to Idle
      */
     fun cancelConfirmation() {
         if (_uiState.value is TrackingUiState.AwaitingConfirmation) {
             _uiState.value = TrackingUiState.Idle(
-                route = route,
+                routes = routes,
+                selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
             )
         }
@@ -257,6 +472,23 @@ class TrackingScreenModel(
         }
     }
 
+    fun startNewSession() {
+        screenModelScope.launch {
+            trackingManager.resetToStopped(clearTrack = true)
+            cachedTrackPoints = emptyList()
+            _uiState.value = TrackingUiState.Idle(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                currentLocation = trackingManager.currentLocation.value
+            )
+
+            mapController?.let { controller ->
+                renderTrack(controller)
+                renderCurrentLocation(controller)
+            }
+        }
+    }
+
     /**
      * Get last known location (doesn't start tracking)
      */
@@ -265,7 +497,8 @@ class TrackingScreenModel(
             val location = trackingManager.getLastLocation()
             if (location != null && _uiState.value is TrackingUiState.Idle) {
                 _uiState.value = TrackingUiState.Idle(
-                    route = route,
+                    routes = routes,
+                    selectedRoute = selectedRoute,
                     currentLocation = location
                 )
             }
@@ -277,29 +510,40 @@ class TrackingScreenModel(
      */
     fun clearError() {
         if (_uiState.value is TrackingUiState.Error) {
+            trackingManager.resetToStopped()
             _uiState.value = TrackingUiState.Idle(
-                route = route,
+                routes = routes,
+                selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
             )
+
+            mapController?.let { controller ->
+                renderTrack(controller)
+                renderCurrentLocation(controller)
+            }
         }
     }
 
     /**
-     * Check if current location is within acceptable distance from route.
-     * Returns null if route has no GPS data, true if within 1km, false otherwise.
+     * Calculate distance from current location to the closest available route.
+     * Returns null when no route contains GPS data.
      */
-    fun isNearRoute(location: LocationData, route: Route?): Boolean? {
-        if (route?.gpxData == null) return null
+    private fun calculateDistanceToClosestRoute(
+        location: LocationData,
+        routes: List<Route>
+    ): Double? {
+        val distances = routes.mapNotNull { route ->
+            route.gpxData?.let { geoJson ->
+                val routeCoordinates = parseGeoJsonLineString(geoJson)
+                if (routeCoordinates.isEmpty()) {
+                    null
+                } else {
+                    calculateMinDistanceToRoute(location, routeCoordinates)
+                }
+            }
+        }
 
-        val routeCoordinates = parseGeoJsonLineString(route.gpxData)
-        if (routeCoordinates.isEmpty()) return null
-
-        val minDistance = calculateMinDistanceToRoute(
-            location = location,
-            routeCoordinates = routeCoordinates
-        )
-
-        return minDistance <= 1000.0 // 1km threshold in meters
+        return distances.minOrNull()
     }
 
     /**
@@ -366,7 +610,7 @@ class TrackingScreenModel(
 
     override fun onDispose() {
         super.onDispose()
-        println("🗑️ TrackingScreenModel(${this.hashCode()}) disposed, had ${localTrackPoints.size} points")
+        println("🗑️ TrackingScreenModel(${this.hashCode()}) disposed, cached ${cachedTrackPoints.size} points")
     }
 }
 
@@ -375,18 +619,29 @@ class TrackingScreenModel(
  */
 sealed interface TrackingUiState {
     data class Idle(
-        val route: Route? = null,
+        val routes: List<Route> = emptyList(),
+        val selectedRoute: Route? = null,
         val currentLocation: LocationData? = null
     ) : TrackingUiState
 
     data class AwaitingConfirmation(
-        val route: Route?,
+        val routes: List<Route>,
+        val selectedRoute: Route?,
         val currentLocation: LocationData?,
         val distanceFromRoute: Double
     ) : TrackingUiState
 
     data class Tracking(
-        val route: Route?,
+        val routes: List<Route>,
+        val selectedRoute: Route?,
+        val sessionId: String,
+        val currentLocation: LocationData?,
+        val trackPoints: List<TrackPoint> = emptyList()
+    ) : TrackingUiState
+
+    data class Paused(
+        val routes: List<Route>,
+        val selectedRoute: Route?,
         val sessionId: String,
         val currentLocation: LocationData?,
         val trackPoints: List<TrackPoint> = emptyList()

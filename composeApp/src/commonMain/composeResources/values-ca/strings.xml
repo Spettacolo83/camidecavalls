@@ -56,6 +56,7 @@
     <string name="tracking_start">Iniciar</string>
     <string name="tracking_pause">Pausar</string>
     <string name="tracking_resume">Reprendre</string>
+    <string name="tracking_recording_badge">GRAVANT</string>
     <string name="tracking_stop">Aturar</string>
     <string name="tracking_distance">Distància</string>
     <string name="tracking_duration">Durada</string>
@@ -65,6 +66,24 @@
     <string name="tracking_no_route">Etapa no trobada</string>
     <string name="tracking_completed">Seguiment Completat!</string>
     <string name="tracking_error">Error de Seguiment</string>
+    <string name="tracking_navigation_open_menu">Obre el menú</string>
+    <string name="tracking_altitude">Altitud</string>
+    <string name="tracking_accuracy">Precisió</string>
+    <string name="tracking_latitude">Latitud</string>
+    <string name="tracking_longitude">Longitud</string>
+    <string name="tracking_elevation_gain">Desnivell positiu</string>
+    <string name="tracking_session_prefix">Sessió: %1$s…</string>
+    <string name="tracking_acquiring_signal">S'està adquirint el senyal GPS…</string>
+    <string name="tracking_session_summary">Resum de la sessió</string>
+    <string name="tracking_statistics_title">Estadístiques en directe</string>
+    <string name="tracking_show_statistics">Mostra les estadístiques</string>
+    <string name="tracking_avg_speed">Velocitat mitjana</string>
+    <string name="tracking_gps_follow_enabled">Seguiment GPS activat</string>
+    <string name="tracking_gps_follow_disabled">Seguiment GPS desactivat</string>
+    <string name="tracking_start_new_session">Inicia una nova sessió</string>
+    <string name="tracking_far_title">Ets lluny del recorregut</string>
+    <string name="tracking_far_message">Et trobes a %1$.1f km del recorregut més proper. Vols iniciar el seguiment igualment?</string>
+    <string name="tracking_start_anyway">Inicia igualment</string>
 
     <!-- POI (Points of Interest) -->
     <string name="poi_beach">Platja</string>
