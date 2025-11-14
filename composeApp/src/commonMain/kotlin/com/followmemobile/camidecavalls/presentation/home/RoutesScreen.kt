@@ -21,7 +21,6 @@ import camidecavalls.composeapp.generated.resources.Res
 import coil3.compose.SubcomposeAsyncImage
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Book
@@ -62,7 +61,6 @@ import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.icons.CamiDeCavallsIcon
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -97,10 +95,6 @@ class RoutesScreen : Screen {
                     onMapClick = {
                         scope.launch { drawerState.close() }
                         navigator.replaceAll(FullMapScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(POIsScreen())
                     },
                     onNotebookClick = {
                         scope.launch { drawerState.close() }
@@ -213,7 +207,7 @@ private fun RoutesScreenContent(
 }
 
 enum class DrawerScreen {
-    ABOUT, ROUTES, MAP, POIS, NOTEBOOK, SETTINGS
+    ABOUT, ROUTES, MAP, NOTEBOOK, SETTINGS
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -224,7 +218,6 @@ fun DrawerContent(
     onAboutClick: () -> Unit,
     onRoutesClick: () -> Unit,
     onMapClick: () -> Unit,
-    onPOIsClick: () -> Unit,
     onNotebookClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onCloseDrawer: () -> Unit
@@ -291,15 +284,6 @@ fun DrawerContent(
                 label = { Text(strings.menuMap) },
                 selected = currentScreen == DrawerScreen.MAP,
                 onClick = onMapClick,
-                modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-            )
-
-            // POIs
-            NavigationDrawerItem(
-                icon = { Icon(Icons.Default.Place, contentDescription = null) },
-                label = { Text(strings.menuPOIs) },
-                selected = currentScreen == DrawerScreen.POIS,
-                onClick = onPOIsClick,
                 modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
             )
 
