@@ -1,10 +1,9 @@
 package com.followmemobile.camidecavalls.presentation.tracking
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -534,57 +533,19 @@ private fun ActiveTrackingContent(
             )
         }
 
-        // Bottom FAB row with Stop and Stats buttons
+        // Floating controls anchored bottom end, with Stop button animating above Play/Pause when paused
         val controlsSpacing = 8.dp
-        Row(
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
-                .animateContentSize(animationSpec = tween(durationMillis = 1000)),
-            horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(controlsSpacing),
+            horizontalAlignment = Alignment.End
         ) {
-            FloatingActionButton(
-                onClick = { showBottomSheet = true },
-                containerColor = MaterialTheme.colorScheme.secondaryContainer
-            ) {
-                Icon(
-                    Icons.Default.Info,
-                    contentDescription = stringResource(Res.string.tracking_show_statistics)
-                )
-            }
-
-            FloatingActionButton(
-                onClick = onPauseOrResume,
-                containerColor = if (isPaused) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.primaryContainer
-                }
-            ) {
-                Icon(
-                    imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
-                    contentDescription = stringResource(
-                        if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
-                    ),
-                    tint = if (isPaused) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
-                        MaterialTheme.colorScheme.primary
-                    }
-                )
-            }
-
             AnimatedVisibility(
                 visible = isPaused,
-                enter = slideInHorizontally(
-                    initialOffsetX = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 1000)
-                ),
-                exit = slideOutHorizontally(
-                    targetOffsetX = { fullWidth -> fullWidth },
-                    animationSpec = tween(durationMillis = 1000)
-                )
+                enter = scaleIn(animationSpec = tween(durationMillis = 1000), initialScale = 0.1f),
+                exit = scaleOut(animationSpec = tween(durationMillis = 1000), targetScale = 0.1f)
             ) {
                 FloatingActionButton(
                     onClick = onStopTracking,
@@ -593,6 +554,42 @@ private fun ActiveTrackingContent(
                     Icon(
                         Icons.Default.Stop,
                         contentDescription = stringResource(Res.string.tracking_stop)
+                    )
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(controlsSpacing),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                FloatingActionButton(
+                    onClick = { showBottomSheet = true },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                ) {
+                    Icon(
+                        Icons.Default.Info,
+                        contentDescription = stringResource(Res.string.tracking_show_statistics)
+                    )
+                }
+
+                FloatingActionButton(
+                    onClick = onPauseOrResume,
+                    containerColor = if (isPaused) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer
+                    }
+                ) {
+                    Icon(
+                        imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                        contentDescription = stringResource(
+                            if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
+                        ),
+                        tint = if (isPaused) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        }
                     )
                 }
             }
