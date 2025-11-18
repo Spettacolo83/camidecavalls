@@ -40,12 +40,12 @@ object MenorcaViewportCalculator {
     // Additional padding (percentage of the island size) applied to each axis. These ratios
     // were tuned so the island is fully visible with a visible margin on tablets as well as
     // on narrow phones.
-    private const val HORIZONTAL_MARGIN_RATIO = 0.25
-    private const val VERTICAL_MARGIN_RATIO = 0.12
+    private const val HORIZONTAL_MARGIN_RATIO = 0.45
+    private const val VERTICAL_MARGIN_RATIO = 0.22
 
     // Final reduction applied to the computed zoom so the island has a little margin even
     // after the bounds fitting computation.
-    private const val EXTRA_ZOOM_PADDING = 0.35
+    private const val EXTRA_ZOOM_PADDING = 0.85
 
     /**
      * Calculate the optimal camera settings for the given container size.
