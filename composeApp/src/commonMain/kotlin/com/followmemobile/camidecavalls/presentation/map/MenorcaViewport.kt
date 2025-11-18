@@ -1,7 +1,12 @@
 package com.followmemobile.camidecavalls.presentation.map
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import kotlin.math.PI
 import kotlin.math.ln
 import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.sin
 
 /**
  * Camera configuration used to position the map.
@@ -32,14 +37,15 @@ object MenorcaViewportCalculator {
     private const val MIN_LON = 3.7952079277
     private const val MAX_LON = 4.3016355713
 
-    // Additional padding (percentage of the island size) applied to each axis.
-    private const val HORIZONTAL_MARGIN_RATIO = 0.18
-    private const val VERTICAL_MARGIN_RATIO = 0.08
+    // Additional padding (percentage of the island size) applied to each axis. These ratios
+    // were tuned so the island is fully visible with a visible margin on tablets as well as
+    // on narrow phones.
+    private const val HORIZONTAL_MARGIN_RATIO = 0.25
+    private const val VERTICAL_MARGIN_RATIO = 0.12
 
     // Final reduction applied to the computed zoom so the island has a little margin even
-    // after the bounds fitting computation. This also keeps the initial zoom identical on
-    // all screens because we base the calculation on the screen width (see computeZoom).
-    private const val EXTRA_ZOOM_PADDING = 0.5
+    // after the bounds fitting computation.
+    private const val EXTRA_ZOOM_PADDING = 0.35
 
     /**
      * Calculate the optimal camera settings for the given container size.
@@ -57,7 +63,7 @@ object MenorcaViewportCalculator {
         val west = MIN_LON - lonRange * HORIZONTAL_MARGIN_RATIO
         val east = MAX_LON + lonRange * HORIZONTAL_MARGIN_RATIO
 
-        val zoom = computeZoom(widthPx, west, east)
+        val zoom = computeZoom(widthPx, heightPx, south, north, west, east)
         val latitude = (south + north) / 2.0
         val longitude = (west + east) / 2.0
 
@@ -66,17 +72,26 @@ object MenorcaViewportCalculator {
 
     private fun computeZoom(
         widthPx: Int,
+        heightPx: Int,
+        south: Double,
+        north: Double,
         west: Double,
         east: Double
     ): Double {
-        // We only consider horizontal bounds so every screen (Map, Tracking, POIs) ends up
-        // with the same initial zoom as long as the available width is the same.
+        val latFraction = ((latRad(north) - latRad(south)) / PI).coerceAtLeast(1e-6)
         val lonDelta = ((east - west + 360.0) % 360.0).coerceAtLeast(1e-6)
         val lonFraction = (lonDelta / 360.0).coerceAtLeast(1e-6)
 
+        val zoomLat = log2(heightPx / (TILE_SIZE * latFraction))
         val zoomLon = log2(widthPx / (TILE_SIZE * lonFraction))
-        val targetZoom = zoomLon - EXTRA_ZOOM_PADDING
+        val targetZoom = min(zoomLat, zoomLon) - EXTRA_ZOOM_PADDING
         return targetZoom.coerceIn(MIN_ZOOM, MAX_ZOOM)
+    }
+
+    private fun latRad(lat: Double): Double {
+        val sin = sin(lat * PI / 180.0)
+        val radX2 = ln((1 + sin) / (1 - sin)) / 2.0
+        return max(min(radX2, PI), -PI)
     }
 
     private fun log2(value: Double): Double {
@@ -84,4 +99,30 @@ object MenorcaViewportCalculator {
     }
 
     private val LN2 = ln(2.0)
+}
+
+class MenorcaViewportState(
+    private val calculator: MenorcaViewportCalculator = MenorcaViewportCalculator
+) {
+    private var lastWidth = 0
+    private var lastHeight = 0
+    private var lastCamera = calculator.calculateForSize(0, 0)
+
+    fun updateSize(widthPx: Int, heightPx: Int): MapCameraConfig {
+        if (widthPx == lastWidth && heightPx == lastHeight) {
+            return lastCamera
+        }
+        lastWidth = widthPx
+        lastHeight = heightPx
+        lastCamera = calculator.calculateForSize(widthPx, heightPx)
+        return lastCamera
+    }
+
+    val camera: MapCameraConfig
+        get() = lastCamera
+}
+
+@Composable
+fun rememberMenorcaViewportState(): MenorcaViewportState {
+    return remember { MenorcaViewportState() }
 }

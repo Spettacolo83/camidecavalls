@@ -75,7 +75,7 @@ import com.followmemobile.camidecavalls.presentation.map.MapCameraConfig
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
-import com.followmemobile.camidecavalls.presentation.map.MenorcaViewportCalculator
+import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
@@ -366,13 +366,12 @@ private fun IdleContent(
     onStartTracking: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val viewportState = rememberMenorcaViewportState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
         val density = LocalDensity.current
         val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
         val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
-        val fallbackCamera = remember(widthPx, heightPx) {
-            MenorcaViewportCalculator.calculateForSize(widthPx, heightPx)
-        }
+        val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
         val useFallbackZoom = selectedRoute == null && currentLocation == null
         val cameraPosition = remember(routes, selectedRoute, currentLocation, fallbackCamera, useFallbackZoom) {
             calculateCameraPosition(
@@ -452,13 +451,12 @@ private fun ActiveTrackingContent(
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
 
+    val viewportState = rememberMenorcaViewportState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
         val density = LocalDensity.current
         val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
         val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
-        val fallbackCamera = remember(widthPx, heightPx) {
-            MenorcaViewportCalculator.calculateForSize(widthPx, heightPx)
-        }
+        val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
 
         // GPS following state - enabled by default
         var followGpsLocation by remember { mutableStateOf(true) }

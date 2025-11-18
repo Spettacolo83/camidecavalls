@@ -18,7 +18,7 @@ import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
-import com.followmemobile.camidecavalls.presentation.map.MenorcaViewportCalculator
+import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
@@ -135,14 +135,13 @@ private fun FullMapScreenContent(
                 .padding(paddingValues)
         ) {
             var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+            val viewportState = rememberMenorcaViewportState()
 
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                 val density = LocalDensity.current
                 val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
                 val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
-                val cameraConfig = remember(widthPx, heightPx) {
-                    MenorcaViewportCalculator.calculateForSize(widthPx, heightPx)
-                }
+                val cameraConfig = viewportState.updateSize(widthPx, heightPx)
 
                 MapWithLayers(
                     modifier = Modifier.fillMaxSize(),
