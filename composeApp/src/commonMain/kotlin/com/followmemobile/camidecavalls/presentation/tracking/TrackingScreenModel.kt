@@ -8,6 +8,7 @@ import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
+import com.followmemobile.camidecavalls.domain.usecase.tracking.CalculateSessionStatsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
@@ -37,6 +38,7 @@ class TrackingScreenModel(
     private val trackingManager: TrackingManager,
     private val permissionHandler: PermissionHandler,
     private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
+    private val calculateSessionStatsUseCase: CalculateSessionStatsUseCase,
     private val routeId: Int? = null
 ) : ScreenModel {
 
@@ -183,13 +185,15 @@ class TrackingScreenModel(
         screenModelScope.launch {
             trackingManager.activeTrackPoints.collect { points ->
                 cachedTrackPoints = points
+                val distance = calculateDistance(points)
 
                 when (val state = _uiState.value) {
                     is TrackingUiState.Tracking -> {
                         _uiState.value = state.copy(
                             routes = routes,
                             selectedRoute = selectedRoute,
-                            trackPoints = points
+                            trackPoints = points,
+                            distanceMeters = distance
                         )
                     }
 
@@ -197,7 +201,8 @@ class TrackingScreenModel(
                         _uiState.value = state.copy(
                             routes = routes,
                             selectedRoute = selectedRoute,
-                            trackPoints = points
+                            trackPoints = points,
+                            distanceMeters = distance
                         )
                     }
 
@@ -236,7 +241,8 @@ class TrackingScreenModel(
                             selectedRoute = selectedRoute,
                             sessionId = state.sessionId,
                             currentLocation = state.currentLocation,
-                            trackPoints = cachedTrackPoints
+                            trackPoints = cachedTrackPoints,
+                            distanceMeters = calculateDistance(cachedTrackPoints)
                         )
                     }
 
@@ -247,7 +253,8 @@ class TrackingScreenModel(
                             sessionId = state.sessionId,
                             currentLocation = state.currentLocation
                                 ?: trackingManager.currentLocation.value,
-                            trackPoints = cachedTrackPoints
+                            trackPoints = cachedTrackPoints,
+                            distanceMeters = calculateDistance(cachedTrackPoints)
                         )
                     }
 
@@ -608,6 +615,13 @@ class TrackingScreenModel(
         }
     }
 
+    /**
+     * Calculate distance traveled from track points
+     */
+    private fun calculateDistance(trackPoints: List<TrackPoint>): Double {
+        return calculateSessionStatsUseCase(trackPoints).distanceMeters
+    }
+
     override fun onDispose() {
         super.onDispose()
         println("🗑️ TrackingScreenModel(${this.hashCode()}) disposed, cached ${cachedTrackPoints.size} points")
@@ -636,7 +650,8 @@ sealed interface TrackingUiState {
         val selectedRoute: Route?,
         val sessionId: String,
         val currentLocation: LocationData?,
-        val trackPoints: List<TrackPoint> = emptyList()
+        val trackPoints: List<TrackPoint> = emptyList(),
+        val distanceMeters: Double = 0.0
     ) : TrackingUiState
 
     data class Paused(
@@ -644,7 +659,8 @@ sealed interface TrackingUiState {
         val selectedRoute: Route?,
         val sessionId: String,
         val currentLocation: LocationData?,
-        val trackPoints: List<TrackPoint> = emptyList()
+        val trackPoints: List<TrackPoint> = emptyList(),
+        val distanceMeters: Double = 0.0
     ) : TrackingUiState
 
     data class Completed(

@@ -302,6 +302,7 @@ private fun TrackingScreenContent(
                         sessionId = uiState.sessionId,
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
+                        distanceMeters = uiState.distanceMeters,
                         isPaused = false,
                         onMapReady = onMapReady,
                         onMapReleased = onMapReleased,
@@ -318,6 +319,7 @@ private fun TrackingScreenContent(
                         sessionId = uiState.sessionId,
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
+                        distanceMeters = uiState.distanceMeters,
                         isPaused = true,
                         onMapReady = onMapReady,
                         onMapReleased = onMapReleased,
@@ -423,6 +425,7 @@ private fun ActiveTrackingContent(
     sessionId: String,
     currentLocation: LocationData?,
     trackPoints: List<TrackPoint>,
+    distanceMeters: Double,
     isPaused: Boolean,
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
@@ -645,6 +648,12 @@ private fun ActiveTrackingContent(
                             "${(speedKmh * 10).toInt() / 10.0} km/h"
                         )
                     }
+
+                    // Show distance traveled
+                    LocationInfoRow(
+                        stringResource(Res.string.tracking_distance),
+                        "${((distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
+                    )
                 } else {
                     Text(
                         text = stringResource(Res.string.tracking_acquiring_signal),

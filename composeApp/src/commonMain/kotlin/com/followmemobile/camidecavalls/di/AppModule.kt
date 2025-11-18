@@ -108,6 +108,7 @@ val appModule = module {
             trackingManager = get(),
             permissionHandler = get(),
             getSimplifiedRoutesUseCase = get(),
+            calculateSessionStatsUseCase = get(),
             routeId = params.getOrNull()
         )
     }
