@@ -127,8 +127,8 @@ actual class MapLayerController {
         val rippleLayerId = "$markerId-ripple"
         val rippleLayer = MLNCircleStyleLayer(identifier = rippleLayerId, source = source as MLNSource)
         rippleLayer.circleColor = NSExpression.expressionForConstantValue(highlightColor)
-        rippleLayer.circleOpacity = NSExpression.expressionForConstantValue(0.6)
-        rippleLayer.circleRadius = NSExpression.expressionForConstantValue(16.0)
+        rippleLayer.circleOpacity = NSExpression.expressionForConstantValue(0.0)
+        rippleLayer.circleRadius = NSExpression.expressionForConstantValue(10.0)
         rippleLayer.circleBlur = NSExpression.expressionForConstantValue(0.25)
         rippleLayer.circleSortKey = NSExpression.expressionForConstantValue(230.0)
 
@@ -153,8 +153,12 @@ actual class MapLayerController {
             block = { _ ->
                 phase += 0.016
                 val progress = ((phase % 2.0) / 2.0).coerceIn(0.0, 1.0)
-                val radius = 16.0 + progress * 40.0
-                val opacity = 0.6 * (1.0 - progress)
+                val radius = 10.0 + progress * 46.0
+                val fadeInThreshold = 0.12
+                val opacity = when {
+                    progress <= fadeInThreshold -> 0.6 * (progress / fadeInThreshold)
+                    else -> 0.6 * (1.0 - progress)
+                }.coerceIn(0.0, 0.6)
                 (style?.layerWithIdentifier(rippleLayerId) as? MLNCircleStyleLayer)?.let { layer ->
                     layer.circleRadius = NSExpression.expressionForConstantValue(radius)
                     layer.circleOpacity = NSExpression.expressionForConstantValue(opacity)

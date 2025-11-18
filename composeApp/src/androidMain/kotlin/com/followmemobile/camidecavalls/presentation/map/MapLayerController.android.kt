@@ -163,8 +163,8 @@ actual class MapLayerController {
         val rippleLayer = CircleLayer(rippleLayerId, "source-$markerId")
             .withProperties(
                 circleColor(Color.parseColor(colorHex)),
-                circleRadius(16f),
-                circleOpacity(0.6f),
+                circleRadius(10f),
+                circleOpacity(0f),
                 circleBlur(0.25f),
                 circleSortKey(230f)
             )
@@ -194,16 +194,21 @@ actual class MapLayerController {
             Log.e("MapLayer", "Error adding foreground layer", e)
         }
 
-        rippleAnimator = ValueAnimator.ofFloat(16f, 56f).apply {
+        rippleAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 2000
             interpolator = LinearInterpolator()
             repeatCount = ValueAnimator.INFINITE
             addUpdateListener { animator ->
-                val radius = animator.animatedValue as Float
-                val progress = ((radius - 16f) / (56f - 16f)).coerceIn(0f, 1f)
+                val progress = (animator.animatedValue as Float).coerceIn(0f, 1f)
+                val radius = 10f + (progress * 46f)
+                val fadeInThreshold = 0.12f
+                val opacity = when {
+                    progress <= fadeInThreshold -> 0.6f * (progress / fadeInThreshold)
+                    else -> 0.6f * (1f - progress)
+                }.coerceIn(0f, 0.6f)
                 currentStyle.getLayer(rippleLayerId)?.setProperties(
                     circleRadius(radius),
-                    circleOpacity(0.6f * (1f - progress))
+                    circleOpacity(opacity)
                 )
             }
             start()
