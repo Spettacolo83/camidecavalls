@@ -23,6 +23,7 @@ import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.CircleLayer
+import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.PropertyFactory.circleBlur
 import org.maplibre.android.style.layers.PropertyFactory.circleColor
@@ -48,6 +49,9 @@ actual class MapLayerController {
 
     internal fun setMap(map: MapLibreMap, loadedStyle: Style) {
         this.mapLibreMap = map
+        if (this.style !== loadedStyle) {
+            clearCurrentHighlight()
+        }
         this.style = loadedStyle
 
         // Set up click listener for map
@@ -199,6 +203,14 @@ actual class MapLayerController {
             interpolator = LinearInterpolator()
             repeatCount = ValueAnimator.INFINITE
             addUpdateListener { animator ->
+                val styleSnapshot = style ?: run {
+                    cancelRippleAnimation()
+                    return@addUpdateListener
+                }
+                val rippleLayer = styleSnapshot.safeLayer(rippleLayerId) ?: run {
+                    cancelRippleAnimation()
+                    return@addUpdateListener
+                }
                 val progress = (animator.animatedValue as Float).coerceIn(0f, 1f)
                 val radius = 10f + (progress * 46f)
                 val fadeInThreshold = 0.12f
@@ -206,7 +218,7 @@ actual class MapLayerController {
                     progress <= fadeInThreshold -> 0.6f * (progress / fadeInThreshold)
                     else -> 0.6f * (1f - progress)
                 }.coerceIn(0f, 0.6f)
-                currentStyle.getLayer(rippleLayerId)?.setProperties(
+                rippleLayer.setProperties(
                     circleRadius(radius),
                     circleOpacity(opacity)
                 )
@@ -348,19 +360,19 @@ actual class MapLayerController {
         }
         try {
             // Remove all associated layers for this ID
-            currentStyle.getLayer(layerId)?.let {
+            currentStyle.safeLayer(layerId)?.let {
                 currentStyle.removeLayer(it)
             }
-            currentStyle.getLayer("$layerId-outer")?.let {
+            currentStyle.safeLayer("$layerId-outer")?.let {
                 currentStyle.removeLayer(it)
             }
-            currentStyle.getLayer("$layerId-ripple")?.let {
+            currentStyle.safeLayer("$layerId-ripple")?.let {
                 currentStyle.removeLayer(it)
             }
-            currentStyle.getLayer("$layerId-foreground")?.let {
+            currentStyle.safeLayer("$layerId-foreground")?.let {
                 currentStyle.removeLayer(it)
             }
-            currentStyle.getLayer("$layerId-casing")?.let {
+            currentStyle.safeLayer("$layerId-casing")?.let {
                 currentStyle.removeLayer(it)
             }
             // Remove source last
@@ -383,15 +395,14 @@ actual class MapLayerController {
     }
 
     private fun clearCurrentHighlight() {
-        rippleAnimator?.cancel()
-        rippleAnimator = null
+        cancelRippleAnimation()
         highlightedMarkerId?.let { markerId ->
-            style?.getLayer(markerId)?.setProperties(circleRadius(8f), circleSortKey(1f))
-            style?.getLayer("$markerId-outer")?.setProperties(circleRadius(10f), circleSortKey(0.5f))
-            style?.getLayer("$markerId-ripple")?.let { layer ->
+            style?.safeLayer(markerId)?.setProperties(circleRadius(8f), circleSortKey(1f))
+            style?.safeLayer("$markerId-outer")?.setProperties(circleRadius(10f), circleSortKey(0.5f))
+            style?.safeLayer("$markerId-ripple")?.let { layer ->
                 style?.removeLayer(layer)
             }
-            style?.getLayer("$markerId-foreground")?.let { layer ->
+            style?.safeLayer("$markerId-foreground")?.let { layer ->
                 style?.removeLayer(layer)
             }
         }
@@ -405,14 +416,26 @@ actual class MapLayerController {
         } else {
             Triple(8f, 10f, 1f)
         }
-        currentStyle.getLayer(markerId)?.setProperties(
+        currentStyle.safeLayer(markerId)?.setProperties(
             circleRadius(innerRadius),
             circleSortKey(sortKey)
         )
-        currentStyle.getLayer("$markerId-outer")?.setProperties(
+        currentStyle.safeLayer("$markerId-outer")?.setProperties(
             circleRadius(outerRadius),
             circleSortKey(sortKey - 5f)
         )
+    }
+
+    private fun cancelRippleAnimation() {
+        rippleAnimator?.cancel()
+        rippleAnimator = null
+    }
+
+    private fun Style.safeLayer(layerId: String): Layer? = try {
+        getLayer(layerId)
+    } catch (e: IllegalStateException) {
+        Log.w("MapLayer", "Layer $layerId unavailable while style is transitioning", e)
+        null
     }
 
 }
