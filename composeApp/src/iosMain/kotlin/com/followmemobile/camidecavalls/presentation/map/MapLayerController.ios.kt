@@ -7,22 +7,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
-import kotlinx.cinterop.cValue
-import kotlinx.cinterop.usePinned
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.useContents
-import platform.CoreGraphics.CGRectMake
+import kotlinx.cinterop.usePinned
+import MapLibre.*
 import platform.CoreGraphics.CGPointMake
+import platform.CoreGraphics.CGRectMake
 import platform.CoreLocation.CLLocationCoordinate2DMake
-import platform.Foundation.NSURL
-import platform.Foundation.NSExpression
 import platform.Foundation.NSData
+import platform.Foundation.NSExpression
+import platform.Foundation.NSTimer
+import platform.Foundation.NSURL
 import platform.Foundation.create
 import platform.UIKit.UIColor
 import platform.UIKit.UITapGestureRecognizer
 import platform.darwin.NSObject
 import platform.objc.sel_registerName
-import MapLibre.*
+import kotlin.math.pow
 
 // Extension function to convert ByteArray to NSData
 @OptIn(ExperimentalForeignApi::class)
@@ -41,6 +42,8 @@ actual class MapLayerController {
     // Store marker coordinates for tap detection
     internal val markerCoordinates = mutableMapOf<String, Pair<Double, Double>>()
     private val managedLayerIds = mutableSetOf<String>()
+    private var highlightedMarkerId: String? = null
+    private var highlightTimer: NSTimer? = null
 
     internal fun setMap(map: MLNMapView, loadedStyle: MLNStyle) {
         this.mapView = map
@@ -67,8 +70,85 @@ actual class MapLayerController {
         )
     }
 
+    actual fun centerLocationWithVerticalOffset(
+        latitude: Double,
+        longitude: Double,
+        offsetPixels: Float?,
+        animated: Boolean
+    ) {
+        val map = mapView ?: return
+        val offset = offsetPixels
+        if (offset == null || offset <= 0f) {
+            val currentZoom = map.zoomLevel
+            val baseOffset = 0.015
+            val zoomFactor = 2.0.pow(currentZoom - 10.0)
+            val latitudeOffset = baseOffset / zoomFactor
+            map.setCenterCoordinate(
+                centerCoordinate = CLLocationCoordinate2DMake(latitude - latitudeOffset, longitude),
+                zoomLevel = currentZoom,
+                animated = animated
+            )
+            return
+        }
+
+        val offsetValue = offset.toDouble()
+        val currentPoint = map.convertCoordinate(
+            CLLocationCoordinate2DMake(latitude, longitude),
+            toPointToView = map
+        )
+        val targetPoint = CGPointMake(currentPoint.x, currentPoint.y - offsetValue)
+        val targetCoordinate = map.convertPoint(targetPoint, toCoordinateFromView = map)
+        map.setCenterCoordinate(
+            centerCoordinate = targetCoordinate,
+            zoomLevel = map.zoomLevel,
+            animated = animated
+        )
+    }
+
     actual fun getCurrentZoom(): Double {
         return mapView?.zoomLevel ?: 14.0
+    }
+
+    actual fun setHighlightedMarker(markerId: String?, colorHex: String?) {
+        val currentStyle = style ?: return
+        if (highlightedMarkerId == markerId) {
+            return
+        }
+
+        clearCurrentHighlight()
+
+        if (markerId == null || colorHex == null) return
+
+        val source = currentStyle.sourceWithIdentifier("source-$markerId") ?: return
+        highlightedMarkerId = markerId
+
+        val rippleLayerId = "$markerId-ripple"
+        val rippleLayer = MLNCircleStyleLayer(identifier = rippleLayerId, source = source as MLNSource)
+        rippleLayer.circleColor = NSExpression.expressionForConstantValue(parseHexColor(colorHex))
+        rippleLayer.circleOpacity = NSExpression.expressionForConstantValue(0.35)
+        rippleLayer.circleRadius = NSExpression.expressionForConstantValue(10.0)
+        rippleLayer.circleBlur = NSExpression.expressionForConstantValue(0.85)
+        rippleLayer.circleSortKey = NSExpression.expressionForConstantValue(200.0)
+
+        currentStyle.addLayerBelow(rippleLayer, currentStyle.layerWithIdentifier(markerId))
+
+        elevateMarker(markerId, highlighted = true)
+
+        var phase = 0.0
+        highlightTimer = NSTimer.scheduledTimerWithTimeInterval(
+            timeInterval = 0.016,
+            repeats = true,
+            block = { _ ->
+                phase += 0.016
+                val progress = ((phase % 1.6) / 1.6).coerceIn(0.0, 1.0)
+                val radius = 10.0 + progress * 22.0
+                val opacity = 0.35 * (1.0 - progress)
+                (style?.layerWithIdentifier(rippleLayerId) as? MLNCircleStyleLayer)?.let { layer ->
+                    layer.circleRadius = NSExpression.expressionForConstantValue(radius)
+                    layer.circleOpacity = NSExpression.expressionForConstantValue(opacity)
+                }
+            }
+        )
     }
 
     actual fun addRoutePath(
@@ -157,11 +237,13 @@ actual class MapLayerController {
                     val outerCircle = MLNCircleStyleLayer(identifier = "$markerId-outer", source = source)
                     outerCircle.circleColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
                     outerCircle.circleRadius = NSExpression.expressionForConstantValue(radius + 2.0)
+                    outerCircle.circleSortKey = NSExpression.expressionForConstantValue(0.5)
                     currentStyle.addLayer(outerCircle)
 
                     val innerCircle = MLNCircleStyleLayer(identifier = markerId, source = source)
                     innerCircle.circleColor = NSExpression.expressionForConstantValue(uiColor)
                     innerCircle.circleRadius = NSExpression.expressionForConstantValue(radius.toDouble())
+                    innerCircle.circleSortKey = NSExpression.expressionForConstantValue(1.0)
                     currentStyle.addLayer(innerCircle)
                 }
             }
@@ -172,12 +254,18 @@ actual class MapLayerController {
 
     actual fun removeLayer(layerId: String) {
         val currentStyle = style ?: return
+        if (highlightedMarkerId == layerId) {
+            clearCurrentHighlight()
+        }
         try {
             // Remove all associated layers for this ID
             currentStyle.layerWithIdentifier(layerId)?.let {
                 currentStyle.removeLayer(it)
             }
             currentStyle.layerWithIdentifier("$layerId-outer")?.let {
+                currentStyle.removeLayer(it)
+            }
+            currentStyle.layerWithIdentifier("$layerId-ripple")?.let {
                 currentStyle.removeLayer(it)
             }
             currentStyle.layerWithIdentifier("$layerId-casing")?.let {
@@ -195,12 +283,46 @@ actual class MapLayerController {
     }
 
     actual fun clearAll() {
+        clearCurrentHighlight()
         val ids = managedLayerIds.toList()
         ids.forEach { id ->
             removeLayer(id)
         }
         managedLayerIds.clear()
         markerCoordinates.clear()
+    }
+
+    private fun clearCurrentHighlight() {
+        highlightTimer?.invalidate()
+        highlightTimer = null
+        highlightedMarkerId?.let { markerId ->
+            (style?.layerWithIdentifier(markerId) as? MLNCircleStyleLayer)?.let { layer ->
+                layer.circleRadius = NSExpression.expressionForConstantValue(8.0)
+                layer.circleSortKey = NSExpression.expressionForConstantValue(1.0)
+            }
+            (style?.layerWithIdentifier("$markerId-outer") as? MLNCircleStyleLayer)?.let { layer ->
+                layer.circleRadius = NSExpression.expressionForConstantValue(10.0)
+                layer.circleSortKey = NSExpression.expressionForConstantValue(0.5)
+            }
+            style?.layerWithIdentifier("$markerId-ripple")?.let { ripple ->
+                style?.removeLayer(ripple)
+            }
+        }
+        highlightedMarkerId = null
+    }
+
+    private fun elevateMarker(markerId: String, highlighted: Boolean) {
+        val sortKey = if (highlighted) 220.0 else 1.0
+        val innerRadius = if (highlighted) 10.0 else 8.0
+        val outerRadius = if (highlighted) 12.0 else 10.0
+        (style?.layerWithIdentifier(markerId) as? MLNCircleStyleLayer)?.let { layer ->
+            layer.circleRadius = NSExpression.expressionForConstantValue(innerRadius)
+            layer.circleSortKey = NSExpression.expressionForConstantValue(sortKey)
+        }
+        (style?.layerWithIdentifier("$markerId-outer") as? MLNCircleStyleLayer)?.let { layer ->
+            layer.circleRadius = NSExpression.expressionForConstantValue(outerRadius)
+            layer.circleSortKey = NSExpression.expressionForConstantValue(sortKey - 5.0)
+        }
     }
 
     private fun parseHexColor(hex: String): UIColor {

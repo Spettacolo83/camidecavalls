@@ -58,9 +58,26 @@ expect class MapLayerController() {
     )
 
     /**
+     * Center the camera on a coordinate, optionally lifting the point by a
+     * specific amount of vertical pixels (used to keep POIs above popups).
+     */
+    fun centerLocationWithVerticalOffset(
+        latitude: Double,
+        longitude: Double,
+        offsetPixels: Float? = null,
+        animated: Boolean = true
+    )
+
+    /**
      * Get current zoom level
      */
     fun getCurrentZoom(): Double
+
+    /**
+     * Highlight a marker with an animated ripple and ensure it is visible.
+     * Pass null to clear the highlight.
+     */
+    fun setHighlightedMarker(markerId: String?, colorHex: String? = null)
 
     /**
      * Remove a specific layer from the map

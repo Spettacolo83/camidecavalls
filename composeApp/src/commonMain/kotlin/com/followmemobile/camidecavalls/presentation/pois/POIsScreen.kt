@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
@@ -128,6 +129,10 @@ class POIsScreen : Screen {
                 onShowDetails = { poi ->
                     // Show POI detail in bottom sheet (map stays loaded underneath)
                     selectedPoiForDetail = poi
+                },
+                onPopupMeasured = { heightPx -> screenModel.updatePopupHeight(heightPx) },
+                onPopupBottomPaddingResolved = { paddingPx ->
+                    screenModel.updatePopupBottomPadding(paddingPx)
                 }
             )
 
@@ -172,7 +177,9 @@ private fun POIsScreenContent(
     onMapReady: (MapLayerController) -> Unit,
     onClosePopup: () -> Unit,
     onToggleType: (POIType) -> Unit,
-    onShowDetails: (PointOfInterest) -> Unit
+    onShowDetails: (PointOfInterest) -> Unit,
+    onPopupMeasured: (Int) -> Unit,
+    onPopupBottomPaddingResolved: (Int) -> Unit
 ) {
     var filtersVisible by remember { mutableStateOf(false) }
     val filterTransitionState = remember { MutableTransitionState(false) }
@@ -187,6 +194,11 @@ private fun POIsScreenContent(
             x = -with(density) { 24.dp.roundToPx() },
             y = -with(density) { 96.dp.roundToPx() }
         )
+    }
+
+    val popupBottomPaddingPx = remember(density) { with(density) { 104.dp.roundToPx() } }
+    LaunchedEffect(popupBottomPaddingPx) {
+        onPopupBottomPaddingResolved(popupBottomPaddingPx)
     }
 
     Scaffold(
@@ -250,6 +262,7 @@ private fun POIsScreenContent(
                     currentLanguage = uiState.currentLanguage,
                     onClose = onClosePopup,
                     onShowDetails = { onShowDetails(poi) },
+                    onMeasured = onPopupMeasured,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 104.dp)
@@ -308,7 +321,8 @@ private fun POIPopup(
     currentLanguage: Language,
     onClose: () -> Unit,
     onShowDetails: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMeasured: (Int) -> Unit = {}
 ) {
     // Get background color based on POI type
     val backgroundColor = when (poi.type.name) {
@@ -359,6 +373,7 @@ private fun POIPopup(
 
     Card(
         modifier = modifier
+            .onSizeChanged { layout -> onMeasured(layout.height) }
             .width(280.dp)
             .wrapContentHeight(),
         shape = RoundedCornerShape(16.dp),
