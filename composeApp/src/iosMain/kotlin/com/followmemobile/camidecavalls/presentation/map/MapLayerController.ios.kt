@@ -96,7 +96,7 @@ actual class MapLayerController {
             CLLocationCoordinate2DMake(latitude, longitude),
             toPointToView = map
         )
-        val targetPoint = CGPointMake(currentPoint.x, currentPoint.y - offsetValue)
+        val targetPoint = CGPointMake(currentPoint.x, currentPoint.y + offsetValue)
         val targetCoordinate = map.convertPoint(targetPoint, toCoordinateFromView = map)
         map.setCenterCoordinate(
             centerCoordinate = targetCoordinate,
@@ -122,17 +122,29 @@ actual class MapLayerController {
         val source = currentStyle.sourceWithIdentifier("source-$markerId") ?: return
         highlightedMarkerId = markerId
 
+        val highlightColor = parseHexColor(colorHex)
+
         val rippleLayerId = "$markerId-ripple"
         val rippleLayer = MLNCircleStyleLayer(identifier = rippleLayerId, source = source as MLNSource)
-        rippleLayer.circleColor = NSExpression.expressionForConstantValue(parseHexColor(colorHex))
-        rippleLayer.circleOpacity = NSExpression.expressionForConstantValue(0.35)
-        rippleLayer.circleRadius = NSExpression.expressionForConstantValue(10.0)
-        rippleLayer.circleBlur = NSExpression.expressionForConstantValue(0.85)
-        rippleLayer.circleSortKey = NSExpression.expressionForConstantValue(200.0)
+        rippleLayer.circleColor = NSExpression.expressionForConstantValue(highlightColor)
+        rippleLayer.circleOpacity = NSExpression.expressionForConstantValue(0.6)
+        rippleLayer.circleRadius = NSExpression.expressionForConstantValue(16.0)
+        rippleLayer.circleBlur = NSExpression.expressionForConstantValue(0.25)
+        rippleLayer.circleSortKey = NSExpression.expressionForConstantValue(230.0)
 
         currentStyle.addLayerBelow(rippleLayer, currentStyle.layerWithIdentifier(markerId))
 
         elevateMarker(markerId, highlighted = true)
+
+        val foregroundLayerId = "$markerId-foreground"
+        val foregroundLayer = MLNCircleStyleLayer(identifier = foregroundLayerId, source = source)
+        foregroundLayer.circleColor = NSExpression.expressionForConstantValue(highlightColor)
+        foregroundLayer.circleRadius = NSExpression.expressionForConstantValue(10.0)
+        foregroundLayer.circleOpacity = NSExpression.expressionForConstantValue(1.0)
+        foregroundLayer.circleStrokeColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
+        foregroundLayer.circleStrokeWidth = NSExpression.expressionForConstantValue(2.0)
+        foregroundLayer.circleSortKey = NSExpression.expressionForConstantValue(260.0)
+        currentStyle.addLayer(foregroundLayer)
 
         var phase = 0.0
         highlightTimer = NSTimer.scheduledTimerWithTimeInterval(
@@ -140,9 +152,9 @@ actual class MapLayerController {
             repeats = true,
             block = { _ ->
                 phase += 0.016
-                val progress = ((phase % 1.6) / 1.6).coerceIn(0.0, 1.0)
-                val radius = 10.0 + progress * 22.0
-                val opacity = 0.35 * (1.0 - progress)
+                val progress = ((phase % 2.0) / 2.0).coerceIn(0.0, 1.0)
+                val radius = 16.0 + progress * 40.0
+                val opacity = 0.6 * (1.0 - progress)
                 (style?.layerWithIdentifier(rippleLayerId) as? MLNCircleStyleLayer)?.let { layer ->
                     layer.circleRadius = NSExpression.expressionForConstantValue(radius)
                     layer.circleOpacity = NSExpression.expressionForConstantValue(opacity)
@@ -268,6 +280,9 @@ actual class MapLayerController {
             currentStyle.layerWithIdentifier("$layerId-ripple")?.let {
                 currentStyle.removeLayer(it)
             }
+            currentStyle.layerWithIdentifier("$layerId-foreground")?.let {
+                currentStyle.removeLayer(it)
+            }
             currentStyle.layerWithIdentifier("$layerId-casing")?.let {
                 currentStyle.removeLayer(it)
             }
@@ -306,6 +321,9 @@ actual class MapLayerController {
             }
             style?.layerWithIdentifier("$markerId-ripple")?.let { ripple ->
                 style?.removeLayer(ripple)
+            }
+            style?.layerWithIdentifier("$markerId-foreground")?.let { layer ->
+                style?.removeLayer(layer)
             }
         }
         highlightedMarkerId = null

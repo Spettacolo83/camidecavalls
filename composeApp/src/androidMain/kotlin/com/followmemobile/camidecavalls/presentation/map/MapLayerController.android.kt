@@ -29,6 +29,8 @@ import org.maplibre.android.style.layers.PropertyFactory.circleColor
 import org.maplibre.android.style.layers.PropertyFactory.circleOpacity
 import org.maplibre.android.style.layers.PropertyFactory.circleRadius
 import org.maplibre.android.style.layers.PropertyFactory.circleSortKey
+import org.maplibre.android.style.layers.PropertyFactory.circleStrokeColor
+import org.maplibre.android.style.layers.PropertyFactory.circleStrokeWidth
 import org.maplibre.android.style.layers.PropertyFactory.lineCap
 import org.maplibre.android.style.layers.PropertyFactory.lineColor
 import org.maplibre.android.style.layers.PropertyFactory.lineJoin
@@ -130,7 +132,7 @@ actual class MapLayerController {
 
         val projection = map.projection
         val screenPoint = projection.toScreenLocation(LatLng(latitude, longitude))
-        val targetPoint = PointF(screenPoint.x, screenPoint.y - offsetPixels)
+        val targetPoint = PointF(screenPoint.x, screenPoint.y + offsetPixels)
         val targetLatLng = projection.fromScreenLocation(targetPoint)
         updateCamera(
             latitude = targetLatLng.latitude,
@@ -161,10 +163,10 @@ actual class MapLayerController {
         val rippleLayer = CircleLayer(rippleLayerId, "source-$markerId")
             .withProperties(
                 circleColor(Color.parseColor(colorHex)),
-                circleRadius(10f),
-                circleOpacity(0.35f),
-                circleBlur(0.85f),
-                circleSortKey(200f)
+                circleRadius(16f),
+                circleOpacity(0.6f),
+                circleBlur(0.25f),
+                circleSortKey(230f)
             )
 
         try {
@@ -175,16 +177,33 @@ actual class MapLayerController {
 
         elevateMarker(markerId, highlighted = true)
 
-        rippleAnimator = ValueAnimator.ofFloat(10f, 32f).apply {
-            duration = 1600
+        val foregroundLayerId = "$markerId-foreground"
+        val foregroundLayer = CircleLayer(foregroundLayerId, "source-$markerId")
+            .withProperties(
+                circleColor(Color.parseColor(colorHex)),
+                circleRadius(10f),
+                circleOpacity(1f),
+                circleStrokeColor(Color.WHITE),
+                circleStrokeWidth(2f),
+                circleSortKey(260f)
+            )
+
+        try {
+            currentStyle.addLayer(foregroundLayer)
+        } catch (e: Exception) {
+            Log.e("MapLayer", "Error adding foreground layer", e)
+        }
+
+        rippleAnimator = ValueAnimator.ofFloat(16f, 56f).apply {
+            duration = 2000
             interpolator = LinearInterpolator()
             repeatCount = ValueAnimator.INFINITE
             addUpdateListener { animator ->
                 val radius = animator.animatedValue as Float
-                val progress = ((radius - 10f) / (32f - 10f)).coerceIn(0f, 1f)
+                val progress = ((radius - 16f) / (56f - 16f)).coerceIn(0f, 1f)
                 currentStyle.getLayer(rippleLayerId)?.setProperties(
                     circleRadius(radius),
-                    circleOpacity(0.35f * (1f - progress))
+                    circleOpacity(0.6f * (1f - progress))
                 )
             }
             start()
@@ -333,6 +352,9 @@ actual class MapLayerController {
             currentStyle.getLayer("$layerId-ripple")?.let {
                 currentStyle.removeLayer(it)
             }
+            currentStyle.getLayer("$layerId-foreground")?.let {
+                currentStyle.removeLayer(it)
+            }
             currentStyle.getLayer("$layerId-casing")?.let {
                 currentStyle.removeLayer(it)
             }
@@ -362,6 +384,9 @@ actual class MapLayerController {
             style?.getLayer(markerId)?.setProperties(circleRadius(8f), circleSortKey(1f))
             style?.getLayer("$markerId-outer")?.setProperties(circleRadius(10f), circleSortKey(0.5f))
             style?.getLayer("$markerId-ripple")?.let { layer ->
+                style?.removeLayer(layer)
+            }
+            style?.getLayer("$markerId-foreground")?.let { layer ->
                 style?.removeLayer(layer)
             }
         }
