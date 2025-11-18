@@ -1,6 +1,7 @@
 package com.followmemobile.camidecavalls.presentation.fullmap
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
@@ -17,11 +18,13 @@ import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.map.MenorcaViewportCalculator
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import kotlin.math.roundToInt
 
 /**
  * Full Map Screen showing all 20 routes of Camí de Cavalls overlayed on the map.
@@ -131,17 +134,43 @@ private fun FullMapScreenContent(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // MapLibre map with all 20 routes
-            MapWithLayers(
-                modifier = Modifier.fillMaxSize(),
-                latitude = 39.95,  // Menorca center
-                longitude = 4.05,
-                zoom = 10.0,
-                styleUrl = MapStyles.LIBERTY,
-                onMapReady = { controller ->
-                    onMapReady(controller)
+            var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+
+            BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                val density = LocalDensity.current
+                val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
+                val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
+                val cameraConfig = remember(widthPx, heightPx) {
+                    MenorcaViewportCalculator.calculateForSize(widthPx, heightPx)
                 }
-            )
+
+                MapWithLayers(
+                    modifier = Modifier.fillMaxSize(),
+                    latitude = cameraConfig.latitude,
+                    longitude = cameraConfig.longitude,
+                    zoom = cameraConfig.zoom,
+                    styleUrl = MapStyles.LIBERTY,
+                    onMapReady = { controller ->
+                        mapController = controller
+                        onMapReady(controller)
+                        controller.updateCamera(
+                            latitude = cameraConfig.latitude,
+                            longitude = cameraConfig.longitude,
+                            zoom = cameraConfig.zoom,
+                            animated = false
+                        )
+                    }
+                )
+
+                LaunchedEffect(mapController, cameraConfig) {
+                    mapController?.updateCamera(
+                        latitude = cameraConfig.latitude,
+                        longitude = cameraConfig.longitude,
+                        zoom = cameraConfig.zoom,
+                        animated = false
+                    )
+                }
+            }
 
             // Loading indicator while routes are being loaded
             if (uiState.isLoading) {

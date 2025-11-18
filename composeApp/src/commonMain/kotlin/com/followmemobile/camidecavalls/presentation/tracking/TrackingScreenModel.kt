@@ -11,6 +11,7 @@ import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCas
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
+import com.followmemobile.camidecavalls.presentation.map.RouteColorPalette
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -281,7 +282,7 @@ class TrackingScreenModel(
                 controller.addRoutePath(
                     routeId = "tracking-route-${route.id}",
                     geoJsonLineString = geoJson,
-                    color = getTrackingRouteColor(index),
+                    color = RouteColorPalette.colorForIndex(index),
                     width = 4f
                 )
             }
@@ -335,16 +336,6 @@ class TrackingScreenModel(
             put("type", JsonPrimitive("LineString"))
             put("coordinates", JsonArray(coordinates))
         }.toString()
-    }
-
-    private fun getTrackingRouteColor(index: Int): String {
-        val colors = listOf(
-            "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
-            "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A",
-            "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722",
-            "#F44336", "#795548", "#607D8B", "#9E9E9E", "#000000"
-        )
-        return colors[index % colors.size]
     }
 
     /**

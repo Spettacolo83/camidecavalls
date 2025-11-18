@@ -7,13 +7,12 @@ import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
+import com.followmemobile.camidecavalls.presentation.map.RouteColorPalette
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.roundToInt
 
 /**
  * ScreenModel for FullMapScreen.
@@ -70,7 +69,7 @@ class FullMapScreenModel(
                     var addedCount = 0
                     routes.forEachIndexed { index, route ->
                         if (route.gpxData != null) {
-                            val color = getRouteColor(index)
+                            val color = RouteColorPalette.colorForIndex(index)
                             println("🗺️  Adding route ${route.id}: ${route.name} (color: $color)")
                             mapController?.addRoutePath(
                                 routeId = "route_${route.id}",
@@ -122,44 +121,6 @@ class FullMapScreenModel(
         }
     }
 
-    /**
-     * Get color for route based on index
-     * Generates a smooth gradient across the visible spectrum for up to 20 routes
-     */
-    private fun getRouteColor(index: Int): String {
-        val hueStep = 360f / ROUTE_COLOR_COUNT
-        val hue = (index % ROUTE_COLOR_COUNT) * hueStep
-        return hsvToHex(hue, COLOR_SATURATION, COLOR_VALUE)
-    }
-
-    private fun hsvToHex(hue: Float, saturation: Float, value: Float): String {
-        val normalizedHue = ((hue % 360f) + 360f) % 360f
-        val chroma = value * saturation
-        val huePrime = normalizedHue / 60f
-        val secondLargestComponent = chroma * (1 - abs((huePrime % 2) - 1))
-
-        val (red, green, blue) = when {
-            huePrime < 1f -> Triple(chroma, secondLargestComponent, 0f)
-            huePrime < 2f -> Triple(secondLargestComponent, chroma, 0f)
-            huePrime < 3f -> Triple(0f, chroma, secondLargestComponent)
-            huePrime < 4f -> Triple(0f, secondLargestComponent, chroma)
-            huePrime < 5f -> Triple(secondLargestComponent, 0f, chroma)
-            else -> Triple(chroma, 0f, secondLargestComponent)
-        }
-
-        val match = value - chroma
-        val r = ((red + match) * 255).roundToInt().coerceIn(0, 255)
-        val g = ((green + match) * 255).roundToInt().coerceIn(0, 255)
-        val b = ((blue + match) * 255).roundToInt().coerceIn(0, 255)
-
-        return String.format("#%02X%02X%02X", r, g, b)
-    }
-
-    companion object {
-        private const val ROUTE_COLOR_COUNT = 20
-        private const val COLOR_SATURATION = 0.85f
-        private const val COLOR_VALUE = 0.95f
-    }
 }
 
 /**
