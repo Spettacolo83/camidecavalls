@@ -50,10 +50,12 @@ import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import kotlin.math.roundToInt
 
 /**
  * POIs Screen showing all POIs on a Menorca map with colored markers.
@@ -222,17 +224,42 @@ private fun POIsScreenContent(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // MapLibre map with all POI markers
-            MapWithLayers(
-                modifier = Modifier.fillMaxSize(),
-                latitude = 39.95,  // Menorca center
-                longitude = 4.05,
-                zoom = 10.0,
-                styleUrl = MapStyles.LIBERTY,
-                onMapReady = { controller ->
-                    onMapReady(controller)
+            var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+            val viewportState = rememberMenorcaViewportState()
+
+            BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                val density = LocalDensity.current
+                val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
+                val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
+                val cameraConfig = viewportState.updateSize(widthPx, heightPx)
+
+                MapWithLayers(
+                    modifier = Modifier.fillMaxSize(),
+                    latitude = cameraConfig.latitude,
+                    longitude = cameraConfig.longitude,
+                    zoom = cameraConfig.zoom,
+                    styleUrl = MapStyles.LIBERTY,
+                    onMapReady = { controller ->
+                        mapController = controller
+                        onMapReady(controller)
+                        controller.updateCamera(
+                            latitude = cameraConfig.latitude,
+                            longitude = cameraConfig.longitude,
+                            zoom = cameraConfig.zoom,
+                            animated = false
+                        )
+                    }
+                )
+
+                LaunchedEffect(mapController, cameraConfig) {
+                    mapController?.updateCamera(
+                        latitude = cameraConfig.latitude,
+                        longitude = cameraConfig.longitude,
+                        zoom = cameraConfig.zoom,
+                        animated = false
+                    )
                 }
-            )
+            }
 
             // Loading indicator
             if (uiState.isLoading) {

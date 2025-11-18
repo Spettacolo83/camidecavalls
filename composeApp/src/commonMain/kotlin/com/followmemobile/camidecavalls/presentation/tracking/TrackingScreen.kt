@@ -22,6 +22,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -70,14 +71,17 @@ import com.followmemobile.camidecavalls.presentation.home.DrawerContent
 import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
 import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.home.RoutesUiState
+import com.followmemobile.camidecavalls.presentation.map.MapCameraConfig
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
+import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
+import kotlin.math.roundToInt
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -364,10 +368,24 @@ private fun IdleContent(
     onStartTracking: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val cameraPosition = calculateCameraPosition(routes, selectedRoute, currentLocation)
-    var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+    val viewportState = rememberMenorcaViewportState()
+    BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
+        val density = LocalDensity.current
+        val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
+        val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
+        val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
+        val useFallbackZoom = selectedRoute == null && currentLocation == null
+        val cameraPosition = remember(routes, selectedRoute, currentLocation, fallbackCamera, useFallbackZoom) {
+            calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
+            )
+        }
+        var mapController by remember { mutableStateOf<MapLayerController?>(null) }
 
-    Box(modifier = Modifier.fillMaxSize().then(modifier)) {
         MapWithLayers(
             modifier = Modifier.fillMaxSize(),
             latitude = cameraPosition.latitude,
@@ -395,23 +413,23 @@ private fun IdleContent(
             icon = { Icon(Icons.Default.Flag, contentDescription = null) },
             text = { Text(stringResource(Res.string.tracking_start)) }
         )
-    }
 
-    LaunchedEffect(mapController, cameraPosition) {
-        val controller = mapController ?: return@LaunchedEffect
-        controller.updateCamera(
-            latitude = cameraPosition.latitude,
-            longitude = cameraPosition.longitude,
-            zoom = cameraPosition.zoom,
-            animated = false
-        )
-    }
+        LaunchedEffect(mapController, cameraPosition) {
+            val controller = mapController ?: return@LaunchedEffect
+            controller.updateCamera(
+                latitude = cameraPosition.latitude,
+                longitude = cameraPosition.longitude,
+                zoom = cameraPosition.zoom,
+                animated = false
+            )
+        }
 
-    DisposableEffect(mapController) {
-        val controller = mapController
-        onDispose {
-            if (controller != null) {
-                onMapReleased(controller)
+        DisposableEffect(mapController) {
+            val controller = mapController
+            onDispose {
+                if (controller != null) {
+                    onMapReleased(controller)
+                }
             }
         }
     }
@@ -436,66 +454,85 @@ private fun ActiveTrackingContent(
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
 
-    // GPS following state - enabled by default
-    var followGpsLocation by remember { mutableStateOf(true) }
-    var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
+    val viewportState = rememberMenorcaViewportState()
+    BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
+        val density = LocalDensity.current
+        val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
+        val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
+        val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
 
-    // Calculate camera position based on GPS following state
-    val cameraPosition = if (followGpsLocation) {
-        calculateCameraPosition(routes, selectedRoute, currentLocation).also {
-            lastKnownPosition = it
-        }
-    } else {
-        lastKnownPosition ?: calculateCameraPosition(routes, selectedRoute, currentLocation)
-    }
+        // GPS following state - enabled by default
+        var followGpsLocation by remember { mutableStateOf(true) }
+        var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
 
-    // Remember the map controller for dynamic updates
-    var mapController by remember { mutableStateOf<MapLayerController?>(null) }
-    val cameraState = rememberUpdatedState(cameraPosition)
-
-    LaunchedEffect(mapController, followGpsLocation, cameraPosition) {
-        val controller = mapController ?: return@LaunchedEffect
-        if (followGpsLocation) {
-            val position = cameraState.value
-            controller.updateCamera(
-                latitude = position.latitude,
-                longitude = position.longitude,
-                zoom = null,
-                animated = true
+        // Calculate camera position based on GPS following state
+        val useFallbackZoom = selectedRoute == null && currentLocation == null && trackPoints.isEmpty()
+        val cameraPosition = if (followGpsLocation) {
+            calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
+            ).also {
+                lastKnownPosition = it
+            }
+        } else {
+            lastKnownPosition ?: calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
             )
         }
-    }
 
-    val onMapReadyCallback = remember(onMapReady) {
-        { controller: MapLayerController ->
-            mapController = controller
-            onMapReady(controller)
-            val position = cameraState.value
-            controller.updateCamera(
-                latitude = position.latitude,
-                longitude = position.longitude,
-                zoom = position.zoom,
-                animated = false
-            )
-        }
-    }
+        // Remember the map controller for dynamic updates
+        var mapController by remember { mutableStateOf<MapLayerController?>(null) }
+        val cameraState = rememberUpdatedState(cameraPosition)
 
-    val onCameraMovedCallback = remember {
-        {
-            followGpsLocation = false
-        }
-    }
-
-    DisposableEffect(mapController) {
-        val controller = mapController
-        onDispose {
-            if (controller != null) {
-                onMapReleased(controller)
+        LaunchedEffect(mapController, followGpsLocation, cameraPosition) {
+            val controller = mapController ?: return@LaunchedEffect
+            if (followGpsLocation) {
+                val position = cameraState.value
+                controller.updateCamera(
+                    latitude = position.latitude,
+                    longitude = position.longitude,
+                    zoom = null,
+                    animated = true
+                )
             }
         }
-    }
 
-    Box(modifier = Modifier.fillMaxSize().then(modifier)) {
+        val onMapReadyCallback = remember(onMapReady) {
+            { controller: MapLayerController ->
+                mapController = controller
+                onMapReady(controller)
+                val position = cameraState.value
+                controller.updateCamera(
+                    latitude = position.latitude,
+                    longitude = position.longitude,
+                    zoom = position.zoom,
+                    animated = false
+                )
+            }
+        }
+
+        val onCameraMovedCallback = remember {
+            {
+                followGpsLocation = false
+            }
+        }
+
+        DisposableEffect(mapController) {
+            val controller = mapController
+            onDispose {
+                if (controller != null) {
+                    onMapReleased(controller)
+                }
+            }
+        }
+
         // Fullscreen map with route and user track
         MapWithLayers(
             modifier = Modifier.fillMaxSize(),
@@ -905,8 +942,18 @@ private data class CameraPosition(
 private fun calculateCameraPosition(
     routes: List<Route>,
     selectedRoute: Route?,
-    location: LocationData?
+    location: LocationData?,
+    fallbackCamera: MapCameraConfig,
+    useFallbackZoom: Boolean = false
 ): CameraPosition {
+    if (useFallbackZoom) {
+        return CameraPosition(
+            latitude = fallbackCamera.latitude,
+            longitude = fallbackCamera.longitude,
+            zoom = fallbackCamera.zoom
+        )
+    }
+
     // If we have current location, center on it
     location?.let {
         return CameraPosition(
@@ -938,5 +985,5 @@ private fun calculateCameraPosition(
     }
 
     // Default: Menorca center
-    return CameraPosition(39.95, 4.05, 10.5)
+    return CameraPosition(fallbackCamera.latitude, fallbackCamera.longitude, fallbackCamera.zoom)
 }
