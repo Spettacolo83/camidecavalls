@@ -373,8 +373,15 @@ private fun IdleContent(
         val fallbackCamera = remember(widthPx, heightPx) {
             MenorcaViewportCalculator.calculateForSize(widthPx, heightPx)
         }
-        val cameraPosition = remember(routes, selectedRoute, currentLocation, fallbackCamera) {
-            calculateCameraPosition(routes, selectedRoute, currentLocation, fallbackCamera)
+        val useFallbackZoom = selectedRoute == null && currentLocation == null
+        val cameraPosition = remember(routes, selectedRoute, currentLocation, fallbackCamera, useFallbackZoom) {
+            calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
+            )
         }
         var mapController by remember { mutableStateOf<MapLayerController?>(null) }
 
@@ -458,12 +465,25 @@ private fun ActiveTrackingContent(
         var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
 
         // Calculate camera position based on GPS following state
+        val useFallbackZoom = selectedRoute == null && currentLocation == null && trackPoints.isEmpty()
         val cameraPosition = if (followGpsLocation) {
-            calculateCameraPosition(routes, selectedRoute, currentLocation, fallbackCamera).also {
+            calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
+            ).also {
                 lastKnownPosition = it
             }
         } else {
-            lastKnownPosition ?: calculateCameraPosition(routes, selectedRoute, currentLocation, fallbackCamera)
+            lastKnownPosition ?: calculateCameraPosition(
+                routes = routes,
+                selectedRoute = selectedRoute,
+                location = currentLocation,
+                fallbackCamera = fallbackCamera,
+                useFallbackZoom = useFallbackZoom
+            )
         }
 
         // Remember the map controller for dynamic updates
@@ -916,8 +936,17 @@ private fun calculateCameraPosition(
     routes: List<Route>,
     selectedRoute: Route?,
     location: LocationData?,
-    fallbackCamera: MapCameraConfig
+    fallbackCamera: MapCameraConfig,
+    useFallbackZoom: Boolean = false
 ): CameraPosition {
+    if (useFallbackZoom) {
+        return CameraPosition(
+            latitude = fallbackCamera.latitude,
+            longitude = fallbackCamera.longitude,
+            zoom = fallbackCamera.zoom
+        )
+    }
+
     // If we have current location, center on it
     location?.let {
         return CameraPosition(
