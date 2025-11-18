@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.math.pow
 
 /**
  * ScreenModel for POIsScreen.
@@ -77,14 +76,18 @@ class POIsScreenModel(
                             pois.find { it.id == selected.id }
                         }
 
+                        val updatedSelected = refreshedSelected?.takeIf { poi ->
+                            state.visibleTypes.contains(poi.type)
+                        }
+
                         state.copy(
                             pois = pois,
-                            selectedPoi = refreshedSelected?.takeIf { poi ->
-                                state.visibleTypes.contains(poi.type)
-                            },
+                            selectedPoi = updatedSelected,
                             isLoading = false
                         )
                     }
+
+                    applyHighlightForSelectedPoi(_uiState.value.selectedPoi)
 
                     refreshMarkers(
                         pois = pois,
@@ -116,31 +119,11 @@ class POIsScreenModel(
         // Find the POI
         val poi = _uiState.value.pois.find { it.id == poiId } ?: return
 
-        // Get current zoom level to calculate appropriate offset
-        val currentZoom = mapController?.getCurrentZoom() ?: 10.0
-
-        // Calculate offset based on zoom level
-        // At higher zoom levels, we need smaller offsets
-        // Formula: offset = base / (2^(zoom-10))
-        // This ensures the marker is positioned consistently above the popup
-        val baseOffset = 0.015 // Base offset at zoom 10
-        val zoomFactor = 2.0.pow(currentZoom - 10.0)
-        val latitudeOffset = baseOffset / zoomFactor
-
-        println("🎯 Zoom: $currentZoom, Offset: $latitudeOffset")
-
-        // Center camera on POI with smooth animation
-        // Offset the latitude DOWN (negative value) so the popup at bottom doesn't cover the marker
-        val offsetLatitude = poi.latitude - latitudeOffset
-        mapController?.updateCamera(
-            latitude = offsetLatitude,
-            longitude = poi.longitude,
-            zoom = null, // Keep user's current zoom level
-            animated = true
-        )
+        focusOnPoi(poi)
 
         // Update selected POI to show popup
         _uiState.update { it.copy(selectedPoi = poi) }
+        applyHighlightForSelectedPoi(poi)
     }
 
     /**
@@ -148,6 +131,7 @@ class POIsScreenModel(
      */
     fun closePopup() {
         _uiState.update { it.copy(selectedPoi = null) }
+        applyHighlightForSelectedPoi(null)
     }
 
     /**
@@ -176,6 +160,7 @@ class POIsScreenModel(
             )
         }
 
+        applyHighlightForSelectedPoi(updatedSelected)
         refreshMarkers(pois = currentState.pois, visibleTypes = newVisibleTypes)
     }
 
@@ -201,7 +186,53 @@ class POIsScreenModel(
             )
         }
 
+        applyHighlightForSelectedPoi(_uiState.value.selectedPoi)
+
         println("🗺️  POIsScreen: Showing ${filtered.size} markers after filter update")
+    }
+
+    fun updatePopupHeight(heightPx: Int) {
+        if (heightPx <= 0) return
+        if (heightPx == _uiState.value.popupHeightPx) return
+        _uiState.update { it.copy(popupHeightPx = heightPx) }
+        recenterSelectedPoi()
+    }
+
+    fun updatePopupBottomPadding(paddingPx: Int) {
+        if (paddingPx <= 0) return
+        if (paddingPx == _uiState.value.popupBottomPaddingPx) return
+        _uiState.update { it.copy(popupBottomPaddingPx = paddingPx) }
+        recenterSelectedPoi()
+    }
+
+    private fun recenterSelectedPoi() {
+        _uiState.value.selectedPoi?.let { poi ->
+            focusOnPoi(poi)
+        }
+    }
+
+    private fun focusOnPoi(poi: PointOfInterest) {
+        val controller = mapController ?: return
+        val popupSpace = _uiState.value.popupHeightPx + _uiState.value.popupBottomPaddingPx
+        val offsetPx = popupSpace.takeIf { it > 0 }?.div(2f)
+        controller.centerLocationWithVerticalOffset(
+            latitude = poi.latitude,
+            longitude = poi.longitude,
+            offsetPixels = offsetPx,
+            animated = true
+        )
+    }
+
+    private fun applyHighlightForSelectedPoi(poi: PointOfInterest?) {
+        val controller = mapController ?: return
+        if (poi == null) {
+            controller.setHighlightedMarker(null)
+        } else {
+            controller.setHighlightedMarker(
+                markerId = "poi-marker-${poi.id}",
+                colorHex = PoiTypeColors.markerHex(poi.type)
+            )
+        }
     }
 }
 
@@ -215,5 +246,7 @@ data class POIsUiState(
     val strings: LocalizedStrings = LocalizedStrings("ca"),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val visibleTypes: Set<POIType> = POIType.entries.toSet()
+    val visibleTypes: Set<POIType> = POIType.entries.toSet(),
+    val popupHeightPx: Int = 0,
+    val popupBottomPaddingPx: Int = 0
 )
