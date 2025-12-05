@@ -63,7 +63,6 @@ import camidecavalls.composeapp.generated.resources.tracking_elevation_gain
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.LocationData
-import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
@@ -118,11 +117,6 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
             }
         }
 
-        val languageRepository: LanguageRepository = koinInject()
-        val systemLanguage = remember { languageRepository.getSystemLanguage() }
-        val currentLanguage by languageRepository.observeCurrentLanguage().collectAsState(initial = systemLanguage)
-        val localizedStrings = remember(currentLanguage) { LocalizedStrings(currentLanguage) }
-
         val onStartTracking = {
             if (screenModel.isPermissionGranted()) {
                 screenModel.startTracking()
@@ -143,7 +137,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 drawerState = drawerState,
                 drawerContent = {
                     DrawerContent(
-                        uiState = convertTrackingToRoutesUiState(localizedStrings, currentLanguage),
+                        uiState = convertTrackingToRoutesUiState(uiState.strings),
                         currentScreen = DrawerScreen.TRACKING,
                         onAboutClick = {
                             scope.launch { drawerState.close() }
@@ -216,10 +210,10 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
     }
 }
 
-private fun convertTrackingToRoutesUiState(strings: LocalizedStrings, currentLanguage: String): RoutesUiState {
+private fun convertTrackingToRoutesUiState(strings: LocalizedStrings): RoutesUiState {
     return RoutesUiState.Success(
         routes = emptyList(),
-        currentLanguage = currentLanguage,
+        currentLanguage = strings.languageCode,
         strings = strings
     )
 }
@@ -245,7 +239,7 @@ private fun TrackingScreenContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.tracking_title)) },
+                title = { Text(uiState.strings.menuTracking) },
                 navigationIcon = {
                     if (showMenuButton) {
                         IconButton(onClick = onMenuClick) {

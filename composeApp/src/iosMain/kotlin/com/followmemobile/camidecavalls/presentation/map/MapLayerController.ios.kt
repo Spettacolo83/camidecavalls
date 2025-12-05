@@ -23,6 +23,8 @@ import platform.UIKit.UIColor
 import platform.UIKit.UITapGestureRecognizer
 import platform.darwin.NSObject
 import platform.objc.sel_registerName
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.pow
 
 // Extension function to convert ByteArray to NSData
@@ -91,15 +93,25 @@ actual class MapLayerController {
             return
         }
 
-        val offsetValue = offset.toDouble()
-        val currentPoint = map.convertCoordinate(
-            CLLocationCoordinate2DMake(latitude, longitude),
-            toPointToView = map
-        )
-        val targetPoint = CGPointMake(currentPoint.x, currentPoint.y + offsetValue)
-        val targetCoordinate = map.convertPoint(targetPoint, toCoordinateFromView = map)
+        // iOS MapLibre coordinate conversion methods don't work correctly
+        // Use fallback calculation with visible bounds
+        val bounds = map.visibleCoordinateBounds
+        val northEastLat = bounds.useContents { ne.latitude }
+        val southWestLat = bounds.useContents { sw.latitude }
+        val latSpan = northEastLat - southWestLat
+        val mapHeight = map.bounds.useContents { size.height }
+        val degreesPerPoint = latSpan / mapHeight
+
+        // Offset means "distance from bottom of screen"
+        // Calculate how much to move camera to position POI correctly
+        val screenCenter = mapHeight / 2.0
+        val targetFromTop = mapHeight - offset.toDouble()
+        val pixelsToMoveUp = screenCenter - targetFromTop
+        val latitudeOffset = pixelsToMoveUp * degreesPerPoint
+        val targetLat = latitude - latitudeOffset
+
         map.setCenterCoordinate(
-            centerCoordinate = targetCoordinate,
+            centerCoordinate = CLLocationCoordinate2DMake(targetLat, longitude),
             zoomLevel = map.zoomLevel,
             animated = animated
         )
@@ -132,7 +144,9 @@ actual class MapLayerController {
         rippleLayer.circleBlur = NSExpression.expressionForConstantValue(0.25)
         rippleLayer.circleSortKey = NSExpression.expressionForConstantValue(230.0)
 
-        currentStyle.addLayerBelow(rippleLayer, currentStyle.layerWithIdentifier(markerId))
+        currentStyle.layerWithIdentifier(markerId)?.let { layer ->
+            currentStyle.insertLayer(rippleLayer, belowLayer = layer)
+        }
 
         elevateMarker(markerId, highlighted = true)
 
@@ -148,23 +162,21 @@ actual class MapLayerController {
 
         var phase = 0.0
         highlightTimer = NSTimer.scheduledTimerWithTimeInterval(
-            timeInterval = 0.016,
-            repeats = true,
-            block = { _ ->
-                phase += 0.016
-                val progress = ((phase % 2.0) / 2.0).coerceIn(0.0, 1.0)
-                val radius = 10.0 + progress * 46.0
-                val fadeInThreshold = 0.12
-                val opacity = when {
-                    progress <= fadeInThreshold -> 0.6 * (progress / fadeInThreshold)
-                    else -> 0.6 * (1.0 - progress)
-                }.coerceIn(0.0, 0.6)
-                (style?.layerWithIdentifier(rippleLayerId) as? MLNCircleStyleLayer)?.let { layer ->
-                    layer.circleRadius = NSExpression.expressionForConstantValue(radius)
-                    layer.circleOpacity = NSExpression.expressionForConstantValue(opacity)
-                }
-            }
-        )
+            0.016,
+            repeats = true
+        ) {
+            phase += 0.016
+            val progress = ((phase % 2.0) / 2.0).coerceIn(0.0, 1.0)
+            val radius = 10.0 + progress * 46.0
+            val fadeInThreshold = 0.12
+            val opacity = when {
+                progress <= fadeInThreshold -> 0.6 * (progress / fadeInThreshold)
+                else -> 0.6 * (1.0 - progress)
+            }.coerceIn(0.0, 0.6)
+            val layer = style?.layerWithIdentifier(rippleLayerId) as? MLNCircleStyleLayer
+            layer?.circleRadius = NSExpression.expressionForConstantValue(radius)
+            layer?.circleOpacity = NSExpression.expressionForConstantValue(opacity)
+        }
     }
 
     actual fun addRoutePath(
@@ -228,11 +240,12 @@ actual class MapLayerController {
     ) {
         val currentStyle = style ?: return
 
-        // Store coordinates for tap detection
-        markerCoordinates[markerId] = Pair(latitude, longitude)
-
         // Remove existing layers and source (if any)
         removeLayer(markerId)
+
+        // Store coordinates for tap detection
+        markerCoordinates[markerId] = Pair(latitude, longitude)
+        println("📍 iOS addMarker: $markerId at ($latitude, $longitude), total markers: ${markerCoordinates.size}")
 
         try {
             managedLayerIds += markerId
@@ -428,6 +441,7 @@ actual fun MapWithLayers(
                 val tapPoint = recognizer.locationInView(mapView)
 
                 println("🔍 Tap at screen: ${tapPoint.useContents { "x=$x, y=$y" }}")
+                println("🗺️ markerCoordinates has ${controller.markerCoordinates.size} markers")
 
                 // Find the closest marker by converting each marker's geographic coords to screen coords
                 var closestMarkerId: String? = null

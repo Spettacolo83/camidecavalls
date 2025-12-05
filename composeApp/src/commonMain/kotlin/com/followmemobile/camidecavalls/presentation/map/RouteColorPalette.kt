@@ -39,6 +39,6 @@ object RouteColorPalette {
         val g = ((green + match) * 255).roundToInt().coerceIn(0, 255)
         val b = ((blue + match) * 255).roundToInt().coerceIn(0, 255)
 
-        return String.format("#%02X%02X%02X", r, g, b)
+        return "#${r.toString(16).padStart(2, '0').uppercase()}${g.toString(16).padStart(2, '0').uppercase()}${b.toString(16).padStart(2, '0').uppercase()}"
     }
 }

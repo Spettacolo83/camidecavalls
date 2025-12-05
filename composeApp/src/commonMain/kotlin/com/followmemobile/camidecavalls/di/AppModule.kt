@@ -109,6 +109,7 @@ val appModule = module {
             permissionHandler = get(),
             getSimplifiedRoutesUseCase = get(),
             calculateSessionStatsUseCase = get(),
+            languageRepository = get(),
             routeId = params.getOrNull()
         )
     }

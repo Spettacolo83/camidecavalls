@@ -4,7 +4,7 @@ package com.followmemobile.camidecavalls.domain.util
  * Provides localized strings based on the selected language.
  * This replaces Compose Resources stringResource() for app-controlled localization.
  */
-class LocalizedStrings(private val languageCode: String) {
+class LocalizedStrings(val languageCode: String) {
 
     private val strings = when (languageCode.lowercase()) {
         "ca" -> StringsCa

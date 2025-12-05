@@ -5,12 +5,14 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
+import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.CalculateSessionStatsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.RouteColorPalette
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,10 +42,15 @@ class TrackingScreenModel(
     private val permissionHandler: PermissionHandler,
     private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
     private val calculateSessionStatsUseCase: CalculateSessionStatsUseCase,
+    private val languageRepository: LanguageRepository,
     private val routeId: Int? = null
 ) : ScreenModel {
 
-    private val _uiState = MutableStateFlow<TrackingUiState>(TrackingUiState.Idle())
+    private val _uiState = MutableStateFlow<TrackingUiState>(
+        TrackingUiState.Idle(
+            strings = LocalizedStrings(languageRepository.getSystemLanguage())
+        )
+    )
     val uiState: StateFlow<TrackingUiState> = _uiState.asStateFlow()
 
     private var selectedRoute: Route? = null
@@ -51,8 +58,27 @@ class TrackingScreenModel(
     private var cachedTrackPoints: List<TrackPoint> = emptyList()
     private var mapController: MapLayerController? = null
 
+    // Helper to get current strings from state
+    private val currentStrings: LocalizedStrings
+        get() = _uiState.value.strings
+
     init {
         println("🏗️ TrackingScreenModel created: ${this.hashCode()}, routeId=$routeId")
+
+        // Observe language changes
+        screenModelScope.launch {
+            languageRepository.observeCurrentLanguage().collect { languageCode ->
+                val currentState = _uiState.value
+                _uiState.value = when (currentState) {
+                    is TrackingUiState.Idle -> currentState.copy(strings = LocalizedStrings(languageCode))
+                    is TrackingUiState.AwaitingConfirmation -> currentState.copy(strings = LocalizedStrings(languageCode))
+                    is TrackingUiState.Tracking -> currentState.copy(strings = LocalizedStrings(languageCode))
+                    is TrackingUiState.Paused -> currentState.copy(strings = LocalizedStrings(languageCode))
+                    is TrackingUiState.Completed -> currentState.copy(strings = LocalizedStrings(languageCode))
+                    is TrackingUiState.Error -> currentState.copy(strings = LocalizedStrings(languageCode))
+                }
+            }
+        }
 
         // Reset any previous Completed/Error state when screen is opened
         // This ensures a fresh start when navigating back to the tracking screen
@@ -96,6 +122,7 @@ class TrackingScreenModel(
 
                     else -> {
                         _uiState.value = TrackingUiState.Idle(
+                            strings = currentStrings,
                             routes = routes,
                             selectedRoute = selectedRoute,
                             currentLocation = trackingManager.currentLocation.value
@@ -137,6 +164,7 @@ class TrackingScreenModel(
 
                         else -> {
                             _uiState.value = TrackingUiState.Idle(
+                                strings = currentStrings,
                                 routes = routes,
                                 selectedRoute = null,
                                 currentLocation = trackingManager.currentLocation.value
@@ -230,6 +258,7 @@ class TrackingScreenModel(
                             renderCurrentLocation(controller)
                         }
                         TrackingUiState.Idle(
+                            strings = currentStrings,
                             routes = routes,
                             selectedRoute = selectedRoute,
                             currentLocation = trackingManager.currentLocation.value
@@ -238,6 +267,7 @@ class TrackingScreenModel(
 
                     is TrackingState.Recording -> {
                         TrackingUiState.Tracking(
+                            strings = currentStrings,
                             routes = routes,
                             selectedRoute = selectedRoute,
                             sessionId = state.sessionId,
@@ -249,6 +279,7 @@ class TrackingScreenModel(
 
                     is TrackingState.Paused -> {
                         TrackingUiState.Paused(
+                            strings = currentStrings,
                             routes = routes,
                             selectedRoute = selectedRoute,
                             sessionId = state.sessionId,
@@ -260,10 +291,16 @@ class TrackingScreenModel(
                     }
 
                     is TrackingState.Completed -> {
-                        TrackingUiState.Completed(state.session)
+                        TrackingUiState.Completed(
+                            strings = currentStrings,
+                            session = state.session
+                        )
                     }
 
-                    is TrackingState.Error -> TrackingUiState.Error(state.message)
+                    is TrackingState.Error -> TrackingUiState.Error(
+                        strings = currentStrings,
+                        message = state.message
+                    )
                 }
             }
         }
@@ -355,7 +392,8 @@ class TrackingScreenModel(
                 onGranted()
             } else {
                 _uiState.value = TrackingUiState.Error(
-                    "Location permission is required for tracking. Please grant permission in Settings."
+                    strings = currentStrings,
+                    message = "Location permission is required for tracking. Please grant permission in Settings."
                 )
             }
         }
@@ -389,6 +427,7 @@ class TrackingScreenModel(
                     trackingManager.startTracking(routeId = routeId)
                 } else {
                     _uiState.value = TrackingUiState.AwaitingConfirmation(
+                        strings = currentStrings,
                         routes = routes,
                         selectedRoute = selectedRoute,
                         currentLocation = currentLocation,
@@ -397,7 +436,8 @@ class TrackingScreenModel(
                 }
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
-                    e.message ?: "Failed to start tracking"
+                    strings = currentStrings,
+                    message = e.message ?: "Failed to start tracking"
                 )
             }
         }
@@ -412,7 +452,8 @@ class TrackingScreenModel(
                 trackingManager.startTracking(routeId = routeId)
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
-                    e.message ?: "Failed to start tracking"
+                    strings = currentStrings,
+                    message = e.message ?: "Failed to start tracking"
                 )
             }
         }
@@ -424,7 +465,8 @@ class TrackingScreenModel(
                 trackingManager.pauseTracking()
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
-                    e.message ?: "Failed to pause tracking"
+                    strings = currentStrings,
+                    message = e.message ?: "Failed to pause tracking"
                 )
             }
         }
@@ -436,7 +478,8 @@ class TrackingScreenModel(
                 trackingManager.resumeTracking()
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
-                    e.message ?: "Failed to resume tracking"
+                    strings = currentStrings,
+                    message = e.message ?: "Failed to resume tracking"
                 )
             }
         }
@@ -448,6 +491,7 @@ class TrackingScreenModel(
     fun cancelConfirmation() {
         if (_uiState.value is TrackingUiState.AwaitingConfirmation) {
             _uiState.value = TrackingUiState.Idle(
+                strings = currentStrings,
                 routes = routes,
                 selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
@@ -464,7 +508,8 @@ class TrackingScreenModel(
                 trackingManager.stopTracking(notes)
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
-                    e.message ?: "Failed to stop tracking"
+                    strings = currentStrings,
+                    message = e.message ?: "Failed to stop tracking"
                 )
             }
         }
@@ -475,6 +520,7 @@ class TrackingScreenModel(
             trackingManager.resetToStopped(clearTrack = true)
             cachedTrackPoints = emptyList()
             _uiState.value = TrackingUiState.Idle(
+                strings = currentStrings,
                 routes = routes,
                 selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
@@ -495,6 +541,7 @@ class TrackingScreenModel(
             val location = trackingManager.getLastLocation()
             if (location != null && _uiState.value is TrackingUiState.Idle) {
                 _uiState.value = TrackingUiState.Idle(
+                    strings = currentStrings,
                     routes = routes,
                     selectedRoute = selectedRoute,
                     currentLocation = location
@@ -510,6 +557,7 @@ class TrackingScreenModel(
         if (_uiState.value is TrackingUiState.Error) {
             trackingManager.resetToStopped()
             _uiState.value = TrackingUiState.Idle(
+                strings = currentStrings,
                 routes = routes,
                 selectedRoute = selectedRoute,
                 currentLocation = trackingManager.currentLocation.value
@@ -623,13 +671,17 @@ class TrackingScreenModel(
  * UI state for tracking screen
  */
 sealed interface TrackingUiState {
+    val strings: LocalizedStrings
+
     data class Idle(
+        override val strings: LocalizedStrings,
         val routes: List<Route> = emptyList(),
         val selectedRoute: Route? = null,
         val currentLocation: LocationData? = null
     ) : TrackingUiState
 
     data class AwaitingConfirmation(
+        override val strings: LocalizedStrings,
         val routes: List<Route>,
         val selectedRoute: Route?,
         val currentLocation: LocationData?,
@@ -637,6 +689,7 @@ sealed interface TrackingUiState {
     ) : TrackingUiState
 
     data class Tracking(
+        override val strings: LocalizedStrings,
         val routes: List<Route>,
         val selectedRoute: Route?,
         val sessionId: String,
@@ -646,6 +699,7 @@ sealed interface TrackingUiState {
     ) : TrackingUiState
 
     data class Paused(
+        override val strings: LocalizedStrings,
         val routes: List<Route>,
         val selectedRoute: Route?,
         val sessionId: String,
@@ -655,10 +709,12 @@ sealed interface TrackingUiState {
     ) : TrackingUiState
 
     data class Completed(
+        override val strings: LocalizedStrings,
         val session: TrackingSession?
     ) : TrackingUiState
 
     data class Error(
+        override val strings: LocalizedStrings,
         val message: String
     ) : TrackingUiState
 }
