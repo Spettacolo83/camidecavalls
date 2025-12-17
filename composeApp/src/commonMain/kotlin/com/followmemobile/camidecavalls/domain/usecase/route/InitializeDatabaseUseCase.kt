@@ -57,6 +57,25 @@ class InitializeDatabaseUseCase(
         // Version 11: Added database schema columns for multilingual descriptions
         // Version 12: Added GPX data with elevation for all 20 routes
         // Version 13: Fixed SQLDelight migrations to handle POI table creation properly
-        private const val DATABASE_VERSION = 13
+        // Version 14: Updated Route 1 elevation data from official camidecavalls.com graph
+        // Version 15: Pixel-accurate elevation profile (96 points) from official graph
+        // Version 16: High-resolution pixel-extracted elevation (200+ points) from official graph
+        // Version 17: Corrected elevation profile with proper Sa Mesquida valley (stays low 3.5-4.5km)
+        // Version 18: Pixel-by-pixel extraction (151 points) with correct graph calibration
+        // Version 19: Fixed graph boundaries (X=10-4100) to capture full elevation range from start to end
+        // Version 20: Added Route 2 (Es Grau - Favàritx) pixel-extracted elevation profile
+        // Version 21: Fixed Route 2 end boundary to capture full descent (7.9m at end)
+        // Version 22: Fixed Route 2 profile scaling to match GPX distance (8.63km vs 7.9km)
+        // Version 23: Added Route 3 (Favàritx - Arenal d'en Castell) elevation profile (0-78m, 13.60km)
+        // Version 24: Fixed Route 3 double peak artifact - smoothed descent after main peak
+        // Version 25: Added Route 4 (Arenal d'en Castell - Cala Tirant) elevation profile (3-38m, 10.77km)
+        // Version 26: Fixed Route 4 graph boundaries (GRAPH_LEFT=150, GRAPH_RIGHT=4000) for correct feature positioning
+        // Version 27: Added Route 5 (Son Parc - Fornells) elevation profile (0-52m, 9.59km)
+        // Version 28: Fixed Route 4 end elevation (corrected final descent from 18m to 11.6m)
+        // Version 29: Updated Route 5 elevation profile with pixel-extracted data (1-47m)
+        // Version 30: Added Route 6 (Fornells - Cala Tirant) elevation profile (2-118m, 8.61km)
+        // Version 31: Fixed Route 6 peak detection (extended Y scan range to capture 118m peak)
+        // Version 32: Complete elevation profile update for all 20 routes from official camidecavalls.com images
+        private const val DATABASE_VERSION = 32
     }
 }
