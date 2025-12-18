@@ -26,6 +26,9 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.math.PI
 import kotlin.math.asin
 import kotlin.math.cos
@@ -273,7 +276,8 @@ class TrackingScreenModel(
                             sessionId = state.sessionId,
                             currentLocation = state.currentLocation,
                             trackPoints = cachedTrackPoints,
-                            distanceMeters = calculateDistance(cachedTrackPoints)
+                            distanceMeters = calculateDistance(cachedTrackPoints),
+                            durationSeconds = state.elapsedSeconds
                         )
                     }
 
@@ -286,7 +290,8 @@ class TrackingScreenModel(
                             currentLocation = state.currentLocation
                                 ?: trackingManager.currentLocation.value,
                             trackPoints = cachedTrackPoints,
-                            distanceMeters = calculateDistance(cachedTrackPoints)
+                            distanceMeters = calculateDistance(cachedTrackPoints),
+                            durationSeconds = state.elapsedSeconds
                         )
                     }
 
@@ -500,12 +505,12 @@ class TrackingScreenModel(
     }
 
     /**
-     * Stop tracking with optional notes
+     * Stop tracking with name and optional notes
      */
-    fun stopTracking(notes: String = "") {
+    fun stopTracking(name: String = "", notes: String = "") {
         screenModelScope.launch {
             try {
-                trackingManager.stopTracking(notes)
+                trackingManager.stopTracking(name, notes)
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
@@ -513,6 +518,22 @@ class TrackingScreenModel(
                 )
             }
         }
+    }
+
+    /**
+     * Get the default session name based on route and date
+     */
+    fun getDefaultSessionName(): String {
+        val routeName = selectedRoute?.let { route ->
+            currentStrings.routeStage(route.number)
+        } ?: currentStrings.menuTracking
+
+        val now = Clock.System.now()
+        val timeZone = TimeZone.currentSystemDefault()
+        val localDate = now.toLocalDateTime(timeZone)
+        val dateStr = "${localDate.dayOfMonth.toString().padStart(2, '0')}/${localDate.monthNumber.toString().padStart(2, '0')}/${localDate.year}"
+
+        return "$routeName - $dateStr"
     }
 
     fun startNewSession() {
@@ -695,7 +716,8 @@ sealed interface TrackingUiState {
         val sessionId: String,
         val currentLocation: LocationData?,
         val trackPoints: List<TrackPoint> = emptyList(),
-        val distanceMeters: Double = 0.0
+        val distanceMeters: Double = 0.0,
+        val durationSeconds: Long = 0
     ) : TrackingUiState
 
     data class Paused(
@@ -705,7 +727,8 @@ sealed interface TrackingUiState {
         val sessionId: String,
         val currentLocation: LocationData?,
         val trackPoints: List<TrackPoint> = emptyList(),
-        val distanceMeters: Double = 0.0
+        val distanceMeters: Double = 0.0,
+        val durationSeconds: Long = 0
     ) : TrackingUiState
 
     data class Completed(

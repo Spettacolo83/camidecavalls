@@ -4,17 +4,29 @@ GPX test route files for simulating GPS positions on Android and iOS emulators.
 
 ## 🎯 Current Status
 
-✅ **Android Format**: Route points (rtept) without timestamps - TESTED
+✅ **Android Format**: Track points (trkpt) with timestamps - Emulator compatible
 ✅ **iOS Format**: Waypoints (wpt) with timestamps - Xcode compatible
 ✅ **High Resolution**: 150-1300 points per route (from original GPX files)
-✅ **Android LocationService**: Fixed callbackFlow issue with StateFlow
-⚠️ **Elevation**: Currently set to 0 (script provided to add real elevation data)
+✅ **Elevation Data**: Real elevation data included for altitude-based features
+⚠️ **iOS Altitude Limitation**: iOS Simulator ignores elevation data (Apple limitation)
 
 ## Directory Structure
 
-- `android/` - 20 GPX files for Android emulator (route format, no timestamps)
-- `ios/` - 20 GPX files for iOS simulator (waypoint format, with timestamps)
-- **Different formats optimized for each platform**
+```
+test-routes/
+├── android/
+│   ├── route_1.gpx ... route_20.gpx    # Original format (rtept, no timestamps)
+│   └── emulator/                        # ✅ Use these for Android Emulator
+│       └── route_1_emulator.gpx ... route_20_emulator.gpx
+├── ios/
+│   ├── route_1.gpx ... route_20.gpx    # Original format
+│   └── simulator/                       # ✅ Use these for iOS Simulator
+│       └── route_1_simulator.gpx ... route_20_simulator.gpx
+├── convert_gpx_for_emulator.py         # Script to regenerate Android GPX
+└── convert_gpx_for_ios.py              # Script to regenerate iOS GPX
+```
+
+**Important**: Since Android Emulator 30.0.26+, timestamps are MANDATORY in GPX files. Use files from the `emulator/` and `simulator/` subdirectories.
 
 ## Routes (All 20 Stages)
 
@@ -47,21 +59,24 @@ GPX test route files for simulating GPS positions on Android and iOS emulators.
 
 1. **Start Android emulator**
 2. **Open Extended Controls** → Click three dots (...) in toolbar
-3. **Go to Location** → Select "Location" from left panel
+3. **Go to Location** → Select "Routes" tab
 4. **Load GPX**:
    - Click **"Load GPX/KML"** button
-   - Navigate to: `test-routes/android/route_1.gpx`
+   - Navigate to: `test-routes/android/emulator/route_1_emulator.gpx`
    - File will load and show route on map
 5. **Start Simulation**:
-   - Click **Play ▶** button
+   - Click **Play route** button
    - **Adjust Speed**: Use slider (1x, 2x, 5x, 10x, etc.)
    - **Control**: Pause/Resume/Stop as needed
 6. **Your app will receive location updates automatically**
+   - Location icon turns blue when GPS is active
+   - Elevation data is included and works correctly
 
 **Troubleshooting Android**:
 - If location doesn't update: Check app has location permission granted
 - If route loads but doesn't move: Click the Play button (not just load)
 - If movement is slow: Increase speed multiplier (5x or 10x recommended for testing)
+- If GPX doesn't work: Make sure you're using files from `android/emulator/` (with timestamps)
 
 ### iOS Simulator
 
@@ -69,13 +84,15 @@ GPX test route files for simulating GPS positions on Android and iOS emulators.
 
 1. **Run your app** in iOS Simulator
 2. **While running**, in Xcode menu:
-   - **Debug → Simulate Location → Add GPX File to Project...**
-   - Select: `test-routes/ios/route_1.gpx`
-3. **Simulator will play the route**
-   - Icon should turn blue when active
-   - Movement is automatic
+   - **Debug → Simulate Location → Add GPX File to Workspace...**
+   - Select: `test-routes/ios/simulator/route_1_simulator.gpx`
+3. **Then select**: Debug → Simulate Location → route_1_simulator
+4. **Simulator will play the route**
+   - Movement is automatic based on timestamps
 
 **Note**: GPX file must be added while the app is running for it to work.
+
+**⚠️ iOS Altitude Limitation**: The iOS Simulator ignores elevation data from GPX files - this is an Apple limitation. Altitude features can only be tested on real iOS devices.
 
 #### Method 2: Command Line (Static Location Only)
 
@@ -116,82 +133,84 @@ xcrun simctl location <device-id> 39.8975369761 4.2573604472
 
 ## 📁 File Formats
 
-### Android GPX Structure (Route Format)
+### Android GPX Structure (Track Format with Timestamps)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="CamiDeCavalls">
-  <rte>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="CamiDeCavalls-EmulatorTest">
+  <trk>
     <name>Maó - Es Grau</name>
-    <number>1</number>
-    <rtept lat="39.8975369761" lon="4.2573604472">
-      <ele>0</ele>
-    </rtept>
-    <!-- More route points... -->
-  </rte>
+    <trkseg>
+      <trkpt lat="39.8975369761" lon="4.2573604472">
+        <ele>7.5</ele>
+        <time>2025-01-01T10:00:00Z</time>
+      </trkpt>
+      <trkpt lat="39.8974894734" lon="4.2576030107">
+        <ele>8.7</ele>
+        <time>2025-01-01T10:00:03Z</time>
+      </trkpt>
+      <!-- More track points... -->
+    </trkseg>
+  </trk>
 </gpx>
 ```
 
 **Android Details**:
-- Format: `<rte>` with `<rtept>` (route format)
-- No timestamps: Emulator controls playback speed with slider
-- Elevation: Set to 0 (can be added later)
+- Format: `<trk>` with `<trkpt>` (track format) - required since Emulator 30.0.26
+- WITH timestamps: Mandatory for emulator playback
+- Elevation: Real altitude data included
+- Interval: 3 seconds between points (simulates walking speed)
 - High point density: 150-1300 points per route
 
-### iOS GPX Structure (Waypoint Format)
+### iOS GPX Structure (Waypoint Format with Timestamps)
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<gpx version="1.1" creator="Xcode">
-    <wpt lat="39.8975369761" lon="4.2573604472">
-        <name>Maó - Es Grau - Start</name>
-        <time>2025-10-26T22:37:25Z</time>
-    </wpt>
-    <wpt lat="39.8974894734" lon="4.2576030107">
-        <time>2025-10-26T22:37:40Z</time>
-    </wpt>
-    <!-- More waypoints... -->
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="CamiDeCavalls-iOSSimulator">
+  <wpt lat="39.8975369761" lon="4.2573604472">
+    <ele>7.5</ele>
+    <time>2025-01-01T10:00:00Z</time>
+    <name>Maó - Es Grau - Point 1</name>
+  </wpt>
+  <wpt lat="39.8974894734" lon="4.2576030107">
+    <ele>8.7</ele>
+    <time>2025-01-01T10:00:03Z</time>
+    <name>Maó - Es Grau - Point 2</name>
+  </wpt>
+  <!-- More waypoints... -->
 </gpx>
 ```
 
 **iOS Details**:
 - Format: `<wpt>` (waypoints, Xcode standard)
 - WITH timestamps: iOS interpolates movement between waypoints
-- Timing: 3 km/h hiking speed (realistic)
+- Elevation: Real altitude data included (but ignored by Simulator - Apple limitation)
+- Interval: 3 seconds between points
 - Compatible with Xcode Debug → Simulate Location
 
-## 🏔️ Adding Real Elevation Data
+## 🏔️ Elevation Data
 
-The files currently have elevation set to 0. To add real elevation data:
+The emulator/simulator GPX files include real elevation data from the original route files.
 
-### Option 1: Using Open-Elevation API (Slow but Free)
+### Platform Support
 
-```bash
-# This may take 10-20 minutes due to API rate limits
-python3 /tmp/add_elevation_to_gpx.py test-routes/android
-python3 /tmp/add_elevation_to_gpx.py test-routes/ios
-```
+| Platform | Elevation in GPX | Simulator Support |
+|----------|------------------|-------------------|
+| Android | ✅ Included | ✅ Works correctly |
+| iOS | ✅ Included | ❌ Ignored by Simulator (Apple limitation) |
 
-The script will:
-- Fetch real elevation for each point using Open-Elevation API
-- Update files in-place
-- Handle rate limiting automatically
-- Use elevation 0 as fallback if API fails
+### iOS Altitude Limitation
 
-### Option 2: Manual Elevation (Future)
-
-If you have access to:
-- Google Elevation API (requires API key - faster)
-- SRTM offline data
-- Official GPX files with elevation from Camí de Cavalls
-
-We can create a faster script.
+The iOS Simulator does not support altitude simulation from GPX files. This is a documented Apple limitation:
+- The `<ele>` element is present in the files but ignored
+- Altitude features can only be tested on real iOS devices
+- There is no official workaround from Apple
 
 ### Why Elevation Matters
 
 For a trail hiking app like Camí de Cavalls:
-- **Realistic simulation**: Altitude affects GPS accuracy
-- **Elevation profile**: You mentioned wanting to show altitude charts
+- **Elevation profile**: Color-coded track visualization (green→yellow→red)
+- **Statistics**: Elevation gain/loss calculations
 - **Training data**: Essential for calculating climbing/descending stats
 
 ## 🔧 Route 11 Fix (Ciutadella - Cap d'Artrutx)
@@ -246,27 +265,30 @@ python3 analyze_route11_jumps.py
 
 **Important**: The same fix was applied to all three locations to ensure consistency across app data and test files.
 
-## 🔄 Regenerating Files
+## 🔄 Regenerating Emulator Files
 
-If RouteData.kt changes or original GPX files are updated:
+If the original GPX files in `android/` or `ios/` are updated, regenerate the emulator-compatible files:
 
 ```bash
-# Step 1: Generate Android GPX (route format, no timestamps)
-python3 /tmp/convert_original_gpx_simple.py \
-  "/tmp" \
-  "test-routes/android" \
-  "test-routes/android"  # Note: both point to android for this script
+cd test-routes
 
-# Step 2: Generate iOS GPX (waypoint format, with timestamps) from Android files
-python3 /tmp/create_ios_gpx_waypoints.py \
-  "test-routes/android" \
-  "test-routes/ios"
+# Generate Android emulator GPX (track format with timestamps)
+python3 convert_gpx_for_emulator.py
+# Output: android/emulator/route_*_emulator.gpx
 
-# Step 3 (Optional): Add real elevation data
-python3 /tmp/add_elevation_to_gpx.py test-routes/android
-# Then regenerate iOS to include elevation
-python3 /tmp/create_ios_gpx_waypoints.py test-routes/android test-routes/ios
+# Generate iOS simulator GPX (waypoint format with timestamps)
+python3 convert_gpx_for_ios.py
+# Output: ios/simulator/route_*_simulator.gpx
+
+# Or convert a single route (e.g., route 1)
+python3 convert_gpx_for_ios.py 1
 ```
+
+The scripts will:
+- Convert to the required format for each platform
+- Add timestamps (3 seconds between points)
+- Preserve elevation data
+- Create files in the `emulator/` or `simulator/` subdirectories
 
 ## 🐛 Common Issues
 
@@ -332,7 +354,8 @@ python3 /tmp/create_ios_gpx_waypoints.py test-routes/android test-routes/ios
 ## 📝 Notes
 
 - Files generated from official Camí de Cavalls GPX data
-- Route format (not track) for maximum emulator compatibility
-- No timestamps = emulator controls speed
-- Elevation can be added separately when needed
+- Emulator files use track/waypoint format with timestamps (required since Android Emulator 30.0.26)
+- Timestamps at 3-second intervals simulate walking speed
+- Real elevation data included from original sources
+- iOS Simulator ignores elevation (Apple limitation) - test on real device
 - All 20 stages of the complete 185km trail are included

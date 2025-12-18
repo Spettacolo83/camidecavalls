@@ -76,6 +76,7 @@ class InitializeDatabaseUseCase(
         // Version 30: Added Route 6 (Fornells - Cala Tirant) elevation profile (2-118m, 8.61km)
         // Version 31: Fixed Route 6 peak detection (extended Y scan range to capture 118m peak)
         // Version 32: Complete elevation profile update for all 20 routes from official camidecavalls.com images
-        private const val DATABASE_VERSION = 32
+        // Version 33: Added name field to TrackingSessionEntity for session naming in notebook
+        private const val DATABASE_VERSION = 33
     }
 }

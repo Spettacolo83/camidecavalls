@@ -183,12 +183,15 @@ actual class MapLayerController {
         routeId: String,
         geoJsonLineString: String,
         color: String,
-        width: Float
+        width: Float,
+        withCasing: Boolean
     ) {
         val currentStyle = style ?: return
 
         // Remove existing layers/sources
-        removeLayer("$routeId-casing")
+        if (withCasing) {
+            removeLayer("$routeId-casing")
+        }
         removeLayer(routeId)
 
         try {
@@ -211,12 +214,15 @@ actual class MapLayerController {
                     val source = MLNShapeSource(identifier = "source-$routeId", shape = shape, options = null)
                     currentStyle.addSource(source)
 
-                    val casingLayer = MLNLineStyleLayer(identifier = "$routeId-casing", source = source)
-                    casingLayer.lineColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
-                    casingLayer.lineWidth = NSExpression.expressionForConstantValue(width + 2.0)
-                    casingLayer.lineCap = NSExpression.expressionForConstantValue("round")
-                    casingLayer.lineJoin = NSExpression.expressionForConstantValue("round")
-                    currentStyle.addLayer(casingLayer)
+                    // Add white casing (outline) only if requested
+                    if (withCasing) {
+                        val casingLayer = MLNLineStyleLayer(identifier = "$routeId-casing", source = source)
+                        casingLayer.lineColor = NSExpression.expressionForConstantValue(UIColor.whiteColor)
+                        casingLayer.lineWidth = NSExpression.expressionForConstantValue(width + 2.0)
+                        casingLayer.lineCap = NSExpression.expressionForConstantValue("round")
+                        casingLayer.lineJoin = NSExpression.expressionForConstantValue("round")
+                        currentStyle.addLayer(casingLayer)
+                    }
 
                     val lineLayer = MLNLineStyleLayer(identifier = routeId, source = source)
                     lineLayer.lineColor = NSExpression.expressionForConstantValue(uiColor)

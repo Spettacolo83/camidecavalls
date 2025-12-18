@@ -63,6 +63,7 @@ import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
 import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
 import com.followmemobile.camidecavalls.presentation.icons.CamiDeCavallsIcon
+import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
@@ -110,7 +111,7 @@ class RoutesScreen : Screen {
                     },
                     onNotebookClick = {
                         scope.launch { drawerState.close() }
-                        // TODO: Navigate to Notebook/Sessions screen
+                        navigator.replaceAll(NotebookScreen())
                     },
                     onSettingsClick = {
                         scope.launch { drawerState.close() }

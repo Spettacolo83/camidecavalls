@@ -51,6 +51,7 @@ import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
+import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ class POIsScreen : Screen {
                     },
                     onNotebookClick = {
                         scope.launch { drawerState.close() }
-                        // TODO: Navigate to Notebook/Sessions screen
+                        navigator.replaceAll(NotebookScreen())
                     },
                     onSettingsClick = {
                         scope.launch { drawerState.close() }

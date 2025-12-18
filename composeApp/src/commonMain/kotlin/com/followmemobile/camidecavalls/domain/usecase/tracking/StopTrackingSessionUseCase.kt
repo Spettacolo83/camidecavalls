@@ -13,7 +13,7 @@ class StopTrackingSessionUseCase(
     private val trackingRepository: TrackingRepository,
     private val calculateSessionStatsUseCase: CalculateSessionStatsUseCase
 ) {
-    suspend operator fun invoke(sessionId: String, notes: String = ""): TrackingSession? {
+    suspend operator fun invoke(sessionId: String, name: String = "", notes: String = ""): TrackingSession? {
         val session = trackingRepository.getSessionById(sessionId) ?: return null
 
         if (session.isCompleted) {
@@ -37,6 +37,7 @@ class StopTrackingSessionUseCase(
             elevationGainMeters = stats.elevationGainMeters,
             elevationLossMeters = stats.elevationLossMeters,
             isCompleted = true,
+            name = name,
             notes = notes
         )
 

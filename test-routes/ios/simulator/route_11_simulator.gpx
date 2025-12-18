@@ -1,0 +1,3206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="CamiDeCavalls-iOSSimulator"
+     xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <wpt lat="40.0014942746" lon="3.8329648608">
+    <ele>23.1</ele>
+    <time>2025-01-01T10:00:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 1</name>
+  </wpt>
+  <wpt lat="40.0015262424" lon="3.8330882222">
+    <ele>23.4</ele>
+    <time>2025-01-01T10:00:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 2</name>
+  </wpt>
+  <wpt lat="40.0016323790" lon="3.8335227107">
+    <ele>24.4</ele>
+    <time>2025-01-01T10:00:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 3</name>
+  </wpt>
+  <wpt lat="40.0017063788" lon="3.8336460813">
+    <ele>24.8</ele>
+    <time>2025-01-01T10:00:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 4</name>
+  </wpt>
+  <wpt lat="40.0017956150" lon="3.8337334528">
+    <ele>25.2</ele>
+    <time>2025-01-01T10:00:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 5</name>
+  </wpt>
+  <wpt lat="40.0022510512" lon="3.8340730062">
+    <ele>27.3</ele>
+    <time>2025-01-01T10:00:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 6</name>
+  </wpt>
+  <wpt lat="40.0025084405" lon="3.8342821163">
+    <ele>26.4</ele>
+    <time>2025-01-01T10:00:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 7</name>
+  </wpt>
+  <wpt lat="40.0033284965" lon="3.8347959119">
+    <ele>26.7</ele>
+    <time>2025-01-01T10:00:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 8</name>
+  </wpt>
+  <wpt lat="40.0034227907" lon="3.8348889157">
+    <ele>26.7</ele>
+    <time>2025-01-01T10:00:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 9</name>
+  </wpt>
+  <wpt lat="40.0044616174" lon="3.8355241938">
+    <ele>26.8</ele>
+    <time>2025-01-01T10:00:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 10</name>
+  </wpt>
+  <wpt lat="40.0048180831" lon="3.8357437646">
+    <ele>27.2</ele>
+    <time>2025-01-01T10:00:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 11</name>
+  </wpt>
+  <wpt lat="40.0059617301" lon="3.8364580400">
+    <ele>28.0</ele>
+    <time>2025-01-01T10:00:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 12</name>
+  </wpt>
+  <wpt lat="40.0060493334" lon="3.8373637769">
+    <ele>25.9</ele>
+    <time>2025-01-01T10:00:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 13</name>
+  </wpt>
+  <wpt lat="40.0059051273" lon="3.8374817072">
+    <ele>24.9</ele>
+    <time>2025-01-01T10:00:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 14</name>
+  </wpt>
+  <wpt lat="40.0057272712" lon="3.8375447573">
+    <ele>23.8</ele>
+    <time>2025-01-01T10:00:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 15</name>
+  </wpt>
+  <wpt lat="40.0055105155" lon="3.8376215969">
+    <ele>22.5</ele>
+    <time>2025-01-01T10:00:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 16</name>
+  </wpt>
+  <wpt lat="40.0053120161" lon="3.8376982924">
+    <ele>23.6</ele>
+    <time>2025-01-01T10:00:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 17</name>
+  </wpt>
+  <wpt lat="40.0051263605" lon="3.8377700283">
+    <ele>24.5</ele>
+    <time>2025-01-01T10:00:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 18</name>
+  </wpt>
+  <wpt lat="40.0048729612" lon="3.8378977558">
+    <ele>25.8</ele>
+    <time>2025-01-01T10:00:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 19</name>
+  </wpt>
+  <wpt lat="40.0045621201" lon="3.8379802440">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:00:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 20</name>
+  </wpt>
+  <wpt lat="40.0044291019" lon="3.8375471694">
+    <ele>27.0</ele>
+    <time>2025-01-01T10:01:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 21</name>
+  </wpt>
+  <wpt lat="40.0043511489" lon="3.8373792055">
+    <ele>26.1</ele>
+    <time>2025-01-01T10:01:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 22</name>
+  </wpt>
+  <wpt lat="40.0041189755" lon="3.8372344095">
+    <ele>24.5</ele>
+    <time>2025-01-01T10:01:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 23</name>
+  </wpt>
+  <wpt lat="40.0037287255" lon="3.8370542794">
+    <ele>25.4</ele>
+    <time>2025-01-01T10:01:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 24</name>
+  </wpt>
+  <wpt lat="40.0035462759" lon="3.8369629793">
+    <ele>26.0</ele>
+    <time>2025-01-01T10:01:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 25</name>
+  </wpt>
+  <wpt lat="40.0032861290" lon="3.8368401114">
+    <ele>25.9</ele>
+    <time>2025-01-01T10:01:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 26</name>
+  </wpt>
+  <wpt lat="40.0028050471" lon="3.8364974366">
+    <ele>22.8</ele>
+    <time>2025-01-01T10:01:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 27</name>
+  </wpt>
+  <wpt lat="40.0024721386" lon="3.8363764675">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:01:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 28</name>
+  </wpt>
+  <wpt lat="40.0021788152" lon="3.8364035038">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:01:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 29</name>
+  </wpt>
+  <wpt lat="40.0020244745" lon="3.8364433725">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:01:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 30</name>
+  </wpt>
+  <wpt lat="40.0019344177" lon="3.8364701077">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:01:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 31</name>
+  </wpt>
+  <wpt lat="40.0016953916" lon="3.8361164787">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:01:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 32</name>
+  </wpt>
+  <wpt lat="40.0014500695" lon="3.8363111056">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:01:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 33</name>
+  </wpt>
+  <wpt lat="40.0012744039" lon="3.8360445390">
+    <ele>19.9</ele>
+    <time>2025-01-01T10:01:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 34</name>
+  </wpt>
+  <wpt lat="40.0010675286" lon="3.8356551248">
+    <ele>21.6</ele>
+    <time>2025-01-01T10:01:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 35</name>
+  </wpt>
+  <wpt lat="40.0003692352" lon="3.8360641112">
+    <ele>25.4</ele>
+    <time>2025-01-01T10:01:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 36</name>
+  </wpt>
+  <wpt lat="40.0000462827" lon="3.8352418675">
+    <ele>24.2</ele>
+    <time>2025-01-01T10:01:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 37</name>
+  </wpt>
+  <wpt lat="39.9993676993" lon="3.8356765781">
+    <ele>23.8</ele>
+    <time>2025-01-01T10:01:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 38</name>
+  </wpt>
+  <wpt lat="39.9987544007" lon="3.8360694584">
+    <ele>21.2</ele>
+    <time>2025-01-01T10:01:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 39</name>
+  </wpt>
+  <wpt lat="39.9985189221" lon="3.8360860679">
+    <ele>20.1</ele>
+    <time>2025-01-01T10:01:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 40</name>
+  </wpt>
+  <wpt lat="39.9971261001" lon="3.8362110187">
+    <ele>19.0</ele>
+    <time>2025-01-01T10:02:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 41</name>
+  </wpt>
+  <wpt lat="39.9956570111" lon="3.8363489498">
+    <ele>15.0</ele>
+    <time>2025-01-01T10:02:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 42</name>
+  </wpt>
+  <wpt lat="39.9951793518" lon="3.8363854809">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:02:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 43</name>
+  </wpt>
+  <wpt lat="39.9948410422" lon="3.8364113546">
+    <ele>13.1</ele>
+    <time>2025-01-01T10:02:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 44</name>
+  </wpt>
+  <wpt lat="39.9947204394" lon="3.8362234127">
+    <ele>12.6</ele>
+    <time>2025-01-01T10:02:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 45</name>
+  </wpt>
+  <wpt lat="39.9944694369" lon="3.8363046039">
+    <ele>11.9</ele>
+    <time>2025-01-01T10:02:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 46</name>
+  </wpt>
+  <wpt lat="39.9943758531" lon="3.8362892018">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:02:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 47</name>
+  </wpt>
+  <wpt lat="39.9940166517" lon="3.8362300850">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:02:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 48</name>
+  </wpt>
+  <wpt lat="39.9935209892" lon="3.8364424025">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:02:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 49</name>
+  </wpt>
+  <wpt lat="39.9932373386" lon="3.8365262869">
+    <ele>14.7</ele>
+    <time>2025-01-01T10:02:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 50</name>
+  </wpt>
+  <wpt lat="39.9930413300" lon="3.8364882448">
+    <ele>16.1</ele>
+    <time>2025-01-01T10:02:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 51</name>
+  </wpt>
+  <wpt lat="39.9928913618" lon="3.8363545342">
+    <ele>17.4</ele>
+    <time>2025-01-01T10:02:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 52</name>
+  </wpt>
+  <wpt lat="39.9928485495" lon="3.8360779836">
+    <ele>18.4</ele>
+    <time>2025-01-01T10:02:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 53</name>
+  </wpt>
+  <wpt lat="39.9929487878" lon="3.8346039899">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:02:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 54</name>
+  </wpt>
+  <wpt lat="39.9929621455" lon="3.8343863970">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:02:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 55</name>
+  </wpt>
+  <wpt lat="39.9929255644" lon="3.8342264686">
+    <ele>13.7</ele>
+    <time>2025-01-01T10:02:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 56</name>
+  </wpt>
+  <wpt lat="39.9928189445" lon="3.8339675441">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:02:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 57</name>
+  </wpt>
+  <wpt lat="39.9927121254" lon="3.8337362236">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:02:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 58</name>
+  </wpt>
+  <wpt lat="39.9926568544" lon="3.8335515323">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:02:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 59</name>
+  </wpt>
+  <wpt lat="39.9926121508" lon="3.8332090240">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:02:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 60</name>
+  </wpt>
+  <wpt lat="39.9926176603" lon="3.8327705155">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:03:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 61</name>
+  </wpt>
+  <wpt lat="39.9926573894" lon="3.8318355723">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:03:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 62</name>
+  </wpt>
+  <wpt lat="39.9927214952" lon="3.8306670329">
+    <ele>10.5</ele>
+    <time>2025-01-01T10:03:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 63</name>
+  </wpt>
+  <wpt lat="39.9927034577" lon="3.8304152236">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:03:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 64</name>
+  </wpt>
+  <wpt lat="39.9926404094" lon="3.8302144774">
+    <ele>9.8</ele>
+    <time>2025-01-01T10:03:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 65</name>
+  </wpt>
+  <wpt lat="39.9925229850" lon="3.8299872694">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:03:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 66</name>
+  </wpt>
+  <wpt lat="39.9923308680" lon="3.8298000154">
+    <ele>9.8</ele>
+    <time>2025-01-01T10:03:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 67</name>
+  </wpt>
+  <wpt lat="39.9921495538" lon="3.8297204084">
+    <ele>10.0</ele>
+    <time>2025-01-01T10:03:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 68</name>
+  </wpt>
+  <wpt lat="39.9919710235" lon="3.8297139457">
+    <ele>10.2</ele>
+    <time>2025-01-01T10:03:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 69</name>
+  </wpt>
+  <wpt lat="39.9918117238" lon="3.8297206193">
+    <ele>10.6</ele>
+    <time>2025-01-01T10:03:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 70</name>
+  </wpt>
+  <wpt lat="39.9904609988" lon="3.8298549020">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:03:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 71</name>
+  </wpt>
+  <wpt lat="39.9904398083" lon="3.8298886000">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:03:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 72</name>
+  </wpt>
+  <wpt lat="39.9904561611" lon="3.8300101007">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:03:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 73</name>
+  </wpt>
+  <wpt lat="39.9904780983" lon="3.8301316702">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:03:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 74</name>
+  </wpt>
+  <wpt lat="39.9905751684" lon="3.8307636266">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:03:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 75</name>
+  </wpt>
+  <wpt lat="39.9905468447" lon="3.8309546741">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:03:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 76</name>
+  </wpt>
+  <wpt lat="39.9905239239" lon="3.8311454425">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:03:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 77</name>
+  </wpt>
+  <wpt lat="39.9905225892" lon="3.8311565539">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:03:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 78</name>
+  </wpt>
+  <wpt lat="39.9904480096" lon="3.8311475631">
+    <ele>13.2</ele>
+    <time>2025-01-01T10:03:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 79</name>
+  </wpt>
+  <wpt lat="39.9903779827" lon="3.8310820184">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:03:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 80</name>
+  </wpt>
+  <wpt lat="39.9902722851" lon="3.8310753469">
+    <ele>14.1</ele>
+    <time>2025-01-01T10:04:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 81</name>
+  </wpt>
+  <wpt lat="39.9901371174" lon="3.8311303164">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:04:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 82</name>
+  </wpt>
+  <wpt lat="39.9898979191" lon="3.8312352417">
+    <ele>16.1</ele>
+    <time>2025-01-01T10:04:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 83</name>
+  </wpt>
+  <wpt lat="39.9898287868" lon="3.8313341414">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:04:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 84</name>
+  </wpt>
+  <wpt lat="39.9897617846" lon="3.8314249799">
+    <ele>17.0</ele>
+    <time>2025-01-01T10:04:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 85</name>
+  </wpt>
+  <wpt lat="39.9896933483" lon="3.8314268465">
+    <ele>17.4</ele>
+    <time>2025-01-01T10:04:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 86</name>
+  </wpt>
+  <wpt lat="39.9896583340" lon="3.8313940738">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:04:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 87</name>
+  </wpt>
+  <wpt lat="39.9896210887" lon="3.8313834388">
+    <ele>17.8</ele>
+    <time>2025-01-01T10:04:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 88</name>
+  </wpt>
+  <wpt lat="39.9894270947" lon="3.8314493754">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:04:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 89</name>
+  </wpt>
+  <wpt lat="39.9892915903" lon="3.8314549208">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:04:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 90</name>
+  </wpt>
+  <wpt lat="39.9891612021" lon="3.8315180346">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:04:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 91</name>
+  </wpt>
+  <wpt lat="39.9889396416" lon="3.8315728531">
+    <ele>17.1</ele>
+    <time>2025-01-01T10:04:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 92</name>
+  </wpt>
+  <wpt lat="39.9887895038" lon="3.8316030019">
+    <ele>16.9</ele>
+    <time>2025-01-01T10:04:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 93</name>
+  </wpt>
+  <wpt lat="39.9887436244" lon="3.8316222662">
+    <ele>16.9</ele>
+    <time>2025-01-01T10:04:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 94</name>
+  </wpt>
+  <wpt lat="39.9886317612" lon="3.8316297201">
+    <ele>16.8</ele>
+    <time>2025-01-01T10:04:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 95</name>
+  </wpt>
+  <wpt lat="39.9884317970" lon="3.8316383065">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:04:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 96</name>
+  </wpt>
+  <wpt lat="39.9883811052" lon="3.8316200731">
+    <ele>16.8</ele>
+    <time>2025-01-01T10:04:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 97</name>
+  </wpt>
+  <wpt lat="39.9883221023" lon="3.8315797141">
+    <ele>17.0</ele>
+    <time>2025-01-01T10:04:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 98</name>
+  </wpt>
+  <wpt lat="39.9882154622" lon="3.8315674096">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:04:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 99</name>
+  </wpt>
+  <wpt lat="39.9881291033" lon="3.8315619572">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:04:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 100</name>
+  </wpt>
+  <wpt lat="39.9880887175" lon="3.8315240273">
+    <ele>17.7</ele>
+    <time>2025-01-01T10:05:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 101</name>
+  </wpt>
+  <wpt lat="39.9880430120" lon="3.8315190679">
+    <ele>17.9</ele>
+    <time>2025-01-01T10:05:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 102</name>
+  </wpt>
+  <wpt lat="39.9879868749" lon="3.8315514233">
+    <ele>18.0</ele>
+    <time>2025-01-01T10:05:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 103</name>
+  </wpt>
+  <wpt lat="39.9879223951" lon="3.8315660579">
+    <ele>18.2</ele>
+    <time>2025-01-01T10:05:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 104</name>
+  </wpt>
+  <wpt lat="39.9878636353" lon="3.8313546525">
+    <ele>18.9</ele>
+    <time>2025-01-01T10:05:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 105</name>
+  </wpt>
+  <wpt lat="39.9878390634" lon="3.8310480885">
+    <ele>19.8</ele>
+    <time>2025-01-01T10:05:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 106</name>
+  </wpt>
+  <wpt lat="39.9878192452" lon="3.8308251101">
+    <ele>20.5</ele>
+    <time>2025-01-01T10:05:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 107</name>
+  </wpt>
+  <wpt lat="39.9878051296" lon="3.8305534767">
+    <ele>20.7</ele>
+    <time>2025-01-01T10:05:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 108</name>
+  </wpt>
+  <wpt lat="39.9877547838" lon="3.8301073909">
+    <ele>20.3</ele>
+    <time>2025-01-01T10:05:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 109</name>
+  </wpt>
+  <wpt lat="39.9874856815" lon="3.8301318073">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:05:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 110</name>
+  </wpt>
+  <wpt lat="39.9866338443" lon="3.8302282028">
+    <ele>19.8</ele>
+    <time>2025-01-01T10:05:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 111</name>
+  </wpt>
+  <wpt lat="39.9861882079" lon="3.8302637751">
+    <ele>18.9</ele>
+    <time>2025-01-01T10:05:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 112</name>
+  </wpt>
+  <wpt lat="39.9848535657" lon="3.8304194754">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:05:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 113</name>
+  </wpt>
+  <wpt lat="39.9840628904" lon="3.8304824825">
+    <ele>13.2</ele>
+    <time>2025-01-01T10:05:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 114</name>
+  </wpt>
+  <wpt lat="39.9838693407" lon="3.8305675644">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:05:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 115</name>
+  </wpt>
+  <wpt lat="39.9834406920" lon="3.8308177931">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:05:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 116</name>
+  </wpt>
+  <wpt lat="39.9832071966" lon="3.8310127425">
+    <ele>8.5</ele>
+    <time>2025-01-01T10:05:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 117</name>
+  </wpt>
+  <wpt lat="39.9831313475" lon="3.8309463099">
+    <ele>8.1</ele>
+    <time>2025-01-01T10:05:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 118</name>
+  </wpt>
+  <wpt lat="39.9828232683" lon="3.8311212474">
+    <ele>6.0</ele>
+    <time>2025-01-01T10:05:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 119</name>
+  </wpt>
+  <wpt lat="39.9825551291" lon="3.8312609354">
+    <ele>3.7</ele>
+    <time>2025-01-01T10:05:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 120</name>
+  </wpt>
+  <wpt lat="39.9824418083" lon="3.8313111764">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:06:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 121</name>
+  </wpt>
+  <wpt lat="39.9822177497" lon="3.8313521345">
+    <ele>4.0</ele>
+    <time>2025-01-01T10:06:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 122</name>
+  </wpt>
+  <wpt lat="39.9821778653" lon="3.8313794456">
+    <ele>4.3</ele>
+    <time>2025-01-01T10:06:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 123</name>
+  </wpt>
+  <wpt lat="39.9821409335" lon="3.8314206864">
+    <ele>4.8</ele>
+    <time>2025-01-01T10:06:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 124</name>
+  </wpt>
+  <wpt lat="39.9819020262" lon="3.8317786739">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:06:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 125</name>
+  </wpt>
+  <wpt lat="39.9817726578" lon="3.8319379069">
+    <ele>7.1</ele>
+    <time>2025-01-01T10:06:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 126</name>
+  </wpt>
+  <wpt lat="39.9817388920" lon="3.8319633055">
+    <ele>7.0</ele>
+    <time>2025-01-01T10:06:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 127</name>
+  </wpt>
+  <wpt lat="39.9816643710" lon="3.8319246815">
+    <ele>6.7</ele>
+    <time>2025-01-01T10:06:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 128</name>
+  </wpt>
+  <wpt lat="39.9815923759" lon="3.8319595409">
+    <ele>6.5</ele>
+    <time>2025-01-01T10:06:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 129</name>
+  </wpt>
+  <wpt lat="39.9815230198" lon="3.8320520061">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:06:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 130</name>
+  </wpt>
+  <wpt lat="39.9814416383" lon="3.8321185148">
+    <ele>5.9</ele>
+    <time>2025-01-01T10:06:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 131</name>
+  </wpt>
+  <wpt lat="39.9814287284" lon="3.8322156336">
+    <ele>6.1</ele>
+    <time>2025-01-01T10:06:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 132</name>
+  </wpt>
+  <wpt lat="39.9814483006" lon="3.8322535887">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:06:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 133</name>
+  </wpt>
+  <wpt lat="39.9814800548" lon="3.8322956643">
+    <ele>6.4</ele>
+    <time>2025-01-01T10:06:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 134</name>
+  </wpt>
+  <wpt lat="39.9814827373" lon="3.8323473129">
+    <ele>6.5</ele>
+    <time>2025-01-01T10:06:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 135</name>
+  </wpt>
+  <wpt lat="39.9814152776" lon="3.8323881834">
+    <ele>6.7</ele>
+    <time>2025-01-01T10:06:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 136</name>
+  </wpt>
+  <wpt lat="39.9812896032" lon="3.8324581232">
+    <ele>7.1</ele>
+    <time>2025-01-01T10:06:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 137</name>
+  </wpt>
+  <wpt lat="39.9812405744" lon="3.8324833349">
+    <ele>7.3</ele>
+    <time>2025-01-01T10:06:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 138</name>
+  </wpt>
+  <wpt lat="39.9812161807" lon="3.8324790686">
+    <ele>7.3</ele>
+    <time>2025-01-01T10:06:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 139</name>
+  </wpt>
+  <wpt lat="39.9812005891" lon="3.8325245386">
+    <ele>7.5</ele>
+    <time>2025-01-01T10:06:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 140</name>
+  </wpt>
+  <wpt lat="39.9811528725" lon="3.8325795455">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:07:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 141</name>
+  </wpt>
+  <wpt lat="39.9811019754" lon="3.8326523787">
+    <ele>7.0</ele>
+    <time>2025-01-01T10:07:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 142</name>
+  </wpt>
+  <wpt lat="39.9810662127" lon="3.8327432641">
+    <ele>6.0</ele>
+    <time>2025-01-01T10:07:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 143</name>
+  </wpt>
+  <wpt lat="39.9810486384" lon="3.8328522363">
+    <ele>4.9</ele>
+    <time>2025-01-01T10:07:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 144</name>
+  </wpt>
+  <wpt lat="39.9810316631" lon="3.8328778380">
+    <ele>4.5</ele>
+    <time>2025-01-01T10:07:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 145</name>
+  </wpt>
+  <wpt lat="39.9810405739" lon="3.8329796059">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:07:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 146</name>
+  </wpt>
+  <wpt lat="39.9810862255" lon="3.8332313583">
+    <ele>0.9</ele>
+    <time>2025-01-01T10:07:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 147</name>
+  </wpt>
+  <wpt lat="39.9811307839" lon="3.8333280736">
+    <ele>0.2</ele>
+    <time>2025-01-01T10:07:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 148</name>
+  </wpt>
+  <wpt lat="39.9812512776" lon="3.8334558552">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:07:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 149</name>
+  </wpt>
+  <wpt lat="39.9812841393" lon="3.8334907057">
+    <ele>3.7</ele>
+    <time>2025-01-01T10:07:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 150</name>
+  </wpt>
+  <wpt lat="39.9813039024" lon="3.8335052997">
+    <ele>4.1</ele>
+    <time>2025-01-01T10:07:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 151</name>
+  </wpt>
+  <wpt lat="39.9813724222" lon="3.8334932143">
+    <ele>5.3</ele>
+    <time>2025-01-01T10:07:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 152</name>
+  </wpt>
+  <wpt lat="39.9814929045" lon="3.8336224313">
+    <ele>8.1</ele>
+    <time>2025-01-01T10:07:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 153</name>
+  </wpt>
+  <wpt lat="39.9817018012" lon="3.8341962733">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:07:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 154</name>
+  </wpt>
+  <wpt lat="39.9816095464" lon="3.8342855814">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:07:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 155</name>
+  </wpt>
+  <wpt lat="39.9815801806" lon="3.8343785284">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:07:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 156</name>
+  </wpt>
+  <wpt lat="39.9814491226" lon="3.8344917666">
+    <ele>11.0</ele>
+    <time>2025-01-01T10:07:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 157</name>
+  </wpt>
+  <wpt lat="39.9814173544" lon="3.8344583659">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:07:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 158</name>
+  </wpt>
+  <wpt lat="39.9813984892" lon="3.8344724903">
+    <ele>11.2</ele>
+    <time>2025-01-01T10:07:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 159</name>
+  </wpt>
+  <wpt lat="39.9813558393" lon="3.8344174253">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:07:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 160</name>
+  </wpt>
+  <wpt lat="39.9812385955" lon="3.8342982929">
+    <ele>11.8</ele>
+    <time>2025-01-01T10:08:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 161</name>
+  </wpt>
+  <wpt lat="39.9811767703" lon="3.8343004126">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:08:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 162</name>
+  </wpt>
+  <wpt lat="39.9811307318" lon="3.8343879151">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:08:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 163</name>
+  </wpt>
+  <wpt lat="39.9811129840" lon="3.8344216467">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:08:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 164</name>
+  </wpt>
+  <wpt lat="39.9810873724" lon="3.8344529146">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:08:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 165</name>
+  </wpt>
+  <wpt lat="39.9810162639" lon="3.8345180787">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 166</name>
+  </wpt>
+  <wpt lat="39.9809693227" lon="3.8344457363">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 167</name>
+  </wpt>
+  <wpt lat="39.9809067660" lon="3.8343961716">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 168</name>
+  </wpt>
+  <wpt lat="39.9808330278" lon="3.8343665648">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 169</name>
+  </wpt>
+  <wpt lat="39.9807259528" lon="3.8343681328">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 170</name>
+  </wpt>
+  <wpt lat="39.9805672377" lon="3.8344523598">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:08:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 171</name>
+  </wpt>
+  <wpt lat="39.9804146147" lon="3.8345583690">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:08:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 172</name>
+  </wpt>
+  <wpt lat="39.9802545185" lon="3.8347566628">
+    <ele>11.5</ele>
+    <time>2025-01-01T10:08:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 173</name>
+  </wpt>
+  <wpt lat="39.9801551706" lon="3.8349435584">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:08:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 174</name>
+  </wpt>
+  <wpt lat="39.9800610909" lon="3.8352106512">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:08:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 175</name>
+  </wpt>
+  <wpt lat="39.9795725248" lon="3.8367886793">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:08:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 176</name>
+  </wpt>
+  <wpt lat="39.9794965585" lon="3.8370490166">
+    <ele>14.4</ele>
+    <time>2025-01-01T10:08:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 177</name>
+  </wpt>
+  <wpt lat="39.9794326200" lon="3.8372047756">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:08:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 178</name>
+  </wpt>
+  <wpt lat="39.9793620099" lon="3.8371971072">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:08:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 179</name>
+  </wpt>
+  <wpt lat="39.9792319322" lon="3.8374507454">
+    <ele>17.8</ele>
+    <time>2025-01-01T10:08:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 180</name>
+  </wpt>
+  <wpt lat="39.9791414058" lon="3.8377414846">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:09:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 181</name>
+  </wpt>
+  <wpt lat="39.9790349282" lon="3.8380629766">
+    <ele>20.6</ele>
+    <time>2025-01-01T10:09:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 182</name>
+  </wpt>
+  <wpt lat="39.9789608720" lon="3.8383430908">
+    <ele>20.4</ele>
+    <time>2025-01-01T10:09:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 183</name>
+  </wpt>
+  <wpt lat="39.9789205126" lon="3.8385325011">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:09:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 184</name>
+  </wpt>
+  <wpt lat="39.9789481187" lon="3.8386961821">
+    <ele>19.6</ele>
+    <time>2025-01-01T10:09:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 185</name>
+  </wpt>
+  <wpt lat="39.9789592950" lon="3.8387206138">
+    <ele>19.4</ele>
+    <time>2025-01-01T10:09:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 186</name>
+  </wpt>
+  <wpt lat="39.9789956159" lon="3.8388000133">
+    <ele>19.0</ele>
+    <time>2025-01-01T10:09:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 187</name>
+  </wpt>
+  <wpt lat="39.9791019280" lon="3.8389894981">
+    <ele>17.9</ele>
+    <time>2025-01-01T10:09:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 188</name>
+  </wpt>
+  <wpt lat="39.9792117184" lon="3.8391285805">
+    <ele>17.0</ele>
+    <time>2025-01-01T10:09:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 189</name>
+  </wpt>
+  <wpt lat="39.9794049896" lon="3.8393660708">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:09:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 190</name>
+  </wpt>
+  <wpt lat="39.9795205501" lon="3.8395673599">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:09:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 191</name>
+  </wpt>
+  <wpt lat="39.9796351203" lon="3.8397441338">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:09:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 192</name>
+  </wpt>
+  <wpt lat="39.9798530921" lon="3.8399530141">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:09:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 193</name>
+  </wpt>
+  <wpt lat="39.9800054401" lon="3.8401388578">
+    <ele>17.9</ele>
+    <time>2025-01-01T10:09:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 194</name>
+  </wpt>
+  <wpt lat="39.9801015622" lon="3.8402467714">
+    <ele>18.3</ele>
+    <time>2025-01-01T10:09:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 195</name>
+  </wpt>
+  <wpt lat="39.9802130329" lon="3.8403944700">
+    <ele>18.5</ele>
+    <time>2025-01-01T10:09:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 196</name>
+  </wpt>
+  <wpt lat="39.9802412039" lon="3.8404798924">
+    <ele>18.6</ele>
+    <time>2025-01-01T10:09:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 197</name>
+  </wpt>
+  <wpt lat="39.9802039488" lon="3.8405645108">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:09:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 198</name>
+  </wpt>
+  <wpt lat="39.9800561129" lon="3.8407396589">
+    <ele>18.9</ele>
+    <time>2025-01-01T10:09:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 199</name>
+  </wpt>
+  <wpt lat="39.9799322007" lon="3.8408640526">
+    <ele>19.1</ele>
+    <time>2025-01-01T10:09:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 200</name>
+  </wpt>
+  <wpt lat="39.9796986702" lon="3.8409462654">
+    <ele>19.8</ele>
+    <time>2025-01-01T10:10:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 201</name>
+  </wpt>
+  <wpt lat="39.9795125900" lon="3.8409814162">
+    <ele>20.4</ele>
+    <time>2025-01-01T10:10:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 202</name>
+  </wpt>
+  <wpt lat="39.9793903916" lon="3.8410059256">
+    <ele>20.8</ele>
+    <time>2025-01-01T10:10:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 203</name>
+  </wpt>
+  <wpt lat="39.9791695927" lon="3.8410575780">
+    <ele>19.6</ele>
+    <time>2025-01-01T10:10:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 204</name>
+  </wpt>
+  <wpt lat="39.9789985292" lon="3.8410441230">
+    <ele>18.5</ele>
+    <time>2025-01-01T10:10:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 205</name>
+  </wpt>
+  <wpt lat="39.9785893608" lon="3.8409304941">
+    <ele>11.8</ele>
+    <time>2025-01-01T10:10:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 206</name>
+  </wpt>
+  <wpt lat="39.9784246301" lon="3.8409139399">
+    <ele>7.2</ele>
+    <time>2025-01-01T10:10:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 207</name>
+  </wpt>
+  <wpt lat="39.9782874773" lon="3.8409049392">
+    <ele>3.4</ele>
+    <time>2025-01-01T10:10:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 208</name>
+  </wpt>
+  <wpt lat="39.9780502823" lon="3.8409057160">
+    <ele>0.6</ele>
+    <time>2025-01-01T10:10:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 209</name>
+  </wpt>
+  <wpt lat="39.9778470968" lon="3.8407978522">
+    <ele>0.6</ele>
+    <time>2025-01-01T10:10:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 210</name>
+  </wpt>
+  <wpt lat="39.9775054572" lon="3.8405175169">
+    <ele>2.6</ele>
+    <time>2025-01-01T10:10:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 211</name>
+  </wpt>
+  <wpt lat="39.9774499847" lon="3.8404669447">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:10:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 212</name>
+  </wpt>
+  <wpt lat="39.9775049573" lon="3.8403461486">
+    <ele>4.8</ele>
+    <time>2025-01-01T10:10:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 213</name>
+  </wpt>
+  <wpt lat="39.9773494138" lon="3.8402092736">
+    <ele>7.3</ele>
+    <time>2025-01-01T10:10:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 214</name>
+  </wpt>
+  <wpt lat="39.9773390011" lon="3.8402166446">
+    <ele>7.4</ele>
+    <time>2025-01-01T10:10:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 215</name>
+  </wpt>
+  <wpt lat="39.9772965762" lon="3.8401867104">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:10:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 216</name>
+  </wpt>
+  <wpt lat="39.9772221971" lon="3.8401342324">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:10:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 217</name>
+  </wpt>
+  <wpt lat="39.9773295180" lon="3.8399272987">
+    <ele>11.6</ele>
+    <time>2025-01-01T10:10:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 218</name>
+  </wpt>
+  <wpt lat="39.9774277802" lon="3.8397535796">
+    <ele>13.7</ele>
+    <time>2025-01-01T10:10:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 219</name>
+  </wpt>
+  <wpt lat="39.9774450199" lon="3.8396949215">
+    <ele>14.3</ele>
+    <time>2025-01-01T10:10:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 220</name>
+  </wpt>
+  <wpt lat="39.9774312074" lon="3.8396375662">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:11:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 221</name>
+  </wpt>
+  <wpt lat="39.9773197884" lon="3.8394848257">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:11:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 222</name>
+  </wpt>
+  <wpt lat="39.9772338944" lon="3.8393794927">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:11:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 223</name>
+  </wpt>
+  <wpt lat="39.9771948833" lon="3.8393797684">
+    <ele>15.3</ele>
+    <time>2025-01-01T10:11:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 224</name>
+  </wpt>
+  <wpt lat="39.9770445386" lon="3.8394584407">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:11:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 225</name>
+  </wpt>
+  <wpt lat="39.9769498248" lon="3.8394993300">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:11:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 226</name>
+  </wpt>
+  <wpt lat="39.9768682998" lon="3.8395050604">
+    <ele>14.3</ele>
+    <time>2025-01-01T10:11:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 227</name>
+  </wpt>
+  <wpt lat="39.9768977504" lon="3.8393675007">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:11:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 228</name>
+  </wpt>
+  <wpt lat="39.9770587295" lon="3.8387488324">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:11:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 229</name>
+  </wpt>
+  <wpt lat="39.9771351658" lon="3.8387312647">
+    <ele>11.6</ele>
+    <time>2025-01-01T10:11:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 230</name>
+  </wpt>
+  <wpt lat="39.9772574328" lon="3.8386933636">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:11:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 231</name>
+  </wpt>
+  <wpt lat="39.9774089851" lon="3.8386051045">
+    <ele>13.3</ele>
+    <time>2025-01-01T10:11:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 232</name>
+  </wpt>
+  <wpt lat="39.9775287449" lon="3.8384989227">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:11:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 233</name>
+  </wpt>
+  <wpt lat="39.9776061109" lon="3.8384043925">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:11:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 234</name>
+  </wpt>
+  <wpt lat="39.9776514082" lon="3.8383490455">
+    <ele>14.6</ele>
+    <time>2025-01-01T10:11:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 235</name>
+  </wpt>
+  <wpt lat="39.9777331233" lon="3.8381381164">
+    <ele>13.9</ele>
+    <time>2025-01-01T10:11:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 236</name>
+  </wpt>
+  <wpt lat="39.9777898352" lon="3.8379548617">
+    <ele>13.3</ele>
+    <time>2025-01-01T10:11:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 237</name>
+  </wpt>
+  <wpt lat="39.9778122367" lon="3.8376705668">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:11:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 238</name>
+  </wpt>
+  <wpt lat="39.9778533345" lon="3.8375792686">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:11:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 239</name>
+  </wpt>
+  <wpt lat="39.9778939063" lon="3.8374986749">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:11:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 240</name>
+  </wpt>
+  <wpt lat="39.9779404936" lon="3.8372497378">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:12:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 241</name>
+  </wpt>
+  <wpt lat="39.9780263824" lon="3.8368524240">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:12:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 242</name>
+  </wpt>
+  <wpt lat="39.9780791331" lon="3.8367117817">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:12:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 243</name>
+  </wpt>
+  <wpt lat="39.9781634559" lon="3.8364975188">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:12:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 244</name>
+  </wpt>
+  <wpt lat="39.9784160237" lon="3.8357269259">
+    <ele>8.6</ele>
+    <time>2025-01-01T10:12:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 245</name>
+  </wpt>
+  <wpt lat="39.9784321002" lon="3.8356497492">
+    <ele>8.3</ele>
+    <time>2025-01-01T10:12:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 246</name>
+  </wpt>
+  <wpt lat="39.9784314258" lon="3.8355639609">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:12:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 247</name>
+  </wpt>
+  <wpt lat="39.9784349622" lon="3.8355020797">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:12:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 248</name>
+  </wpt>
+  <wpt lat="39.9784113940" lon="3.8353983006">
+    <ele>7.4</ele>
+    <time>2025-01-01T10:12:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 249</name>
+  </wpt>
+  <wpt lat="39.9784057975" lon="3.8352544959">
+    <ele>7.0</ele>
+    <time>2025-01-01T10:12:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 250</name>
+  </wpt>
+  <wpt lat="39.9784196473" lon="3.8351326945">
+    <ele>6.6</ele>
+    <time>2025-01-01T10:12:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 251</name>
+  </wpt>
+  <wpt lat="39.9783384350" lon="3.8350818043">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:12:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 252</name>
+  </wpt>
+  <wpt lat="39.9783407474" lon="3.8350418387">
+    <ele>6.1</ele>
+    <time>2025-01-01T10:12:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 253</name>
+  </wpt>
+  <wpt lat="39.9784288145" lon="3.8349379828">
+    <ele>5.6</ele>
+    <time>2025-01-01T10:12:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 254</name>
+  </wpt>
+  <wpt lat="39.9784759669" lon="3.8348365027">
+    <ele>5.4</ele>
+    <time>2025-01-01T10:12:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 255</name>
+  </wpt>
+  <wpt lat="39.9785171800" lon="3.8347924465">
+    <ele>5.7</ele>
+    <time>2025-01-01T10:12:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 256</name>
+  </wpt>
+  <wpt lat="39.9785406691" lon="3.8347539224">
+    <ele>5.9</ele>
+    <time>2025-01-01T10:12:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 257</name>
+  </wpt>
+  <wpt lat="39.9785626097" lon="3.8346233888">
+    <ele>6.5</ele>
+    <time>2025-01-01T10:12:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 258</name>
+  </wpt>
+  <wpt lat="39.9786059310" lon="3.8344399320">
+    <ele>7.4</ele>
+    <time>2025-01-01T10:12:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 259</name>
+  </wpt>
+  <wpt lat="39.9786260417" lon="3.8344099920">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:12:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 260</name>
+  </wpt>
+  <wpt lat="39.9786627098" lon="3.8343831285">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:13:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 261</name>
+  </wpt>
+  <wpt lat="39.9786948848" lon="3.8343662715">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:13:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 262</name>
+  </wpt>
+  <wpt lat="39.9787192817" lon="3.8343550690">
+    <ele>8.2</ele>
+    <time>2025-01-01T10:13:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 263</name>
+  </wpt>
+  <wpt lat="39.9787437828" lon="3.8343294944">
+    <ele>8.4</ele>
+    <time>2025-01-01T10:13:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 264</name>
+  </wpt>
+  <wpt lat="39.9787741609" lon="3.8342551201">
+    <ele>8.7</ele>
+    <time>2025-01-01T10:13:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 265</name>
+  </wpt>
+  <wpt lat="39.9787777762" lon="3.8342134801">
+    <ele>8.9</ele>
+    <time>2025-01-01T10:13:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 266</name>
+  </wpt>
+  <wpt lat="39.9787891286" lon="3.8341950440">
+    <ele>8.9</ele>
+    <time>2025-01-01T10:13:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 267</name>
+  </wpt>
+  <wpt lat="39.9788195612" lon="3.8341700439">
+    <ele>9.0</ele>
+    <time>2025-01-01T10:13:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 268</name>
+  </wpt>
+  <wpt lat="39.9788255895" lon="3.8341460142">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:13:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 269</name>
+  </wpt>
+  <wpt lat="39.9788142266" lon="3.8340976712">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:13:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 270</name>
+  </wpt>
+  <wpt lat="39.9788213684" lon="3.8340546277">
+    <ele>9.2</ele>
+    <time>2025-01-01T10:13:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 271</name>
+  </wpt>
+  <wpt lat="39.9788267271" lon="3.8340157177">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:13:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 272</name>
+  </wpt>
+  <wpt lat="39.9788501600" lon="3.8339864760">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:13:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 273</name>
+  </wpt>
+  <wpt lat="39.9788679984" lon="3.8339486370">
+    <ele>9.4</ele>
+    <time>2025-01-01T10:13:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 274</name>
+  </wpt>
+  <wpt lat="39.9788653543" lon="3.8339092795">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:13:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 275</name>
+  </wpt>
+  <wpt lat="39.9788664840" lon="3.8338667133">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:13:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 276</name>
+  </wpt>
+  <wpt lat="39.9788787759" lon="3.8338481773">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:13:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 277</name>
+  </wpt>
+  <wpt lat="39.9788822463" lon="3.8338266578">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:13:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 278</name>
+  </wpt>
+  <wpt lat="39.9788691911" lon="3.8337977526">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:13:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 279</name>
+  </wpt>
+  <wpt lat="39.9788660300" lon="3.8337761525">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:13:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 280</name>
+  </wpt>
+  <wpt lat="39.9788694496" lon="3.8337618207">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:14:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 281</name>
+  </wpt>
+  <wpt lat="39.9788783839" lon="3.8337489919">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:14:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 282</name>
+  </wpt>
+  <wpt lat="39.9788960976" lon="3.8337448962">
+    <ele>9.8</ele>
+    <time>2025-01-01T10:14:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 283</name>
+  </wpt>
+  <wpt lat="39.9789272395" lon="3.8337179639">
+    <ele>9.8</ele>
+    <time>2025-01-01T10:14:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 284</name>
+  </wpt>
+  <wpt lat="39.9789560747" lon="3.8337010800">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:14:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 285</name>
+  </wpt>
+  <wpt lat="39.9789560747" lon="3.8337010800">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:14:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 286</name>
+  </wpt>
+  <wpt lat="39.9789451812" lon="3.8336822798">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:14:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 287</name>
+  </wpt>
+  <wpt lat="39.9788901689" lon="3.8336471132">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:14:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 288</name>
+  </wpt>
+  <wpt lat="39.9784523671" lon="3.8335081162">
+    <ele>8.4</ele>
+    <time>2025-01-01T10:14:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 289</name>
+  </wpt>
+  <wpt lat="39.9783445332" lon="3.8334406857">
+    <ele>7.9</ele>
+    <time>2025-01-01T10:14:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 290</name>
+  </wpt>
+  <wpt lat="39.9783180084" lon="3.8334403634">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:14:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 291</name>
+  </wpt>
+  <wpt lat="39.9782526677" lon="3.8334582548">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:14:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 292</name>
+  </wpt>
+  <wpt lat="39.9781178956" lon="3.8334479933">
+    <ele>8.2</ele>
+    <time>2025-01-01T10:14:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 293</name>
+  </wpt>
+  <wpt lat="39.9780254458" lon="3.8335083596">
+    <ele>8.5</ele>
+    <time>2025-01-01T10:14:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 294</name>
+  </wpt>
+  <wpt lat="39.9779434696" lon="3.8335970416">
+    <ele>8.9</ele>
+    <time>2025-01-01T10:14:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 295</name>
+  </wpt>
+  <wpt lat="39.9777182296" lon="3.8336908815">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:14:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 296</name>
+  </wpt>
+  <wpt lat="39.9773854016" lon="3.8337466217">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:14:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 297</name>
+  </wpt>
+  <wpt lat="39.9771871780" lon="3.8337718038">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:14:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 298</name>
+  </wpt>
+  <wpt lat="39.9769716540" lon="3.8337438899">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:14:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 299</name>
+  </wpt>
+  <wpt lat="39.9768638510" lon="3.8337356809">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:14:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 300</name>
+  </wpt>
+  <wpt lat="39.9767931345" lon="3.8337764597">
+    <ele>12.9</ele>
+    <time>2025-01-01T10:15:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 301</name>
+  </wpt>
+  <wpt lat="39.9767512764" lon="3.8338322080">
+    <ele>13.1</ele>
+    <time>2025-01-01T10:15:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 302</name>
+  </wpt>
+  <wpt lat="39.9767261593" lon="3.8339408988">
+    <ele>13.3</ele>
+    <time>2025-01-01T10:15:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 303</name>
+  </wpt>
+  <wpt lat="39.9766740842" lon="3.8340387148">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:15:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 304</name>
+  </wpt>
+  <wpt lat="39.9765466371" lon="3.8348411659">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:15:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 305</name>
+  </wpt>
+  <wpt lat="39.9765292944" lon="3.8348714266">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:15:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 306</name>
+  </wpt>
+  <wpt lat="39.9764941068" lon="3.8348768586">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:15:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 307</name>
+  </wpt>
+  <wpt lat="39.9759738426" lon="3.8344087562">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:15:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 308</name>
+  </wpt>
+  <wpt lat="39.9759481980" lon="3.8343404678">
+    <ele>14.1</ele>
+    <time>2025-01-01T10:15:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 309</name>
+  </wpt>
+  <wpt lat="39.9759586344" lon="3.8342679315">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:15:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 310</name>
+  </wpt>
+  <wpt lat="39.9761939474" lon="3.8338805150">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:15:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 311</name>
+  </wpt>
+  <wpt lat="39.9762579080" lon="3.8337594047">
+    <ele>16.8</ele>
+    <time>2025-01-01T10:15:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 312</name>
+  </wpt>
+  <wpt lat="39.9762994263" lon="3.8336157286">
+    <ele>17.1</ele>
+    <time>2025-01-01T10:15:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 313</name>
+  </wpt>
+  <wpt lat="39.9763592537" lon="3.8333783559">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:15:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 314</name>
+  </wpt>
+  <wpt lat="39.9763590661" lon="3.8330960244">
+    <ele>17.7</ele>
+    <time>2025-01-01T10:15:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 315</name>
+  </wpt>
+  <wpt lat="39.9762799510" lon="3.8328584738">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:15:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 316</name>
+  </wpt>
+  <wpt lat="39.9761432256" lon="3.8326258506">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:15:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 317</name>
+  </wpt>
+  <wpt lat="39.9759486230" lon="3.8324225209">
+    <ele>17.0</ele>
+    <time>2025-01-01T10:15:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 318</name>
+  </wpt>
+  <wpt lat="39.9749938936" lon="3.8320719913">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:15:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 319</name>
+  </wpt>
+  <wpt lat="39.9743204268" lon="3.8318123836">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:15:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 320</name>
+  </wpt>
+  <wpt lat="39.9735962968" lon="3.8316117191">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:16:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 321</name>
+  </wpt>
+  <wpt lat="39.9735668247" lon="3.8316109110">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:16:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 322</name>
+  </wpt>
+  <wpt lat="39.9726461088" lon="3.8315856620">
+    <ele>12.6</ele>
+    <time>2025-01-01T10:16:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 323</name>
+  </wpt>
+  <wpt lat="39.9725322193" lon="3.8315639305">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:16:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 324</name>
+  </wpt>
+  <wpt lat="39.9722061361" lon="3.8314848626">
+    <ele>11.8</ele>
+    <time>2025-01-01T10:16:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 325</name>
+  </wpt>
+  <wpt lat="39.9720661870" lon="3.8314851000">
+    <ele>11.6</ele>
+    <time>2025-01-01T10:16:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 326</name>
+  </wpt>
+  <wpt lat="39.9717783042" lon="3.8314816103">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:16:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 327</name>
+  </wpt>
+  <wpt lat="39.9714711392" lon="3.8314903793">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:16:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 328</name>
+  </wpt>
+  <wpt lat="39.9712795748" lon="3.8314380855">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:16:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 329</name>
+  </wpt>
+  <wpt lat="39.9709352798" lon="3.8312715049">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:16:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 330</name>
+  </wpt>
+  <wpt lat="39.9706864968" lon="3.8311685471">
+    <ele>11.2</ele>
+    <time>2025-01-01T10:16:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 331</name>
+  </wpt>
+  <wpt lat="39.9704372668" lon="3.8311280484">
+    <ele>11.0</ele>
+    <time>2025-01-01T10:16:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 332</name>
+  </wpt>
+  <wpt lat="39.9701398762" lon="3.8311119521">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:16:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 333</name>
+  </wpt>
+  <wpt lat="39.9699380892" lon="3.8311469853">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:16:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 334</name>
+  </wpt>
+  <wpt lat="39.9695633762" lon="3.8313246874">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:16:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 335</name>
+  </wpt>
+  <wpt lat="39.9684454235" lon="3.8320283525">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:16:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 336</name>
+  </wpt>
+  <wpt lat="39.9682535872" lon="3.8321851493">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:16:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 337</name>
+  </wpt>
+  <wpt lat="39.9680297423" lon="3.8324480497">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:16:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 338</name>
+  </wpt>
+  <wpt lat="39.9678744101" lon="3.8326960119">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:16:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 339</name>
+  </wpt>
+  <wpt lat="39.9677962956" lon="3.8328824474">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:16:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 340</name>
+  </wpt>
+  <wpt lat="39.9677323607" lon="3.8331332316">
+    <ele>11.9</ele>
+    <time>2025-01-01T10:17:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 341</name>
+  </wpt>
+  <wpt lat="39.9677173182" lon="3.8333301298">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:17:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 342</name>
+  </wpt>
+  <wpt lat="39.9677423744" lon="3.8335589009">
+    <ele>12.6</ele>
+    <time>2025-01-01T10:17:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 343</name>
+  </wpt>
+  <wpt lat="39.9677817088" lon="3.8337302963">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:17:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 344</name>
+  </wpt>
+  <wpt lat="39.9679568651" lon="3.8341762506">
+    <ele>13.1</ele>
+    <time>2025-01-01T10:17:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 345</name>
+  </wpt>
+  <wpt lat="39.9682181035" lon="3.8349239736">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:17:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 346</name>
+  </wpt>
+  <wpt lat="39.9682728945" lon="3.8350598685">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:17:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 347</name>
+  </wpt>
+  <wpt lat="39.9684606472" lon="3.8356239808">
+    <ele>6.8</ele>
+    <time>2025-01-01T10:17:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 348</name>
+  </wpt>
+  <wpt lat="39.9684689631" lon="3.8358086780">
+    <ele>5.4</ele>
+    <time>2025-01-01T10:17:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 349</name>
+  </wpt>
+  <wpt lat="39.9681986494" lon="3.8358156562">
+    <ele>4.4</ele>
+    <time>2025-01-01T10:17:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 350</name>
+  </wpt>
+  <wpt lat="39.9678802676" lon="3.8359390143">
+    <ele>7.3</ele>
+    <time>2025-01-01T10:17:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 351</name>
+  </wpt>
+  <wpt lat="39.9676440873" lon="3.8362419842">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:17:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 352</name>
+  </wpt>
+  <wpt lat="39.9675934122" lon="3.8361348383">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:17:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 353</name>
+  </wpt>
+  <wpt lat="39.9675724321" lon="3.8361573422">
+    <ele>10.0</ele>
+    <time>2025-01-01T10:17:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 354</name>
+  </wpt>
+  <wpt lat="39.9675808842" lon="3.8362122813">
+    <ele>10.2</ele>
+    <time>2025-01-01T10:17:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 355</name>
+  </wpt>
+  <wpt lat="39.9675136440" lon="3.8362543791">
+    <ele>10.5</ele>
+    <time>2025-01-01T10:17:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 356</name>
+  </wpt>
+  <wpt lat="39.9674488518" lon="3.8362761008">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:17:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 357</name>
+  </wpt>
+  <wpt lat="39.9673894771" lon="3.8361870538">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:17:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 358</name>
+  </wpt>
+  <wpt lat="39.9673640538" lon="3.8361489252">
+    <ele>11.2</ele>
+    <time>2025-01-01T10:17:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 359</name>
+  </wpt>
+  <wpt lat="39.9673376089" lon="3.8361280250">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:17:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 360</name>
+  </wpt>
+  <wpt lat="39.9672615420" lon="3.8361917091">
+    <ele>11.2</ele>
+    <time>2025-01-01T10:18:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 361</name>
+  </wpt>
+  <wpt lat="39.9671947616" lon="3.8362742270">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:18:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 362</name>
+  </wpt>
+  <wpt lat="39.9665505994" lon="3.8351039317">
+    <ele>9.2</ele>
+    <time>2025-01-01T10:18:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 363</name>
+  </wpt>
+  <wpt lat="39.9659314493" lon="3.8338572830">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:18:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 364</name>
+  </wpt>
+  <wpt lat="39.9657777041" lon="3.8335715896">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:18:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 365</name>
+  </wpt>
+  <wpt lat="39.9656063840" lon="3.8333729773">
+    <ele>10.6</ele>
+    <time>2025-01-01T10:18:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 366</name>
+  </wpt>
+  <wpt lat="39.9654209142" lon="3.8332654413">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:18:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 367</name>
+  </wpt>
+  <wpt lat="39.9652754988" lon="3.8332180529">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:18:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 368</name>
+  </wpt>
+  <wpt lat="39.9646662529" lon="3.8331704097">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:18:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 369</name>
+  </wpt>
+  <wpt lat="39.9644082156" lon="3.8331681273">
+    <ele>14.9</ele>
+    <time>2025-01-01T10:18:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 370</name>
+  </wpt>
+  <wpt lat="39.9642552705" lon="3.8331667754">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:18:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 371</name>
+  </wpt>
+  <wpt lat="39.9641475626" lon="3.8332043539">
+    <ele>15.6</ele>
+    <time>2025-01-01T10:18:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 372</name>
+  </wpt>
+  <wpt lat="39.9640632149" lon="3.8332980833">
+    <ele>15.7</ele>
+    <time>2025-01-01T10:18:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 373</name>
+  </wpt>
+  <wpt lat="39.9639455962" lon="3.8335142355">
+    <ele>15.9</ele>
+    <time>2025-01-01T10:18:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 374</name>
+  </wpt>
+  <wpt lat="39.9638943429" lon="3.8335885233">
+    <ele>16.0</ele>
+    <time>2025-01-01T10:18:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 375</name>
+  </wpt>
+  <wpt lat="39.9637665710" lon="3.8337193258">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:18:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 376</name>
+  </wpt>
+  <wpt lat="39.9633774989" lon="3.8339836472">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:18:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 377</name>
+  </wpt>
+  <wpt lat="39.9631728091" lon="3.8341352128">
+    <ele>15.6</ele>
+    <time>2025-01-01T10:18:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 378</name>
+  </wpt>
+  <wpt lat="39.9631120000" lon="3.8341686489">
+    <ele>15.7</ele>
+    <time>2025-01-01T10:18:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 379</name>
+  </wpt>
+  <wpt lat="39.9630305055" lon="3.8341861709">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:18:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 380</name>
+  </wpt>
+  <wpt lat="39.9628017802" lon="3.8343103388">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:19:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 381</name>
+  </wpt>
+  <wpt lat="39.9627507020" lon="3.8343414552">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:19:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 382</name>
+  </wpt>
+  <wpt lat="39.9625590456" lon="3.8344025974">
+    <ele>14.1</ele>
+    <time>2025-01-01T10:19:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 383</name>
+  </wpt>
+  <wpt lat="39.9624896413" lon="3.8344361357">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:19:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 384</name>
+  </wpt>
+  <wpt lat="39.9624037357" lon="3.8345012092">
+    <ele>12.9</ele>
+    <time>2025-01-01T10:19:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 385</name>
+  </wpt>
+  <wpt lat="39.9623770081" lon="3.8345405561">
+    <ele>12.6</ele>
+    <time>2025-01-01T10:19:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 386</name>
+  </wpt>
+  <wpt lat="39.9623659076" lon="3.8346183493">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:19:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 387</name>
+  </wpt>
+  <wpt lat="39.9623331204" lon="3.8346316203">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:19:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 388</name>
+  </wpt>
+  <wpt lat="39.9621625020" lon="3.8346186053">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:19:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 389</name>
+  </wpt>
+  <wpt lat="39.9620835459" lon="3.8345645018">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:19:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 390</name>
+  </wpt>
+  <wpt lat="39.9620177230" lon="3.8345230627">
+    <ele>11.6</ele>
+    <time>2025-01-01T10:19:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 391</name>
+  </wpt>
+  <wpt lat="39.9619192359" lon="3.8345249903">
+    <ele>11.5</ele>
+    <time>2025-01-01T10:19:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 392</name>
+  </wpt>
+  <wpt lat="39.9618808700" lon="3.8345104574">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:19:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 393</name>
+  </wpt>
+  <wpt lat="39.9617541293" lon="3.8345276722">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:19:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 394</name>
+  </wpt>
+  <wpt lat="39.9616948888" lon="3.8345738404">
+    <ele>11.5</ele>
+    <time>2025-01-01T10:19:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 395</name>
+  </wpt>
+  <wpt lat="39.9614940723" lon="3.8345807772">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:19:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 396</name>
+  </wpt>
+  <wpt lat="39.9614302591" lon="3.8345940677">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:19:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 397</name>
+  </wpt>
+  <wpt lat="39.9613701769" lon="3.8345902111">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:19:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 398</name>
+  </wpt>
+  <wpt lat="39.9612930514" lon="3.8346158430">
+    <ele>13.1</ele>
+    <time>2025-01-01T10:19:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 399</name>
+  </wpt>
+  <wpt lat="39.9608493163" lon="3.8346823432">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:19:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 400</name>
+  </wpt>
+  <wpt lat="39.9607726847" lon="3.8346750386">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:20:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 401</name>
+  </wpt>
+  <wpt lat="39.9605943745" lon="3.8346036177">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:20:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 402</name>
+  </wpt>
+  <wpt lat="39.9604005082" lon="3.8345789999">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:20:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 403</name>
+  </wpt>
+  <wpt lat="39.9602927758" lon="3.8344812303">
+    <ele>13.4</ele>
+    <time>2025-01-01T10:20:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 404</name>
+  </wpt>
+  <wpt lat="39.9601469454" lon="3.8343904197">
+    <ele>13.2</ele>
+    <time>2025-01-01T10:20:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 405</name>
+  </wpt>
+  <wpt lat="39.9600355873" lon="3.8342678757">
+    <ele>13.1</ele>
+    <time>2025-01-01T10:20:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 406</name>
+  </wpt>
+  <wpt lat="39.9596392573" lon="3.8333459464">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:20:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 407</name>
+  </wpt>
+  <wpt lat="39.9595598980" lon="3.8332350331">
+    <ele>12.8</ele>
+    <time>2025-01-01T10:20:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 408</name>
+  </wpt>
+  <wpt lat="39.9594036945" lon="3.8329727282">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:20:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 409</name>
+  </wpt>
+  <wpt lat="39.9591415198" lon="3.8328943176">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:20:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 410</name>
+  </wpt>
+  <wpt lat="39.9588903725" lon="3.8328305088">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:20:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 411</name>
+  </wpt>
+  <wpt lat="39.9586256797" lon="3.8327925768">
+    <ele>10.6</ele>
+    <time>2025-01-01T10:20:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 412</name>
+  </wpt>
+  <wpt lat="39.9584105424" lon="3.8326834692">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:20:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 413</name>
+  </wpt>
+  <wpt lat="39.9582795294" lon="3.8323957218">
+    <ele>8.8</ele>
+    <time>2025-01-01T10:20:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 414</name>
+  </wpt>
+  <wpt lat="39.9581224904" lon="3.8319364844">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:20:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 415</name>
+  </wpt>
+  <wpt lat="39.9579701292" lon="3.8318257490">
+    <ele>7.7</ele>
+    <time>2025-01-01T10:20:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 416</name>
+  </wpt>
+  <wpt lat="39.9575883157" lon="3.8313420143">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:20:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 417</name>
+  </wpt>
+  <wpt lat="39.9575075389" lon="3.8312601480">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:20:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 418</name>
+  </wpt>
+  <wpt lat="39.9573004760" lon="3.8311020863">
+    <ele>11.8</ele>
+    <time>2025-01-01T10:20:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 419</name>
+  </wpt>
+  <wpt lat="39.9570378423" lon="3.8310180192">
+    <ele>12.9</ele>
+    <time>2025-01-01T10:20:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 420</name>
+  </wpt>
+  <wpt lat="39.9567969292" lon="3.8309622130">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:21:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 421</name>
+  </wpt>
+  <wpt lat="39.9566349290" lon="3.8308606986">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:21:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 422</name>
+  </wpt>
+  <wpt lat="39.9559655443" lon="3.8306068255">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:21:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 423</name>
+  </wpt>
+  <wpt lat="39.9559323180" lon="3.8305286537">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:21:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 424</name>
+  </wpt>
+  <wpt lat="39.9558443613" lon="3.8304467034">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:21:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 425</name>
+  </wpt>
+  <wpt lat="39.9556746921" lon="3.8304135400">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:21:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 426</name>
+  </wpt>
+  <wpt lat="39.9555084185" lon="3.8303128456">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:21:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 427</name>
+  </wpt>
+  <wpt lat="39.9553010063" lon="3.8304650161">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:21:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 428</name>
+  </wpt>
+  <wpt lat="39.9551182357" lon="3.8305903535">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:21:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 429</name>
+  </wpt>
+  <wpt lat="39.9549873067" lon="3.8305750113">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:21:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 430</name>
+  </wpt>
+  <wpt lat="39.9548946655" lon="3.8305137366">
+    <ele>11.8</ele>
+    <time>2025-01-01T10:21:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 431</name>
+  </wpt>
+  <wpt lat="39.9548928953" lon="3.8304500642">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:21:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 432</name>
+  </wpt>
+  <wpt lat="39.9549730930" lon="3.8303048461">
+    <ele>12.4</ele>
+    <time>2025-01-01T10:21:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 433</name>
+  </wpt>
+  <wpt lat="39.9549852461" lon="3.8302323966">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:21:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 434</name>
+  </wpt>
+  <wpt lat="39.9549845587" lon="3.8301658420">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:21:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 435</name>
+  </wpt>
+  <wpt lat="39.9550120291" lon="3.8300663548">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:21:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 436</name>
+  </wpt>
+  <wpt lat="39.9550493478" lon="3.8298913648">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:21:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 437</name>
+  </wpt>
+  <wpt lat="39.9550707903" lon="3.8296587119">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:21:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 438</name>
+  </wpt>
+  <wpt lat="39.9550821587" lon="3.8295333195">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:21:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 439</name>
+  </wpt>
+  <wpt lat="39.9551023779" lon="3.8294715529">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:21:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 440</name>
+  </wpt>
+  <wpt lat="39.9550961669" lon="3.8293640966">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:22:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 441</name>
+  </wpt>
+  <wpt lat="39.9550537351" lon="3.8291155474">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:22:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 442</name>
+  </wpt>
+  <wpt lat="39.9550185632" lon="3.8288277628">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:22:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 443</name>
+  </wpt>
+  <wpt lat="39.9550482522" lon="3.8287434263">
+    <ele>15.9</ele>
+    <time>2025-01-01T10:22:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 444</name>
+  </wpt>
+  <wpt lat="39.9550249136" lon="3.8285903909">
+    <ele>16.7</ele>
+    <time>2025-01-01T10:22:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 445</name>
+  </wpt>
+  <wpt lat="39.9549852254" lon="3.8284462326">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:22:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 446</name>
+  </wpt>
+  <wpt lat="39.9549741670" lon="3.8284246644">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:22:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 447</name>
+  </wpt>
+  <wpt lat="39.9549267067" lon="3.8283320953">
+    <ele>18.0</ele>
+    <time>2025-01-01T10:22:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 448</name>
+  </wpt>
+  <wpt lat="39.9548426070" lon="3.8282161370">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:22:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 449</name>
+  </wpt>
+  <wpt lat="39.9548173161" lon="3.8281734834">
+    <ele>18.9</ele>
+    <time>2025-01-01T10:22:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 450</name>
+  </wpt>
+  <wpt lat="39.9547722073" lon="3.8281366412">
+    <ele>19.3</ele>
+    <time>2025-01-01T10:22:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 451</name>
+  </wpt>
+  <wpt lat="39.9547153780" lon="3.8281117570">
+    <ele>19.6</ele>
+    <time>2025-01-01T10:22:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 452</name>
+  </wpt>
+  <wpt lat="39.9546654099" lon="3.8281035926">
+    <ele>19.9</ele>
+    <time>2025-01-01T10:22:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 453</name>
+  </wpt>
+  <wpt lat="39.9546089154" lon="3.8280318277">
+    <ele>20.4</ele>
+    <time>2025-01-01T10:22:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 454</name>
+  </wpt>
+  <wpt lat="39.9545343268" lon="3.8278872474">
+    <ele>21.2</ele>
+    <time>2025-01-01T10:22:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 455</name>
+  </wpt>
+  <wpt lat="39.9544894321" lon="3.8278201615">
+    <ele>21.6</ele>
+    <time>2025-01-01T10:22:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 456</name>
+  </wpt>
+  <wpt lat="39.9544502582" lon="3.8277667542">
+    <ele>21.9</ele>
+    <time>2025-01-01T10:22:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 457</name>
+  </wpt>
+  <wpt lat="39.9543656280" lon="3.8277248982">
+    <ele>22.4</ele>
+    <time>2025-01-01T10:22:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 458</name>
+  </wpt>
+  <wpt lat="39.9542928595" lon="3.8276514275">
+    <ele>22.7</ele>
+    <time>2025-01-01T10:22:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 459</name>
+  </wpt>
+  <wpt lat="39.9542352448" lon="3.8275735996">
+    <ele>23.0</ele>
+    <time>2025-01-01T10:22:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 460</name>
+  </wpt>
+  <wpt lat="39.9541229548" lon="3.8274717701">
+    <ele>23.4</ele>
+    <time>2025-01-01T10:23:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 461</name>
+  </wpt>
+  <wpt lat="39.9540027657" lon="3.8272932183">
+    <ele>23.9</ele>
+    <time>2025-01-01T10:23:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 462</name>
+  </wpt>
+  <wpt lat="39.9538040708" lon="3.8270753142">
+    <ele>23.9</ele>
+    <time>2025-01-01T10:23:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 463</name>
+  </wpt>
+  <wpt lat="39.9534284548" lon="3.8267746315">
+    <ele>22.6</ele>
+    <time>2025-01-01T10:23:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 464</name>
+  </wpt>
+  <wpt lat="39.9532736472" lon="3.8266507086">
+    <ele>22.2</ele>
+    <time>2025-01-01T10:23:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 465</name>
+  </wpt>
+  <wpt lat="39.9532157957" lon="3.8265049000">
+    <ele>22.0</ele>
+    <time>2025-01-01T10:23:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 466</name>
+  </wpt>
+  <wpt lat="39.9531096273" lon="3.8264310732">
+    <ele>21.8</ele>
+    <time>2025-01-01T10:23:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 467</name>
+  </wpt>
+  <wpt lat="39.9530316816" lon="3.8263127733">
+    <ele>21.5</ele>
+    <time>2025-01-01T10:23:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 468</name>
+  </wpt>
+  <wpt lat="39.9527673553" lon="3.8260898114">
+    <ele>20.9</ele>
+    <time>2025-01-01T10:23:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 469</name>
+  </wpt>
+  <wpt lat="39.9527105940" lon="3.8259931067">
+    <ele>20.7</ele>
+    <time>2025-01-01T10:23:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 470</name>
+  </wpt>
+  <wpt lat="39.9526127084" lon="3.8259087100">
+    <ele>20.5</ele>
+    <time>2025-01-01T10:23:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 471</name>
+  </wpt>
+  <wpt lat="39.9524651426" lon="3.8258855959">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:23:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 472</name>
+  </wpt>
+  <wpt lat="39.9522060535" lon="3.8256815144">
+    <ele>19.9</ele>
+    <time>2025-01-01T10:23:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 473</name>
+  </wpt>
+  <wpt lat="39.9520079440" lon="3.8256733467">
+    <ele>19.7</ele>
+    <time>2025-01-01T10:23:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 474</name>
+  </wpt>
+  <wpt lat="39.9518414372" lon="3.8256048024">
+    <ele>19.9</ele>
+    <time>2025-01-01T10:23:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 475</name>
+  </wpt>
+  <wpt lat="39.9517107379" lon="3.8255106523">
+    <ele>20.6</ele>
+    <time>2025-01-01T10:23:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 476</name>
+  </wpt>
+  <wpt lat="39.9516464404" lon="3.8254722681">
+    <ele>21.0</ele>
+    <time>2025-01-01T10:23:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 477</name>
+  </wpt>
+  <wpt lat="39.9516009590" lon="3.8254527133">
+    <ele>21.2</ele>
+    <time>2025-01-01T10:23:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 478</name>
+  </wpt>
+  <wpt lat="39.9514904470" lon="3.8254906453">
+    <ele>21.8</ele>
+    <time>2025-01-01T10:23:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 479</name>
+  </wpt>
+  <wpt lat="39.9512895148" lon="3.8255663432">
+    <ele>23.0</ele>
+    <time>2025-01-01T10:23:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 480</name>
+  </wpt>
+  <wpt lat="39.9511868933" lon="3.8255940399">
+    <ele>23.8</ele>
+    <time>2025-01-01T10:24:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 481</name>
+  </wpt>
+  <wpt lat="39.9510086987" lon="3.8256034694">
+    <ele>25.2</ele>
+    <time>2025-01-01T10:24:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 482</name>
+  </wpt>
+  <wpt lat="39.9508005712" lon="3.8257514063">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:24:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 483</name>
+  </wpt>
+  <wpt lat="39.9506511745" lon="3.8257814338">
+    <ele>27.9</ele>
+    <time>2025-01-01T10:24:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 484</name>
+  </wpt>
+  <wpt lat="39.9504098155" lon="3.8259058261">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:24:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 485</name>
+  </wpt>
+  <wpt lat="39.9501101787" lon="3.8260844839">
+    <ele>29.9</ele>
+    <time>2025-01-01T10:24:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 486</name>
+  </wpt>
+  <wpt lat="39.9498483730" lon="3.8261655921">
+    <ele>29.1</ele>
+    <time>2025-01-01T10:24:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 487</name>
+  </wpt>
+  <wpt lat="39.9492005875" lon="3.8264552532">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:24:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 488</name>
+  </wpt>
+  <wpt lat="39.9490664962" lon="3.8264664519">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:24:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 489</name>
+  </wpt>
+  <wpt lat="39.9488926621" lon="3.8265231682">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:24:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 490</name>
+  </wpt>
+  <wpt lat="39.9487571099" lon="3.8264986664">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:24:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 491</name>
+  </wpt>
+  <wpt lat="39.9486637469" lon="3.8265498166">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:24:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 492</name>
+  </wpt>
+  <wpt lat="39.9484227543" lon="3.8265077076">
+    <ele>28.6</ele>
+    <time>2025-01-01T10:24:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 493</name>
+  </wpt>
+  <wpt lat="39.9480693860" lon="3.8267158189">
+    <ele>28.9</ele>
+    <time>2025-01-01T10:24:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 494</name>
+  </wpt>
+  <wpt lat="39.9479486558" lon="3.8267274341">
+    <ele>29.1</ele>
+    <time>2025-01-01T10:24:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 495</name>
+  </wpt>
+  <wpt lat="39.9476889756" lon="3.8268386556">
+    <ele>29.3</ele>
+    <time>2025-01-01T10:24:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 496</name>
+  </wpt>
+  <wpt lat="39.9474744871" lon="3.8269569559">
+    <ele>29.6</ele>
+    <time>2025-01-01T10:24:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 497</name>
+  </wpt>
+  <wpt lat="39.9472273517" lon="3.8270715963">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:24:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 498</name>
+  </wpt>
+  <wpt lat="39.9469935175" lon="3.8270792289">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:24:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 499</name>
+  </wpt>
+  <wpt lat="39.9469604937" lon="3.8270803073">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:24:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 500</name>
+  </wpt>
+  <wpt lat="39.9465224889" lon="3.8268399533">
+    <ele>30.0</ele>
+    <time>2025-01-01T10:25:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 501</name>
+  </wpt>
+  <wpt lat="39.9458462238" lon="3.8266935279">
+    <ele>30.9</ele>
+    <time>2025-01-01T10:25:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 502</name>
+  </wpt>
+  <wpt lat="39.9455909766" lon="3.8265971231">
+    <ele>31.4</ele>
+    <time>2025-01-01T10:25:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 503</name>
+  </wpt>
+  <wpt lat="39.9453872378" lon="3.8264944114">
+    <ele>31.6</ele>
+    <time>2025-01-01T10:25:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 504</name>
+  </wpt>
+  <wpt lat="39.9444061631" lon="3.8263258875">
+    <ele>32.6</ele>
+    <time>2025-01-01T10:25:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 505</name>
+  </wpt>
+  <wpt lat="39.9440066940" lon="3.8261851391">
+    <ele>32.6</ele>
+    <time>2025-01-01T10:25:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 506</name>
+  </wpt>
+  <wpt lat="39.9437352485" lon="3.8261343832">
+    <ele>32.7</ele>
+    <time>2025-01-01T10:25:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 507</name>
+  </wpt>
+  <wpt lat="39.9436351180" lon="3.8261867329">
+    <ele>32.8</ele>
+    <time>2025-01-01T10:25:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 508</name>
+  </wpt>
+  <wpt lat="39.9433771540" lon="3.8261723543">
+    <ele>33.1</ele>
+    <time>2025-01-01T10:25:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 509</name>
+  </wpt>
+  <wpt lat="39.9432421282" lon="3.8262524713">
+    <ele>33.2</ele>
+    <time>2025-01-01T10:25:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 510</name>
+  </wpt>
+  <wpt lat="39.9431096927" lon="3.8262734282">
+    <ele>33.4</ele>
+    <time>2025-01-01T10:25:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 511</name>
+  </wpt>
+  <wpt lat="39.9430140204" lon="3.8263089193">
+    <ele>33.5</ele>
+    <time>2025-01-01T10:25:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 512</name>
+  </wpt>
+  <wpt lat="39.9429220700" lon="3.8263134503">
+    <ele>33.5</ele>
+    <time>2025-01-01T10:25:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 513</name>
+  </wpt>
+  <wpt lat="39.9428583256" lon="3.8263704239">
+    <ele>33.6</ele>
+    <time>2025-01-01T10:25:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 514</name>
+  </wpt>
+  <wpt lat="39.9427826063" lon="3.8263724052">
+    <ele>33.7</ele>
+    <time>2025-01-01T10:25:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 515</name>
+  </wpt>
+  <wpt lat="39.9427357898" lon="3.8263805202">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:25:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 516</name>
+  </wpt>
+  <wpt lat="39.9427089697" lon="3.8263946615">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:25:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 517</name>
+  </wpt>
+  <wpt lat="39.9426844180" lon="3.8264030443">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:25:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 518</name>
+  </wpt>
+  <wpt lat="39.9426632815" lon="3.8263985645">
+    <ele>33.9</ele>
+    <time>2025-01-01T10:25:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 519</name>
+  </wpt>
+  <wpt lat="39.9426032688" lon="3.8264441748">
+    <ele>34.0</ele>
+    <time>2025-01-01T10:25:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 520</name>
+  </wpt>
+  <wpt lat="39.9425634261" lon="3.8264512382">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:26:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 521</name>
+  </wpt>
+  <wpt lat="39.9425218950" lon="3.8264625899">
+    <ele>34.2</ele>
+    <time>2025-01-01T10:26:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 522</name>
+  </wpt>
+  <wpt lat="39.9424712604" lon="3.8264716784">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:26:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 523</name>
+  </wpt>
+  <wpt lat="39.9424195223" lon="3.8265195418">
+    <ele>34.4</ele>
+    <time>2025-01-01T10:26:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 524</name>
+  </wpt>
+  <wpt lat="39.9423987299" lon="3.8265289905">
+    <ele>34.4</ele>
+    <time>2025-01-01T10:26:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 525</name>
+  </wpt>
+  <wpt lat="39.9423323996" lon="3.8265303472">
+    <ele>34.6</ele>
+    <time>2025-01-01T10:26:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 526</name>
+  </wpt>
+  <wpt lat="39.9422870154" lon="3.8265007070">
+    <ele>34.7</ele>
+    <time>2025-01-01T10:26:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 527</name>
+  </wpt>
+  <wpt lat="39.9422672515" lon="3.8264821531">
+    <ele>34.7</ele>
+    <time>2025-01-01T10:26:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 528</name>
+  </wpt>
+  <wpt lat="39.9422508115" lon="3.8264625600">
+    <ele>34.7</ele>
+    <time>2025-01-01T10:26:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 529</name>
+  </wpt>
+  <wpt lat="39.9421954881" lon="3.8264317246">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:26:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 530</name>
+  </wpt>
+  <wpt lat="39.9421248678" lon="3.8264535008">
+    <ele>35.0</ele>
+    <time>2025-01-01T10:26:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 531</name>
+  </wpt>
+  <wpt lat="39.9420697571" lon="3.8264862403">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:26:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 532</name>
+  </wpt>
+  <wpt lat="39.9420430545" lon="3.8265107009">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:26:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 533</name>
+  </wpt>
+  <wpt lat="39.9420110947" lon="3.8265749655">
+    <ele>34.8</ele>
+    <time>2025-01-01T10:26:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 534</name>
+  </wpt>
+  <wpt lat="39.9419262596" lon="3.8266138119">
+    <ele>34.8</ele>
+    <time>2025-01-01T10:26:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 535</name>
+  </wpt>
+  <wpt lat="39.9419137717" lon="3.8266212031">
+    <ele>34.7</ele>
+    <time>2025-01-01T10:26:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 536</name>
+  </wpt>
+  <wpt lat="39.9418416934" lon="3.8266149491">
+    <ele>34.7</ele>
+    <time>2025-01-01T10:26:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 537</name>
+  </wpt>
+  <wpt lat="39.9417943972" lon="3.8266208446">
+    <ele>34.6</ele>
+    <time>2025-01-01T10:26:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 538</name>
+  </wpt>
+  <wpt lat="39.9417347463" lon="3.8266158158">
+    <ele>34.6</ele>
+    <time>2025-01-01T10:26:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 539</name>
+  </wpt>
+  <wpt lat="39.9416718005" lon="3.8266075156">
+    <ele>34.5</ele>
+    <time>2025-01-01T10:26:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 540</name>
+  </wpt>
+  <wpt lat="39.9416077809" lon="3.8266336818">
+    <ele>34.4</ele>
+    <time>2025-01-01T10:27:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 541</name>
+  </wpt>
+  <wpt lat="39.9415577686" lon="3.8266718690">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:27:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 542</name>
+  </wpt>
+  <wpt lat="39.9415385732" lon="3.8266899550">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:27:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 543</name>
+  </wpt>
+  <wpt lat="39.9414590722" lon="3.8266782227">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:27:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 544</name>
+  </wpt>
+  <wpt lat="39.9414465458" lon="3.8266910024">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:27:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 545</name>
+  </wpt>
+  <wpt lat="39.9414299522" lon="3.8266929575">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:27:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 546</name>
+  </wpt>
+  <wpt lat="39.9413868633" lon="3.8266902829">
+    <ele>34.0</ele>
+    <time>2025-01-01T10:27:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 547</name>
+  </wpt>
+  <wpt lat="39.9413471973" lon="3.8266725666">
+    <ele>33.9</ele>
+    <time>2025-01-01T10:27:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 548</name>
+  </wpt>
+  <wpt lat="39.9413123370" lon="3.8266786116">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:27:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 549</name>
+  </wpt>
+  <wpt lat="39.9412924656" lon="3.8266751408">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:27:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 550</name>
+  </wpt>
+  <wpt lat="39.9412098797" lon="3.8266310472">
+    <ele>33.6</ele>
+    <time>2025-01-01T10:27:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 551</name>
+  </wpt>
+  <wpt lat="39.9410308533" lon="3.8266256587">
+    <ele>33.3</ele>
+    <time>2025-01-01T10:27:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 552</name>
+  </wpt>
+  <wpt lat="39.9409504477" lon="3.8266160705">
+    <ele>33.1</ele>
+    <time>2025-01-01T10:27:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 553</name>
+  </wpt>
+  <wpt lat="39.9408982101" lon="3.8266175968">
+    <ele>33.0</ele>
+    <time>2025-01-01T10:27:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 554</name>
+  </wpt>
+  <wpt lat="39.9408533859" lon="3.8266256768">
+    <ele>32.9</ele>
+    <time>2025-01-01T10:27:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 555</name>
+  </wpt>
+  <wpt lat="39.9407804557" lon="3.8266226443">
+    <ele>32.8</ele>
+    <time>2025-01-01T10:27:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 556</name>
+  </wpt>
+  <wpt lat="39.9407680677" lon="3.8266160307">
+    <ele>32.7</ele>
+    <time>2025-01-01T10:27:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 557</name>
+  </wpt>
+  <wpt lat="39.9406885060" lon="3.8266129172">
+    <ele>32.6</ele>
+    <time>2025-01-01T10:27:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 558</name>
+  </wpt>
+  <wpt lat="39.9406593323" lon="3.8266351939">
+    <ele>32.5</ele>
+    <time>2025-01-01T10:27:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 559</name>
+  </wpt>
+  <wpt lat="39.9406442196" lon="3.8266619482">
+    <ele>32.5</ele>
+    <time>2025-01-01T10:27:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 560</name>
+  </wpt>
+  <wpt lat="39.9405808521" lon="3.8267129032">
+    <ele>32.3</ele>
+    <time>2025-01-01T10:28:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 561</name>
+  </wpt>
+  <wpt lat="39.9405043369" lon="3.8267475391">
+    <ele>32.2</ele>
+    <time>2025-01-01T10:28:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 562</name>
+  </wpt>
+  <wpt lat="39.9403953393" lon="3.8268033323">
+    <ele>31.9</ele>
+    <time>2025-01-01T10:28:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 563</name>
+  </wpt>
+  <wpt lat="39.9403728892" lon="3.8268127595">
+    <ele>31.8</ele>
+    <time>2025-01-01T10:28:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 564</name>
+  </wpt>
+  <wpt lat="39.9403571244" lon="3.8268147246">
+    <ele>31.8</ele>
+    <time>2025-01-01T10:28:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 565</name>
+  </wpt>
+  <wpt lat="39.9402991610" lon="3.8268054064">
+    <ele>31.6</ele>
+    <time>2025-01-01T10:28:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 566</name>
+  </wpt>
+  <wpt lat="39.9402824819" lon="3.8268192127">
+    <ele>31.6</ele>
+    <time>2025-01-01T10:28:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 567</name>
+  </wpt>
+  <wpt lat="39.9402361239" lon="3.8268100342">
+    <ele>31.4</ele>
+    <time>2025-01-01T10:28:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 568</name>
+  </wpt>
+  <wpt lat="39.9402193780" lon="3.8267322550">
+    <ele>31.2</ele>
+    <time>2025-01-01T10:28:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 569</name>
+  </wpt>
+  <wpt lat="39.9401823146" lon="3.8266984083">
+    <ele>31.1</ele>
+    <time>2025-01-01T10:28:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 570</name>
+  </wpt>
+  <wpt lat="39.9401192007" lon="3.8267138095">
+    <ele>30.9</ele>
+    <time>2025-01-01T10:28:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 571</name>
+  </wpt>
+  <wpt lat="39.9400994060" lon="3.8266995654">
+    <ele>30.9</ele>
+    <time>2025-01-01T10:28:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 572</name>
+  </wpt>
+  <wpt lat="39.9400773323" lon="3.8265398351">
+    <ele>30.5</ele>
+    <time>2025-01-01T10:28:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 573</name>
+  </wpt>
+  <wpt lat="39.9400252873" lon="3.8263980610">
+    <ele>30.2</ele>
+    <time>2025-01-01T10:28:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 574</name>
+  </wpt>
+  <wpt lat="39.9399715294" lon="3.8263801745">
+    <ele>30.0</ele>
+    <time>2025-01-01T10:28:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 575</name>
+  </wpt>
+  <wpt lat="39.9399778005" lon="3.8263145258">
+    <ele>29.8</ele>
+    <time>2025-01-01T10:28:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 576</name>
+  </wpt>
+  <wpt lat="39.9399972031" lon="3.8262673518">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:28:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 577</name>
+  </wpt>
+  <wpt lat="39.9399743773" lon="3.8262132041">
+    <ele>29.6</ele>
+    <time>2025-01-01T10:28:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 578</name>
+  </wpt>
+  <wpt lat="39.9399472451" lon="3.8261816298">
+    <ele>29.5</ele>
+    <time>2025-01-01T10:28:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 579</name>
+  </wpt>
+  <wpt lat="39.9399343583" lon="3.8261286810">
+    <ele>29.3</ele>
+    <time>2025-01-01T10:28:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 580</name>
+  </wpt>
+  <wpt lat="39.9399063359" lon="3.8261057165">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:29:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 581</name>
+  </wpt>
+  <wpt lat="39.9397582492" lon="3.8260629917">
+    <ele>28.8</ele>
+    <time>2025-01-01T10:29:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 582</name>
+  </wpt>
+  <wpt lat="39.9396952736" lon="3.8259426366">
+    <ele>28.4</ele>
+    <time>2025-01-01T10:29:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 583</name>
+  </wpt>
+  <wpt lat="39.9396444780" lon="3.8258579843">
+    <ele>28.0</ele>
+    <time>2025-01-01T10:29:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 584</name>
+  </wpt>
+  <wpt lat="39.9396101242" lon="3.8257929256">
+    <ele>27.7</ele>
+    <time>2025-01-01T10:29:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 585</name>
+  </wpt>
+  <wpt lat="39.9395198089" lon="3.8256700864">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:29:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 586</name>
+  </wpt>
+  <wpt lat="39.9394385327" lon="3.8256125729">
+    <ele>26.6</ele>
+    <time>2025-01-01T10:29:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 587</name>
+  </wpt>
+  <wpt lat="39.9393550759" lon="3.8256022694">
+    <ele>26.2</ele>
+    <time>2025-01-01T10:29:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 588</name>
+  </wpt>
+  <wpt lat="39.9392813187" lon="3.8255703788">
+    <ele>25.8</ele>
+    <time>2025-01-01T10:29:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 589</name>
+  </wpt>
+  <wpt lat="39.9392003147" lon="3.8255508021">
+    <ele>25.4</ele>
+    <time>2025-01-01T10:29:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 590</name>
+  </wpt>
+  <wpt lat="39.9391412239" lon="3.8253994067">
+    <ele>24.7</ele>
+    <time>2025-01-01T10:29:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 591</name>
+  </wpt>
+  <wpt lat="39.9390875582" lon="3.8252522295">
+    <ele>24.1</ele>
+    <time>2025-01-01T10:29:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 592</name>
+  </wpt>
+  <wpt lat="39.9389850679" lon="3.8250926129">
+    <ele>23.3</ele>
+    <time>2025-01-01T10:29:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 593</name>
+  </wpt>
+  <wpt lat="39.9389101889" lon="3.8249861461">
+    <ele>22.8</ele>
+    <time>2025-01-01T10:29:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 594</name>
+  </wpt>
+  <wpt lat="39.9388913541" lon="3.8249567617">
+    <ele>22.6</ele>
+    <time>2025-01-01T10:29:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 595</name>
+  </wpt>
+  <wpt lat="39.9388606216" lon="3.8249088175">
+    <ele>22.4</ele>
+    <time>2025-01-01T10:29:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 596</name>
+  </wpt>
+  <wpt lat="39.9388341554" lon="3.8248550172">
+    <ele>22.1</ele>
+    <time>2025-01-01T10:29:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 597</name>
+  </wpt>
+  <wpt lat="39.9387988232" lon="3.8247894857">
+    <ele>21.7</ele>
+    <time>2025-01-01T10:29:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 598</name>
+  </wpt>
+  <wpt lat="39.9387635728" lon="3.8247123280">
+    <ele>21.3</ele>
+    <time>2025-01-01T10:29:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 599</name>
+  </wpt>
+  <wpt lat="39.9387267482" lon="3.8246049224">
+    <ele>20.8</ele>
+    <time>2025-01-01T10:29:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 600</name>
+  </wpt>
+  <wpt lat="39.9387057008" lon="3.8245442127">
+    <ele>20.5</ele>
+    <time>2025-01-01T10:30:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 601</name>
+  </wpt>
+  <wpt lat="39.9386778090" lon="3.8244392401">
+    <ele>20.0</ele>
+    <time>2025-01-01T10:30:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 602</name>
+  </wpt>
+  <wpt lat="39.9386681086" lon="3.8243162832">
+    <ele>19.4</ele>
+    <time>2025-01-01T10:30:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 603</name>
+  </wpt>
+  <wpt lat="39.9385863608" lon="3.8241637989">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:30:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 604</name>
+  </wpt>
+  <wpt lat="39.9385428396" lon="3.8241062071">
+    <ele>18.5</ele>
+    <time>2025-01-01T10:30:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 605</name>
+  </wpt>
+  <wpt lat="39.9384285248" lon="3.8239860712">
+    <ele>17.9</ele>
+    <time>2025-01-01T10:30:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 606</name>
+  </wpt>
+  <wpt lat="39.9383428231" lon="3.8238493109">
+    <ele>17.4</ele>
+    <time>2025-01-01T10:30:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 607</name>
+  </wpt>
+  <wpt lat="39.9381824295" lon="3.8237213173">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:30:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 608</name>
+  </wpt>
+  <wpt lat="39.9380109835" lon="3.8235970040">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:30:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 609</name>
+  </wpt>
+  <wpt lat="39.9380057915" lon="3.8234920592">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:30:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 610</name>
+  </wpt>
+  <wpt lat="39.9379368142" lon="3.8234674035">
+    <ele>15.2</ele>
+    <time>2025-01-01T10:30:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 611</name>
+  </wpt>
+  <wpt lat="39.9377477876" lon="3.8233195632">
+    <ele>14.3</ele>
+    <time>2025-01-01T10:30:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 612</name>
+  </wpt>
+  <wpt lat="39.9375479525" lon="3.8232598198">
+    <ele>13.9</ele>
+    <time>2025-01-01T10:30:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 613</name>
+  </wpt>
+  <wpt lat="39.9372526182" lon="3.8232651011">
+    <ele>13.4</ele>
+    <time>2025-01-01T10:30:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 614</name>
+  </wpt>
+  <wpt lat="39.9370000489" lon="3.8232008160">
+    <ele>13.2</ele>
+    <time>2025-01-01T10:30:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 615</name>
+  </wpt>
+  <wpt lat="39.9368634152" lon="3.8231774969">
+    <ele>13.3</ele>
+    <time>2025-01-01T10:30:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 616</name>
+  </wpt>
+  <wpt lat="39.9362461238" lon="3.8231809387">
+    <ele>14.4</ele>
+    <time>2025-01-01T10:30:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 617</name>
+  </wpt>
+  <wpt lat="39.9359696062" lon="3.8232730236">
+    <ele>15.3</ele>
+    <time>2025-01-01T10:30:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 618</name>
+  </wpt>
+  <wpt lat="39.9358291438" lon="3.8233190376">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:30:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 619</name>
+  </wpt>
+  <wpt lat="39.9355988932" lon="3.8233227823">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:30:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 620</name>
+  </wpt>
+  <wpt lat="39.9353251638" lon="3.8233411812">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:31:00Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 621</name>
+  </wpt>
+  <wpt lat="39.9349535213" lon="3.8232868600">
+    <ele>14.6</ele>
+    <time>2025-01-01T10:31:03Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 622</name>
+  </wpt>
+  <wpt lat="39.9346147729" lon="3.8232936164">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:31:06Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 623</name>
+  </wpt>
+  <wpt lat="39.9345306716" lon="3.8232701257">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:31:09Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 624</name>
+  </wpt>
+  <wpt lat="39.9343979771" lon="3.8232301499">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:31:12Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 625</name>
+  </wpt>
+  <wpt lat="39.9341262977" lon="3.8232530700">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:31:15Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 626</name>
+  </wpt>
+  <wpt lat="39.9339716197" lon="3.8232277825">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:31:18Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 627</name>
+  </wpt>
+  <wpt lat="39.9337433485" lon="3.8232170493">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:31:21Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 628</name>
+  </wpt>
+  <wpt lat="39.9334732092" lon="3.8232656817">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:24Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 629</name>
+  </wpt>
+  <wpt lat="39.9332455763" lon="3.8233373689">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:27Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 630</name>
+  </wpt>
+  <wpt lat="39.9331461195" lon="3.8233476571">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:30Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 631</name>
+  </wpt>
+  <wpt lat="39.9327401518" lon="3.8232911277">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:33Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 632</name>
+  </wpt>
+  <wpt lat="39.9326137913" lon="3.8232838731">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:36Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 633</name>
+  </wpt>
+  <wpt lat="39.9324412349" lon="3.8233248565">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:39Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 634</name>
+  </wpt>
+  <wpt lat="39.9323547023" lon="3.8233812212">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:31:42Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 635</name>
+  </wpt>
+  <wpt lat="39.9322773496" lon="3.8233889045">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:31:45Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 636</name>
+  </wpt>
+  <wpt lat="39.9322329580" lon="3.8234199435">
+    <ele>13.9</ele>
+    <time>2025-01-01T10:31:48Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 637</name>
+  </wpt>
+  <wpt lat="39.9321710637" lon="3.8234278120">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:31:51Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 638</name>
+  </wpt>
+  <wpt lat="39.9320983106" lon="3.8234097198">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:31:54Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 639</name>
+  </wpt>
+  <wpt lat="39.9318516031" lon="3.8233009915">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:31:57Z</time>
+    <name>Ciutadella - Cap d'Artrutx - End - Point 640</name>
+  </wpt>
+</gpx>

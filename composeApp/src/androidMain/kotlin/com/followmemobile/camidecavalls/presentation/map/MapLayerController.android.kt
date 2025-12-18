@@ -231,21 +231,17 @@ actual class MapLayerController {
         routeId: String,
         geoJsonLineString: String,
         color: String,
-        width: Float
+        width: Float,
+        withCasing: Boolean
     ) {
         val currentStyle = style ?: return
 
         try {
             managedLayerIds += routeId
-            Log.d("MapLayer", "=== Adding/Updating Route Path ===")
-            Log.d("MapLayer", "RouteId: $routeId")
-            Log.d("MapLayer", "Color: $color, Width: $width")
 
             // Use the GPX data from the route parameter
             val cleanedGeometry = geoJsonLineString.trim()
             val featureGeoJson = """{"type":"Feature","geometry":$cleanedGeometry,"properties":{}}"""
-
-            Log.d("MapLayer", "GeoJSON geometry length: ${cleanedGeometry.length} chars")
 
             // Check if source already exists
             val existingSource = currentStyle.getSource("source-$routeId") as? GeoJsonSource
@@ -253,23 +249,22 @@ actual class MapLayerController {
             if (existingSource != null) {
                 // Update existing source with new geometry
                 existingSource.setGeoJson(featureGeoJson)
-                Log.d("MapLayer", "Updated existing route source")
             } else {
                 // Create new source and layers
                 val source = GeoJsonSource("source-$routeId", featureGeoJson)
                 currentStyle.addSource(source)
-                Log.d("MapLayer", "Source added successfully")
 
-                // Add white casing (outline)
-                val casingLayer = LineLayer("$routeId-casing", "source-$routeId")
-                    .withProperties(
-                        lineColor(Color.WHITE),
-                        lineWidth(width + 2f),
-                        lineCap("round"),
-                        lineJoin("round")
-                    )
-                currentStyle.addLayer(casingLayer)
-                Log.d("MapLayer", "Casing layer added")
+                // Add white casing (outline) only if requested
+                if (withCasing) {
+                    val casingLayer = LineLayer("$routeId-casing", "source-$routeId")
+                        .withProperties(
+                            lineColor(Color.WHITE),
+                            lineWidth(width + 2f),
+                            lineCap("round"),
+                            lineJoin("round")
+                        )
+                    currentStyle.addLayer(casingLayer)
+                }
 
                 // Add colored route line
                 val lineLayer = LineLayer(routeId, "source-$routeId")
@@ -280,7 +275,6 @@ actual class MapLayerController {
                         lineJoin("round")
                     )
                 currentStyle.addLayer(lineLayer)
-                Log.d("MapLayer", "Line layer added - Route rendering complete!")
             }
         } catch (e: Exception) {
             Log.e("MapLayer", "Error adding route path", e)

@@ -19,12 +19,14 @@ expect class MapLayerController() {
      * @param geoJsonLineString GeoJSON LineString data
      * @param color Route line color in hex format (e.g., "#2196F3")
      * @param width Route line width in dp
+     * @param withCasing Whether to add a white border/casing around the line
      */
     fun addRoutePath(
         routeId: String,
         geoJsonLineString: String,
         color: String = "#2196F3",
-        width: Float = 4f
+        width: Float = 4f,
+        withCasing: Boolean = true
     )
 
     /**

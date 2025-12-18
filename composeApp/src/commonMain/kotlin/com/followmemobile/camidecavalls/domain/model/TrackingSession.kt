@@ -21,6 +21,7 @@ data class TrackingSession(
     val elevationLossMeters: Int = 0,
     val trackPoints: List<TrackPoint> = emptyList(),
     val isCompleted: Boolean = false,
+    val name: String = "",
     val notes: String = ""
 )
 

@@ -1,0 +1,3926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="CamiDeCavalls-iOSSimulator"
+     xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <wpt lat="39.9343593106" lon="3.9622163244">
+    <ele>33.1</ele>
+    <time>2025-01-01T10:00:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 1</name>
+  </wpt>
+  <wpt lat="39.9341702148" lon="3.9622883756">
+    <ele>33.5</ele>
+    <time>2025-01-01T10:00:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 2</name>
+  </wpt>
+  <wpt lat="39.9341645862" lon="3.9623014224">
+    <ele>33.5</ele>
+    <time>2025-01-01T10:00:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 3</name>
+  </wpt>
+  <wpt lat="39.9340940923" lon="3.9624648225">
+    <ele>33.8</ele>
+    <time>2025-01-01T10:00:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 4</name>
+  </wpt>
+  <wpt lat="39.9341454603" lon="3.9625331667">
+    <ele>34.0</ele>
+    <time>2025-01-01T10:00:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 5</name>
+  </wpt>
+  <wpt lat="39.9342234669" lon="3.9625396841">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:00:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 6</name>
+  </wpt>
+  <wpt lat="39.9342529014" lon="3.9626182626">
+    <ele>34.2</ele>
+    <time>2025-01-01T10:00:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 7</name>
+  </wpt>
+  <wpt lat="39.9343090049" lon="3.9627789331">
+    <ele>34.2</ele>
+    <time>2025-01-01T10:00:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 8</name>
+  </wpt>
+  <wpt lat="39.9342882388" lon="3.9629740552">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:00:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 9</name>
+  </wpt>
+  <wpt lat="39.9342786467" lon="3.9631409116">
+    <ele>34.4</ele>
+    <time>2025-01-01T10:00:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 10</name>
+  </wpt>
+  <wpt lat="39.9342004777" lon="3.9633316754">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:00:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 11</name>
+  </wpt>
+  <wpt lat="39.9341843531" lon="3.9636263462">
+    <ele>33.7</ele>
+    <time>2025-01-01T10:00:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 12</name>
+  </wpt>
+  <wpt lat="39.9341940979" lon="3.9641836882">
+    <ele>31.9</ele>
+    <time>2025-01-01T10:00:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 13</name>
+  </wpt>
+  <wpt lat="39.9342065936" lon="3.9648986241">
+    <ele>28.6</ele>
+    <time>2025-01-01T10:00:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 14</name>
+  </wpt>
+  <wpt lat="39.9342876483" lon="3.9651680293">
+    <ele>26.9</ele>
+    <time>2025-01-01T10:00:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 15</name>
+  </wpt>
+  <wpt lat="39.9343309340" lon="3.9653119003">
+    <ele>25.9</ele>
+    <time>2025-01-01T10:00:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 16</name>
+  </wpt>
+  <wpt lat="39.9345161054" lon="3.9656438208">
+    <ele>24.9</ele>
+    <time>2025-01-01T10:00:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 17</name>
+  </wpt>
+  <wpt lat="39.9345488968" lon="3.9658546516">
+    <ele>25.5</ele>
+    <time>2025-01-01T10:00:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 18</name>
+  </wpt>
+  <wpt lat="39.9345473678" lon="3.9660667087">
+    <ele>26.0</ele>
+    <time>2025-01-01T10:00:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 19</name>
+  </wpt>
+  <wpt lat="39.9344987320" lon="3.9662754478">
+    <ele>26.1</ele>
+    <time>2025-01-01T10:00:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 20</name>
+  </wpt>
+  <wpt lat="39.9344440644" lon="3.9663214420">
+    <ele>26.1</ele>
+    <time>2025-01-01T10:01:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 21</name>
+  </wpt>
+  <wpt lat="39.9341455101" lon="3.9663099599">
+    <ele>26.3</ele>
+    <time>2025-01-01T10:01:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 22</name>
+  </wpt>
+  <wpt lat="39.9340605286" lon="3.9663174616">
+    <ele>26.7</ele>
+    <time>2025-01-01T10:01:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 23</name>
+  </wpt>
+  <wpt lat="39.9340080952" lon="3.9663220903">
+    <ele>27.0</ele>
+    <time>2025-01-01T10:01:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 24</name>
+  </wpt>
+  <wpt lat="39.9339516711" lon="3.9664081383">
+    <ele>27.5</ele>
+    <time>2025-01-01T10:01:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 25</name>
+  </wpt>
+  <wpt lat="39.9339573843" lon="3.9665306801">
+    <ele>28.0</ele>
+    <time>2025-01-01T10:01:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 26</name>
+  </wpt>
+  <wpt lat="39.9339321493" lon="3.9666353763">
+    <ele>28.4</ele>
+    <time>2025-01-01T10:01:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 27</name>
+  </wpt>
+  <wpt lat="39.9338791198" lon="3.9667242338">
+    <ele>28.8</ele>
+    <time>2025-01-01T10:01:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 28</name>
+  </wpt>
+  <wpt lat="39.9337854706" lon="3.9667779181">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:01:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 29</name>
+  </wpt>
+  <wpt lat="39.9337378664" lon="3.9669331416">
+    <ele>29.6</ele>
+    <time>2025-01-01T10:01:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 30</name>
+  </wpt>
+  <wpt lat="39.9337005456" lon="3.9671300559">
+    <ele>30.2</ele>
+    <time>2025-01-01T10:01:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 31</name>
+  </wpt>
+  <wpt lat="39.9337047644" lon="3.9673048513">
+    <ele>30.5</ele>
+    <time>2025-01-01T10:01:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 32</name>
+  </wpt>
+  <wpt lat="39.9337438797" lon="3.9674868090">
+    <ele>30.7</ele>
+    <time>2025-01-01T10:01:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 33</name>
+  </wpt>
+  <wpt lat="39.9337981716" lon="3.9676315282">
+    <ele>30.9</ele>
+    <time>2025-01-01T10:01:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 34</name>
+  </wpt>
+  <wpt lat="39.9338682463" lon="3.9677958990">
+    <ele>31.1</ele>
+    <time>2025-01-01T10:01:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 35</name>
+  </wpt>
+  <wpt lat="39.9339648174" lon="3.9679475354">
+    <ele>30.8</ele>
+    <time>2025-01-01T10:01:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 36</name>
+  </wpt>
+  <wpt lat="39.9340425882" lon="3.9680652385">
+    <ele>30.7</ele>
+    <time>2025-01-01T10:01:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 37</name>
+  </wpt>
+  <wpt lat="39.9341444124" lon="3.9681857011">
+    <ele>30.5</ele>
+    <time>2025-01-01T10:01:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 38</name>
+  </wpt>
+  <wpt lat="39.9342012082" lon="3.9682103381">
+    <ele>30.3</ele>
+    <time>2025-01-01T10:01:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 39</name>
+  </wpt>
+  <wpt lat="39.9342710498" lon="3.9682299311">
+    <ele>29.9</ele>
+    <time>2025-01-01T10:01:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 40</name>
+  </wpt>
+  <wpt lat="39.9343333856" lon="3.9682639554">
+    <ele>29.4</ele>
+    <time>2025-01-01T10:02:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 41</name>
+  </wpt>
+  <wpt lat="39.9343748206" lon="3.9682891392">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:02:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 42</name>
+  </wpt>
+  <wpt lat="39.9343751391" lon="3.9683065657">
+    <ele>29.1</ele>
+    <time>2025-01-01T10:02:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 43</name>
+  </wpt>
+  <wpt lat="39.9343524388" lon="3.9683207454">
+    <ele>28.9</ele>
+    <time>2025-01-01T10:02:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 44</name>
+  </wpt>
+  <wpt lat="39.9343213361" lon="3.9683477626">
+    <ele>28.7</ele>
+    <time>2025-01-01T10:02:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 45</name>
+  </wpt>
+  <wpt lat="39.9342648639" lon="3.9683956011">
+    <ele>28.3</ele>
+    <time>2025-01-01T10:02:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 46</name>
+  </wpt>
+  <wpt lat="39.9342138045" lon="3.9684450852">
+    <ele>27.9</ele>
+    <time>2025-01-01T10:02:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 47</name>
+  </wpt>
+  <wpt lat="39.9341651885" lon="3.9684906819">
+    <ele>27.5</ele>
+    <time>2025-01-01T10:02:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 48</name>
+  </wpt>
+  <wpt lat="39.9341636832" lon="3.9684920580">
+    <ele>27.5</ele>
+    <time>2025-01-01T10:02:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 49</name>
+  </wpt>
+  <wpt lat="39.9340959254" lon="3.9685540284">
+    <ele>26.9</ele>
+    <time>2025-01-01T10:02:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 50</name>
+  </wpt>
+  <wpt lat="39.9340573787" lon="3.9685840782">
+    <ele>26.6</ele>
+    <time>2025-01-01T10:02:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 51</name>
+  </wpt>
+  <wpt lat="39.9340245064" lon="3.9686042002">
+    <ele>26.4</ele>
+    <time>2025-01-01T10:02:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 52</name>
+  </wpt>
+  <wpt lat="39.9339589061" lon="3.9686378384">
+    <ele>25.9</ele>
+    <time>2025-01-01T10:02:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 53</name>
+  </wpt>
+  <wpt lat="39.9338796744" lon="3.9686741353">
+    <ele>25.3</ele>
+    <time>2025-01-01T10:02:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 54</name>
+  </wpt>
+  <wpt lat="39.9338512553" lon="3.9686839319">
+    <ele>25.1</ele>
+    <time>2025-01-01T10:02:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 55</name>
+  </wpt>
+  <wpt lat="39.9337965587" lon="3.9686886509">
+    <ele>24.7</ele>
+    <time>2025-01-01T10:02:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 56</name>
+  </wpt>
+  <wpt lat="39.9337867033" lon="3.9686885120">
+    <ele>24.6</ele>
+    <time>2025-01-01T10:02:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 57</name>
+  </wpt>
+  <wpt lat="39.9337602463" lon="3.9686798891">
+    <ele>24.5</ele>
+    <time>2025-01-01T10:02:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 58</name>
+  </wpt>
+  <wpt lat="39.9337326765" lon="3.9686600796">
+    <ele>24.2</ele>
+    <time>2025-01-01T10:02:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 59</name>
+  </wpt>
+  <wpt lat="39.9337041302" lon="3.9686258984">
+    <ele>23.8</ele>
+    <time>2025-01-01T10:02:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 60</name>
+  </wpt>
+  <wpt lat="39.9336736798" lon="3.9685770962">
+    <ele>23.1</ele>
+    <time>2025-01-01T10:03:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 61</name>
+  </wpt>
+  <wpt lat="39.9336500708" lon="3.9685381605">
+    <ele>22.6</ele>
+    <time>2025-01-01T10:03:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 62</name>
+  </wpt>
+  <wpt lat="39.9336321196" lon="3.9685172742">
+    <ele>22.2</ele>
+    <time>2025-01-01T10:03:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 63</name>
+  </wpt>
+  <wpt lat="39.9336163945" lon="3.9685056907">
+    <ele>22.0</ele>
+    <time>2025-01-01T10:03:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 64</name>
+  </wpt>
+  <wpt lat="39.9335767494" lon="3.9684878739">
+    <ele>21.4</ele>
+    <time>2025-01-01T10:03:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 65</name>
+  </wpt>
+  <wpt lat="39.9335758182" lon="3.9684876139">
+    <ele>21.4</ele>
+    <time>2025-01-01T10:03:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 66</name>
+  </wpt>
+  <wpt lat="39.9335382328" lon="3.9684771103">
+    <ele>20.8</ele>
+    <time>2025-01-01T10:03:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 67</name>
+  </wpt>
+  <wpt lat="39.9334900402" lon="3.9684742916">
+    <ele>20.1</ele>
+    <time>2025-01-01T10:03:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 68</name>
+  </wpt>
+  <wpt lat="39.9334562230" lon="3.9684806849">
+    <ele>19.6</ele>
+    <time>2025-01-01T10:03:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 69</name>
+  </wpt>
+  <wpt lat="39.9334241533" lon="3.9684943520">
+    <ele>19.1</ele>
+    <time>2025-01-01T10:03:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 70</name>
+  </wpt>
+  <wpt lat="39.9334184903" lon="3.9684967849">
+    <ele>19.0</ele>
+    <time>2025-01-01T10:03:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 71</name>
+  </wpt>
+  <wpt lat="39.9333832332" lon="3.9685107475">
+    <ele>18.5</ele>
+    <time>2025-01-01T10:03:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 72</name>
+  </wpt>
+  <wpt lat="39.9333531342" lon="3.9685183390">
+    <ele>18.1</ele>
+    <time>2025-01-01T10:03:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 73</name>
+  </wpt>
+  <wpt lat="39.9333080695" lon="3.9685234185">
+    <ele>17.4</ele>
+    <time>2025-01-01T10:03:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 74</name>
+  </wpt>
+  <wpt lat="39.9332604398" lon="3.9685323720">
+    <ele>16.7</ele>
+    <time>2025-01-01T10:03:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 75</name>
+  </wpt>
+  <wpt lat="39.9332200010" lon="3.9685492776">
+    <ele>16.0</ele>
+    <time>2025-01-01T10:03:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 76</name>
+  </wpt>
+  <wpt lat="39.9331985693" lon="3.9685640963">
+    <ele>15.6</ele>
+    <time>2025-01-01T10:03:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 77</name>
+  </wpt>
+  <wpt lat="39.9331789554" lon="3.9685883455">
+    <ele>15.2</ele>
+    <time>2025-01-01T10:03:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 78</name>
+  </wpt>
+  <wpt lat="39.9331706844" lon="3.9686329009">
+    <ele>14.7</ele>
+    <time>2025-01-01T10:03:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 79</name>
+  </wpt>
+  <wpt lat="39.9331683041" lon="3.9686457213">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:03:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 80</name>
+  </wpt>
+  <wpt lat="39.9331804316" lon="3.9686696081">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:04:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 81</name>
+  </wpt>
+  <wpt lat="39.9332000708" lon="3.9686928038">
+    <ele>13.7</ele>
+    <time>2025-01-01T10:04:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 82</name>
+  </wpt>
+  <wpt lat="39.9332183980" lon="3.9687148341">
+    <ele>13.4</ele>
+    <time>2025-01-01T10:04:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 83</name>
+  </wpt>
+  <wpt lat="39.9332314267" lon="3.9687379354">
+    <ele>13.0</ele>
+    <time>2025-01-01T10:04:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 84</name>
+  </wpt>
+  <wpt lat="39.9332399200" lon="3.9687764436">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:04:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 85</name>
+  </wpt>
+  <wpt lat="39.9332396997" lon="3.9688027967">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:04:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 86</name>
+  </wpt>
+  <wpt lat="39.9332310774" lon="3.9688286837">
+    <ele>11.9</ele>
+    <time>2025-01-01T10:04:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 87</name>
+  </wpt>
+  <wpt lat="39.9332152034" lon="3.9688612224">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:04:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 88</name>
+  </wpt>
+  <wpt lat="39.9332135891" lon="3.9688645328">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:04:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 89</name>
+  </wpt>
+  <wpt lat="39.9331920674" lon="3.9689083478">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:04:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 90</name>
+  </wpt>
+  <wpt lat="39.9331683478" lon="3.9689515571">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:04:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 91</name>
+  </wpt>
+  <wpt lat="39.9331530477" lon="3.9689891574">
+    <ele>9.7</ele>
+    <time>2025-01-01T10:04:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 92</name>
+  </wpt>
+  <wpt lat="39.9331475442" lon="3.9690148625">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:04:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 93</name>
+  </wpt>
+  <wpt lat="39.9331473504" lon="3.9690380442">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:04:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 94</name>
+  </wpt>
+  <wpt lat="39.9331548538" lon="3.9690851323">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:04:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 95</name>
+  </wpt>
+  <wpt lat="39.9331627580" lon="3.9691413933">
+    <ele>9.0</ele>
+    <time>2025-01-01T10:04:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 96</name>
+  </wpt>
+  <wpt lat="39.9331637519" lon="3.9691473117">
+    <ele>9.0</ele>
+    <time>2025-01-01T10:04:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 97</name>
+  </wpt>
+  <wpt lat="39.9331698952" lon="3.9691838932">
+    <ele>8.9</ele>
+    <time>2025-01-01T10:04:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 98</name>
+  </wpt>
+  <wpt lat="39.9331751544" lon="3.9692401169">
+    <ele>8.6</ele>
+    <time>2025-01-01T10:04:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 99</name>
+  </wpt>
+  <wpt lat="39.9331748511" lon="3.9692763968">
+    <ele>8.5</ele>
+    <time>2025-01-01T10:04:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 100</name>
+  </wpt>
+  <wpt lat="39.9331788822" lon="3.9693222901">
+    <ele>8.3</ele>
+    <time>2025-01-01T10:05:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 101</name>
+  </wpt>
+  <wpt lat="39.9331834088" lon="3.9693607424">
+    <ele>8.2</ele>
+    <time>2025-01-01T10:05:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 102</name>
+  </wpt>
+  <wpt lat="39.9331919210" lon="3.9693969594">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:05:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 103</name>
+  </wpt>
+  <wpt lat="39.9332038959" lon="3.9694438239">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:05:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 104</name>
+  </wpt>
+  <wpt lat="39.9332171877" lon="3.9694881287">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:05:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 105</name>
+  </wpt>
+  <wpt lat="39.9332353374" lon="3.9695313563">
+    <ele>7.4</ele>
+    <time>2025-01-01T10:05:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 106</name>
+  </wpt>
+  <wpt lat="39.9332565766" lon="3.9695740553">
+    <ele>7.2</ele>
+    <time>2025-01-01T10:05:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 107</name>
+  </wpt>
+  <wpt lat="39.9333180223" lon="3.9696879555">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:05:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 108</name>
+  </wpt>
+  <wpt lat="39.9333376347" lon="3.9697029061">
+    <ele>7.7</ele>
+    <time>2025-01-01T10:05:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 109</name>
+  </wpt>
+  <wpt lat="39.9333715081" lon="3.9697240571">
+    <ele>7.9</ele>
+    <time>2025-01-01T10:05:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 110</name>
+  </wpt>
+  <wpt lat="39.9334150102" lon="3.9697475596">
+    <ele>8.1</ele>
+    <time>2025-01-01T10:05:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 111</name>
+  </wpt>
+  <wpt lat="39.9334658454" lon="3.9697763350">
+    <ele>8.3</ele>
+    <time>2025-01-01T10:05:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 112</name>
+  </wpt>
+  <wpt lat="39.9335155455" lon="3.9698050933">
+    <ele>8.5</ele>
+    <time>2025-01-01T10:05:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 113</name>
+  </wpt>
+  <wpt lat="39.9335590220" lon="3.9698315494">
+    <ele>8.7</ele>
+    <time>2025-01-01T10:05:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 114</name>
+  </wpt>
+  <wpt lat="39.9336357990" lon="3.9698798872">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:05:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 115</name>
+  </wpt>
+  <wpt lat="39.9336781281" lon="3.9699078031">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:05:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 116</name>
+  </wpt>
+  <wpt lat="39.9336989939" lon="3.9699236037">
+    <ele>9.4</ele>
+    <time>2025-01-01T10:05:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 117</name>
+  </wpt>
+  <wpt lat="39.9337198288" lon="3.9699430939">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:05:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 118</name>
+  </wpt>
+  <wpt lat="39.9337417361" lon="3.9699699842">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:05:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 119</name>
+  </wpt>
+  <wpt lat="39.9337748266" lon="3.9700169670">
+    <ele>9.8</ele>
+    <time>2025-01-01T10:05:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 120</name>
+  </wpt>
+  <wpt lat="39.9338165958" lon="3.9700754998">
+    <ele>10.1</ele>
+    <time>2025-01-01T10:06:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 121</name>
+  </wpt>
+  <wpt lat="39.9338511146" lon="3.9701236276">
+    <ele>10.3</ele>
+    <time>2025-01-01T10:06:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 122</name>
+  </wpt>
+  <wpt lat="39.9338724305" lon="3.9701534625">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:06:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 123</name>
+  </wpt>
+  <wpt lat="39.9339010547" lon="3.9701915217">
+    <ele>10.6</ele>
+    <time>2025-01-01T10:06:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 124</name>
+  </wpt>
+  <wpt lat="39.9339189909" lon="3.9702183561">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:06:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 125</name>
+  </wpt>
+  <wpt lat="39.9339318687" lon="3.9702392111">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:06:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 126</name>
+  </wpt>
+  <wpt lat="39.9339436000" lon="3.9702615281">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:06:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 127</name>
+  </wpt>
+  <wpt lat="39.9339564098" lon="3.9702905044">
+    <ele>11.0</ele>
+    <time>2025-01-01T10:06:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 128</name>
+  </wpt>
+  <wpt lat="39.9339802844" lon="3.9703536008">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:06:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 129</name>
+  </wpt>
+  <wpt lat="39.9340124549" lon="3.9704426559">
+    <ele>11.9</ele>
+    <time>2025-01-01T10:06:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 130</name>
+  </wpt>
+  <wpt lat="39.9340418989" lon="3.9705183843">
+    <ele>12.5</ele>
+    <time>2025-01-01T10:06:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 131</name>
+  </wpt>
+  <wpt lat="39.9340825276" lon="3.9706228380">
+    <ele>13.2</ele>
+    <time>2025-01-01T10:06:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 132</name>
+  </wpt>
+  <wpt lat="39.9341002316" lon="3.9706683541">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:06:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 133</name>
+  </wpt>
+  <wpt lat="39.9341385689" lon="3.9707663574">
+    <ele>14.3</ele>
+    <time>2025-01-01T10:06:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 134</name>
+  </wpt>
+  <wpt lat="39.9341508058" lon="3.9707960643">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:06:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 135</name>
+  </wpt>
+  <wpt lat="39.9341525774" lon="3.9707999024">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:06:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 136</name>
+  </wpt>
+  <wpt lat="39.9341641830" lon="3.9708250489">
+    <ele>14.7</ele>
+    <time>2025-01-01T10:06:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 137</name>
+  </wpt>
+  <wpt lat="39.9341937318" lon="3.9708882258">
+    <ele>15.2</ele>
+    <time>2025-01-01T10:06:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 138</name>
+  </wpt>
+  <wpt lat="39.9342305279" lon="3.9709670113">
+    <ele>15.3</ele>
+    <time>2025-01-01T10:06:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 139</name>
+  </wpt>
+  <wpt lat="39.9342405317" lon="3.9709922558">
+    <ele>15.3</ele>
+    <time>2025-01-01T10:06:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 140</name>
+  </wpt>
+  <wpt lat="39.9342499370" lon="3.9710211843">
+    <ele>15.3</ele>
+    <time>2025-01-01T10:07:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 141</name>
+  </wpt>
+  <wpt lat="39.9342587005" lon="3.9710589645">
+    <ele>15.2</ele>
+    <time>2025-01-01T10:07:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 142</name>
+  </wpt>
+  <wpt lat="39.9342794225" lon="3.9711596721">
+    <ele>15.1</ele>
+    <time>2025-01-01T10:07:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 143</name>
+  </wpt>
+  <wpt lat="39.9342972448" lon="3.9712677237">
+    <ele>15.0</ele>
+    <time>2025-01-01T10:07:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 144</name>
+  </wpt>
+  <wpt lat="39.9343026472" lon="3.9713002870">
+    <ele>14.9</ele>
+    <time>2025-01-01T10:07:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 145</name>
+  </wpt>
+  <wpt lat="39.9343062621" lon="3.9713170333">
+    <ele>14.9</ele>
+    <time>2025-01-01T10:07:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 146</name>
+  </wpt>
+  <wpt lat="39.9343106151" lon="3.9713372005">
+    <ele>14.9</ele>
+    <time>2025-01-01T10:07:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 147</name>
+  </wpt>
+  <wpt lat="39.9343332840" lon="3.9714124125">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:07:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 148</name>
+  </wpt>
+  <wpt lat="39.9343569410" lon="3.9714787227">
+    <ele>14.7</ele>
+    <time>2025-01-01T10:07:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 149</name>
+  </wpt>
+  <wpt lat="39.9343851313" lon="3.9715492565">
+    <ele>14.4</ele>
+    <time>2025-01-01T10:07:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 150</name>
+  </wpt>
+  <wpt lat="39.9344258300" lon="3.9716350252">
+    <ele>13.8</ele>
+    <time>2025-01-01T10:07:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 151</name>
+  </wpt>
+  <wpt lat="39.9344409035" lon="3.9716647713">
+    <ele>13.5</ele>
+    <time>2025-01-01T10:07:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 152</name>
+  </wpt>
+  <wpt lat="39.9344576724" lon="3.9716952811">
+    <ele>13.3</ele>
+    <time>2025-01-01T10:07:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 153</name>
+  </wpt>
+  <wpt lat="39.9344851124" lon="3.9717392325">
+    <ele>13.0</ele>
+    <time>2025-01-01T10:07:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 154</name>
+  </wpt>
+  <wpt lat="39.9345192806" lon="3.9717928773">
+    <ele>12.6</ele>
+    <time>2025-01-01T10:07:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 155</name>
+  </wpt>
+  <wpt lat="39.9345545344" lon="3.9718524443">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:07:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 156</name>
+  </wpt>
+  <wpt lat="39.9345868006" lon="3.9719069506">
+    <ele>11.7</ele>
+    <time>2025-01-01T10:07:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 157</name>
+  </wpt>
+  <wpt lat="39.9346151592" lon="3.9719572797">
+    <ele>11.4</ele>
+    <time>2025-01-01T10:07:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 158</name>
+  </wpt>
+  <wpt lat="39.9346394230" lon="3.9720057672">
+    <ele>11.0</ele>
+    <time>2025-01-01T10:07:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 159</name>
+  </wpt>
+  <wpt lat="39.9346591674" lon="3.9720482465">
+    <ele>10.7</ele>
+    <time>2025-01-01T10:07:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 160</name>
+  </wpt>
+  <wpt lat="39.9346784211" lon="3.9720948807">
+    <ele>10.5</ele>
+    <time>2025-01-01T10:08:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 161</name>
+  </wpt>
+  <wpt lat="39.9346980966" lon="3.9721456816">
+    <ele>10.2</ele>
+    <time>2025-01-01T10:08:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 162</name>
+  </wpt>
+  <wpt lat="39.9347136955" lon="3.9721922630">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:08:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 163</name>
+  </wpt>
+  <wpt lat="39.9347270197" lon="3.9722376242">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:08:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 164</name>
+  </wpt>
+  <wpt lat="39.9347327110" lon="3.9722610595">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:08:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 165</name>
+  </wpt>
+  <wpt lat="39.9347392668" lon="3.9722914239">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:08:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 166</name>
+  </wpt>
+  <wpt lat="39.9347444965" lon="3.9723181156">
+    <ele>9.2</ele>
+    <time>2025-01-01T10:08:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 167</name>
+  </wpt>
+  <wpt lat="39.9347507862" lon="3.9723388417">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:08:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 168</name>
+  </wpt>
+  <wpt lat="39.9347679191" lon="3.9723937229">
+    <ele>8.8</ele>
+    <time>2025-01-01T10:08:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 169</name>
+  </wpt>
+  <wpt lat="39.9347848116" lon="3.9724541670">
+    <ele>8.4</ele>
+    <time>2025-01-01T10:08:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 170</name>
+  </wpt>
+  <wpt lat="39.9347938824" lon="3.9724898396">
+    <ele>8.2</ele>
+    <time>2025-01-01T10:08:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 171</name>
+  </wpt>
+  <wpt lat="39.9348030651" lon="3.9725337695">
+    <ele>8.0</ele>
+    <time>2025-01-01T10:08:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 172</name>
+  </wpt>
+  <wpt lat="39.9348073630" lon="3.9725626262">
+    <ele>7.8</ele>
+    <time>2025-01-01T10:08:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 173</name>
+  </wpt>
+  <wpt lat="39.9348132272" lon="3.9726077485">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:08:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 174</name>
+  </wpt>
+  <wpt lat="39.9348147283" lon="3.9726206345">
+    <ele>7.6</ele>
+    <time>2025-01-01T10:08:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 175</name>
+  </wpt>
+  <wpt lat="39.9348264824" lon="3.9726789309">
+    <ele>7.4</ele>
+    <time>2025-01-01T10:08:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 176</name>
+  </wpt>
+  <wpt lat="39.9348373024" lon="3.9727325934">
+    <ele>7.2</ele>
+    <time>2025-01-01T10:08:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 177</name>
+  </wpt>
+  <wpt lat="39.9348601783" lon="3.9730463803">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:08:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 178</name>
+  </wpt>
+  <wpt lat="39.9349267106" lon="3.9732530636">
+    <ele>5.6</ele>
+    <time>2025-01-01T10:08:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 179</name>
+  </wpt>
+  <wpt lat="39.9350062602" lon="3.9733470187">
+    <ele>5.4</ele>
+    <time>2025-01-01T10:08:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 180</name>
+  </wpt>
+  <wpt lat="39.9350906185" lon="3.9733482138">
+    <ele>5.2</ele>
+    <time>2025-01-01T10:09:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 181</name>
+  </wpt>
+  <wpt lat="39.9352662636" lon="3.9732467234">
+    <ele>4.8</ele>
+    <time>2025-01-01T10:09:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 182</name>
+  </wpt>
+  <wpt lat="39.9353188804" lon="3.9732163203">
+    <ele>4.6</ele>
+    <time>2025-01-01T10:09:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 183</name>
+  </wpt>
+  <wpt lat="39.9355603306" lon="3.9731265851">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:09:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 184</name>
+  </wpt>
+  <wpt lat="39.9356895458" lon="3.9730640757">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:09:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 185</name>
+  </wpt>
+  <wpt lat="39.9358669915" lon="3.9729738742">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:09:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 186</name>
+  </wpt>
+  <wpt lat="39.9359064367" lon="3.9730143595">
+    <ele>1.0</ele>
+    <time>2025-01-01T10:09:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 187</name>
+  </wpt>
+  <wpt lat="39.9357998890" lon="3.9731266649">
+    <ele>0.9</ele>
+    <time>2025-01-01T10:09:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 188</name>
+  </wpt>
+  <wpt lat="39.9356133348" lon="3.9732579215">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:09:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 189</name>
+  </wpt>
+  <wpt lat="39.9354241197" lon="3.9733991815">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:09:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 190</name>
+  </wpt>
+  <wpt lat="39.9353411443" lon="3.9734649552">
+    <ele>5.1</ele>
+    <time>2025-01-01T10:09:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 191</name>
+  </wpt>
+  <wpt lat="39.9351672046" lon="3.9736632114">
+    <ele>7.9</ele>
+    <time>2025-01-01T10:09:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 192</name>
+  </wpt>
+  <wpt lat="39.9351995446" lon="3.9737205185">
+    <ele>8.6</ele>
+    <time>2025-01-01T10:09:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 193</name>
+  </wpt>
+  <wpt lat="39.9354100847" lon="3.9735961532">
+    <ele>11.3</ele>
+    <time>2025-01-01T10:09:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 194</name>
+  </wpt>
+  <wpt lat="39.9354343265" lon="3.9735818331">
+    <ele>11.6</ele>
+    <time>2025-01-01T10:09:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 195</name>
+  </wpt>
+  <wpt lat="39.9354836868" lon="3.9736044866">
+    <ele>12.2</ele>
+    <time>2025-01-01T10:09:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 196</name>
+  </wpt>
+  <wpt lat="39.9355926272" lon="3.9736544831">
+    <ele>11.9</ele>
+    <time>2025-01-01T10:09:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 197</name>
+  </wpt>
+  <wpt lat="39.9357088858" lon="3.9737875545">
+    <ele>11.1</ele>
+    <time>2025-01-01T10:09:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 198</name>
+  </wpt>
+  <wpt lat="39.9358177840" lon="3.9739369496">
+    <ele>10.3</ele>
+    <time>2025-01-01T10:09:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 199</name>
+  </wpt>
+  <wpt lat="39.9359106294" lon="3.9740626513">
+    <ele>9.9</ele>
+    <time>2025-01-01T10:09:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 200</name>
+  </wpt>
+  <wpt lat="39.9360210762" lon="3.9742425767">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:10:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 201</name>
+  </wpt>
+  <wpt lat="39.9361725862" lon="3.9745581918">
+    <ele>9.1</ele>
+    <time>2025-01-01T10:10:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 202</name>
+  </wpt>
+  <wpt lat="39.9362448792" lon="3.9748933663">
+    <ele>9.3</ele>
+    <time>2025-01-01T10:10:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 203</name>
+  </wpt>
+  <wpt lat="39.9362860366" lon="3.9753230829">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:10:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 204</name>
+  </wpt>
+  <wpt lat="39.9362873692" lon="3.9753369968">
+    <ele>10.9</ele>
+    <time>2025-01-01T10:10:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 205</name>
+  </wpt>
+  <wpt lat="39.9363106506" lon="3.9756602138">
+    <ele>12.9</ele>
+    <time>2025-01-01T10:10:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 206</name>
+  </wpt>
+  <wpt lat="39.9362944703" lon="3.9758664793">
+    <ele>13.6</ele>
+    <time>2025-01-01T10:10:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 207</name>
+  </wpt>
+  <wpt lat="39.9362641631" lon="3.9760350001">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:10:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 208</name>
+  </wpt>
+  <wpt lat="39.9362791228" lon="3.9761192096">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:10:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 209</name>
+  </wpt>
+  <wpt lat="39.9362862289" lon="3.9761592117">
+    <ele>14.3</ele>
+    <time>2025-01-01T10:10:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 210</name>
+  </wpt>
+  <wpt lat="39.9363256876" lon="3.9762761624">
+    <ele>14.6</ele>
+    <time>2025-01-01T10:10:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 211</name>
+  </wpt>
+  <wpt lat="39.9363296627" lon="3.9764902235">
+    <ele>15.6</ele>
+    <time>2025-01-01T10:10:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 212</name>
+  </wpt>
+  <wpt lat="39.9363321661" lon="3.9766053617">
+    <ele>16.3</ele>
+    <time>2025-01-01T10:10:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 213</name>
+  </wpt>
+  <wpt lat="39.9363338272" lon="3.9766817608">
+    <ele>16.7</ele>
+    <time>2025-01-01T10:10:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 214</name>
+  </wpt>
+  <wpt lat="39.9362923448" lon="3.9768050691">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:10:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 215</name>
+  </wpt>
+  <wpt lat="39.9362280066" lon="3.9768980153">
+    <ele>18.2</ele>
+    <time>2025-01-01T10:10:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 216</name>
+  </wpt>
+  <wpt lat="39.9361398643" lon="3.9770732222">
+    <ele>21.0</ele>
+    <time>2025-01-01T10:10:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 217</name>
+  </wpt>
+  <wpt lat="39.9360886710" lon="3.9773202884">
+    <ele>24.4</ele>
+    <time>2025-01-01T10:10:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 218</name>
+  </wpt>
+  <wpt lat="39.9361018283" lon="3.9775233783">
+    <ele>26.9</ele>
+    <time>2025-01-01T10:10:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 219</name>
+  </wpt>
+  <wpt lat="39.9361040087" lon="3.9775570382">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:10:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 220</name>
+  </wpt>
+  <wpt lat="39.9361451695" lon="3.9777422827">
+    <ele>28.4</ele>
+    <time>2025-01-01T10:11:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 221</name>
+  </wpt>
+  <wpt lat="39.9361583534" lon="3.9777810511">
+    <ele>28.7</ele>
+    <time>2025-01-01T10:11:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 222</name>
+  </wpt>
+  <wpt lat="39.9362240883" lon="3.9779743539">
+    <ele>30.2</ele>
+    <time>2025-01-01T10:11:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 223</name>
+  </wpt>
+  <wpt lat="39.9362329803" lon="3.9780254652">
+    <ele>30.5</ele>
+    <time>2025-01-01T10:11:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 224</name>
+  </wpt>
+  <wpt lat="39.9362714534" lon="3.9782466196">
+    <ele>31.7</ele>
+    <time>2025-01-01T10:11:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 225</name>
+  </wpt>
+  <wpt lat="39.9362826184" lon="3.9783673527">
+    <ele>32.2</ele>
+    <time>2025-01-01T10:11:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 226</name>
+  </wpt>
+  <wpt lat="39.9363039598" lon="3.9785981216">
+    <ele>33.2</ele>
+    <time>2025-01-01T10:11:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 227</name>
+  </wpt>
+  <wpt lat="39.9363231916" lon="3.9787075502">
+    <ele>33.6</ele>
+    <time>2025-01-01T10:11:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 228</name>
+  </wpt>
+  <wpt lat="39.9363635298" lon="3.9789370755">
+    <ele>33.9</ele>
+    <time>2025-01-01T10:11:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 229</name>
+  </wpt>
+  <wpt lat="39.9363931820" lon="3.9790631332">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:11:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 230</name>
+  </wpt>
+  <wpt lat="39.9364337014" lon="3.9791468522">
+    <ele>34.2</ele>
+    <time>2025-01-01T10:11:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 231</name>
+  </wpt>
+  <wpt lat="39.9365984690" lon="3.9790648474">
+    <ele>34.6</ele>
+    <time>2025-01-01T10:11:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 232</name>
+  </wpt>
+  <wpt lat="39.9367541390" lon="3.9789802313">
+    <ele>35.0</ele>
+    <time>2025-01-01T10:11:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 233</name>
+  </wpt>
+  <wpt lat="39.9368152293" lon="3.9789847968">
+    <ele>35.1</ele>
+    <time>2025-01-01T10:11:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 234</name>
+  </wpt>
+  <wpt lat="39.9368297542" lon="3.9790011730">
+    <ele>35.2</ele>
+    <time>2025-01-01T10:11:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 235</name>
+  </wpt>
+  <wpt lat="39.9368617001" lon="3.9790371910">
+    <ele>35.3</ele>
+    <time>2025-01-01T10:11:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 236</name>
+  </wpt>
+  <wpt lat="39.9368801359" lon="3.9791602784">
+    <ele>35.5</ele>
+    <time>2025-01-01T10:11:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 237</name>
+  </wpt>
+  <wpt lat="39.9368807125" lon="3.9793109049">
+    <ele>36.0</ele>
+    <time>2025-01-01T10:11:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 238</name>
+  </wpt>
+  <wpt lat="39.9368917420" lon="3.9795198392">
+    <ele>36.7</ele>
+    <time>2025-01-01T10:11:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 239</name>
+  </wpt>
+  <wpt lat="39.9369147203" lon="3.9796605851">
+    <ele>37.1</ele>
+    <time>2025-01-01T10:11:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 240</name>
+  </wpt>
+  <wpt lat="39.9369462425" lon="3.9797996026">
+    <ele>37.6</ele>
+    <time>2025-01-01T10:12:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 241</name>
+  </wpt>
+  <wpt lat="39.9369616667" lon="3.9799370399">
+    <ele>37.9</ele>
+    <time>2025-01-01T10:12:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 242</name>
+  </wpt>
+  <wpt lat="39.9369361362" lon="3.9801088296">
+    <ele>38.3</ele>
+    <time>2025-01-01T10:12:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 243</name>
+  </wpt>
+  <wpt lat="39.9369372625" lon="3.9802640873">
+    <ele>38.7</ele>
+    <time>2025-01-01T10:12:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 244</name>
+  </wpt>
+  <wpt lat="39.9369416158" lon="3.9804210553">
+    <ele>39.1</ele>
+    <time>2025-01-01T10:12:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 245</name>
+  </wpt>
+  <wpt lat="39.9369423870" lon="3.9804488552">
+    <ele>39.1</ele>
+    <time>2025-01-01T10:12:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 246</name>
+  </wpt>
+  <wpt lat="39.9369703618" lon="3.9806805714">
+    <ele>39.6</ele>
+    <time>2025-01-01T10:12:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 247</name>
+  </wpt>
+  <wpt lat="39.9369734693" lon="3.9809034601">
+    <ele>40.0</ele>
+    <time>2025-01-01T10:12:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 248</name>
+  </wpt>
+  <wpt lat="39.9370094887" lon="3.9811792648">
+    <ele>40.6</ele>
+    <time>2025-01-01T10:12:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 249</name>
+  </wpt>
+  <wpt lat="39.9370354348" lon="3.9814495081">
+    <ele>41.2</ele>
+    <time>2025-01-01T10:12:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 250</name>
+  </wpt>
+  <wpt lat="39.9370586136" lon="3.9817024965">
+    <ele>41.7</ele>
+    <time>2025-01-01T10:12:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 251</name>
+  </wpt>
+  <wpt lat="39.9369601070" lon="3.9817868036">
+    <ele>42.1</ele>
+    <time>2025-01-01T10:12:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 252</name>
+  </wpt>
+  <wpt lat="39.9369158240" lon="3.9821808469">
+    <ele>43.0</ele>
+    <time>2025-01-01T10:12:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 253</name>
+  </wpt>
+  <wpt lat="39.9368420418" lon="3.9828373582">
+    <ele>43.8</ele>
+    <time>2025-01-01T10:12:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 254</name>
+  </wpt>
+  <wpt lat="39.9368491903" lon="3.9830779155">
+    <ele>43.9</ele>
+    <time>2025-01-01T10:12:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 255</name>
+  </wpt>
+  <wpt lat="39.9366249892" lon="3.9845633496">
+    <ele>45.0</ele>
+    <time>2025-01-01T10:12:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 256</name>
+  </wpt>
+  <wpt lat="39.9369200752" lon="3.9845716656">
+    <ele>45.3</ele>
+    <time>2025-01-01T10:12:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 257</name>
+  </wpt>
+  <wpt lat="39.9378407749" lon="3.9845976151">
+    <ele>45.4</ele>
+    <time>2025-01-01T10:12:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 258</name>
+  </wpt>
+  <wpt lat="39.9379698710" lon="3.9846648417">
+    <ele>45.5</ele>
+    <time>2025-01-01T10:12:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 259</name>
+  </wpt>
+  <wpt lat="39.9375679808" lon="3.9861735926">
+    <ele>39.1</ele>
+    <time>2025-01-01T10:12:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 260</name>
+  </wpt>
+  <wpt lat="39.9373399513" lon="3.9870910785">
+    <ele>35.8</ele>
+    <time>2025-01-01T10:13:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 261</name>
+  </wpt>
+  <wpt lat="39.9373707272" lon="3.9871098306">
+    <ele>35.8</ele>
+    <time>2025-01-01T10:13:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 262</name>
+  </wpt>
+  <wpt lat="39.9374686270" lon="3.9870068714">
+    <ele>35.6</ele>
+    <time>2025-01-01T10:13:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 263</name>
+  </wpt>
+  <wpt lat="39.9375692904" lon="3.9869681174">
+    <ele>35.4</ele>
+    <time>2025-01-01T10:13:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 264</name>
+  </wpt>
+  <wpt lat="39.9377151686" lon="3.9868776131">
+    <ele>35.3</ele>
+    <time>2025-01-01T10:13:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 265</name>
+  </wpt>
+  <wpt lat="39.9378799003" lon="3.9868098806">
+    <ele>35.1</ele>
+    <time>2025-01-01T10:13:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 266</name>
+  </wpt>
+  <wpt lat="39.9379810388" lon="3.9868066447">
+    <ele>34.0</ele>
+    <time>2025-01-01T10:13:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 267</name>
+  </wpt>
+  <wpt lat="39.9379923723" lon="3.9868076736">
+    <ele>33.9</ele>
+    <time>2025-01-01T10:13:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 268</name>
+  </wpt>
+  <wpt lat="39.9381037195" lon="3.9868177868">
+    <ele>32.7</ele>
+    <time>2025-01-01T10:13:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 269</name>
+  </wpt>
+  <wpt lat="39.9382552516" lon="3.9868847351">
+    <ele>31.0</ele>
+    <time>2025-01-01T10:13:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 270</name>
+  </wpt>
+  <wpt lat="39.9383231696" lon="3.9869147421">
+    <ele>30.3</ele>
+    <time>2025-01-01T10:13:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 271</name>
+  </wpt>
+  <wpt lat="39.9385469946" lon="3.9868722206">
+    <ele>31.1</ele>
+    <time>2025-01-01T10:13:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 272</name>
+  </wpt>
+  <wpt lat="39.9386187791" lon="3.9869011082">
+    <ele>31.5</ele>
+    <time>2025-01-01T10:13:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 273</name>
+  </wpt>
+  <wpt lat="39.9387350649" lon="3.9869479038">
+    <ele>32.0</ele>
+    <time>2025-01-01T10:13:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 274</name>
+  </wpt>
+  <wpt lat="39.9388737806" lon="3.9871136986">
+    <ele>33.1</ele>
+    <time>2025-01-01T10:13:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 275</name>
+  </wpt>
+  <wpt lat="39.9389396058" lon="3.9871576359">
+    <ele>33.5</ele>
+    <time>2025-01-01T10:13:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 276</name>
+  </wpt>
+  <wpt lat="39.9389629550" lon="3.9871732211">
+    <ele>33.7</ele>
+    <time>2025-01-01T10:13:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 277</name>
+  </wpt>
+  <wpt lat="39.9390002577" lon="3.9872356384">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:13:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 278</name>
+  </wpt>
+  <wpt lat="39.9390110788" lon="3.9872812936">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:13:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 279</name>
+  </wpt>
+  <wpt lat="39.9390512770" lon="3.9873328336">
+    <ele>34.6</ele>
+    <time>2025-01-01T10:13:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 280</name>
+  </wpt>
+  <wpt lat="39.9390780822" lon="3.9873811110">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:14:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 281</name>
+  </wpt>
+  <wpt lat="39.9390940599" lon="3.9874098890">
+    <ele>35.1</ele>
+    <time>2025-01-01T10:14:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 282</name>
+  </wpt>
+  <wpt lat="39.9391044907" lon="3.9875013568">
+    <ele>35.4</ele>
+    <time>2025-01-01T10:14:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 283</name>
+  </wpt>
+  <wpt lat="39.9390620710" lon="3.9875462468">
+    <ele>35.4</ele>
+    <time>2025-01-01T10:14:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 284</name>
+  </wpt>
+  <wpt lat="39.9389949882" lon="3.9875252609">
+    <ele>35.5</ele>
+    <time>2025-01-01T10:14:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 285</name>
+  </wpt>
+  <wpt lat="39.9388768007" lon="3.9875818029">
+    <ele>35.5</ele>
+    <time>2025-01-01T10:14:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 286</name>
+  </wpt>
+  <wpt lat="39.9388158279" lon="3.9876660898">
+    <ele>35.6</ele>
+    <time>2025-01-01T10:14:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 287</name>
+  </wpt>
+  <wpt lat="39.9387478631" lon="3.9877488340">
+    <ele>35.6</ele>
+    <time>2025-01-01T10:14:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 288</name>
+  </wpt>
+  <wpt lat="39.9386377606" lon="3.9878430451">
+    <ele>35.8</ele>
+    <time>2025-01-01T10:14:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 289</name>
+  </wpt>
+  <wpt lat="39.9385084073" lon="3.9880481245">
+    <ele>36.2</ele>
+    <time>2025-01-01T10:14:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 290</name>
+  </wpt>
+  <wpt lat="39.9384157004" lon="3.9881452946">
+    <ele>36.5</ele>
+    <time>2025-01-01T10:14:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 291</name>
+  </wpt>
+  <wpt lat="39.9383607085" lon="3.9882872142">
+    <ele>36.3</ele>
+    <time>2025-01-01T10:14:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 292</name>
+  </wpt>
+  <wpt lat="39.9383416909" lon="3.9884150910">
+    <ele>35.8</ele>
+    <time>2025-01-01T10:14:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 293</name>
+  </wpt>
+  <wpt lat="39.9383601942" lon="3.9886104468">
+    <ele>35.1</ele>
+    <time>2025-01-01T10:14:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 294</name>
+  </wpt>
+  <wpt lat="39.9384535550" lon="3.9888947177">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:14:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 295</name>
+  </wpt>
+  <wpt lat="39.9384563001" lon="3.9889030778">
+    <ele>34.9</ele>
+    <time>2025-01-01T10:14:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 296</name>
+  </wpt>
+  <wpt lat="39.9388654799" lon="3.9895351600">
+    <ele>39.0</ele>
+    <time>2025-01-01T10:14:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 297</name>
+  </wpt>
+  <wpt lat="39.9389884463" lon="3.9900966759">
+    <ele>41.1</ele>
+    <time>2025-01-01T10:14:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 298</name>
+  </wpt>
+  <wpt lat="39.9391204732" lon="3.9906995815">
+    <ele>41.8</ele>
+    <time>2025-01-01T10:14:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 299</name>
+  </wpt>
+  <wpt lat="39.9390252862" lon="3.9909154801">
+    <ele>41.8</ele>
+    <time>2025-01-01T10:14:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 300</name>
+  </wpt>
+  <wpt lat="39.9391407610" lon="3.9910610612">
+    <ele>41.8</ele>
+    <time>2025-01-01T10:15:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 301</name>
+  </wpt>
+  <wpt lat="39.9391371038" lon="3.9916724843">
+    <ele>41.2</ele>
+    <time>2025-01-01T10:15:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 302</name>
+  </wpt>
+  <wpt lat="39.9391160773" lon="3.9917437604">
+    <ele>40.7</ele>
+    <time>2025-01-01T10:15:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 303</name>
+  </wpt>
+  <wpt lat="39.9391217249" lon="3.9920015185">
+    <ele>39.0</ele>
+    <time>2025-01-01T10:15:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 304</name>
+  </wpt>
+  <wpt lat="39.9391415792" lon="3.9920672482">
+    <ele>38.6</ele>
+    <time>2025-01-01T10:15:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 305</name>
+  </wpt>
+  <wpt lat="39.9391794126" lon="3.9921434626">
+    <ele>38.0</ele>
+    <time>2025-01-01T10:15:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 306</name>
+  </wpt>
+  <wpt lat="39.9391701214" lon="3.9924950831">
+    <ele>33.7</ele>
+    <time>2025-01-01T10:15:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 307</name>
+  </wpt>
+  <wpt lat="39.9391466839" lon="3.9926644845">
+    <ele>31.5</ele>
+    <time>2025-01-01T10:15:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 308</name>
+  </wpt>
+  <wpt lat="39.9390843914" lon="3.9927862865">
+    <ele>29.8</ele>
+    <time>2025-01-01T10:15:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 309</name>
+  </wpt>
+  <wpt lat="39.9390800807" lon="3.9927908743">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:15:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 310</name>
+  </wpt>
+  <wpt lat="39.9390332023" lon="3.9928407658">
+    <ele>29.1</ele>
+    <time>2025-01-01T10:15:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 311</name>
+  </wpt>
+  <wpt lat="39.9389653523" lon="3.9928904324">
+    <ele>28.4</ele>
+    <time>2025-01-01T10:15:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 312</name>
+  </wpt>
+  <wpt lat="39.9389370975" lon="3.9929111154">
+    <ele>28.1</ele>
+    <time>2025-01-01T10:15:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 313</name>
+  </wpt>
+  <wpt lat="39.9388254418" lon="3.9929031062">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:15:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 314</name>
+  </wpt>
+  <wpt lat="39.9387900044" lon="3.9929748100">
+    <ele>26.4</ele>
+    <time>2025-01-01T10:15:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 315</name>
+  </wpt>
+  <wpt lat="39.9387822900" lon="3.9929904198">
+    <ele>26.3</ele>
+    <time>2025-01-01T10:15:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 316</name>
+  </wpt>
+  <wpt lat="39.9387769960" lon="3.9932418854">
+    <ele>24.8</ele>
+    <time>2025-01-01T10:15:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 317</name>
+  </wpt>
+  <wpt lat="39.9387715137" lon="3.9933317882">
+    <ele>24.3</ele>
+    <time>2025-01-01T10:15:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 318</name>
+  </wpt>
+  <wpt lat="39.9387356352" lon="3.9934866951">
+    <ele>23.5</ele>
+    <time>2025-01-01T10:15:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 319</name>
+  </wpt>
+  <wpt lat="39.9386932816" lon="3.9936967423">
+    <ele>22.4</ele>
+    <time>2025-01-01T10:15:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 320</name>
+  </wpt>
+  <wpt lat="39.9386803529" lon="3.9937190136">
+    <ele>22.2</ele>
+    <time>2025-01-01T10:16:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 321</name>
+  </wpt>
+  <wpt lat="39.9386225795" lon="3.9938185321">
+    <ele>20.9</ele>
+    <time>2025-01-01T10:16:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 322</name>
+  </wpt>
+  <wpt lat="39.9386891989" lon="3.9940279528">
+    <ele>18.4</ele>
+    <time>2025-01-01T10:16:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 323</name>
+  </wpt>
+  <wpt lat="39.9387473187" lon="3.9942885874">
+    <ele>15.4</ele>
+    <time>2025-01-01T10:16:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 324</name>
+  </wpt>
+  <wpt lat="39.9387922756" lon="3.9944901986">
+    <ele>13.9</ele>
+    <time>2025-01-01T10:16:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 325</name>
+  </wpt>
+  <wpt lat="39.9389726156" lon="3.9943884155">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:16:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 326</name>
+  </wpt>
+  <wpt lat="39.9391605686" lon="3.9942823365">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:16:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 327</name>
+  </wpt>
+  <wpt lat="39.9391734367" lon="3.9942843826">
+    <ele>9.4</ele>
+    <time>2025-01-01T10:16:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 328</name>
+  </wpt>
+  <wpt lat="39.9392760024" lon="3.9943006920">
+    <ele>7.7</ele>
+    <time>2025-01-01T10:16:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 329</name>
+  </wpt>
+  <wpt lat="39.9393818134" lon="3.9943175178">
+    <ele>5.9</ele>
+    <time>2025-01-01T10:16:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 330</name>
+  </wpt>
+  <wpt lat="39.9394120223" lon="3.9943190459">
+    <ele>5.4</ele>
+    <time>2025-01-01T10:16:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 331</name>
+  </wpt>
+  <wpt lat="39.9395786584" lon="3.9943274740">
+    <ele>2.9</ele>
+    <time>2025-01-01T10:16:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 332</name>
+  </wpt>
+  <wpt lat="39.9396582115" lon="3.9943002000">
+    <ele>2.3</ele>
+    <time>2025-01-01T10:16:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 333</name>
+  </wpt>
+  <wpt lat="39.9398166902" lon="3.9942130325">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:16:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 334</name>
+  </wpt>
+  <wpt lat="39.9398783321" lon="3.9942276869">
+    <ele>0.9</ele>
+    <time>2025-01-01T10:16:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 335</name>
+  </wpt>
+  <wpt lat="39.9399274452" lon="3.9942628045">
+    <ele>0.5</ele>
+    <time>2025-01-01T10:16:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 336</name>
+  </wpt>
+  <wpt lat="39.9400172617" lon="3.9942847491">
+    <ele>0.0</ele>
+    <time>2025-01-01T10:16:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 337</name>
+  </wpt>
+  <wpt lat="39.9400398479" lon="3.9943263616">
+    <ele>0.0</ele>
+    <time>2025-01-01T10:16:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 338</name>
+  </wpt>
+  <wpt lat="39.9400078486" lon="3.9943534240">
+    <ele>0.1</ele>
+    <time>2025-01-01T10:16:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 339</name>
+  </wpt>
+  <wpt lat="39.9399442650" lon="3.9943593836">
+    <ele>0.2</ele>
+    <time>2025-01-01T10:16:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 340</name>
+  </wpt>
+  <wpt lat="39.9397960404" lon="3.9943572379">
+    <ele>0.3</ele>
+    <time>2025-01-01T10:17:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 341</name>
+  </wpt>
+  <wpt lat="39.9397811362" lon="3.9944487706">
+    <ele>0.4</ele>
+    <time>2025-01-01T10:17:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 342</name>
+  </wpt>
+  <wpt lat="39.9397735421" lon="3.9945351958">
+    <ele>0.5</ele>
+    <time>2025-01-01T10:17:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 343</name>
+  </wpt>
+  <wpt lat="39.9397823017" lon="3.9946666277">
+    <ele>0.6</ele>
+    <time>2025-01-01T10:17:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 344</name>
+  </wpt>
+  <wpt lat="39.9397845562" lon="3.9947879744">
+    <ele>0.7</ele>
+    <time>2025-01-01T10:17:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 345</name>
+  </wpt>
+  <wpt lat="39.9397637425" lon="3.9949089870">
+    <ele>0.9</ele>
+    <time>2025-01-01T10:17:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 346</name>
+  </wpt>
+  <wpt lat="39.9397245610" lon="3.9949940522">
+    <ele>1.0</ele>
+    <time>2025-01-01T10:17:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 347</name>
+  </wpt>
+  <wpt lat="39.9396753214" lon="3.9950573651">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:17:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 348</name>
+  </wpt>
+  <wpt lat="39.9396308128" lon="3.9951025950">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:17:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 349</name>
+  </wpt>
+  <wpt lat="39.9395928131" lon="3.9952121418">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:17:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 350</name>
+  </wpt>
+  <wpt lat="39.9395518349" lon="3.9952784206">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:17:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 351</name>
+  </wpt>
+  <wpt lat="39.9394698076" lon="3.9954813456">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:17:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 352</name>
+  </wpt>
+  <wpt lat="39.9393938517" lon="3.9956525628">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:17:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 353</name>
+  </wpt>
+  <wpt lat="39.9393452412" lon="3.9958269816">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:17:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 354</name>
+  </wpt>
+  <wpt lat="39.9392401446" lon="3.9962040735">
+    <ele>1.5</ele>
+    <time>2025-01-01T10:17:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 355</name>
+  </wpt>
+  <wpt lat="39.9391124219" lon="3.9966785130">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:17:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 356</name>
+  </wpt>
+  <wpt lat="39.9389785558" lon="3.9971741600">
+    <ele>4.9</ele>
+    <time>2025-01-01T10:17:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 357</name>
+  </wpt>
+  <wpt lat="39.9389734573" lon="3.9972472713">
+    <ele>5.2</ele>
+    <time>2025-01-01T10:17:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 358</name>
+  </wpt>
+  <wpt lat="39.9392335308" lon="3.9974930679">
+    <ele>4.9</ele>
+    <time>2025-01-01T10:17:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 359</name>
+  </wpt>
+  <wpt lat="39.9393864551" lon="3.9974765403">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:17:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 360</name>
+  </wpt>
+  <wpt lat="39.9393874985" lon="3.9974764278">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:18:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 361</name>
+  </wpt>
+  <wpt lat="39.9395543506" lon="3.9976042176">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:18:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 362</name>
+  </wpt>
+  <wpt lat="39.9396325787" lon="3.9976886078">
+    <ele>4.3</ele>
+    <time>2025-01-01T10:18:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 363</name>
+  </wpt>
+  <wpt lat="39.9397689140" lon="3.9977719076">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:18:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 364</name>
+  </wpt>
+  <wpt lat="39.9399021376" lon="3.9978706511">
+    <ele>8.1</ele>
+    <time>2025-01-01T10:18:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 365</name>
+  </wpt>
+  <wpt lat="39.9399433865" lon="3.9979176542">
+    <ele>8.8</ele>
+    <time>2025-01-01T10:18:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 366</name>
+  </wpt>
+  <wpt lat="39.9400054043" lon="3.9979883227">
+    <ele>9.6</ele>
+    <time>2025-01-01T10:18:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 367</name>
+  </wpt>
+  <wpt lat="39.9400968034" lon="3.9981000132">
+    <ele>10.8</ele>
+    <time>2025-01-01T10:18:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 368</name>
+  </wpt>
+  <wpt lat="39.9402122300" lon="3.9981721814">
+    <ele>12.1</ele>
+    <time>2025-01-01T10:18:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 369</name>
+  </wpt>
+  <wpt lat="39.9403317454" lon="3.9983058304">
+    <ele>13.7</ele>
+    <time>2025-01-01T10:18:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 370</name>
+  </wpt>
+  <wpt lat="39.9403877386" lon="3.9983511371">
+    <ele>14.5</ele>
+    <time>2025-01-01T10:18:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 371</name>
+  </wpt>
+  <wpt lat="39.9404859845" lon="3.9984306327">
+    <ele>15.9</ele>
+    <time>2025-01-01T10:18:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 372</name>
+  </wpt>
+  <wpt lat="39.9405304714" lon="3.9984666286">
+    <ele>16.6</ele>
+    <time>2025-01-01T10:18:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 373</name>
+  </wpt>
+  <wpt lat="39.9406084341" lon="3.9986241071">
+    <ele>18.4</ele>
+    <time>2025-01-01T10:18:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 374</name>
+  </wpt>
+  <wpt lat="39.9406507212" lon="3.9987952802">
+    <ele>19.2</ele>
+    <time>2025-01-01T10:18:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 375</name>
+  </wpt>
+  <wpt lat="39.9406636912" lon="3.9988771945">
+    <ele>19.0</ele>
+    <time>2025-01-01T10:18:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 376</name>
+  </wpt>
+  <wpt lat="39.9406853599" lon="3.9989117540">
+    <ele>18.8</ele>
+    <time>2025-01-01T10:18:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 377</name>
+  </wpt>
+  <wpt lat="39.9407041623" lon="3.9989417421">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:18:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 378</name>
+  </wpt>
+  <wpt lat="39.9407144278" lon="3.9990200647">
+    <ele>18.5</ele>
+    <time>2025-01-01T10:18:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 379</name>
+  </wpt>
+  <wpt lat="39.9407302857" lon="3.9990842545">
+    <ele>18.3</ele>
+    <time>2025-01-01T10:18:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 380</name>
+  </wpt>
+  <wpt lat="39.9407607410" lon="3.9991545114">
+    <ele>18.1</ele>
+    <time>2025-01-01T10:19:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 381</name>
+  </wpt>
+  <wpt lat="39.9407820474" lon="3.9992750942">
+    <ele>17.8</ele>
+    <time>2025-01-01T10:19:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 382</name>
+  </wpt>
+  <wpt lat="39.9407925361" lon="3.9993646064">
+    <ele>16.9</ele>
+    <time>2025-01-01T10:19:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 383</name>
+  </wpt>
+  <wpt lat="39.9408051119" lon="3.9994088049">
+    <ele>16.3</ele>
+    <time>2025-01-01T10:19:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 384</name>
+  </wpt>
+  <wpt lat="39.9408298174" lon="3.9994956330">
+    <ele>15.2</ele>
+    <time>2025-01-01T10:19:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 385</name>
+  </wpt>
+  <wpt lat="39.9408482060" lon="3.9996872762">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:19:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 386</name>
+  </wpt>
+  <wpt lat="39.9408410362" lon="3.9997165261">
+    <ele>12.3</ele>
+    <time>2025-01-01T10:19:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 387</name>
+  </wpt>
+  <wpt lat="39.9407478117" lon="4.0000968386">
+    <ele>8.1</ele>
+    <time>2025-01-01T10:19:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 388</name>
+  </wpt>
+  <wpt lat="39.9406522182" lon="4.0003368408">
+    <ele>5.8</ele>
+    <time>2025-01-01T10:19:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 389</name>
+  </wpt>
+  <wpt lat="39.9404800453" lon="4.0007392022">
+    <ele>3.3</ele>
+    <time>2025-01-01T10:19:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 390</name>
+  </wpt>
+  <wpt lat="39.9404459846" lon="4.0008187997">
+    <ele>2.9</ele>
+    <time>2025-01-01T10:19:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 391</name>
+  </wpt>
+  <wpt lat="39.9405623606" lon="4.0008938180">
+    <ele>2.2</ele>
+    <time>2025-01-01T10:19:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 392</name>
+  </wpt>
+  <wpt lat="39.9405703187" lon="4.0008989483">
+    <ele>2.2</ele>
+    <time>2025-01-01T10:19:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 393</name>
+  </wpt>
+  <wpt lat="39.9407500437" lon="4.0009322826">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:19:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 394</name>
+  </wpt>
+  <wpt lat="39.9408656844" lon="4.0009510636">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:19:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 395</name>
+  </wpt>
+  <wpt lat="39.9408700795" lon="4.0009517772">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:19:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 396</name>
+  </wpt>
+  <wpt lat="39.9408559155" lon="4.0010084230">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:19:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 397</name>
+  </wpt>
+  <wpt lat="39.9406178005" lon="4.0010052725">
+    <ele>2.7</ele>
+    <time>2025-01-01T10:19:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 398</name>
+  </wpt>
+  <wpt lat="39.9406027769" lon="4.0010254127">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:19:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 399</name>
+  </wpt>
+  <wpt lat="39.9406198025" lon="4.0010599473">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:19:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 400</name>
+  </wpt>
+  <wpt lat="39.9407303113" lon="4.0010637021">
+    <ele>5.0</ele>
+    <time>2025-01-01T10:20:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 401</name>
+  </wpt>
+  <wpt lat="39.9408351668" lon="4.0010534448">
+    <ele>6.5</ele>
+    <time>2025-01-01T10:20:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 402</name>
+  </wpt>
+  <wpt lat="39.9408710420" lon="4.0011509331">
+    <ele>7.7</ele>
+    <time>2025-01-01T10:20:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 403</name>
+  </wpt>
+  <wpt lat="39.9409389757" lon="4.0012086197">
+    <ele>8.7</ele>
+    <time>2025-01-01T10:20:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 404</name>
+  </wpt>
+  <wpt lat="39.9409709959" lon="4.0013014731">
+    <ele>9.5</ele>
+    <time>2025-01-01T10:20:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 405</name>
+  </wpt>
+  <wpt lat="39.9410110666" lon="4.0014122095">
+    <ele>10.4</ele>
+    <time>2025-01-01T10:20:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 406</name>
+  </wpt>
+  <wpt lat="39.9408859368" lon="4.0015408344">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:20:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 407</name>
+  </wpt>
+  <wpt lat="39.9408628438" lon="4.0016311812">
+    <ele>12.7</ele>
+    <time>2025-01-01T10:20:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 408</name>
+  </wpt>
+  <wpt lat="39.9407199148" lon="4.0017619289">
+    <ele>13.9</ele>
+    <time>2025-01-01T10:20:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 409</name>
+  </wpt>
+  <wpt lat="39.9406381537" lon="4.0018367222">
+    <ele>14.4</ele>
+    <time>2025-01-01T10:20:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 410</name>
+  </wpt>
+  <wpt lat="39.9407116561" lon="4.0018768808">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:20:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 411</name>
+  </wpt>
+  <wpt lat="39.9410880962" lon="4.0018095514">
+    <ele>18.4</ele>
+    <time>2025-01-01T10:20:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 412</name>
+  </wpt>
+  <wpt lat="39.9411486071" lon="4.0017983547">
+    <ele>19.2</ele>
+    <time>2025-01-01T10:20:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 413</name>
+  </wpt>
+  <wpt lat="39.9412210486" lon="4.0017510903">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:20:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 414</name>
+  </wpt>
+  <wpt lat="39.9412726317" lon="4.0016974809">
+    <ele>21.1</ele>
+    <time>2025-01-01T10:20:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 415</name>
+  </wpt>
+  <wpt lat="39.9413486774" lon="4.0015912451">
+    <ele>22.2</ele>
+    <time>2025-01-01T10:20:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 416</name>
+  </wpt>
+  <wpt lat="39.9414824064" lon="4.0016251750">
+    <ele>22.9</ele>
+    <time>2025-01-01T10:20:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 417</name>
+  </wpt>
+  <wpt lat="39.9416459895" lon="4.0016963651">
+    <ele>23.9</ele>
+    <time>2025-01-01T10:20:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 418</name>
+  </wpt>
+  <wpt lat="39.9418452831" lon="4.0017830949">
+    <ele>25.3</ele>
+    <time>2025-01-01T10:20:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 419</name>
+  </wpt>
+  <wpt lat="39.9418870973" lon="4.0018012925">
+    <ele>25.6</ele>
+    <time>2025-01-01T10:20:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 420</name>
+  </wpt>
+  <wpt lat="39.9421303612" lon="4.0019080698">
+    <ele>27.7</ele>
+    <time>2025-01-01T10:21:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 421</name>
+  </wpt>
+  <wpt lat="39.9422256119" lon="4.0019886737">
+    <ele>28.5</ele>
+    <time>2025-01-01T10:21:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 422</name>
+  </wpt>
+  <wpt lat="39.9422228944" lon="4.0020268460">
+    <ele>28.7</ele>
+    <time>2025-01-01T10:21:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 423</name>
+  </wpt>
+  <wpt lat="39.9421952700" lon="4.0020584233">
+    <ele>28.9</ele>
+    <time>2025-01-01T10:21:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 424</name>
+  </wpt>
+  <wpt lat="39.9421904869" lon="4.0020600741">
+    <ele>28.9</ele>
+    <time>2025-01-01T10:21:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 425</name>
+  </wpt>
+  <wpt lat="39.9421458903" lon="4.0020754698">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:21:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 426</name>
+  </wpt>
+  <wpt lat="39.9420690082" lon="4.0021098820">
+    <ele>29.6</ele>
+    <time>2025-01-01T10:21:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 427</name>
+  </wpt>
+  <wpt lat="39.9420587900" lon="4.0021122085">
+    <ele>29.7</ele>
+    <time>2025-01-01T10:21:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 428</name>
+  </wpt>
+  <wpt lat="39.9419395550" lon="4.0021393601">
+    <ele>30.4</ele>
+    <time>2025-01-01T10:21:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 429</name>
+  </wpt>
+  <wpt lat="39.9417966628" lon="4.0022751659">
+    <ele>31.5</ele>
+    <time>2025-01-01T10:21:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 430</name>
+  </wpt>
+  <wpt lat="39.9417473032" lon="4.0023861756">
+    <ele>32.2</ele>
+    <time>2025-01-01T10:21:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 431</name>
+  </wpt>
+  <wpt lat="39.9416504636" lon="4.0026039663">
+    <ele>33.6</ele>
+    <time>2025-01-01T10:21:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 432</name>
+  </wpt>
+  <wpt lat="39.9415819642" lon="4.0029145645">
+    <ele>35.5</ele>
+    <time>2025-01-01T10:21:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 433</name>
+  </wpt>
+  <wpt lat="39.9415762224" lon="4.0029405989">
+    <ele>35.7</ele>
+    <time>2025-01-01T10:21:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 434</name>
+  </wpt>
+  <wpt lat="39.9415053938" lon="4.0032190538">
+    <ele>37.5</ele>
+    <time>2025-01-01T10:21:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 435</name>
+  </wpt>
+  <wpt lat="39.9414745897" lon="4.0033901076">
+    <ele>38.6</ele>
+    <time>2025-01-01T10:21:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 436</name>
+  </wpt>
+  <wpt lat="39.9414679417" lon="4.0034880302">
+    <ele>39.6</ele>
+    <time>2025-01-01T10:21:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 437</name>
+  </wpt>
+  <wpt lat="39.9414652549" lon="4.0035275989">
+    <ele>40.1</ele>
+    <time>2025-01-01T10:21:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 438</name>
+  </wpt>
+  <wpt lat="39.9414991313" lon="4.0035662048">
+    <ele>40.7</ele>
+    <time>2025-01-01T10:21:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 439</name>
+  </wpt>
+  <wpt lat="39.9415840714" lon="4.0033514786">
+    <ele>43.2</ele>
+    <time>2025-01-01T10:21:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 440</name>
+  </wpt>
+  <wpt lat="39.9416587433" lon="4.0031937684">
+    <ele>45.1</ele>
+    <time>2025-01-01T10:22:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 441</name>
+  </wpt>
+  <wpt lat="39.9416871664" lon="4.0031094895">
+    <ele>45.2</ele>
+    <time>2025-01-01T10:22:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 442</name>
+  </wpt>
+  <wpt lat="39.9417199262" lon="4.0030887938">
+    <ele>45.3</ele>
+    <time>2025-01-01T10:22:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 443</name>
+  </wpt>
+  <wpt lat="39.9417359406" lon="4.0031207888">
+    <ele>45.3</ele>
+    <time>2025-01-01T10:22:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 444</name>
+  </wpt>
+  <wpt lat="39.9417169968" lon="4.0032390836">
+    <ele>45.4</ele>
+    <time>2025-01-01T10:22:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 445</name>
+  </wpt>
+  <wpt lat="39.9417061343" lon="4.0032788011">
+    <ele>45.5</ele>
+    <time>2025-01-01T10:22:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 446</name>
+  </wpt>
+  <wpt lat="39.9416564356" lon="4.0034605188">
+    <ele>45.7</ele>
+    <time>2025-01-01T10:22:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 447</name>
+  </wpt>
+  <wpt lat="39.9416210641" lon="4.0037272179">
+    <ele>46.7</ele>
+    <time>2025-01-01T10:22:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 448</name>
+  </wpt>
+  <wpt lat="39.9416240676" lon="4.0038559718">
+    <ele>47.4</ele>
+    <time>2025-01-01T10:22:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 449</name>
+  </wpt>
+  <wpt lat="39.9416258167" lon="4.0039309412">
+    <ele>47.8</ele>
+    <time>2025-01-01T10:22:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 450</name>
+  </wpt>
+  <wpt lat="39.9416416772" lon="4.0041687674">
+    <ele>49.0</ele>
+    <time>2025-01-01T10:22:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 451</name>
+  </wpt>
+  <wpt lat="39.9416714491" lon="4.0043049708">
+    <ele>49.5</ele>
+    <time>2025-01-01T10:22:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 452</name>
+  </wpt>
+  <wpt lat="39.9417691737" lon="4.0044952040">
+    <ele>50.4</ele>
+    <time>2025-01-01T10:22:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 453</name>
+  </wpt>
+  <wpt lat="39.9417920997" lon="4.0045241038">
+    <ele>50.5</ele>
+    <time>2025-01-01T10:22:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 454</name>
+  </wpt>
+  <wpt lat="39.9418594143" lon="4.0046089573">
+    <ele>51.0</ele>
+    <time>2025-01-01T10:22:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 455</name>
+  </wpt>
+  <wpt lat="39.9419255169" lon="4.0046884148">
+    <ele>51.4</ele>
+    <time>2025-01-01T10:22:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 456</name>
+  </wpt>
+  <wpt lat="39.9419393860" lon="4.0047798399">
+    <ele>51.7</ele>
+    <time>2025-01-01T10:22:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 457</name>
+  </wpt>
+  <wpt lat="39.9418979111" lon="4.0048662087">
+    <ele>52.1</ele>
+    <time>2025-01-01T10:22:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 458</name>
+  </wpt>
+  <wpt lat="39.9417382772" lon="4.0050526752">
+    <ele>53.1</ele>
+    <time>2025-01-01T10:22:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 459</name>
+  </wpt>
+  <wpt lat="39.9416200442" lon="4.0051111116">
+    <ele>53.4</ele>
+    <time>2025-01-01T10:22:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 460</name>
+  </wpt>
+  <wpt lat="39.9415298468" lon="4.0051556923">
+    <ele>53.2</ele>
+    <time>2025-01-01T10:23:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 461</name>
+  </wpt>
+  <wpt lat="39.9414231808" lon="4.0052453493">
+    <ele>52.9</ele>
+    <time>2025-01-01T10:23:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 462</name>
+  </wpt>
+  <wpt lat="39.9413831145" lon="4.0053571958">
+    <ele>52.6</ele>
+    <time>2025-01-01T10:23:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 463</name>
+  </wpt>
+  <wpt lat="39.9413567132" lon="4.0055837971">
+    <ele>52.0</ele>
+    <time>2025-01-01T10:23:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 464</name>
+  </wpt>
+  <wpt lat="39.9413663033" lon="4.0057832820">
+    <ele>51.0</ele>
+    <time>2025-01-01T10:23:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 465</name>
+  </wpt>
+  <wpt lat="39.9414764123" lon="4.0058816850">
+    <ele>50.2</ele>
+    <time>2025-01-01T10:23:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 466</name>
+  </wpt>
+  <wpt lat="39.9416076897" lon="4.0060064323">
+    <ele>49.3</ele>
+    <time>2025-01-01T10:23:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 467</name>
+  </wpt>
+  <wpt lat="39.9416965220" lon="4.0060908472">
+    <ele>49.0</ele>
+    <time>2025-01-01T10:23:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 468</name>
+  </wpt>
+  <wpt lat="39.9416732112" lon="4.0061229493">
+    <ele>49.0</ele>
+    <time>2025-01-01T10:23:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 469</name>
+  </wpt>
+  <wpt lat="39.9416233058" lon="4.0062003926">
+    <ele>48.8</ele>
+    <time>2025-01-01T10:23:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 470</name>
+  </wpt>
+  <wpt lat="39.9415856576" lon="4.0062622104">
+    <ele>48.7</ele>
+    <time>2025-01-01T10:23:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 471</name>
+  </wpt>
+  <wpt lat="39.9415702803" lon="4.0063143818">
+    <ele>48.6</ele>
+    <time>2025-01-01T10:23:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 472</name>
+  </wpt>
+  <wpt lat="39.9415340621" lon="4.0063623642">
+    <ele>48.5</ele>
+    <time>2025-01-01T10:23:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 473</name>
+  </wpt>
+  <wpt lat="39.9414892537" lon="4.0064111325">
+    <ele>48.4</ele>
+    <time>2025-01-01T10:23:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 474</name>
+  </wpt>
+  <wpt lat="39.9414446597" lon="4.0064351915">
+    <ele>48.4</ele>
+    <time>2025-01-01T10:23:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 475</name>
+  </wpt>
+  <wpt lat="39.9414048928" lon="4.0064510833">
+    <ele>48.5</ele>
+    <time>2025-01-01T10:23:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 476</name>
+  </wpt>
+  <wpt lat="39.9412904537" lon="4.0064757224">
+    <ele>48.9</ele>
+    <time>2025-01-01T10:23:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 477</name>
+  </wpt>
+  <wpt lat="39.9412549936" lon="4.0064946023">
+    <ele>49.0</ele>
+    <time>2025-01-01T10:23:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 478</name>
+  </wpt>
+  <wpt lat="39.9411863738" lon="4.0065280709">
+    <ele>49.2</ele>
+    <time>2025-01-01T10:23:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 479</name>
+  </wpt>
+  <wpt lat="39.9411232792" lon="4.0065705195">
+    <ele>49.4</ele>
+    <time>2025-01-01T10:23:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 480</name>
+  </wpt>
+  <wpt lat="39.9410420696" lon="4.0066125762">
+    <ele>49.7</ele>
+    <time>2025-01-01T10:24:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 481</name>
+  </wpt>
+  <wpt lat="39.9408869270" lon="4.0065875768">
+    <ele>50.4</ele>
+    <time>2025-01-01T10:24:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 482</name>
+  </wpt>
+  <wpt lat="39.9407977970" lon="4.0065462991">
+    <ele>50.8</ele>
+    <time>2025-01-01T10:24:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 483</name>
+  </wpt>
+  <wpt lat="39.9406767852" lon="4.0065733439">
+    <ele>51.4</ele>
+    <time>2025-01-01T10:24:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 484</name>
+  </wpt>
+  <wpt lat="39.9405825406" lon="4.0065579899">
+    <ele>51.8</ele>
+    <time>2025-01-01T10:24:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 485</name>
+  </wpt>
+  <wpt lat="39.9405075679" lon="4.0065640955">
+    <ele>52.2</ele>
+    <time>2025-01-01T10:24:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 486</name>
+  </wpt>
+  <wpt lat="39.9404493467" lon="4.0066328873">
+    <ele>52.7</ele>
+    <time>2025-01-01T10:24:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 487</name>
+  </wpt>
+  <wpt lat="39.9404307478" lon="4.0067937397">
+    <ele>53.4</ele>
+    <time>2025-01-01T10:24:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 488</name>
+  </wpt>
+  <wpt lat="39.9404432919" lon="4.0068744445">
+    <ele>53.8</ele>
+    <time>2025-01-01T10:24:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 489</name>
+  </wpt>
+  <wpt lat="39.9404460668" lon="4.0068922950">
+    <ele>53.8</ele>
+    <time>2025-01-01T10:24:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 490</name>
+  </wpt>
+  <wpt lat="39.9404002495" lon="4.0069424683">
+    <ele>54.2</ele>
+    <time>2025-01-01T10:24:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 491</name>
+  </wpt>
+  <wpt lat="39.9403747565" lon="4.0069949738">
+    <ele>54.5</ele>
+    <time>2025-01-01T10:24:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 492</name>
+  </wpt>
+  <wpt lat="39.9403866202" lon="4.0070704015">
+    <ele>54.8</ele>
+    <time>2025-01-01T10:24:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 493</name>
+  </wpt>
+  <wpt lat="39.9403722378" lon="4.0071047662">
+    <ele>54.9</ele>
+    <time>2025-01-01T10:24:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 494</name>
+  </wpt>
+  <wpt lat="39.9403954427" lon="4.0071356133">
+    <ele>55.1</ele>
+    <time>2025-01-01T10:24:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 495</name>
+  </wpt>
+  <wpt lat="39.9403863796" lon="4.0072191253">
+    <ele>55.3</ele>
+    <time>2025-01-01T10:24:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 496</name>
+  </wpt>
+  <wpt lat="39.9403739364" lon="4.0073443849">
+    <ele>55.8</ele>
+    <time>2025-01-01T10:24:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 497</name>
+  </wpt>
+  <wpt lat="39.9404604257" lon="4.0074124786">
+    <ele>56.2</ele>
+    <time>2025-01-01T10:24:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 498</name>
+  </wpt>
+  <wpt lat="39.9403045982" lon="4.0075779580">
+    <ele>57.0</ele>
+    <time>2025-01-01T10:24:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 499</name>
+  </wpt>
+  <wpt lat="39.9400955677" lon="4.0078294549">
+    <ele>57.9</ele>
+    <time>2025-01-01T10:24:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 500</name>
+  </wpt>
+  <wpt lat="39.9400155759" lon="4.0079256961">
+    <ele>58.2</ele>
+    <time>2025-01-01T10:25:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 501</name>
+  </wpt>
+  <wpt lat="39.9392688680" lon="4.0089949792">
+    <ele>55.8</ele>
+    <time>2025-01-01T10:25:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 502</name>
+  </wpt>
+  <wpt lat="39.9395473346" lon="4.0093465829">
+    <ele>52.3</ele>
+    <time>2025-01-01T10:25:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 503</name>
+  </wpt>
+  <wpt lat="39.9395605446" lon="4.0094000757">
+    <ele>52.2</ele>
+    <time>2025-01-01T10:25:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 504</name>
+  </wpt>
+  <wpt lat="39.9395311019" lon="4.0095550764">
+    <ele>52.0</ele>
+    <time>2025-01-01T10:25:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 505</name>
+  </wpt>
+  <wpt lat="39.9393588126" lon="4.0097869612">
+    <ele>51.6</ele>
+    <time>2025-01-01T10:25:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 506</name>
+  </wpt>
+  <wpt lat="39.9392992398" lon="4.0098671388">
+    <ele>51.8</ele>
+    <time>2025-01-01T10:25:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 507</name>
+  </wpt>
+  <wpt lat="39.9389706752" lon="4.0103952002">
+    <ele>54.4</ele>
+    <time>2025-01-01T10:25:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 508</name>
+  </wpt>
+  <wpt lat="39.9387875420" lon="4.0106881705">
+    <ele>53.2</ele>
+    <time>2025-01-01T10:25:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 509</name>
+  </wpt>
+  <wpt lat="39.9386683859" lon="4.0107222502">
+    <ele>52.7</ele>
+    <time>2025-01-01T10:25:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 510</name>
+  </wpt>
+  <wpt lat="39.9385628511" lon="4.0108298625">
+    <ele>52.3</ele>
+    <time>2025-01-01T10:25:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 511</name>
+  </wpt>
+  <wpt lat="39.9384993981" lon="4.0109277952">
+    <ele>52.0</ele>
+    <time>2025-01-01T10:25:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 512</name>
+  </wpt>
+  <wpt lat="39.9384545381" lon="4.0110744044">
+    <ele>51.6</ele>
+    <time>2025-01-01T10:25:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 513</name>
+  </wpt>
+  <wpt lat="39.9383955188" lon="4.0112022654">
+    <ele>51.3</ele>
+    <time>2025-01-01T10:25:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 514</name>
+  </wpt>
+  <wpt lat="39.9382499021" lon="4.0114285671">
+    <ele>51.6</ele>
+    <time>2025-01-01T10:25:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 515</name>
+  </wpt>
+  <wpt lat="39.9381721918" lon="4.0114717633">
+    <ele>51.8</ele>
+    <time>2025-01-01T10:25:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 516</name>
+  </wpt>
+  <wpt lat="39.9380935170" lon="4.0116154754">
+    <ele>52.0</ele>
+    <time>2025-01-01T10:25:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 517</name>
+  </wpt>
+  <wpt lat="39.9379532968" lon="4.0118162189">
+    <ele>51.9</ele>
+    <time>2025-01-01T10:25:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 518</name>
+  </wpt>
+  <wpt lat="39.9378051411" lon="4.0118299603">
+    <ele>51.9</ele>
+    <time>2025-01-01T10:25:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 519</name>
+  </wpt>
+  <wpt lat="39.9376117016" lon="4.0118418923">
+    <ele>51.7</ele>
+    <time>2025-01-01T10:25:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 520</name>
+  </wpt>
+  <wpt lat="39.9372125233" lon="4.0119719899">
+    <ele>50.8</ele>
+    <time>2025-01-01T10:26:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 521</name>
+  </wpt>
+  <wpt lat="39.9369528253" lon="4.0118882070">
+    <ele>50.4</ele>
+    <time>2025-01-01T10:26:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 522</name>
+  </wpt>
+  <wpt lat="39.9368383114" lon="4.0118501548">
+    <ele>50.2</ele>
+    <time>2025-01-01T10:26:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 523</name>
+  </wpt>
+  <wpt lat="39.9366494936" lon="4.0117435874">
+    <ele>49.9</ele>
+    <time>2025-01-01T10:26:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 524</name>
+  </wpt>
+  <wpt lat="39.9365645321" lon="4.0116956361">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 525</name>
+  </wpt>
+  <wpt lat="39.9364676258" lon="4.0116240227">
+    <ele>49.7</ele>
+    <time>2025-01-01T10:26:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 526</name>
+  </wpt>
+  <wpt lat="39.9360486706" lon="4.0114138840">
+    <ele>49.4</ele>
+    <time>2025-01-01T10:26:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 527</name>
+  </wpt>
+  <wpt lat="39.9358814595" lon="4.0112872677">
+    <ele>49.3</ele>
+    <time>2025-01-01T10:26:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 528</name>
+  </wpt>
+  <wpt lat="39.9357304774" lon="4.0111254189">
+    <ele>49.1</ele>
+    <time>2025-01-01T10:26:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 529</name>
+  </wpt>
+  <wpt lat="39.9356274152" lon="4.0110113570">
+    <ele>49.0</ele>
+    <time>2025-01-01T10:26:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 530</name>
+  </wpt>
+  <wpt lat="39.9355067009" lon="4.0109640668">
+    <ele>48.8</ele>
+    <time>2025-01-01T10:26:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 531</name>
+  </wpt>
+  <wpt lat="39.9353645566" lon="4.0108488418">
+    <ele>49.1</ele>
+    <time>2025-01-01T10:26:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 532</name>
+  </wpt>
+  <wpt lat="39.9352724745" lon="4.0108142061">
+    <ele>49.3</ele>
+    <time>2025-01-01T10:26:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 533</name>
+  </wpt>
+  <wpt lat="39.9351339001" lon="4.0107944315">
+    <ele>49.6</ele>
+    <time>2025-01-01T10:26:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 534</name>
+  </wpt>
+  <wpt lat="39.9350454628" lon="4.0107635703">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 535</name>
+  </wpt>
+  <wpt lat="39.9349662760" lon="4.0107151083">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 536</name>
+  </wpt>
+  <wpt lat="39.9349117931" lon="4.0106653654">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 537</name>
+  </wpt>
+  <wpt lat="39.9348872962" lon="4.0106430009">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 538</name>
+  </wpt>
+  <wpt lat="39.9348171554" lon="4.0106005861">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 539</name>
+  </wpt>
+  <wpt lat="39.9347223673" lon="4.0105637133">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:26:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 540</name>
+  </wpt>
+  <wpt lat="39.9346621308" lon="4.0105836341">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:27:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 541</name>
+  </wpt>
+  <wpt lat="39.9345692116" lon="4.0106028482">
+    <ele>49.8</ele>
+    <time>2025-01-01T10:27:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 542</name>
+  </wpt>
+  <wpt lat="39.9344524869" lon="4.0105159382">
+    <ele>49.5</ele>
+    <time>2025-01-01T10:27:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 543</name>
+  </wpt>
+  <wpt lat="39.9343635717" lon="4.0104134774">
+    <ele>49.2</ele>
+    <time>2025-01-01T10:27:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 544</name>
+  </wpt>
+  <wpt lat="39.9341468935" lon="4.0100860843">
+    <ele>48.9</ele>
+    <time>2025-01-01T10:27:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 545</name>
+  </wpt>
+  <wpt lat="39.9336709817" lon="4.0097341309">
+    <ele>48.6</ele>
+    <time>2025-01-01T10:27:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 546</name>
+  </wpt>
+  <wpt lat="39.9336306314" lon="4.0098436268">
+    <ele>48.4</ele>
+    <time>2025-01-01T10:27:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 547</name>
+  </wpt>
+  <wpt lat="39.9334197238" lon="4.0100894229">
+    <ele>48.1</ele>
+    <time>2025-01-01T10:27:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 548</name>
+  </wpt>
+  <wpt lat="39.9332557767" lon="4.0102118788">
+    <ele>48.2</ele>
+    <time>2025-01-01T10:27:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 549</name>
+  </wpt>
+  <wpt lat="39.9332441334" lon="4.0102205753">
+    <ele>48.2</ele>
+    <time>2025-01-01T10:27:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 550</name>
+  </wpt>
+  <wpt lat="39.9329820029" lon="4.0101089917">
+    <ele>48.0</ele>
+    <time>2025-01-01T10:27:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 551</name>
+  </wpt>
+  <wpt lat="39.9327028783" lon="4.0099785848">
+    <ele>46.9</ele>
+    <time>2025-01-01T10:27:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 552</name>
+  </wpt>
+  <wpt lat="39.9326001323" lon="4.0099547856">
+    <ele>46.6</ele>
+    <time>2025-01-01T10:27:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 553</name>
+  </wpt>
+  <wpt lat="39.9324355509" lon="4.0099205686">
+    <ele>45.9</ele>
+    <time>2025-01-01T10:27:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 554</name>
+  </wpt>
+  <wpt lat="39.9323429857" lon="4.0100239886">
+    <ele>45.5</ele>
+    <time>2025-01-01T10:27:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 555</name>
+  </wpt>
+  <wpt lat="39.9322834296" lon="4.0100905273">
+    <ele>45.2</ele>
+    <time>2025-01-01T10:27:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 556</name>
+  </wpt>
+  <wpt lat="39.9320094037" lon="4.0104779233">
+    <ele>40.1</ele>
+    <time>2025-01-01T10:27:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 557</name>
+  </wpt>
+  <wpt lat="39.9319945923" lon="4.0107245822">
+    <ele>37.1</ele>
+    <time>2025-01-01T10:27:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 558</name>
+  </wpt>
+  <wpt lat="39.9319929298" lon="4.0109152615">
+    <ele>35.4</ele>
+    <time>2025-01-01T10:27:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 559</name>
+  </wpt>
+  <wpt lat="39.9319919683" lon="4.0110255290">
+    <ele>34.4</ele>
+    <time>2025-01-01T10:27:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 560</name>
+  </wpt>
+  <wpt lat="39.9319917225" lon="4.0110537102">
+    <ele>34.1</ele>
+    <time>2025-01-01T10:28:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 561</name>
+  </wpt>
+  <wpt lat="39.9319510329" lon="4.0111498079">
+    <ele>33.1</ele>
+    <time>2025-01-01T10:28:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 562</name>
+  </wpt>
+  <wpt lat="39.9318947617" lon="4.0112827016">
+    <ele>31.7</ele>
+    <time>2025-01-01T10:28:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 563</name>
+  </wpt>
+  <wpt lat="39.9317734844" lon="4.0113961250">
+    <ele>29.5</ele>
+    <time>2025-01-01T10:28:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 564</name>
+  </wpt>
+  <wpt lat="39.9316737095" lon="4.0114601648">
+    <ele>27.9</ele>
+    <time>2025-01-01T10:28:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 565</name>
+  </wpt>
+  <wpt lat="39.9316065493" lon="4.0115032712">
+    <ele>26.7</ele>
+    <time>2025-01-01T10:28:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 566</name>
+  </wpt>
+  <wpt lat="39.9315751152" lon="4.0115234470">
+    <ele>26.2</ele>
+    <time>2025-01-01T10:28:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 567</name>
+  </wpt>
+  <wpt lat="39.9313803190" lon="4.0114371351">
+    <ele>24.5</ele>
+    <time>2025-01-01T10:28:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 568</name>
+  </wpt>
+  <wpt lat="39.9312172923" lon="4.0112891855">
+    <ele>24.8</ele>
+    <time>2025-01-01T10:28:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 569</name>
+  </wpt>
+  <wpt lat="39.9309337271" lon="4.0111368869">
+    <ele>24.5</ele>
+    <time>2025-01-01T10:28:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 570</name>
+  </wpt>
+  <wpt lat="39.9304544206" lon="4.0109373592">
+    <ele>21.1</ele>
+    <time>2025-01-01T10:28:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 571</name>
+  </wpt>
+  <wpt lat="39.9302837150" lon="4.0109169493">
+    <ele>19.3</ele>
+    <time>2025-01-01T10:28:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 572</name>
+  </wpt>
+  <wpt lat="39.9301773623" lon="4.0109042342">
+    <ele>18.2</ele>
+    <time>2025-01-01T10:28:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 573</name>
+  </wpt>
+  <wpt lat="39.9301200629" lon="4.0108973842">
+    <ele>17.6</ele>
+    <time>2025-01-01T10:28:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 574</name>
+  </wpt>
+  <wpt lat="39.9301083787" lon="4.0108959870">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:28:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 575</name>
+  </wpt>
+  <wpt lat="39.9302148782" lon="4.0113590295">
+    <ele>16.5</ele>
+    <time>2025-01-01T10:28:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 576</name>
+  </wpt>
+  <wpt lat="39.9302616941" lon="4.0115625826">
+    <ele>16.1</ele>
+    <time>2025-01-01T10:28:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 577</name>
+  </wpt>
+  <wpt lat="39.9302934248" lon="4.0117181379">
+    <ele>15.9</ele>
+    <time>2025-01-01T10:28:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 578</name>
+  </wpt>
+  <wpt lat="39.9303092767" lon="4.0117958493">
+    <ele>15.8</ele>
+    <time>2025-01-01T10:28:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 579</name>
+  </wpt>
+  <wpt lat="39.9301693508" lon="4.0119100701">
+    <ele>15.5</ele>
+    <time>2025-01-01T10:28:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 580</name>
+  </wpt>
+  <wpt lat="39.9300304124" lon="4.0119112564">
+    <ele>16.4</ele>
+    <time>2025-01-01T10:29:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 581</name>
+  </wpt>
+  <wpt lat="39.9299408459" lon="4.0123928639">
+    <ele>22.7</ele>
+    <time>2025-01-01T10:29:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 582</name>
+  </wpt>
+  <wpt lat="39.9299401652" lon="4.0123965250">
+    <ele>22.8</ele>
+    <time>2025-01-01T10:29:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 583</name>
+  </wpt>
+  <wpt lat="39.9299317610" lon="4.0125430262">
+    <ele>23.8</ele>
+    <time>2025-01-01T10:29:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 584</name>
+  </wpt>
+  <wpt lat="39.9299057903" lon="4.0129957427">
+    <ele>25.8</ele>
+    <time>2025-01-01T10:29:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 585</name>
+  </wpt>
+  <wpt lat="39.9299029276" lon="4.0130733184">
+    <ele>26.1</ele>
+    <time>2025-01-01T10:29:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 586</name>
+  </wpt>
+  <wpt lat="39.9298904864" lon="4.0134105058">
+    <ele>27.5</ele>
+    <time>2025-01-01T10:29:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 587</name>
+  </wpt>
+  <wpt lat="39.9298867380" lon="4.0135120756">
+    <ele>27.9</ele>
+    <time>2025-01-01T10:29:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 588</name>
+  </wpt>
+  <wpt lat="39.9298682638" lon="4.0139547287">
+    <ele>32.3</ele>
+    <time>2025-01-01T10:29:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 589</name>
+  </wpt>
+  <wpt lat="39.9298739322" lon="4.0139790957">
+    <ele>32.6</ele>
+    <time>2025-01-01T10:29:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 590</name>
+  </wpt>
+  <wpt lat="39.9299478753" lon="4.0142969597">
+    <ele>37.3</ele>
+    <time>2025-01-01T10:29:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 591</name>
+  </wpt>
+  <wpt lat="39.9299516368" lon="4.0143418687">
+    <ele>37.4</ele>
+    <time>2025-01-01T10:29:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 592</name>
+  </wpt>
+  <wpt lat="39.9300005910" lon="4.0149263828">
+    <ele>38.8</ele>
+    <time>2025-01-01T10:29:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 593</name>
+  </wpt>
+  <wpt lat="39.9300409886" lon="4.0154087514">
+    <ele>39.6</ele>
+    <time>2025-01-01T10:29:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 594</name>
+  </wpt>
+  <wpt lat="39.9300422724" lon="4.0154240859">
+    <ele>39.6</ele>
+    <time>2025-01-01T10:29:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 595</name>
+  </wpt>
+  <wpt lat="39.9300549468" lon="4.0158565012">
+    <ele>40.3</ele>
+    <time>2025-01-01T10:29:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 596</name>
+  </wpt>
+  <wpt lat="39.9300636603" lon="4.0163970885">
+    <ele>41.5</ele>
+    <time>2025-01-01T10:29:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 597</name>
+  </wpt>
+  <wpt lat="39.9300890077" lon="4.0168832252">
+    <ele>43.1</ele>
+    <time>2025-01-01T10:29:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 598</name>
+  </wpt>
+  <wpt lat="39.9301737247" lon="4.0173522480">
+    <ele>44.7</ele>
+    <time>2025-01-01T10:29:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 599</name>
+  </wpt>
+  <wpt lat="39.9301554412" lon="4.0174110921">
+    <ele>44.8</ele>
+    <time>2025-01-01T10:29:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 600</name>
+  </wpt>
+  <wpt lat="39.9304951090" lon="4.0177882164">
+    <ele>46.0</ele>
+    <time>2025-01-01T10:30:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 601</name>
+  </wpt>
+  <wpt lat="39.9305998066" lon="4.0178333771">
+    <ele>46.1</ele>
+    <time>2025-01-01T10:30:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 602</name>
+  </wpt>
+  <wpt lat="39.9308333994" lon="4.0179830592">
+    <ele>46.2</ele>
+    <time>2025-01-01T10:30:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 603</name>
+  </wpt>
+  <wpt lat="39.9310073981" lon="4.0181754718">
+    <ele>46.3</ele>
+    <time>2025-01-01T10:30:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 604</name>
+  </wpt>
+  <wpt lat="39.9310846589" lon="4.0183690135">
+    <ele>46.2</ele>
+    <time>2025-01-01T10:30:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 605</name>
+  </wpt>
+  <wpt lat="39.9311964554" lon="4.0186759413">
+    <ele>46.0</ele>
+    <time>2025-01-01T10:30:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 606</name>
+  </wpt>
+  <wpt lat="39.9310629965" lon="4.0188124881">
+    <ele>45.6</ele>
+    <time>2025-01-01T10:30:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 607</name>
+  </wpt>
+  <wpt lat="39.9310177045" lon="4.0188942469">
+    <ele>45.5</ele>
+    <time>2025-01-01T10:30:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 608</name>
+  </wpt>
+  <wpt lat="39.9310108448" lon="4.0189066311">
+    <ele>45.5</ele>
+    <time>2025-01-01T10:30:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 609</name>
+  </wpt>
+  <wpt lat="39.9309367317" lon="4.0191633590">
+    <ele>44.9</ele>
+    <time>2025-01-01T10:30:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 610</name>
+  </wpt>
+  <wpt lat="39.9308532886" lon="4.0193504157">
+    <ele>43.8</ele>
+    <time>2025-01-01T10:30:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 611</name>
+  </wpt>
+  <wpt lat="39.9308175985" lon="4.0195233855">
+    <ele>42.9</ele>
+    <time>2025-01-01T10:30:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 612</name>
+  </wpt>
+  <wpt lat="39.9307659230" lon="4.0196302149">
+    <ele>42.3</ele>
+    <time>2025-01-01T10:30:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 613</name>
+  </wpt>
+  <wpt lat="39.9306834144" lon="4.0199463999">
+    <ele>41.1</ele>
+    <time>2025-01-01T10:30:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 614</name>
+  </wpt>
+  <wpt lat="39.9306824478" lon="4.0199528397">
+    <ele>41.0</ele>
+    <time>2025-01-01T10:30:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 615</name>
+  </wpt>
+  <wpt lat="39.9306556856" lon="4.0201311199">
+    <ele>40.4</ele>
+    <time>2025-01-01T10:30:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 616</name>
+  </wpt>
+  <wpt lat="39.9304799699" lon="4.0201323884">
+    <ele>39.1</ele>
+    <time>2025-01-01T10:30:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 617</name>
+  </wpt>
+  <wpt lat="39.9303954756" lon="4.0201277730">
+    <ele>38.2</ele>
+    <time>2025-01-01T10:30:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 618</name>
+  </wpt>
+  <wpt lat="39.9301345660" lon="4.0201135203">
+    <ele>35.2</ele>
+    <time>2025-01-01T10:30:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 619</name>
+  </wpt>
+  <wpt lat="39.9300457920" lon="4.0200898675">
+    <ele>34.3</ele>
+    <time>2025-01-01T10:30:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 620</name>
+  </wpt>
+  <wpt lat="39.9298455533" lon="4.0200365166">
+    <ele>32.9</ele>
+    <time>2025-01-01T10:31:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 621</name>
+  </wpt>
+  <wpt lat="39.9297979013" lon="4.0199188372">
+    <ele>32.2</ele>
+    <time>2025-01-01T10:31:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 622</name>
+  </wpt>
+  <wpt lat="39.9297862172" lon="4.0199108931">
+    <ele>32.1</ele>
+    <time>2025-01-01T10:31:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 623</name>
+  </wpt>
+  <wpt lat="39.9296648067" lon="4.0198283406">
+    <ele>31.1</ele>
+    <time>2025-01-01T10:31:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 624</name>
+  </wpt>
+  <wpt lat="39.9296421082" lon="4.0198255239">
+    <ele>31.0</ele>
+    <time>2025-01-01T10:31:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 625</name>
+  </wpt>
+  <wpt lat="39.9293543537" lon="4.0197898163">
+    <ele>29.2</ele>
+    <time>2025-01-01T10:31:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 626</name>
+  </wpt>
+  <wpt lat="39.9293492778" lon="4.0197895011">
+    <ele>29.1</ele>
+    <time>2025-01-01T10:31:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 627</name>
+  </wpt>
+  <wpt lat="39.9291142794" lon="4.0197748984">
+    <ele>27.9</ele>
+    <time>2025-01-01T10:31:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 628</name>
+  </wpt>
+  <wpt lat="39.9289915292" lon="4.0198015132">
+    <ele>27.6</ele>
+    <time>2025-01-01T10:31:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 629</name>
+  </wpt>
+  <wpt lat="39.9289456838" lon="4.0198102968">
+    <ele>27.5</ele>
+    <time>2025-01-01T10:31:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 630</name>
+  </wpt>
+  <wpt lat="39.9287996009" lon="4.0198382842">
+    <ele>27.1</ele>
+    <time>2025-01-01T10:31:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 631</name>
+  </wpt>
+  <wpt lat="39.9285978972" lon="4.0199091531">
+    <ele>25.6</ele>
+    <time>2025-01-01T10:31:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 632</name>
+  </wpt>
+  <wpt lat="39.9284998419" lon="4.0199673787">
+    <ele>24.3</ele>
+    <time>2025-01-01T10:31:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 633</name>
+  </wpt>
+  <wpt lat="39.9283785609" lon="4.0200393950">
+    <ele>22.8</ele>
+    <time>2025-01-01T10:31:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 634</name>
+  </wpt>
+  <wpt lat="39.9283041863" lon="4.0201110658">
+    <ele>21.7</ele>
+    <time>2025-01-01T10:31:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 635</name>
+  </wpt>
+  <wpt lat="39.9282952853" lon="4.0201209323">
+    <ele>21.6</ele>
+    <time>2025-01-01T10:31:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 636</name>
+  </wpt>
+  <wpt lat="39.9282291317" lon="4.0201942592">
+    <ele>21.6</ele>
+    <time>2025-01-01T10:31:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 637</name>
+  </wpt>
+  <wpt lat="39.9281311841" lon="4.0203152827">
+    <ele>22.0</ele>
+    <time>2025-01-01T10:31:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 638</name>
+  </wpt>
+  <wpt lat="39.9280960587" lon="4.0204586322">
+    <ele>22.3</ele>
+    <time>2025-01-01T10:31:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 639</name>
+  </wpt>
+  <wpt lat="39.9280762699" lon="4.0205393912">
+    <ele>22.4</ele>
+    <time>2025-01-01T10:31:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 640</name>
+  </wpt>
+  <wpt lat="39.9281012400" lon="4.0209412830">
+    <ele>22.1</ele>
+    <time>2025-01-01T10:32:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 641</name>
+  </wpt>
+  <wpt lat="39.9281225866" lon="4.0211066141">
+    <ele>21.8</ele>
+    <time>2025-01-01T10:32:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 642</name>
+  </wpt>
+  <wpt lat="39.9275830669" lon="4.0209674342">
+    <ele>22.5</ele>
+    <time>2025-01-01T10:32:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 643</name>
+  </wpt>
+  <wpt lat="39.9273299455" lon="4.0208578969">
+    <ele>22.1</ele>
+    <time>2025-01-01T10:32:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 644</name>
+  </wpt>
+  <wpt lat="39.9271874739" lon="4.0208234118">
+    <ele>21.6</ele>
+    <time>2025-01-01T10:32:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 645</name>
+  </wpt>
+  <wpt lat="39.9270610160" lon="4.0208057235">
+    <ele>21.2</ele>
+    <time>2025-01-01T10:32:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 646</name>
+  </wpt>
+  <wpt lat="39.9269194796" lon="4.0208602616">
+    <ele>19.5</ele>
+    <time>2025-01-01T10:32:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 647</name>
+  </wpt>
+  <wpt lat="39.9267877434" lon="4.0210233155">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:32:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 648</name>
+  </wpt>
+  <wpt lat="39.9268051596" lon="4.0212170029">
+    <ele>15.7</ele>
+    <time>2025-01-01T10:32:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 649</name>
+  </wpt>
+  <wpt lat="39.9267174349" lon="4.0214327395">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:32:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 650</name>
+  </wpt>
+  <wpt lat="39.9267105861" lon="4.0214495815">
+    <ele>14.7</ele>
+    <time>2025-01-01T10:32:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 651</name>
+  </wpt>
+  <wpt lat="39.9266442287" lon="4.0216240698">
+    <ele>14.0</ele>
+    <time>2025-01-01T10:32:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 652</name>
+  </wpt>
+  <wpt lat="39.9264003263" lon="4.0218756700">
+    <ele>14.1</ele>
+    <time>2025-01-01T10:32:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 653</name>
+  </wpt>
+  <wpt lat="39.9263742451" lon="4.0219051148">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:32:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 654</name>
+  </wpt>
+  <wpt lat="39.9262630131" lon="4.0220306908">
+    <ele>14.8</ele>
+    <time>2025-01-01T10:32:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 655</name>
+  </wpt>
+  <wpt lat="39.9260659342" lon="4.0221111990">
+    <ele>15.6</ele>
+    <time>2025-01-01T10:32:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 656</name>
+  </wpt>
+  <wpt lat="39.9259009805" lon="4.0221804156">
+    <ele>16.4</ele>
+    <time>2025-01-01T10:32:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 657</name>
+  </wpt>
+  <wpt lat="39.9257199281" lon="4.0222663102">
+    <ele>17.3</ele>
+    <time>2025-01-01T10:32:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 658</name>
+  </wpt>
+  <wpt lat="39.9256790697" lon="4.0222748465">
+    <ele>17.5</ele>
+    <time>2025-01-01T10:32:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 659</name>
+  </wpt>
+  <wpt lat="39.9253806443" lon="4.0223371960">
+    <ele>18.7</ele>
+    <time>2025-01-01T10:32:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 660</name>
+  </wpt>
+  <wpt lat="39.9250625872" lon="4.0224854090">
+    <ele>19.8</ele>
+    <time>2025-01-01T10:33:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 661</name>
+  </wpt>
+  <wpt lat="39.9249180151" lon="4.0225624830">
+    <ele>20.1</ele>
+    <time>2025-01-01T10:33:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 662</name>
+  </wpt>
+  <wpt lat="39.9247566618" lon="4.0226485036">
+    <ele>20.2</ele>
+    <time>2025-01-01T10:33:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 663</name>
+  </wpt>
+  <wpt lat="39.9245252056" lon="4.0229297441">
+    <ele>18.4</ele>
+    <time>2025-01-01T10:33:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 664</name>
+  </wpt>
+  <wpt lat="39.9242978957" lon="4.0232932841">
+    <ele>14.2</ele>
+    <time>2025-01-01T10:33:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 665</name>
+  </wpt>
+  <wpt lat="39.9242135052" lon="4.0234558538">
+    <ele>12.0</ele>
+    <time>2025-01-01T10:33:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 666</name>
+  </wpt>
+  <wpt lat="39.9240598495" lon="4.0237521500">
+    <ele>8.6</ele>
+    <time>2025-01-01T10:33:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 667</name>
+  </wpt>
+  <wpt lat="39.9239992706" lon="4.0239836121">
+    <ele>6.5</ele>
+    <time>2025-01-01T10:33:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 668</name>
+  </wpt>
+  <wpt lat="39.9237800385" lon="4.0242866404">
+    <ele>5.8</ele>
+    <time>2025-01-01T10:33:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 669</name>
+  </wpt>
+  <wpt lat="39.9236567536" lon="4.0244524837">
+    <ele>6.2</ele>
+    <time>2025-01-01T10:33:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 670</name>
+  </wpt>
+  <wpt lat="39.9236416685" lon="4.0245144011">
+    <ele>6.4</ele>
+    <time>2025-01-01T10:33:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 671</name>
+  </wpt>
+  <wpt lat="39.9235960793" lon="4.0247015174">
+    <ele>5.9</ele>
+    <time>2025-01-01T10:33:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 672</name>
+  </wpt>
+  <wpt lat="39.9236278925" lon="4.0249614211">
+    <ele>4.7</ele>
+    <time>2025-01-01T10:33:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 673</name>
+  </wpt>
+  <wpt lat="39.9235125296" lon="4.0250577778">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:33:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 674</name>
+  </wpt>
+  <wpt lat="39.9232705463" lon="4.0251459161">
+    <ele>3.8</ele>
+    <time>2025-01-01T10:33:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 675</name>
+  </wpt>
+  <wpt lat="39.9229949323" lon="4.0251797691">
+    <ele>4.0</ele>
+    <time>2025-01-01T10:33:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 676</name>
+  </wpt>
+  <wpt lat="39.9224419837" lon="4.0251207943">
+    <ele>3.7</ele>
+    <time>2025-01-01T10:33:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 677</name>
+  </wpt>
+  <wpt lat="39.9223325888" lon="4.0250906835">
+    <ele>3.3</ele>
+    <time>2025-01-01T10:33:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 678</name>
+  </wpt>
+  <wpt lat="39.9220682809" lon="4.0250689063">
+    <ele>2.3</ele>
+    <time>2025-01-01T10:33:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 679</name>
+  </wpt>
+  <wpt lat="39.9215985736" lon="4.0249429483">
+    <ele>2.0</ele>
+    <time>2025-01-01T10:33:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 680</name>
+  </wpt>
+  <wpt lat="39.9214859101" lon="4.0249526656">
+    <ele>1.7</ele>
+    <time>2025-01-01T10:34:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 681</name>
+  </wpt>
+  <wpt lat="39.9214359331" lon="4.0250466701">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:34:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 682</name>
+  </wpt>
+  <wpt lat="39.9213895256" lon="4.0251227485">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:34:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 683</name>
+  </wpt>
+  <wpt lat="39.9213022100" lon="4.0251513012">
+    <ele>0.7</ele>
+    <time>2025-01-01T10:34:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 684</name>
+  </wpt>
+  <wpt lat="39.9212317002" lon="4.0252147990">
+    <ele>0.4</ele>
+    <time>2025-01-01T10:34:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 685</name>
+  </wpt>
+  <wpt lat="39.9212053285" lon="4.0252551931">
+    <ele>0.2</ele>
+    <time>2025-01-01T10:34:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 686</name>
+  </wpt>
+  <wpt lat="39.9211847989" lon="4.0253145088">
+    <ele>0.3</ele>
+    <time>2025-01-01T10:34:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 687</name>
+  </wpt>
+  <wpt lat="39.9209861935" lon="4.0255004114">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:34:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 688</name>
+  </wpt>
+  <wpt lat="39.9209228338" lon="4.0255879211">
+    <ele>1.4</ele>
+    <time>2025-01-01T10:34:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 689</name>
+  </wpt>
+  <wpt lat="39.9208658631" lon="4.0256698952">
+    <ele>1.6</ele>
+    <time>2025-01-01T10:34:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 690</name>
+  </wpt>
+  <wpt lat="39.9207400218" lon="4.0258742478">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:34:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 691</name>
+  </wpt>
+  <wpt lat="39.9206723823" lon="4.0259969769">
+    <ele>3.6</ele>
+    <time>2025-01-01T10:34:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 692</name>
+  </wpt>
+  <wpt lat="39.9206476267" lon="4.0260594572">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:34:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 693</name>
+  </wpt>
+  <wpt lat="39.9206104608" lon="4.0261571064">
+    <ele>4.4</ele>
+    <time>2025-01-01T10:34:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 694</name>
+  </wpt>
+  <wpt lat="39.9205784910" lon="4.0261801989">
+    <ele>4.7</ele>
+    <time>2025-01-01T10:34:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 695</name>
+  </wpt>
+  <wpt lat="39.9205405599" lon="4.0261933805">
+    <ele>4.7</ele>
+    <time>2025-01-01T10:34:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 696</name>
+  </wpt>
+  <wpt lat="39.9205262528" lon="4.0262717313">
+    <ele>4.8</ele>
+    <time>2025-01-01T10:34:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 697</name>
+  </wpt>
+  <wpt lat="39.9204219838" lon="4.0264312291">
+    <ele>5.0</ele>
+    <time>2025-01-01T10:34:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 698</name>
+  </wpt>
+  <wpt lat="39.9204020968" lon="4.0264564665">
+    <ele>5.0</ele>
+    <time>2025-01-01T10:34:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 699</name>
+  </wpt>
+  <wpt lat="39.9203640265" lon="4.0264853582">
+    <ele>5.0</ele>
+    <time>2025-01-01T10:34:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 700</name>
+  </wpt>
+  <wpt lat="39.9203223391" lon="4.0265809757">
+    <ele>5.1</ele>
+    <time>2025-01-01T10:35:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 701</name>
+  </wpt>
+  <wpt lat="39.9203114220" lon="4.0266181290">
+    <ele>5.2</ele>
+    <time>2025-01-01T10:35:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 702</name>
+  </wpt>
+  <wpt lat="39.9203095095" lon="4.0266632741">
+    <ele>5.2</ele>
+    <time>2025-01-01T10:35:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 703</name>
+  </wpt>
+  <wpt lat="39.9201853008" lon="4.0268538988">
+    <ele>5.0</ele>
+    <time>2025-01-01T10:35:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 704</name>
+  </wpt>
+  <wpt lat="39.9201003805" lon="4.0268781633">
+    <ele>4.9</ele>
+    <time>2025-01-01T10:35:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 705</name>
+  </wpt>
+  <wpt lat="39.9200591121" lon="4.0269266484">
+    <ele>4.9</ele>
+    <time>2025-01-01T10:35:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 706</name>
+  </wpt>
+  <wpt lat="39.9199818397" lon="4.0269412063">
+    <ele>4.8</ele>
+    <time>2025-01-01T10:35:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 707</name>
+  </wpt>
+  <wpt lat="39.9199641064" lon="4.0269612944">
+    <ele>4.7</ele>
+    <time>2025-01-01T10:35:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 708</name>
+  </wpt>
+  <wpt lat="39.9198962758" lon="4.0270381310">
+    <ele>4.6</ele>
+    <time>2025-01-01T10:35:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 709</name>
+  </wpt>
+  <wpt lat="39.9197937088" lon="4.0271760478">
+    <ele>4.4</ele>
+    <time>2025-01-01T10:35:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 710</name>
+  </wpt>
+  <wpt lat="39.9197520740" lon="4.0272657722">
+    <ele>4.3</ele>
+    <time>2025-01-01T10:35:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 711</name>
+  </wpt>
+  <wpt lat="39.9195554584" lon="4.0276045791">
+    <ele>3.8</ele>
+    <time>2025-01-01T10:35:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 712</name>
+  </wpt>
+  <wpt lat="39.9194588471" lon="4.0278375141">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:35:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 713</name>
+  </wpt>
+  <wpt lat="39.9194155333" lon="4.0279449128">
+    <ele>3.3</ele>
+    <time>2025-01-01T10:35:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 714</name>
+  </wpt>
+  <wpt lat="39.9193598031" lon="4.0280874862">
+    <ele>3.1</ele>
+    <time>2025-01-01T10:35:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 715</name>
+  </wpt>
+  <wpt lat="39.9193345898" lon="4.0282010468">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:35:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 716</name>
+  </wpt>
+  <wpt lat="39.9193003517" lon="4.0283085808">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:35:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 717</name>
+  </wpt>
+  <wpt lat="39.9192389386" lon="4.0284098144">
+    <ele>2.7</ele>
+    <time>2025-01-01T10:35:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 718</name>
+  </wpt>
+  <wpt lat="39.9191850812" lon="4.0285118290">
+    <ele>2.6</ele>
+    <time>2025-01-01T10:35:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 719</name>
+  </wpt>
+  <wpt lat="39.9191053779" lon="4.0286280255">
+    <ele>2.3</ele>
+    <time>2025-01-01T10:35:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 720</name>
+  </wpt>
+  <wpt lat="39.9190514551" lon="4.0287358717">
+    <ele>2.1</ele>
+    <time>2025-01-01T10:36:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 721</name>
+  </wpt>
+  <wpt lat="39.9190390048" lon="4.0288002304">
+    <ele>2.0</ele>
+    <time>2025-01-01T10:36:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 722</name>
+  </wpt>
+  <wpt lat="39.9189733227" lon="4.0289246830">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:36:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 723</name>
+  </wpt>
+  <wpt lat="39.9189234015" lon="4.0290740720">
+    <ele>1.5</ele>
+    <time>2025-01-01T10:36:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 724</name>
+  </wpt>
+  <wpt lat="39.9188838316" lon="4.0291520575">
+    <ele>1.7</ele>
+    <time>2025-01-01T10:36:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 725</name>
+  </wpt>
+  <wpt lat="39.9188714185" lon="4.0292122053">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:36:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 726</name>
+  </wpt>
+  <wpt lat="39.9188263004" lon="4.0293069452">
+    <ele>2.1</ele>
+    <time>2025-01-01T10:36:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 727</name>
+  </wpt>
+  <wpt lat="39.9187920055" lon="4.0293990388">
+    <ele>2.3</ele>
+    <time>2025-01-01T10:36:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 728</name>
+  </wpt>
+  <wpt lat="39.9187601316" lon="4.0294617032">
+    <ele>2.5</ele>
+    <time>2025-01-01T10:36:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 729</name>
+  </wpt>
+  <wpt lat="39.9187283937" lon="4.0295089350">
+    <ele>2.7</ele>
+    <time>2025-01-01T10:36:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 730</name>
+  </wpt>
+  <wpt lat="39.9187181265" lon="4.0295383284">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:36:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 731</name>
+  </wpt>
+  <wpt lat="39.9186918263" lon="4.0296136232">
+    <ele>3.0</ele>
+    <time>2025-01-01T10:36:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 732</name>
+  </wpt>
+  <wpt lat="39.9186600777" lon="4.0296622576">
+    <ele>3.1</ele>
+    <time>2025-01-01T10:36:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 733</name>
+  </wpt>
+  <wpt lat="39.9186203456" lon="4.0297584793">
+    <ele>3.2</ele>
+    <time>2025-01-01T10:36:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 734</name>
+  </wpt>
+  <wpt lat="39.9185493497" lon="4.0298486197">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:36:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 735</name>
+  </wpt>
+  <wpt lat="39.9185295392" lon="4.0298904169">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:36:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 736</name>
+  </wpt>
+  <wpt lat="39.9184907125" lon="4.0300062965">
+    <ele>3.7</ele>
+    <time>2025-01-01T10:36:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 737</name>
+  </wpt>
+  <wpt lat="39.9184610856" lon="4.0300591724">
+    <ele>3.8</ele>
+    <time>2025-01-01T10:36:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 738</name>
+  </wpt>
+  <wpt lat="39.9184282932" lon="4.0301035808">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:36:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 739</name>
+  </wpt>
+  <wpt lat="39.9184072815" lon="4.0301607091">
+    <ele>4.0</ele>
+    <time>2025-01-01T10:36:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 740</name>
+  </wpt>
+  <wpt lat="39.9183928794" lon="4.0301998667">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:37:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 741</name>
+  </wpt>
+  <wpt lat="39.9183622347" lon="4.0302457113">
+    <ele>3.9</ele>
+    <time>2025-01-01T10:37:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 742</name>
+  </wpt>
+  <wpt lat="39.9182728694" lon="4.0303369784">
+    <ele>3.8</ele>
+    <time>2025-01-01T10:37:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 743</name>
+  </wpt>
+  <wpt lat="39.9182347529" lon="4.0303728892">
+    <ele>3.7</ele>
+    <time>2025-01-01T10:37:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 744</name>
+  </wpt>
+  <wpt lat="39.9181151668" lon="4.0304622989">
+    <ele>3.6</ele>
+    <time>2025-01-01T10:37:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 745</name>
+  </wpt>
+  <wpt lat="39.9180707210" lon="4.0304812760">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:37:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 746</name>
+  </wpt>
+  <wpt lat="39.9180434003" lon="4.0305187514">
+    <ele>3.5</ele>
+    <time>2025-01-01T10:37:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 747</name>
+  </wpt>
+  <wpt lat="39.9179905629" lon="4.0305702666">
+    <ele>3.3</ele>
+    <time>2025-01-01T10:37:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 748</name>
+  </wpt>
+  <wpt lat="39.9179156947" lon="4.0306711810">
+    <ele>3.1</ele>
+    <time>2025-01-01T10:37:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 749</name>
+  </wpt>
+  <wpt lat="39.9177829385" lon="4.0307842467">
+    <ele>2.8</ele>
+    <time>2025-01-01T10:37:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 750</name>
+  </wpt>
+  <wpt lat="39.9176517862" lon="4.0308384040">
+    <ele>2.5</ele>
+    <time>2025-01-01T10:37:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 751</name>
+  </wpt>
+  <wpt lat="39.9175933782" lon="4.0308487527">
+    <ele>2.4</ele>
+    <time>2025-01-01T10:37:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 752</name>
+  </wpt>
+  <wpt lat="39.9175437654" lon="4.0309630644">
+    <ele>2.2</ele>
+    <time>2025-01-01T10:37:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 753</name>
+  </wpt>
+  <wpt lat="39.9175069598" lon="4.0310944053">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:37:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 754</name>
+  </wpt>
+  <wpt lat="39.9174976478" lon="4.0311700348">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:37:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 755</name>
+  </wpt>
+  <wpt lat="39.9175006225" lon="4.0312067425">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:37:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 756</name>
+  </wpt>
+  <wpt lat="39.9175093256" lon="4.0313141429">
+    <ele>1.6</ele>
+    <time>2025-01-01T10:37:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 757</name>
+  </wpt>
+  <wpt lat="39.9174827305" lon="4.0315115832">
+    <ele>1.4</ele>
+    <time>2025-01-01T10:37:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 758</name>
+  </wpt>
+  <wpt lat="39.9174787056" lon="4.0315999194">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:37:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 759</name>
+  </wpt>
+  <wpt lat="39.9174628021" lon="4.0316880785">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:37:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 760</name>
+  </wpt>
+  <wpt lat="39.9174469299" lon="4.0318940981">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:38:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 761</name>
+  </wpt>
+  <wpt lat="39.9174464304" lon="4.0319502154">
+    <ele>1.0</ele>
+    <time>2025-01-01T10:38:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 762</name>
+  </wpt>
+  <wpt lat="39.9174653917" lon="4.0320038191">
+    <ele>1.0</ele>
+    <time>2025-01-01T10:38:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 763</name>
+  </wpt>
+  <wpt lat="39.9174736812" lon="4.0320432310">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:38:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 764</name>
+  </wpt>
+  <wpt lat="39.9174657101" lon="4.0320894146">
+    <ele>1.1</ele>
+    <time>2025-01-01T10:38:12Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 765</name>
+  </wpt>
+  <wpt lat="39.9174666231" lon="4.0321477774">
+    <ele>1.2</ele>
+    <time>2025-01-01T10:38:15Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 766</name>
+  </wpt>
+  <wpt lat="39.9174606998" lon="4.0322066191">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:38:18Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 767</name>
+  </wpt>
+  <wpt lat="39.9174623470" lon="4.0322641728">
+    <ele>1.3</ele>
+    <time>2025-01-01T10:38:21Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 768</name>
+  </wpt>
+  <wpt lat="39.9174825027" lon="4.0324319232">
+    <ele>1.5</ele>
+    <time>2025-01-01T10:38:24Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 769</name>
+  </wpt>
+  <wpt lat="39.9174727870" lon="4.0325417652">
+    <ele>1.6</ele>
+    <time>2025-01-01T10:38:27Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 770</name>
+  </wpt>
+  <wpt lat="39.9174509340" lon="4.0326557892">
+    <ele>1.7</ele>
+    <time>2025-01-01T10:38:30Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 771</name>
+  </wpt>
+  <wpt lat="39.9174295871" lon="4.0327130805">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:38:33Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 772</name>
+  </wpt>
+  <wpt lat="39.9173675277" lon="4.0328134073">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:38:36Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 773</name>
+  </wpt>
+  <wpt lat="39.9173344209" lon="4.0329080576">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:38:39Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 774</name>
+  </wpt>
+  <wpt lat="39.9172865751" lon="4.0329972491">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:38:42Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 775</name>
+  </wpt>
+  <wpt lat="39.9172619689" lon="4.0330431439">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:38:45Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 776</name>
+  </wpt>
+  <wpt lat="39.9172051291" lon="4.0331610071">
+    <ele>2.0</ele>
+    <time>2025-01-01T10:38:48Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 777</name>
+  </wpt>
+  <wpt lat="39.9171956849" lon="4.0332402999">
+    <ele>1.9</ele>
+    <time>2025-01-01T10:38:51Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 778</name>
+  </wpt>
+  <wpt lat="39.9171600841" lon="4.0333130905">
+    <ele>1.8</ele>
+    <time>2025-01-01T10:38:54Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 779</name>
+  </wpt>
+  <wpt lat="39.9171297273" lon="4.0334007987">
+    <ele>1.7</ele>
+    <time>2025-01-01T10:38:57Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 780</name>
+  </wpt>
+  <wpt lat="39.9171170308" lon="4.0334678222">
+    <ele>1.7</ele>
+    <time>2025-01-01T10:39:00Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 781</name>
+  </wpt>
+  <wpt lat="39.9171084374" lon="4.0335270505">
+    <ele>1.6</ele>
+    <time>2025-01-01T10:39:03Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 782</name>
+  </wpt>
+  <wpt lat="39.9170533078" lon="4.0336039116">
+    <ele>1.5</ele>
+    <time>2025-01-01T10:39:06Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 783</name>
+  </wpt>
+  <wpt lat="39.9170531683" lon="4.0336195498">
+    <ele>1.5</ele>
+    <time>2025-01-01T10:39:09Z</time>
+    <name>Cala Galdana - Sant Tomàs - Point 784</name>
+  </wpt>
+</gpx>

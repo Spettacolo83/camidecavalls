@@ -11,6 +11,7 @@ CREATE TABLE TrackingSessionEntity (
     elevationGainMeters INTEGER NOT NULL DEFAULT 0,
     elevationLossMeters INTEGER NOT NULL DEFAULT 0,
     isCompleted INTEGER NOT NULL DEFAULT 0,
+    name TEXT NOT NULL DEFAULT '',
     notes TEXT NOT NULL DEFAULT '',
     FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
 );
@@ -32,8 +33,8 @@ insertSession:
 INSERT OR REPLACE INTO TrackingSessionEntity(
     id, routeId, startTime, endTime, distanceMeters, durationSeconds,
     averageSpeedKmh, maxSpeedKmh, elevationGainMeters, elevationLossMeters,
-    isCompleted, notes
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    isCompleted, name, notes
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 deleteSession:
 DELETE FROM TrackingSessionEntity WHERE id = ?;

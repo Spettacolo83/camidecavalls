@@ -10,8 +10,11 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 
 **Implemented:**
 - 📍 **GPS Tracking**: Real-time location tracking with battery optimization (5s intervals, 5m minimum distance)
+- ⏱️ **Live Duration**: Real-time duration counter during tracking, independent from GPS updates
 - 📴 **Offline Mode**: Complete offline support - all data stored locally in SQLDelight, GPS works without internet
 - 📝 **Notebook**: Track hiking sessions with automatic statistics calculation (distance via Haversine formula, duration, elevation, speed)
+- 📄 **Session Details**: View recorded sessions with gradient-colored track visualization (green→yellow→red based on altitude)
+- 📤 **GPX Export**: Share recorded sessions as GPX files via system share sheet (Android & iOS)
 - 🔐 **Location Permissions**: Smart permission handling with native dialogs for Android and iOS
 - 🗺️ **Route Database**: Complete data for all 20 Camí de Cavalls stages with accurate KML data (~185km, ~2,480m elevation gain, ~55 hours)
 - 📊 **Session Statistics**: Automatic calculation of distance, speed, elevation gain/loss during tracking
@@ -530,9 +533,9 @@ This project is private and proprietary. No license is granted for use, modifica
 
 - **iOS SQLite**: Requires manual addition of `libsqlite3.tbd` in Xcode Build Phases → Link Binary With Libraries
   - This may need to be re-added after clean builds or Xcode updates
-- **Android GPS Simulation**: Android emulator has issues with GPX file simulation (limitation of emulator, not our code)
-  - GPS tracking works correctly on real devices
-  - iOS simulator handles GPX simulation correctly
+- **iOS Altitude Simulation**: iOS Simulator ignores elevation data from GPX files (Apple limitation)
+  - Altitude-based features can only be tested on real iOS devices
+  - Android emulator correctly simulates altitude from GPX files
 - **Voyager-Koin**: Integration removed due to compatibility issues (using Koin directly with parametersOf)
 - **iOS Map UIKitView**: Uses deprecated UIKitView API (newer API available but current version stable)
 

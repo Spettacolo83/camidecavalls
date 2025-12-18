@@ -7,6 +7,7 @@ import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,11 +34,53 @@ class TrackingManager(
     private val scope: CoroutineScope
 ) {
     private var trackingJob: Job? = null
+    private var timerJob: Job? = null
     private var currentSessionId: String? = null
+    private var currentRouteId: Int? = null
     private var currentConfig: LocationConfig = LocationConfig()
 
     // Track last location for speed calculation
     private var lastLocationForSpeed: LocationData? = null
+
+    // Duration tracking
+    private var trackingStartTime: Long = 0L
+    private var accumulatedSeconds: Long = 0L
+
+    /**
+     * Calculate current elapsed seconds including accumulated time from pauses
+     */
+    private fun calculateElapsedSeconds(): Long {
+        if (trackingStartTime == 0L) return accumulatedSeconds
+        val currentTime = Clock.System.now().toEpochMilliseconds()
+        return accumulatedSeconds + (currentTime - trackingStartTime) / 1000
+    }
+
+    /**
+     * Start a timer that updates the tracking state every second.
+     * This ensures the duration updates smoothly, independent of GPS updates.
+     */
+    private fun startDurationTimer(sessionId: String, routeId: Int?) {
+        timerJob?.cancel()
+        timerJob = scope.launch {
+            while (true) {
+                delay(1000L)
+                val currentState = _trackingState.value
+                if (currentState is TrackingState.Recording) {
+                    _trackingState.value = currentState.copy(
+                        elapsedSeconds = calculateElapsedSeconds()
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Stop the duration timer.
+     */
+    private fun stopDurationTimer() {
+        timerJob?.cancel()
+        timerJob = null
+    }
 
     private val _trackingState = MutableStateFlow<TrackingState>(TrackingState.Stopped)
     val trackingState: StateFlow<TrackingState> = _trackingState.asStateFlow()
@@ -85,13 +128,21 @@ class TrackingManager(
         try {
             val session = startTrackingSessionUseCase(routeId)
             currentSessionId = session.id
+            currentRouteId = routeId
             currentConfig = config
+
+            // Initialize duration tracking
+            trackingStartTime = Clock.System.now().toEpochMilliseconds()
+            accumulatedSeconds = 0L
 
             startLocationUpdates(
                 sessionId = session.id,
                 routeId = routeId,
                 resetLocation = true
             )
+
+            // Start the duration timer for smooth updates
+            startDurationTimer(session.id, routeId)
         } catch (e: Exception) {
             _trackingState.value = TrackingState.Error(e.message ?: "Failed to start tracking")
         }
@@ -156,7 +207,8 @@ class TrackingManager(
                     _trackingState.value = TrackingState.Recording(
                         sessionId = sessionId,
                         routeId = routeId,
-                        currentLocation = locationWithSpeed
+                        currentLocation = locationWithSpeed,
+                        elapsedSeconds = calculateElapsedSeconds()
                     )
 
                     lastLocationForSpeed = locationWithSpeed
@@ -166,12 +218,20 @@ class TrackingManager(
         _trackingState.value = TrackingState.Recording(
             sessionId = sessionId,
             routeId = routeId,
-            currentLocation = _currentLocation.value
+            currentLocation = _currentLocation.value,
+            elapsedSeconds = calculateElapsedSeconds()
         )
     }
 
     suspend fun pauseTracking() {
         val recordingState = _trackingState.value as? TrackingState.Recording ?: return
+
+        // Stop the duration timer
+        stopDurationTimer()
+
+        // Save accumulated time before pausing
+        accumulatedSeconds = calculateElapsedSeconds()
+        trackingStartTime = 0L
 
         trackingJob?.cancel()
         trackingJob = null
@@ -185,7 +245,8 @@ class TrackingManager(
         _trackingState.value = TrackingState.Paused(
             sessionId = recordingState.sessionId,
             routeId = recordingState.routeId,
-            currentLocation = _currentLocation.value
+            currentLocation = _currentLocation.value,
+            elapsedSeconds = accumulatedSeconds
         )
     }
 
@@ -203,22 +264,33 @@ class TrackingManager(
         }
 
         currentSessionId = pausedState.sessionId
+        currentRouteId = pausedState.routeId
         lastLocationForSpeed = _currentLocation.value
+
+        // Restart duration tracking from current time (accumulated time is already saved)
+        trackingStartTime = Clock.System.now().toEpochMilliseconds()
 
         startLocationUpdates(
             sessionId = pausedState.sessionId,
             routeId = pausedState.routeId,
             resetLocation = false
         )
+
+        // Restart the duration timer
+        startDurationTimer(pausedState.sessionId, pausedState.routeId)
     }
 
     /**
      * Stop the current tracking session.
      * Calculates final statistics and saves everything to database.
      *
+     * @param name Name for the session (shown in notebook)
      * @param notes Optional notes to save with the session
      */
-    suspend fun stopTracking(notes: String = "") {
+    suspend fun stopTracking(name: String = "", notes: String = "") {
+        // Stop the duration timer
+        stopDurationTimer()
+
         trackingJob?.cancel()
         trackingJob = null
 
@@ -231,7 +303,7 @@ class TrackingManager(
         try {
             val sessionId = currentSessionId
             if (sessionId != null) {
-                val finalSession = stopTrackingSessionUseCase(sessionId, notes)
+                val finalSession = stopTrackingSessionUseCase(sessionId, name, notes)
                 _trackingState.value = TrackingState.Completed(finalSession)
             } else {
                 _trackingState.value = TrackingState.Stopped
@@ -240,6 +312,7 @@ class TrackingManager(
             _trackingState.value = TrackingState.Error(e.message ?: "Failed to stop tracking")
         } finally {
             currentSessionId = null
+            currentRouteId = null
             lastLocationForSpeed = null
             currentConfig = LocationConfig()
         }
@@ -345,13 +418,15 @@ sealed interface TrackingState {
     data class Recording(
         val sessionId: String,
         val routeId: Int?,
-        val currentLocation: LocationData?
+        val currentLocation: LocationData?,
+        val elapsedSeconds: Long = 0
     ) : TrackingState
 
     data class Paused(
         val sessionId: String,
         val routeId: Int?,
-        val currentLocation: LocationData?
+        val currentLocation: LocationData?,
+        val elapsedSeconds: Long = 0
     ) : TrackingState
 
     data class Completed(

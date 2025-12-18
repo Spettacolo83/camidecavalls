@@ -1,0 +1,2 @@
+-- Migration from version 3 to 4: Add name field to TrackingSessionEntity
+ALTER TABLE TrackingSessionEntity ADD COLUMN name TEXT NOT NULL DEFAULT '';

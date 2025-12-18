@@ -75,6 +75,7 @@ import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
+import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
@@ -160,7 +161,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                         },
                         onNotebookClick = {
                             scope.launch { drawerState.close() }
-                            // TODO: Navigate to Notebook/Sessions screen
+                            navigator.replaceAll(NotebookScreen())
                         },
                         onSettingsClick = {
                             scope.launch { drawerState.close() }
@@ -184,9 +185,10 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     onPauseTracking = { screenModel.pauseTracking() },
                     onResumeTracking = { screenModel.resumeTracking() },
                     onCancelConfirmation = { screenModel.cancelConfirmation() },
-                    onStopTracking = { screenModel.stopTracking() },
+                    onStopTracking = { name -> screenModel.stopTracking(name) },
                     onStartNewSession = onStartNewSession,
-                    onClearError = { screenModel.clearError() }
+                    onClearError = { screenModel.clearError() },
+                    getDefaultSessionName = { screenModel.getDefaultSessionName() }
                 )
             }
         } else {
@@ -202,9 +204,10 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 onPauseTracking = { screenModel.pauseTracking() },
                 onResumeTracking = { screenModel.resumeTracking() },
                 onCancelConfirmation = { screenModel.cancelConfirmation() },
-                onStopTracking = { screenModel.stopTracking() },
+                onStopTracking = { name -> screenModel.stopTracking(name) },
                 onStartNewSession = onStartNewSession,
-                onClearError = { screenModel.clearError() }
+                onClearError = { screenModel.clearError() },
+                getDefaultSessionName = { screenModel.getDefaultSessionName() }
             )
         }
     }
@@ -232,10 +235,30 @@ private fun TrackingScreenContent(
     onPauseTracking: () -> Unit,
     onResumeTracking: () -> Unit,
     onCancelConfirmation: () -> Unit,
-    onStopTracking: () -> Unit,
+    onStopTracking: (String) -> Unit,
     onStartNewSession: () -> Unit,
-    onClearError: () -> Unit
+    onClearError: () -> Unit,
+    getDefaultSessionName: () -> String
 ) {
+    var showSaveDialog by remember { mutableStateOf(false) }
+    var sessionName by remember { mutableStateOf("") }
+
+    // Show save dialog
+    if (showSaveDialog) {
+        SaveSessionDialog(
+            strings = uiState.strings,
+            defaultName = sessionName,
+            onNameChange = { sessionName = it },
+            onConfirm = {
+                showSaveDialog = false
+                onStopTracking(sessionName)
+            },
+            onDismiss = {
+                showSaveDialog = false
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -301,11 +324,15 @@ private fun TrackingScreenContent(
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
                         distanceMeters = uiState.distanceMeters,
+                        durationSeconds = uiState.durationSeconds,
                         isPaused = false,
                         onMapReady = onMapReady,
                         onMapReleased = onMapReleased,
                         onPauseOrResume = onPauseTracking,
-                        onStopTracking = onStopTracking,
+                        onStopTracking = {
+                            sessionName = getDefaultSessionName()
+                            showSaveDialog = true
+                        },
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -318,11 +345,15 @@ private fun TrackingScreenContent(
                         currentLocation = uiState.currentLocation,
                         trackPoints = uiState.trackPoints,
                         distanceMeters = uiState.distanceMeters,
+                        durationSeconds = uiState.durationSeconds,
                         isPaused = true,
                         onMapReady = onMapReady,
                         onMapReleased = onMapReleased,
                         onPauseOrResume = onResumeTracking,
-                        onStopTracking = onStopTracking,
+                        onStopTracking = {
+                            sessionName = getDefaultSessionName()
+                            showSaveDialog = true
+                        },
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -438,6 +469,7 @@ private fun ActiveTrackingContent(
     currentLocation: LocationData?,
     trackPoints: List<TrackPoint>,
     distanceMeters: Double,
+    durationSeconds: Long,
     isPaused: Boolean,
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
@@ -684,6 +716,12 @@ private fun ActiveTrackingContent(
                     LocationInfoRow(
                         stringResource(Res.string.tracking_distance),
                         "${((distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
+                    )
+
+                    // Show duration
+                    LocationInfoRow(
+                        stringResource(Res.string.tracking_duration),
+                        formatDuration(durationSeconds)
                     )
                 } else {
                     Text(
@@ -980,4 +1018,62 @@ private fun calculateCameraPosition(
 
     // Default: Menorca center
     return CameraPosition(fallbackCamera.latitude, fallbackCamera.longitude, fallbackCamera.zoom)
+}
+
+@Composable
+private fun SaveSessionDialog(
+    strings: LocalizedStrings,
+    defaultName: String,
+    onNameChange: (String) -> Unit,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(strings.notebookSaveSessionTitle)
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = strings.notebookSessionName,
+                    style = MaterialTheme.typography.labelMedium
+                )
+                OutlinedTextField(
+                    value = defaultName,
+                    onValueChange = onNameChange,
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
+                )
+            }
+        },
+        confirmButton = {
+            FilledTonalButton(onClick = onConfirm) {
+                Text(strings.notebookSave)
+            }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = onDismiss) {
+                Text(strings.notebookCancel)
+            }
+        }
+    )
+}
+
+/**
+ * Format duration in seconds to human-readable format (e.g., "1h 23m" or "45m 30s")
+ */
+private fun formatDuration(seconds: Long): String {
+    val hours = seconds / 3600
+    val minutes = (seconds % 3600) / 60
+    val secs = seconds % 60
+
+    return when {
+        hours > 0 -> "${hours}h ${minutes}m"
+        minutes > 0 -> "${minutes}m ${secs}s"
+        else -> "${secs}s"
+    }
 }

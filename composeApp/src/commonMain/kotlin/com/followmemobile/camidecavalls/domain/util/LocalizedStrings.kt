@@ -47,6 +47,7 @@ class LocalizedStrings(val languageCode: String) {
     val elevationChartDistance: String get() = strings.elevationChartDistance
     val elevationChartElevation: String get() = strings.elevationChartElevation
     val elevationChartMin: String get() = strings.elevationChartMin
+    val elevationChartMid: String get() = strings.elevationChartMid
     val elevationChartMax: String get() = strings.elevationChartMax
     val startPoint: String get() = strings.startPoint
     val endPoint: String get() = strings.endPoint
@@ -92,6 +93,27 @@ class LocalizedStrings(val languageCode: String) {
     val aboutStages: String get() = strings.aboutStages
     val aboutCTA: String get() = strings.aboutCTA
     val aboutExplore: String get() = strings.aboutExplore
+
+    // Notebook / Diary Screen
+    val notebookNoSessions: String get() = strings.notebookNoSessions
+    val notebookStartTracking: String get() = strings.notebookStartTracking
+    val notebookDeleteTitle: String get() = strings.notebookDeleteTitle
+    val notebookDeleteMessage: String get() = strings.notebookDeleteMessage
+    val notebookDeleteConfirm: String get() = strings.notebookDeleteConfirm
+    val notebookCancel: String get() = strings.notebookCancel
+    val notebookSaveSessionTitle: String get() = strings.notebookSaveSessionTitle
+    val notebookSessionName: String get() = strings.notebookSessionName
+    val notebookSave: String get() = strings.notebookSave
+    val notebookGeneralTracking: String get() = strings.notebookGeneralTracking
+
+    // Session Detail Screen
+    val sessionDetails: String get() = strings.sessionDetails
+    val sessionAltitude: String get() = strings.sessionAltitude
+    val sessionAvgSpeed: String get() = strings.sessionAvgSpeed
+    val sessionMaxSpeed: String get() = strings.sessionMaxSpeed
+    val sessionExport: String get() = strings.sessionExport
+    val sessionExportMessage: String get() = strings.sessionExportMessage
+    val sessionShare: String get() = strings.sessionShare
 }
 
 private interface Strings {
@@ -126,6 +148,7 @@ private interface Strings {
     val elevationChartDistance: String
     val elevationChartElevation: String
     val elevationChartMin: String
+    val elevationChartMid: String
     val elevationChartMax: String
     val startPoint: String
     val endPoint: String
@@ -171,6 +194,27 @@ private interface Strings {
     val aboutStages: String
     val aboutCTA: String
     val aboutExplore: String
+
+    // Notebook / Diary Screen
+    val notebookNoSessions: String
+    val notebookStartTracking: String
+    val notebookDeleteTitle: String
+    val notebookDeleteMessage: String
+    val notebookDeleteConfirm: String
+    val notebookCancel: String
+    val notebookSaveSessionTitle: String
+    val notebookSessionName: String
+    val notebookSave: String
+    val notebookGeneralTracking: String
+
+    // Session Detail Screen
+    val sessionDetails: String
+    val sessionAltitude: String
+    val sessionAvgSpeed: String
+    val sessionMaxSpeed: String
+    val sessionExport: String
+    val sessionExportMessage: String
+    val sessionShare: String
 }
 
 private object StringsCa : Strings {
@@ -203,6 +247,7 @@ private object StringsCa : Strings {
     override val elevationChartDistance = "Distància"
     override val elevationChartElevation = "Elevació"
     override val elevationChartMin = "Mín"
+    override val elevationChartMid = "Mig"
     override val elevationChartMax = "Màx"
     override val startPoint = "Punt d'Inici"
     override val endPoint = "Punt Final"
@@ -243,6 +288,25 @@ private object StringsCa : Strings {
     override val aboutStages = "20 etapes · GR-223"
     override val aboutCTA = "Conèixer és estimar. Descobreix els valors ambientals que fan de Menorca un lloc tan excepcional."
     override val aboutExplore = "Comença la teva aventura"
+
+    override val notebookNoSessions = "Encara no tens cap sessió registrada"
+    override val notebookStartTracking = "Iniciar Seguiment"
+    override val notebookDeleteTitle = "Eliminar sessió"
+    override val notebookDeleteMessage = "Estàs segur que vols eliminar aquesta sessió? Aquesta acció no es pot desfer."
+    override val notebookDeleteConfirm = "Eliminar"
+    override val notebookCancel = "Cancel·lar"
+    override val notebookSaveSessionTitle = "Desar sessió"
+    override val notebookSessionName = "Nom de la sessió"
+    override val notebookSave = "Desar"
+    override val notebookGeneralTracking = "Seguiment General"
+
+    override val sessionDetails = "Detalls de la sessió"
+    override val sessionAltitude = "Altitud"
+    override val sessionAvgSpeed = "Velocitat mitjana"
+    override val sessionMaxSpeed = "Velocitat màxima"
+    override val sessionExport = "Exportar GPX"
+    override val sessionExportMessage = "Comparteix el teu recorregut amb altres aplicacions"
+    override val sessionShare = "Compartir"
 }
 
 private object StringsEs : Strings {
@@ -275,6 +339,7 @@ private object StringsEs : Strings {
     override val elevationChartDistance = "Distancia"
     override val elevationChartElevation = "Elevación"
     override val elevationChartMin = "Mín"
+    override val elevationChartMid = "Med"
     override val elevationChartMax = "Máx"
     override val startPoint = "Punto de Inicio"
     override val endPoint = "Punto Final"
@@ -315,6 +380,25 @@ private object StringsEs : Strings {
     override val aboutStages = "20 etapas · GR-223"
     override val aboutCTA = "Conocer es amar. Descubre los valores ambientales que hacen de Menorca un lugar tan excepcional."
     override val aboutExplore = "Comienza tu aventura"
+
+    override val notebookNoSessions = "Aún no tienes ninguna sesión registrada"
+    override val notebookStartTracking = "Iniciar Seguimiento"
+    override val notebookDeleteTitle = "Eliminar sesión"
+    override val notebookDeleteMessage = "¿Estás seguro de que quieres eliminar esta sesión? Esta acción no se puede deshacer."
+    override val notebookDeleteConfirm = "Eliminar"
+    override val notebookCancel = "Cancelar"
+    override val notebookSaveSessionTitle = "Guardar sesión"
+    override val notebookSessionName = "Nombre de la sesión"
+    override val notebookSave = "Guardar"
+    override val notebookGeneralTracking = "Seguimiento General"
+
+    override val sessionDetails = "Detalles de la sesión"
+    override val sessionAltitude = "Altitud"
+    override val sessionAvgSpeed = "Velocidad media"
+    override val sessionMaxSpeed = "Velocidad máxima"
+    override val sessionExport = "Exportar GPX"
+    override val sessionExportMessage = "Comparte tu recorrido con otras aplicaciones"
+    override val sessionShare = "Compartir"
 }
 
 private object StringsEn : Strings {
@@ -347,6 +431,7 @@ private object StringsEn : Strings {
     override val elevationChartDistance = "Distance"
     override val elevationChartElevation = "Elevation"
     override val elevationChartMin = "Min"
+    override val elevationChartMid = "Mid"
     override val elevationChartMax = "Max"
     override val startPoint = "Start Point"
     override val endPoint = "End Point"
@@ -387,6 +472,25 @@ private object StringsEn : Strings {
     override val aboutStages = "20 stages · GR-223"
     override val aboutCTA = "Knowing is loving. Discover the environmental values that make Menorca such an exceptional place."
     override val aboutExplore = "Start your adventure"
+
+    override val notebookNoSessions = "You don't have any recorded sessions yet"
+    override val notebookStartTracking = "Start Tracking"
+    override val notebookDeleteTitle = "Delete session"
+    override val notebookDeleteMessage = "Are you sure you want to delete this session? This action cannot be undone."
+    override val notebookDeleteConfirm = "Delete"
+    override val notebookCancel = "Cancel"
+    override val notebookSaveSessionTitle = "Save session"
+    override val notebookSessionName = "Session name"
+    override val notebookSave = "Save"
+    override val notebookGeneralTracking = "General Tracking"
+
+    override val sessionDetails = "Session details"
+    override val sessionAltitude = "Altitude"
+    override val sessionAvgSpeed = "Average speed"
+    override val sessionMaxSpeed = "Max speed"
+    override val sessionExport = "Export GPX"
+    override val sessionExportMessage = "Share your track with other apps"
+    override val sessionShare = "Share"
 }
 
 private object StringsDe : Strings {
@@ -419,6 +523,7 @@ private object StringsDe : Strings {
     override val elevationChartDistance = "Entfernung"
     override val elevationChartElevation = "Höhe"
     override val elevationChartMin = "Min"
+    override val elevationChartMid = "Mit"
     override val elevationChartMax = "Max"
     override val startPoint = "Startpunkt"
     override val endPoint = "Endpunkt"
@@ -459,6 +564,25 @@ private object StringsDe : Strings {
     override val aboutStages = "20 Etappen · GR-223"
     override val aboutCTA = "Kennen bedeutet lieben. Entdecken Sie die Umweltwerte, die Menorca zu einem so außergewöhnlichen Ort machen."
     override val aboutExplore = "Starten Sie Ihr Abenteuer"
+
+    override val notebookNoSessions = "Sie haben noch keine aufgezeichneten Sitzungen"
+    override val notebookStartTracking = "Verfolgung starten"
+    override val notebookDeleteTitle = "Sitzung löschen"
+    override val notebookDeleteMessage = "Sind Sie sicher, dass Sie diese Sitzung löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+    override val notebookDeleteConfirm = "Löschen"
+    override val notebookCancel = "Abbrechen"
+    override val notebookSaveSessionTitle = "Sitzung speichern"
+    override val notebookSessionName = "Sitzungsname"
+    override val notebookSave = "Speichern"
+    override val notebookGeneralTracking = "Allgemeine Verfolgung"
+
+    override val sessionDetails = "Sitzungsdetails"
+    override val sessionAltitude = "Höhe"
+    override val sessionAvgSpeed = "Durchschnittsgeschwindigkeit"
+    override val sessionMaxSpeed = "Höchstgeschwindigkeit"
+    override val sessionExport = "GPX exportieren"
+    override val sessionExportMessage = "Teilen Sie Ihre Strecke mit anderen Apps"
+    override val sessionShare = "Teilen"
 }
 
 private object StringsFr : Strings {
@@ -491,6 +615,7 @@ private object StringsFr : Strings {
     override val elevationChartDistance = "Distance"
     override val elevationChartElevation = "Altitude"
     override val elevationChartMin = "Min"
+    override val elevationChartMid = "Moy"
     override val elevationChartMax = "Max"
     override val startPoint = "Point de Départ"
     override val endPoint = "Point d'Arrivée"
@@ -531,6 +656,25 @@ private object StringsFr : Strings {
     override val aboutStages = "20 étapes · GR-223"
     override val aboutCTA = "Connaître c'est aimer. Découvrez les valeurs environnementales qui font de Minorque un lieu si exceptionnel."
     override val aboutExplore = "Commencez votre aventure"
+
+    override val notebookNoSessions = "Vous n'avez pas encore de sessions enregistrées"
+    override val notebookStartTracking = "Démarrer le suivi"
+    override val notebookDeleteTitle = "Supprimer la session"
+    override val notebookDeleteMessage = "Êtes-vous sûr de vouloir supprimer cette session ? Cette action ne peut pas être annulée."
+    override val notebookDeleteConfirm = "Supprimer"
+    override val notebookCancel = "Annuler"
+    override val notebookSaveSessionTitle = "Enregistrer la session"
+    override val notebookSessionName = "Nom de la session"
+    override val notebookSave = "Enregistrer"
+    override val notebookGeneralTracking = "Suivi Général"
+
+    override val sessionDetails = "Détails de la session"
+    override val sessionAltitude = "Altitude"
+    override val sessionAvgSpeed = "Vitesse moyenne"
+    override val sessionMaxSpeed = "Vitesse maximale"
+    override val sessionExport = "Exporter GPX"
+    override val sessionExportMessage = "Partagez votre parcours avec d'autres applications"
+    override val sessionShare = "Partager"
 }
 
 private object StringsIt : Strings {
@@ -563,6 +707,7 @@ private object StringsIt : Strings {
     override val elevationChartDistance = "Distanza"
     override val elevationChartElevation = "Altitudine"
     override val elevationChartMin = "Min"
+    override val elevationChartMid = "Med"
     override val elevationChartMax = "Max"
     override val startPoint = "Punto di Partenza"
     override val endPoint = "Punto di Arrivo"
@@ -603,4 +748,23 @@ private object StringsIt : Strings {
     override val aboutStages = "20 tappe · GR-223"
     override val aboutCTA = "Conoscere è amare. Scopri i valori ambientali che rendono Minorca un luogo così eccezionale."
     override val aboutExplore = "Inizia la tua avventura"
+
+    override val notebookNoSessions = "Non hai ancora sessioni registrate"
+    override val notebookStartTracking = "Inizia Tracciamento"
+    override val notebookDeleteTitle = "Elimina sessione"
+    override val notebookDeleteMessage = "Sei sicuro di voler eliminare questa sessione? Questa azione non può essere annullata."
+    override val notebookDeleteConfirm = "Elimina"
+    override val notebookCancel = "Annulla"
+    override val notebookSaveSessionTitle = "Salva sessione"
+    override val notebookSessionName = "Nome della sessione"
+    override val notebookSave = "Salva"
+    override val notebookGeneralTracking = "Tracciamento Generale"
+
+    override val sessionDetails = "Dettagli sessione"
+    override val sessionAltitude = "Altitudine"
+    override val sessionAvgSpeed = "Velocità media"
+    override val sessionMaxSpeed = "Velocità massima"
+    override val sessionExport = "Esporta GPX"
+    override val sessionExportMessage = "Condividi il tuo percorso con altre app"
+    override val sessionShare = "Condividi"
 }

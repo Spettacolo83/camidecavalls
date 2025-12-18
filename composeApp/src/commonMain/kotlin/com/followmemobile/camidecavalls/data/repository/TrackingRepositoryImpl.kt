@@ -86,6 +86,7 @@ class TrackingRepositoryImpl(
                 elevationGainMeters = session.elevationGainMeters.toLong(),
                 elevationLossMeters = session.elevationLossMeters.toLong(),
                 isCompleted = if (session.isCompleted) 1 else 0,
+                name = session.name,
                 notes = session.notes
             )
 
@@ -121,6 +122,7 @@ class TrackingRepositoryImpl(
                 elevationGainMeters = session.elevationGainMeters.toLong(),
                 elevationLossMeters = session.elevationLossMeters.toLong(),
                 isCompleted = if (session.isCompleted) 1 else 0,
+                name = session.name,
                 notes = session.notes
             )
 
@@ -177,6 +179,7 @@ class TrackingRepositoryImpl(
             elevationLossMeters = elevationLossMeters.toInt(),
             trackPoints = trackPoints,
             isCompleted = isCompleted == 1L,
+            name = name,
             notes = notes
         )
     }
