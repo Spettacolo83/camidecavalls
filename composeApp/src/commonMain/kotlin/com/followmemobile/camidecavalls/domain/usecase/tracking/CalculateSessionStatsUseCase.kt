@@ -2,6 +2,7 @@ package com.followmemobile.camidecavalls.domain.usecase.tracking
 
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.max
@@ -21,6 +22,12 @@ class CalculateSessionStatsUseCase {
         val elevationLossMeters: Int
     )
 
+    companion object {
+        // GPS altitude noise is typically ±10-30m. A dead band of 3m filters out
+        // small fluctuations while still capturing real climbs/descents on trails.
+        private const val ELEVATION_DEAD_BAND_METERS = 3.0
+    }
+
     operator fun invoke(trackPoints: List<TrackPoint>): SessionStats {
         if (trackPoints.size < 2) {
             return SessionStats(
@@ -33,8 +40,13 @@ class CalculateSessionStatsUseCase {
 
         var totalDistance = 0.0
         var maxSpeed = 0.0
-        var elevationGain = 0
-        var elevationLoss = 0
+        var elevationGain = 0.0
+        var elevationLoss = 0.0
+
+        // Track the last "committed" altitude for dead band calculation.
+        // We only update the reference altitude when the change exceeds the dead band,
+        // preventing GPS noise from accumulating into false elevation gain/loss.
+        var referenceAltitude: Double? = trackPoints.firstNotNullOfOrNull { it.altitude }
 
         for (i in 1 until trackPoints.size) {
             val prev = trackPoints[i - 1]
@@ -52,22 +64,29 @@ class CalculateSessionStatsUseCase {
                 maxSpeed = max(maxSpeed, speed)
             }
 
-            // Calculate elevation changes
-            if (prev.altitude != null && current.altitude != null) {
-                val elevationChange = current.altitude - prev.altitude
-                if (elevationChange > 0) {
-                    elevationGain += elevationChange.toInt()
-                } else {
-                    elevationLoss += (-elevationChange).toInt()
+            // Calculate elevation changes with dead band to filter GPS altitude noise
+            val currentAlt = current.altitude
+            val refAlt = referenceAltitude
+            if (currentAlt != null && refAlt != null) {
+                val elevationChange = currentAlt - refAlt
+                if (abs(elevationChange) >= ELEVATION_DEAD_BAND_METERS) {
+                    if (elevationChange > 0) {
+                        elevationGain += elevationChange
+                    } else {
+                        elevationLoss += (-elevationChange)
+                    }
+                    referenceAltitude = currentAlt
                 }
+            } else if (currentAlt != null) {
+                referenceAltitude = currentAlt
             }
         }
 
         return SessionStats(
             distanceMeters = totalDistance,
             maxSpeedKmh = maxSpeed,
-            elevationGainMeters = elevationGain,
-            elevationLossMeters = elevationLoss
+            elevationGainMeters = elevationGain.toInt(),
+            elevationLossMeters = elevationLoss.toInt()
         )
     }
 

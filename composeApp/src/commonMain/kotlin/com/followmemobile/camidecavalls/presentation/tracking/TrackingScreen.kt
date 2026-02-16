@@ -62,6 +62,7 @@ import camidecavalls.composeapp.generated.resources.tracking_speed
 import camidecavalls.composeapp.generated.resources.tracking_elevation_gain
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
+import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.about.AboutScreen
@@ -97,8 +98,10 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
     @Composable
     override fun Content() {
         val screenModel: TrackingScreenModel = koinInject { parametersOf(routeId) }
+        val backgroundTrackingManager: BackgroundTrackingManager = koinInject()
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
+        var showBackgroundPermissionDialog by remember { mutableStateOf(false) }
 
         // Cleanup when screen leaves composition
         DisposableEffect(screenModel) {
@@ -107,11 +110,29 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
             }
         }
 
+        // Step 3: Background location permission (Android 10+)
+        val backgroundPermissionRequester = rememberBackgroundPermissionRequester { granted ->
+            // Whether granted or not, proceed with tracking
+            // Background tracking will still work with foreground service, just won't survive app kill
+            screenModel.startTracking()
+        }
+
+        // Step 2: Notification permission (Android 13+), then check background
+        val notificationPermissionRequester = rememberNotificationPermissionRequester { _ ->
+            // After notification permission (granted or not), check background location
+            if (!backgroundTrackingManager.hasBackgroundPermission()) {
+                showBackgroundPermissionDialog = true
+            } else {
+                screenModel.startTracking()
+            }
+        }
+
+        // Step 1: Foreground location permission
         val permissionRequester = rememberPermissionRequester { granted ->
             if (granted) {
-                screenModel.startTracking()
+                // Foreground granted, now request notification permission
+                notificationPermissionRequester()
             } else {
-                // Permission denied - will be shown through UI state
                 screenModel.requestPermission {
                     // This won't be called since permission was already denied
                 }
@@ -120,7 +141,8 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
 
         val onStartTracking = {
             if (screenModel.isPermissionGranted()) {
-                screenModel.startTracking()
+                // Already have foreground location, check notification and background
+                notificationPermissionRequester()
             } else {
                 permissionRequester()
             }
@@ -128,6 +150,36 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
 
         val onStartNewSession = {
             screenModel.startNewSession()
+        }
+
+        // Background permission rationale dialog
+        if (showBackgroundPermissionDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showBackgroundPermissionDialog = false
+                    // Proceed without background permission
+                    screenModel.startTracking()
+                },
+                title = { Text(uiState.strings.backgroundPermissionTitle) },
+                text = { Text(uiState.strings.backgroundPermissionMessage) },
+                confirmButton = {
+                    FilledTonalButton(onClick = {
+                        showBackgroundPermissionDialog = false
+                        backgroundPermissionRequester()
+                    }) {
+                        Text(uiState.strings.backgroundPermissionGrant)
+                    }
+                },
+                dismissButton = {
+                    OutlinedButton(onClick = {
+                        showBackgroundPermissionDialog = false
+                        // Proceed without background permission
+                        screenModel.startTracking()
+                    }) {
+                        Text(uiState.strings.notebookCancel)
+                    }
+                }
+            )
         }
 
         if (routeId == null) {

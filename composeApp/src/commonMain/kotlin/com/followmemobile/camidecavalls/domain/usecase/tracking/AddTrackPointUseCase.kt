@@ -6,7 +6,7 @@ import kotlinx.datetime.Clock
 
 /**
  * Use case for adding a GPS track point to an active tracking session.
- * Called periodically during tracking to record the user's position.
+ * Uses direct O(1) insert — does NOT reload or rewrite existing points.
  */
 class AddTrackPointUseCase(
     private val trackingRepository: TrackingRepository
@@ -27,13 +27,6 @@ class AddTrackPointUseCase(
             "Longitude must be between -180 and 180, got $longitude"
         }
 
-        val session = trackingRepository.getSessionById(sessionId)
-            ?: throw IllegalArgumentException("Session not found: $sessionId")
-
-        if (session.isCompleted) {
-            throw IllegalStateException("Cannot add track points to completed session")
-        }
-
         val trackPoint = TrackPoint(
             latitude = latitude,
             longitude = longitude,
@@ -42,10 +35,6 @@ class AddTrackPointUseCase(
             speedKmh = speed?.let { it * 3.6 } // Convert m/s to km/h
         )
 
-        val updatedSession = session.copy(
-            trackPoints = session.trackPoints + trackPoint
-        )
-
-        trackingRepository.updateSession(updatedSession)
+        trackingRepository.insertTrackPoint(sessionId, trackPoint)
     }
 }

@@ -4,6 +4,7 @@ import com.followmemobile.camidecavalls.data.local.AppPreferences
 import com.followmemobile.camidecavalls.data.local.DatabaseDriverFactory
 import com.followmemobile.camidecavalls.data.service.AndroidLocationService
 import com.followmemobile.camidecavalls.data.service.AndroidPermissionHandler
+import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.google.android.gms.location.LocationServices
@@ -34,4 +35,7 @@ actual val platformModule = module {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(androidContext())
         AndroidLocationService(androidContext(), fusedLocationClient)
     } bind LocationService::class
+
+    // Background Tracking Manager
+    single { BackgroundTrackingManager(androidContext()) }
 }

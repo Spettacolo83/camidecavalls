@@ -114,6 +114,13 @@ class LocalizedStrings(val languageCode: String) {
     val sessionExport: String get() = strings.sessionExport
     val sessionExportMessage: String get() = strings.sessionExportMessage
     val sessionShare: String get() = strings.sessionShare
+
+    // Background Tracking / Permissions
+    val backgroundPermissionTitle: String get() = strings.backgroundPermissionTitle
+    val backgroundPermissionMessage: String get() = strings.backgroundPermissionMessage
+    val backgroundPermissionGrant: String get() = strings.backgroundPermissionGrant
+    val notificationTitle: String get() = strings.notificationTitle
+    val notificationChannelName: String get() = strings.notificationChannelName
 }
 
 private interface Strings {
@@ -215,6 +222,13 @@ private interface Strings {
     val sessionExport: String
     val sessionExportMessage: String
     val sessionShare: String
+
+    // Background Tracking / Permissions
+    val backgroundPermissionTitle: String
+    val backgroundPermissionMessage: String
+    val backgroundPermissionGrant: String
+    val notificationTitle: String
+    val notificationChannelName: String
 }
 
 private object StringsCa : Strings {
@@ -307,6 +321,12 @@ private object StringsCa : Strings {
     override val sessionExport = "Exportar GPX"
     override val sessionExportMessage = "Comparteix el teu recorregut amb altres aplicacions"
     override val sessionShare = "Compartir"
+
+    override val backgroundPermissionTitle = "Seguiment en segon pla"
+    override val backgroundPermissionMessage = "Per seguir registrant el teu recorregut quan l'app és en segon pla, cal el permís de localització \"Sempre\"."
+    override val backgroundPermissionGrant = "Concedir permís"
+    override val notificationTitle = "Seguiment GPS actiu"
+    override val notificationChannelName = "Seguiment GPS"
 }
 
 private object StringsEs : Strings {
@@ -399,6 +419,12 @@ private object StringsEs : Strings {
     override val sessionExport = "Exportar GPX"
     override val sessionExportMessage = "Comparte tu recorrido con otras aplicaciones"
     override val sessionShare = "Compartir"
+
+    override val backgroundPermissionTitle = "Seguimiento en segundo plano"
+    override val backgroundPermissionMessage = "Para seguir registrando tu recorrido cuando la app está en segundo plano, es necesario el permiso de ubicación \"Siempre\"."
+    override val backgroundPermissionGrant = "Conceder permiso"
+    override val notificationTitle = "Seguimiento GPS activo"
+    override val notificationChannelName = "Seguimiento GPS"
 }
 
 private object StringsEn : Strings {
@@ -491,6 +517,12 @@ private object StringsEn : Strings {
     override val sessionExport = "Export GPX"
     override val sessionExportMessage = "Share your track with other apps"
     override val sessionShare = "Share"
+
+    override val backgroundPermissionTitle = "Background tracking"
+    override val backgroundPermissionMessage = "To keep recording your track when the app is in the background, the \"Always\" location permission is required."
+    override val backgroundPermissionGrant = "Grant permission"
+    override val notificationTitle = "GPS tracking active"
+    override val notificationChannelName = "GPS Tracking"
 }
 
 private object StringsDe : Strings {
@@ -583,6 +615,12 @@ private object StringsDe : Strings {
     override val sessionExport = "GPX exportieren"
     override val sessionExportMessage = "Teilen Sie Ihre Strecke mit anderen Apps"
     override val sessionShare = "Teilen"
+
+    override val backgroundPermissionTitle = "Hintergrundverfolgung"
+    override val backgroundPermissionMessage = "Um Ihre Strecke weiter aufzuzeichnen, wenn die App im Hintergrund ist, wird die Standortberechtigung \"Immer\" benötigt."
+    override val backgroundPermissionGrant = "Berechtigung erteilen"
+    override val notificationTitle = "GPS-Verfolgung aktiv"
+    override val notificationChannelName = "GPS-Verfolgung"
 }
 
 private object StringsFr : Strings {
@@ -675,6 +713,12 @@ private object StringsFr : Strings {
     override val sessionExport = "Exporter GPX"
     override val sessionExportMessage = "Partagez votre parcours avec d'autres applications"
     override val sessionShare = "Partager"
+
+    override val backgroundPermissionTitle = "Suivi en arrière-plan"
+    override val backgroundPermissionMessage = "Pour continuer à enregistrer votre parcours lorsque l'application est en arrière-plan, l'autorisation de localisation \"Toujours\" est nécessaire."
+    override val backgroundPermissionGrant = "Accorder l'autorisation"
+    override val notificationTitle = "Suivi GPS actif"
+    override val notificationChannelName = "Suivi GPS"
 }
 
 private object StringsIt : Strings {
@@ -767,4 +811,10 @@ private object StringsIt : Strings {
     override val sessionExport = "Esporta GPX"
     override val sessionExportMessage = "Condividi il tuo percorso con altre app"
     override val sessionShare = "Condividi"
+
+    override val backgroundPermissionTitle = "Tracciamento in background"
+    override val backgroundPermissionMessage = "Per continuare a registrare il percorso quando l'app è in background, è necessario il permesso di posizione \"Sempre\"."
+    override val backgroundPermissionGrant = "Concedi permesso"
+    override val notificationTitle = "Tracciamento GPS attivo"
+    override val notificationChannelName = "Tracciamento GPS"
 }

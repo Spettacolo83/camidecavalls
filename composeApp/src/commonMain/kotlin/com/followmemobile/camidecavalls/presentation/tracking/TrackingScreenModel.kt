@@ -83,13 +83,17 @@ class TrackingScreenModel(
             }
         }
 
-        // Reset any previous Completed/Error state when screen is opened
-        // This ensures a fresh start when navigating back to the tracking screen
-        trackingManager.resetToStopped()
-        if (trackingManager.trackingState.value is TrackingState.Stopped &&
-            trackingManager.activeTrackPoints.value.isNotEmpty()
-        ) {
-            trackingManager.resetToStopped(clearTrack = true)
+        // Try to restore an active tracking session from the background service.
+        // If no active session, reset to a clean Stopped state.
+        screenModelScope.launch {
+            if (!trackingManager.restoreActiveSession()) {
+                trackingManager.resetToStopped()
+                if (trackingManager.trackingState.value is TrackingState.Stopped &&
+                    trackingManager.activeTrackPoints.value.isNotEmpty()
+                ) {
+                    trackingManager.resetToStopped(clearTrack = true)
+                }
+            }
         }
 
         // Load routes for display
@@ -245,6 +249,7 @@ class TrackingScreenModel(
 
                 mapController?.let { controller ->
                     renderTrack(controller)
+                    renderCurrentLocation(controller)
                 }
             }
         }
@@ -418,6 +423,16 @@ class TrackingScreenModel(
     fun startTracking() {
         screenModelScope.launch {
             try {
+                // Set stage name and localized notification strings for background notification
+                val stageName = selectedRoute?.let { route ->
+                    currentStrings.routeStage(route.number)
+                } ?: currentStrings.notebookGeneralTracking
+                trackingManager.setStageName(stageName)
+                trackingManager.setNotificationStrings(
+                    title = currentStrings.notificationTitle,
+                    channelName = currentStrings.notificationChannelName
+                )
+
                 val currentLocation = trackingManager.currentLocation.value
 
                 // If no current location, start tracking anyway
@@ -454,6 +469,16 @@ class TrackingScreenModel(
     fun startTrackingForced() {
         screenModelScope.launch {
             try {
+                // Set stage name and localized notification strings for background notification
+                val stageName = selectedRoute?.let { route ->
+                    currentStrings.routeStage(route.number)
+                } ?: currentStrings.notebookGeneralTracking
+                trackingManager.setStageName(stageName)
+                trackingManager.setNotificationStrings(
+                    title = currentStrings.notificationTitle,
+                    channelName = currentStrings.notificationChannelName
+                )
+
                 trackingManager.startTracking(routeId = routeId)
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
