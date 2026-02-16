@@ -144,6 +144,17 @@ class TrackingRepositoryImpl(
         database.trackingSessionQueries.deleteSession(id)
     }
 
+    override suspend fun insertTrackPoint(sessionId: String, trackPoint: TrackPoint) = withContext(Dispatchers.IO) {
+        database.trackPointQueries.insertTrackPoint(
+            sessionId = sessionId,
+            latitude = trackPoint.latitude,
+            longitude = trackPoint.longitude,
+            altitude = trackPoint.altitude,
+            timestamp = trackPoint.timestamp.toEpochMilliseconds(),
+            speedKmh = trackPoint.speedKmh
+        )
+    }
+
     override fun getActiveSession(): Flow<TrackingSession?> {
         return database.trackingSessionQueries
             .selectActiveSession()

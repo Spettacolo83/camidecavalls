@@ -91,6 +91,8 @@ val appModule = module {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         TrackingManager(
             locationService = get(),
+            backgroundTrackingManager = get(),
+            trackingRepository = get(),
             startTrackingSessionUseCase = get(),
             stopTrackingSessionUseCase = get(),
             addTrackPointUseCase = get(),

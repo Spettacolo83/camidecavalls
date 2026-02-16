@@ -4,6 +4,7 @@ import com.followmemobile.camidecavalls.data.local.AppPreferences
 import com.followmemobile.camidecavalls.data.local.DatabaseDriverFactory
 import com.followmemobile.camidecavalls.data.service.IOSLocationService
 import com.followmemobile.camidecavalls.data.service.IOSPermissionHandler
+import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.russhwolf.settings.NSUserDefaultsSettings
@@ -29,4 +30,7 @@ actual val platformModule = module {
 
     // Location Service
     single { IOSLocationService() } bind LocationService::class
+
+    // Background Tracking Manager
+    single { BackgroundTrackingManager() }
 }

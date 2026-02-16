@@ -9,7 +9,11 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 ### Key Features
 
 **Implemented:**
-- 📍 **GPS Tracking**: Real-time location tracking with battery optimization (5s intervals, 5m minimum distance)
+- 📍 **GPS Tracking**: Real-time location tracking with high accuracy (5s intervals, 5m minimum distance)
+- 📡 **Background Tracking**: Reliable GPS tracking that continues when the app is in the background
+  - Android: Foreground service with persistent notification, wake lock, and START_STICKY restart recovery
+  - iOS: CoreLocation background mode with blue status bar indicator
+  - Process death recovery: tracking state persisted to SharedPreferences, automatic session restore on app reopen
 - ⏱️ **Live Duration**: Real-time duration counter during tracking, independent from GPS updates
 - 📴 **Offline Mode**: Complete offline support - all data stored locally in SQLDelight, GPS works without internet
 - 📝 **Notebook**: Track hiking sessions with automatic statistics calculation (distance via Haversine formula, duration, elevation, speed)
@@ -445,14 +449,18 @@ The app is now fully functional with core trekking features, interactive maps, e
 - Smart location permission handling
 
 **GPS Tracking:**
-- Android: FusedLocationProviderClient with battery optimization
-- iOS: CoreLocation with CLActivityTypeFitness
+- Android: FusedLocationProviderClient with high accuracy in foreground service
+- iOS: CoreLocation with CLActivityTypeFitness and background mode
+- Background tracking: Foreground service (Android) / background location updates (iOS)
+- Process death recovery: SharedPreferences persistence + START_STICKY + automatic session restore
+- GPS accuracy filtering: first-fix (30m threshold) + ongoing (50m threshold)
+- Elevation dead band: 3m threshold to filter GPS altitude noise in statistics
 - Offline-first: All data saved locally in SQLDelight
-- Configurable intervals (5s default) and accuracy (balanced)
+- Configurable intervals (5s default) and accuracy (high)
 - Pause detection and session management
 - GPS toggle button: Automatic disable on map gestures (drag, zoom), manual toggle support
 - Platform-specific gesture detection (MLNMapViewDelegate on iOS, CameraMoveListener on Android)
-- Tested with GPX simulation on iOS simulator
+- Emulator/simulator support with relaxed filters for development testing
 
 **Interactive Maps:**
 - MapLibre integration with native rendering on both platforms
@@ -556,13 +564,16 @@ This project is private and proprietary. No license is granted for use, modifica
 
 **Location Services**
 - Android: `FusedLocationProviderClient` (Google Play Services)
-  - Battery optimization: Granularity.COARSE for balanced mode
-  - LocationRequest with min distance and intervals
-  - suspendCancellableCoroutine for async operations
+  - High accuracy with FINE granularity for GPS-level precision
+  - LocationRequest with 5s interval and 2s minimum interval
+  - Foreground service (`LocationForegroundService`) owns GPS and writes track points directly to DB
+  - SharedPreferences persistence for process death recovery via START_STICKY
+  - Static StateFlow for service-to-app communication
 - iOS: `CLLocationManager` (Core Location)
   - CLActivityTypeFitness for hiking optimization
-  - pausesLocationUpdatesAutomatically for battery saving
-  - desiredAccuracy and distanceFilter configuration
+  - pausesLocationUpdatesAutomatically = false (never pauses during active tracking)
+  - Time-based throttling in delegate callback (CoreLocation has no native time interval)
+  - desiredAccuracy and distanceFilter configuration (min 5m)
 
 **Permission Handling**
 - Android: `ActivityResultContracts.RequestMultiplePermissions()`
@@ -608,11 +619,12 @@ This project is private and proprietary. No license is granted for use, modifica
 - Prepared statements via SQLDelight for query optimization
 
 **GPS Tracking:**
-- Battery-optimized update intervals (5s default, min 2s)
-- Minimum distance filter (5m) to avoid unnecessary updates
-- Balanced accuracy mode (not always high-precision GPS)
-- Automatic pause when device is stationary (iOS)
-- Location updates batching and deferred delivery
+- High-accuracy update intervals (5s default, min 2s)
+- Minimum distance filter (5m) to avoid excessive updates
+- GPS accuracy filtering: first-fix (30m) + ongoing (50m) thresholds
+- Elevation dead band (3m) to prevent GPS altitude noise from inflating statistics
+- O(1) direct track point inserts (replaced O(n) load-all/delete-all/re-insert pattern)
+- Emulator/simulator detection for relaxed GPS filters during development
 
 **Calculations:**
 - Haversine formula for accurate GPS distance calculations

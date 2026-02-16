@@ -2,6 +2,8 @@ package com.followmemobile.camidecavalls.domain.usecase.tracking
 
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
+import com.followmemobile.camidecavalls.domain.repository.TrackingRepository
+import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationConfig
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.LocationService
@@ -28,6 +30,8 @@ import kotlinx.datetime.Clock
  */
 class TrackingManager(
     private val locationService: LocationService,
+    private val backgroundTrackingManager: BackgroundTrackingManager,
+    private val trackingRepository: TrackingRepository,
     private val startTrackingSessionUseCase: StartTrackingSessionUseCase,
     private val stopTrackingSessionUseCase: StopTrackingSessionUseCase,
     private val addTrackPointUseCase: AddTrackPointUseCase,
@@ -42,9 +46,40 @@ class TrackingManager(
     // Track last location for speed calculation
     private var lastLocationForSpeed: LocationData? = null
 
+    // Filter stale/inaccurate first GPS fix after tracking start
+    private var hasAcceptedFirstLocation: Boolean = false
+
     // Duration tracking
     private var trackingStartTime: Long = 0L
     private var accumulatedSeconds: Long = 0L
+
+    // Stage name for background notification (set externally before starting tracking)
+    private var currentStageName: String = ""
+
+    // Localized notification strings (set externally before starting tracking)
+    private var notificationTitle: String = "GPS tracking active"
+    private var notificationChannelName: String = "GPS Tracking"
+
+    /**
+     * Set the stage name to display in the background notification.
+     * Call this before startTracking() with the stage/route name.
+     */
+    fun setStageName(name: String) {
+        currentStageName = name
+        // If already tracking, update the notification
+        if (_trackingState.value is TrackingState.Recording) {
+            backgroundTrackingManager.updateTrackingInfo(name)
+        }
+    }
+
+    /**
+     * Set localized notification strings for the background service.
+     * Call this before startTracking().
+     */
+    fun setNotificationStrings(title: String, channelName: String) {
+        notificationTitle = title
+        notificationChannelName = channelName
+    }
 
     /**
      * Calculate current elapsed seconds including accumulated time from pauses
@@ -135,6 +170,17 @@ class TrackingManager(
             trackingStartTime = Clock.System.now().toEpochMilliseconds()
             accumulatedSeconds = 0L
 
+            // Start background tracking service (Android foreground service / iOS background mode)
+            backgroundTrackingManager.startBackgroundTracking(
+                stageName = currentStageName,
+                startTimeMs = trackingStartTime,
+                notificationTitle = notificationTitle,
+                channelName = notificationChannelName,
+                sessionId = session.id,
+                routeId = routeId,
+                accumulatedSeconds = 0L
+            )
+
             startLocationUpdates(
                 sessionId = session.id,
                 routeId = routeId,
@@ -156,6 +202,7 @@ class TrackingManager(
         if (resetLocation) {
             _activeTrackPoints.value = emptyList()
             lastLocationForSpeed = null
+            hasAcceptedFirstLocation = false
         }
 
         locationService.startTracking(currentConfig)
@@ -165,6 +212,28 @@ class TrackingManager(
             locationService.locationUpdates
                 .filterNotNull()
                 .collect { location ->
+                    val accuracy = location.accuracy
+                    val onEmulator = backgroundTrackingManager.isRunningOnEmulator()
+
+                    // Filter stale/inaccurate first GPS fix (cached or cell-tower position)
+                    if (!hasAcceptedFirstLocation) {
+                        // Skip timestamp check on emulator — GPX-replayed locations
+                        // have non-current timestamps that would always be rejected
+                        if (!onEmulator) {
+                            val nowMs = Clock.System.now().toEpochMilliseconds()
+                            val ageMs = nowMs - location.timestamp
+                            if (ageMs > 10_000L) return@collect
+                        }
+                        if (accuracy != null && accuracy > 30f) return@collect
+                        hasAcceptedFirstLocation = true
+                    }
+
+                    // Ongoing accuracy filter: discard any GPS fix with poor accuracy
+                    // to prevent spikes from cell-tower/WiFi fallback during the session
+                    if (accuracy != null && accuracy > 50f) {
+                        return@collect
+                    }
+
                     val calculatedSpeed = calculateSpeedFromLastLocation(location)
                     val locationWithSpeed = location.copy(speed = calculatedSpeed)
 
@@ -184,23 +253,29 @@ class TrackingManager(
                     } ?: false
 
                     if (!isDuplicate) {
-                        try {
-                            addTrackPointUseCase(
-                                sessionId = sessionId,
-                                latitude = locationWithSpeed.latitude,
-                                longitude = locationWithSpeed.longitude,
-                                altitude = locationWithSpeed.altitude,
-                                accuracy = locationWithSpeed.accuracy,
-                                speed = locationWithSpeed.speed,
-                                bearing = locationWithSpeed.bearing
-                            )
+                        if (backgroundTrackingManager.isHandlingDatabaseWrites()) {
+                            // On Android: service writes to DB, we only update in-memory list for UI
                             _activeTrackPoints.update { it + trackPoint }
-                        } catch (e: Exception) {
-                            _trackingState.value = TrackingState.Error(
-                                e.message ?: "Failed to save track point"
-                            )
-                            locationService.stopTracking()
-                            return@collect
+                        } else {
+                            // On iOS: TrackingManager writes to DB via use case
+                            try {
+                                addTrackPointUseCase(
+                                    sessionId = sessionId,
+                                    latitude = locationWithSpeed.latitude,
+                                    longitude = locationWithSpeed.longitude,
+                                    altitude = locationWithSpeed.altitude,
+                                    accuracy = locationWithSpeed.accuracy,
+                                    speed = locationWithSpeed.speed,
+                                    bearing = locationWithSpeed.bearing
+                                )
+                                _activeTrackPoints.update { it + trackPoint }
+                            } catch (e: Exception) {
+                                _trackingState.value = TrackingState.Error(
+                                    e.message ?: "Failed to save track point"
+                                )
+                                locationService.stopTracking()
+                                return@collect
+                            }
                         }
                     }
 
@@ -228,6 +303,9 @@ class TrackingManager(
 
         // Stop the duration timer
         stopDurationTimer()
+
+        // Stop background tracking service while paused (saves battery)
+        backgroundTrackingManager.stopBackgroundTracking()
 
         // Save accumulated time before pausing
         accumulatedSeconds = calculateElapsedSeconds()
@@ -270,6 +348,19 @@ class TrackingManager(
         // Restart duration tracking from current time (accumulated time is already saved)
         trackingStartTime = Clock.System.now().toEpochMilliseconds()
 
+        // Restart background tracking service
+        // Use original start time minus accumulated seconds to show correct elapsed time in notification
+        val originalStartTime = trackingStartTime - (accumulatedSeconds * 1000)
+        backgroundTrackingManager.startBackgroundTracking(
+            stageName = currentStageName,
+            startTimeMs = originalStartTime,
+            notificationTitle = notificationTitle,
+            channelName = notificationChannelName,
+            sessionId = pausedState.sessionId,
+            routeId = pausedState.routeId,
+            accumulatedSeconds = accumulatedSeconds
+        )
+
         startLocationUpdates(
             sessionId = pausedState.sessionId,
             routeId = pausedState.routeId,
@@ -290,6 +381,9 @@ class TrackingManager(
     suspend fun stopTracking(name: String = "", notes: String = "") {
         // Stop the duration timer
         stopDurationTimer()
+
+        // Stop background tracking service
+        backgroundTrackingManager.stopBackgroundTracking()
 
         trackingJob?.cancel()
         trackingJob = null
@@ -315,6 +409,9 @@ class TrackingManager(
             currentRouteId = null
             lastLocationForSpeed = null
             currentConfig = LocationConfig()
+            currentStageName = ""
+            notificationTitle = "GPS tracking active"
+            notificationChannelName = "GPS Tracking"
         }
     }
 
@@ -341,6 +438,71 @@ class TrackingManager(
             currentConfig = LocationConfig()
             currentSessionId = null
         }
+    }
+
+    /**
+     * Attempt to restore an active tracking session from the background service.
+     *
+     * On Android, if the foreground service is still running (or was restarted via START_STICKY),
+     * this loads the session and track points from the database, restores in-memory state,
+     * and resumes the UI in Recording state.
+     *
+     * @return true if a session was successfully restored, false otherwise
+     */
+    suspend fun restoreActiveSession(): Boolean {
+        val activeSessionId = backgroundTrackingManager.getActiveSessionId() ?: return false
+
+        val session = trackingRepository.getSessionById(activeSessionId) ?: return false
+
+        // Restore in-memory track points from DB
+        val trackPoints = session.trackPoints.map { point ->
+            TrackPoint(
+                latitude = point.latitude,
+                longitude = point.longitude,
+                altitude = point.altitude,
+                timestamp = point.timestamp,
+                speedKmh = point.speedKmh
+            )
+        }
+        _activeTrackPoints.value = trackPoints
+
+        // Restore session state
+        currentSessionId = activeSessionId
+        currentRouteId = session.routeId
+
+        // Restore accumulated seconds from the persisted service state
+        accumulatedSeconds = backgroundTrackingManager.getAccumulatedSeconds()
+        trackingStartTime = Clock.System.now().toEpochMilliseconds()
+        // Reset accumulated to 0 since trackingStartTime is now — the already-elapsed
+        // time is captured in accumulatedSeconds
+        // Actually we need trackingStartTime to calculate ongoing elapsed properly:
+        // calculateElapsedSeconds() = accumulatedSeconds + (now - trackingStartTime) / 1000
+        // Since trackingStartTime = now, the ongoing part starts at 0, plus the already
+        // accumulated seconds. This is correct.
+
+        // Set state to Recording
+        _trackingState.value = TrackingState.Recording(
+            sessionId = activeSessionId,
+            routeId = session.routeId,
+            currentLocation = _currentLocation.value,
+            elapsedSeconds = accumulatedSeconds
+        )
+
+        // Start the duration timer
+        startDurationTimer(activeSessionId, session.routeId)
+
+        // Start location updates (app-side, for UI updates)
+        try {
+            startLocationUpdates(
+                sessionId = activeSessionId,
+                routeId = session.routeId,
+                resetLocation = false
+            )
+        } catch (_: Exception) {
+            // Service is handling GPS — app-side updates are best-effort for UI
+        }
+
+        return true
     }
 
     /**

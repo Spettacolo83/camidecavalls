@@ -10,7 +10,6 @@ import kotlinx.datetime.Clock
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import platform.CoreLocation.CLAuthorizationStatus
 import platform.CoreLocation.CLLocation
 import platform.CoreLocation.CLLocationManager
 import platform.CoreLocation.CLLocationManagerDelegateProtocol
@@ -21,9 +20,10 @@ import platform.CoreLocation.kCLAuthorizationStatusNotDetermined
 import platform.CoreLocation.kCLAuthorizationStatusRestricted
 import platform.CoreLocation.kCLLocationAccuracyBest
 import platform.CoreLocation.kCLLocationAccuracyHundredMeters
-import platform.CoreLocation.kCLLocationAccuracyKilometer
 import platform.CoreLocation.kCLLocationAccuracyNearestTenMeters
 import platform.Foundation.NSError
+import platform.Foundation.NSDate
+import platform.Foundation.timeIntervalSince1970
 import platform.darwin.NSObject
 
 /**
@@ -37,10 +37,19 @@ class IOSLocationService : LocationService {
     private var locationDelegate: LocationDelegate? = null
     private var currentConfig: LocationConfig? = null
 
+    // Time-based throttling: CoreLocation doesn't support time intervals natively,
+    // so we skip updates that arrive too soon after the last emitted one.
+    private var lastEmitTimeMs: Long = 0L
+
     override val locationUpdates: Flow<LocationData?> = callbackFlow {
         val delegate = LocationDelegate(
             onLocationUpdate = { location ->
-                trySend(location)
+                val now = Clock.System.now().toEpochMilliseconds()
+                val intervalMs = currentConfig?.updateIntervalMs ?: 5000L
+                if (now - lastEmitTimeMs >= intervalMs) {
+                    lastEmitTimeMs = now
+                    trySend(location)
+                }
             },
             onAuthorizationChange = { authorized ->
                 if (!authorized) {
@@ -64,17 +73,19 @@ class IOSLocationService : LocationService {
     }
 
     override fun hasLocationPermission(): Boolean {
-        val status = CLLocationManager.authorizationStatus()
+        val status = locationManager.authorizationStatus
         return status == kCLAuthorizationStatusAuthorizedWhenInUse ||
                 status == kCLAuthorizationStatusAuthorizedAlways
     }
 
     override suspend fun startTracking(config: LocationConfig) {
         currentConfig = config
+        // Reset throttle so first location is emitted immediately
+        lastEmitTimeMs = 0L
 
         // Request permission if not determined
         // Request "Always" authorization for background tracking
-        val authStatus = CLLocationManager.authorizationStatus()
+        val authStatus = locationManager.authorizationStatus
         if (authStatus == kCLAuthorizationStatusNotDetermined) {
             // First request "When In Use", then the user can upgrade to "Always" later
             locationManager.requestWhenInUseAuthorization()
@@ -90,15 +101,15 @@ class IOSLocationService : LocationService {
             desiredAccuracy = mapAccuracy(config.priority)
 
             // Distance filter: minimum distance (in meters) a device must move before update
-            // Higher values = better battery life
-            distanceFilter = config.minDistanceMeters.toDouble()
+            // Use at least 5 meters to avoid excessive updates when stationary
+            distanceFilter = maxOf(config.minDistanceMeters.toDouble(), 5.0)
 
-            // Pause location updates automatically when the location is unlikely to change
-            // This saves significant battery
-            pausesLocationUpdatesAutomatically = true
+            // NEVER pause automatically during active tracking — the user may stop
+            // at viewpoints, lunch breaks, etc. and tracking must continue.
+            pausesLocationUpdatesAutomatically = false
 
-            // Only show blue bar when actually using location (better UX and battery)
-            showsBackgroundLocationIndicator = false
+            // Show blue bar when tracking in background (required for user awareness)
+            showsBackgroundLocationIndicator = true
 
             // Enable background location updates for continuous tracking
             allowsBackgroundLocationUpdates = true
@@ -153,7 +164,7 @@ class IOSLocationService : LocationService {
                 speed = maxOf(0f, location.speed.toFloat()),
                 // Always include bearing when available
                 bearing = if (location.course >= 0) location.course.toFloat() else null,
-                timestamp = Clock.System.now().toEpochMilliseconds()
+                timestamp = (location.timestamp.timeIntervalSince1970 * 1000).toLong()
             )
         }
     }
@@ -176,12 +187,10 @@ class IOSLocationService : LocationService {
             println("Location error: ${didFailWithError.localizedDescription}")
         }
 
-        override fun locationManager(
-            manager: CLLocationManager,
-            didChangeAuthorizationStatus: CLAuthorizationStatus
-        ) {
-            val authorized = didChangeAuthorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse ||
-                    didChangeAuthorizationStatus == kCLAuthorizationStatusAuthorizedAlways
+        override fun locationManagerDidChangeAuthorization(manager: CLLocationManager) {
+            val status = manager.authorizationStatus
+            val authorized = status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+                    status == kCLAuthorizationStatusAuthorizedAlways
             onAuthorizationChange(authorized)
         }
     }

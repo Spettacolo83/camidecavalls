@@ -1,5 +1,6 @@
 package com.followmemobile.camidecavalls.domain.repository
 
+import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import kotlinx.coroutines.flow.Flow
 
@@ -38,6 +39,12 @@ interface TrackingRepository {
      * Delete a session
      */
     suspend fun deleteSession(id: String)
+
+    /**
+     * Insert a single track point into an existing session.
+     * O(1) operation — does NOT reload or rewrite all existing points.
+     */
+    suspend fun insertTrackPoint(sessionId: String, trackPoint: TrackPoint)
 
     /**
      * Get currently active session (if any)
