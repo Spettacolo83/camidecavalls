@@ -26,9 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.stringResource
-import camidecavalls.composeapp.generated.resources.Res
-import camidecavalls.composeapp.generated.resources.tracking_recording_badge
+import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
+import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 
 @Composable
 fun App() {
@@ -38,12 +37,16 @@ fun App() {
         ) {
             val trackingManager: TrackingManager = koinInject()
             val trackingState by trackingManager.trackingState.collectAsState()
+            val languageRepository: LanguageRepository = koinInject()
+            val language by languageRepository.observeCurrentLanguage().collectAsState(initial = languageRepository.getSystemLanguage())
+            val strings = LocalizedStrings(language)
 
             Box(modifier = Modifier.fillMaxSize()) {
                 Navigator(AboutScreen())
 
                 if (trackingState is TrackingState.Recording) {
                     RecordingBadge(
+                        text = strings.trackingRecordingBadge,
                         modifier = Modifier
                             .align(Alignment.TopEnd)
                             .padding(top = 44.dp, end = 16.dp)
@@ -55,7 +58,7 @@ fun App() {
 }
 
 @Composable
-private fun RecordingBadge(modifier: Modifier = Modifier) {
+private fun RecordingBadge(text: String, modifier: Modifier = Modifier) {
     val transition = rememberInfiniteTransition(label = "recording-badge")
     val alpha by transition.animateFloat(
         initialValue = 1f,
@@ -74,7 +77,7 @@ private fun RecordingBadge(modifier: Modifier = Modifier) {
         shape = RoundedCornerShape(12.dp)
     ) {
         Text(
-            text = stringResource(Res.string.tracking_recording_badge),
+            text = text,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold

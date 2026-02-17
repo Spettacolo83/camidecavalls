@@ -139,7 +139,7 @@ private fun NotebookScreenContent(
                 ),
                 navigationIcon = {
                     IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = "Open Menu")
+                        Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
                     }
                 }
             )

@@ -28,38 +28,6 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import camidecavalls.composeapp.generated.resources.Res
-import camidecavalls.composeapp.generated.resources.back
-import camidecavalls.composeapp.generated.resources.cancel
-import camidecavalls.composeapp.generated.resources.retry
-import camidecavalls.composeapp.generated.resources.tracking_acquiring_signal
-import camidecavalls.composeapp.generated.resources.tracking_avg_speed
-import camidecavalls.composeapp.generated.resources.tracking_completed
-import camidecavalls.composeapp.generated.resources.tracking_distance
-import camidecavalls.composeapp.generated.resources.tracking_duration
-import camidecavalls.composeapp.generated.resources.tracking_error
-import camidecavalls.composeapp.generated.resources.tracking_altitude
-import camidecavalls.composeapp.generated.resources.tracking_far_message
-import camidecavalls.composeapp.generated.resources.tracking_far_title
-import camidecavalls.composeapp.generated.resources.tracking_gps_follow_disabled
-import camidecavalls.composeapp.generated.resources.tracking_gps_follow_enabled
-import camidecavalls.composeapp.generated.resources.tracking_navigation_open_menu
-import camidecavalls.composeapp.generated.resources.tracking_latitude
-import camidecavalls.composeapp.generated.resources.tracking_longitude
-import camidecavalls.composeapp.generated.resources.tracking_accuracy
-import camidecavalls.composeapp.generated.resources.tracking_session_prefix
-import camidecavalls.composeapp.generated.resources.tracking_session_summary
-import camidecavalls.composeapp.generated.resources.tracking_show_statistics
-import camidecavalls.composeapp.generated.resources.tracking_start
-import camidecavalls.composeapp.generated.resources.tracking_start_anyway
-import camidecavalls.composeapp.generated.resources.tracking_start_new_session
-import camidecavalls.composeapp.generated.resources.tracking_pause
-import camidecavalls.composeapp.generated.resources.tracking_resume
-import camidecavalls.composeapp.generated.resources.tracking_statistics_title
-import camidecavalls.composeapp.generated.resources.tracking_stop
-import camidecavalls.composeapp.generated.resources.tracking_title
-import camidecavalls.composeapp.generated.resources.tracking_speed
-import camidecavalls.composeapp.generated.resources.tracking_elevation_gain
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
@@ -87,7 +55,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
-import org.jetbrains.compose.resources.stringResource
 
 /**
  * Screen for GPS tracking functionality.
@@ -238,6 +205,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                     onResumeTracking = { screenModel.resumeTracking() },
                     onCancelConfirmation = { screenModel.cancelConfirmation() },
                     onStopTracking = { name -> screenModel.stopTracking(name) },
+                    onDiscardTracking = { screenModel.discardTracking() },
                     onStartNewSession = onStartNewSession,
                     onClearError = { screenModel.clearError() },
                     getDefaultSessionName = { screenModel.getDefaultSessionName() }
@@ -257,6 +225,7 @@ data class TrackingScreen(val routeId: Int? = null) : Screen {
                 onResumeTracking = { screenModel.resumeTracking() },
                 onCancelConfirmation = { screenModel.cancelConfirmation() },
                 onStopTracking = { name -> screenModel.stopTracking(name) },
+                onDiscardTracking = { screenModel.discardTracking() },
                 onStartNewSession = onStartNewSession,
                 onClearError = { screenModel.clearError() },
                 getDefaultSessionName = { screenModel.getDefaultSessionName() }
@@ -288,11 +257,13 @@ private fun TrackingScreenContent(
     onResumeTracking: () -> Unit,
     onCancelConfirmation: () -> Unit,
     onStopTracking: (String) -> Unit,
+    onDiscardTracking: () -> Unit,
     onStartNewSession: () -> Unit,
     onClearError: () -> Unit,
     getDefaultSessionName: () -> String
 ) {
     var showSaveDialog by remember { mutableStateOf(false) }
+    var showDiscardConfirmDialog by remember { mutableStateOf(false) }
     var sessionName by remember { mutableStateOf("") }
 
     // Show save dialog
@@ -305,8 +276,47 @@ private fun TrackingScreenContent(
                 showSaveDialog = false
                 onStopTracking(sessionName)
             },
+            onDiscard = {
+                showSaveDialog = false
+                showDiscardConfirmDialog = true
+            },
             onDismiss = {
                 showSaveDialog = false
+            }
+        )
+    }
+
+    // Show discard confirmation dialog
+    if (showDiscardConfirmDialog) {
+        AlertDialog(
+            onDismissRequest = { showDiscardConfirmDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
+                )
+            },
+            title = { Text(uiState.strings.trackingDiscardTitle) },
+            text = { Text(uiState.strings.trackingDiscardMessage) },
+            confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        showDiscardConfirmDialog = false
+                        onDiscardTracking()
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(uiState.strings.trackingDiscard)
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { showDiscardConfirmDialog = false }) {
+                    Text(uiState.strings.notebookCancel)
+                }
             }
         )
     }
@@ -318,13 +328,13 @@ private fun TrackingScreenContent(
                 navigationIcon = {
                     if (showMenuButton) {
                         IconButton(onClick = onMenuClick) {
-                            Icon(Icons.Default.Menu, contentDescription = stringResource(Res.string.tracking_navigation_open_menu))
+                            Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
                         }
                     } else {
                         IconButton(onClick = onBackClick) {
                             Icon(
                                 Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(Res.string.back)
+                                contentDescription = uiState.strings.back
                             )
                         }
                     }
@@ -340,6 +350,7 @@ private fun TrackingScreenContent(
             when (uiState) {
                 is TrackingUiState.Idle -> {
                     IdleContent(
+                        strings = uiState.strings,
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
@@ -353,6 +364,7 @@ private fun TrackingScreenContent(
                 is TrackingUiState.AwaitingConfirmation -> {
                     // Show idle map with confirmation dialog on top
                     IdleContent(
+                        strings = uiState.strings,
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         currentLocation = uiState.currentLocation,
@@ -362,6 +374,7 @@ private fun TrackingScreenContent(
                         modifier = Modifier.fillMaxSize()
                     )
                     ConfirmationDialog(
+                        strings = uiState.strings,
                         distanceKm = uiState.distanceFromRoute / 1000.0,
                         onConfirm = onStartTrackingForced,
                         onCancel = onCancelConfirmation
@@ -370,6 +383,7 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Tracking -> {
                     ActiveTrackingContent(
+                        strings = uiState.strings,
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         sessionId = uiState.sessionId,
@@ -391,6 +405,7 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Paused -> {
                     ActiveTrackingContent(
+                        strings = uiState.strings,
                         routes = uiState.routes,
                         selectedRoute = uiState.selectedRoute,
                         sessionId = uiState.sessionId,
@@ -412,6 +427,7 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Completed -> {
                     CompletedContent(
+                        strings = uiState.strings,
                         session = uiState.session,
                         onNewSession = onStartNewSession,
                         modifier = Modifier
@@ -422,6 +438,7 @@ private fun TrackingScreenContent(
 
                 is TrackingUiState.Error -> {
                     ErrorContent(
+                        strings = uiState.strings,
                         message = uiState.message,
                         onRetry = onStartTracking,
                         onDismiss = onClearError,
@@ -437,6 +454,7 @@ private fun TrackingScreenContent(
 
 @Composable
 private fun IdleContent(
+    strings: LocalizedStrings,
     routes: List<Route>,
     selectedRoute: Route?,
     currentLocation: LocationData?,
@@ -488,7 +506,7 @@ private fun IdleContent(
                 .align(Alignment.BottomEnd)
                 .padding(16.dp),
             icon = { Icon(Icons.Default.Flag, contentDescription = null) },
-            text = { Text(stringResource(Res.string.tracking_start)) }
+            text = { Text(strings.trackingStart) }
         )
 
         LaunchedEffect(mapController, cameraPosition) {
@@ -515,6 +533,7 @@ private fun IdleContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ActiveTrackingContent(
+    strings: LocalizedStrings,
     routes: List<Route>,
     selectedRoute: Route?,
     sessionId: String,
@@ -639,9 +658,9 @@ private fun ActiveTrackingContent(
             Icon(
                 imageVector = if (followGpsLocation) Icons.Default.GpsFixed else Icons.Default.GpsNotFixed,
                 contentDescription = if (followGpsLocation) {
-                    stringResource(Res.string.tracking_gps_follow_enabled)
+                    strings.trackingGpsFollowEnabled
                 } else {
-                    stringResource(Res.string.tracking_gps_follow_disabled)
+                    strings.trackingGpsFollowDisabled
                 },
                 tint = if (followGpsLocation) {
                     MaterialTheme.colorScheme.primary
@@ -671,7 +690,7 @@ private fun ActiveTrackingContent(
                 ) {
                     Icon(
                         Icons.Default.Stop,
-                        contentDescription = stringResource(Res.string.tracking_stop)
+                        contentDescription = strings.trackingStop
                     )
                 }
             }
@@ -686,7 +705,7 @@ private fun ActiveTrackingContent(
                 ) {
                     Icon(
                         Icons.Default.Info,
-                        contentDescription = stringResource(Res.string.tracking_show_statistics)
+                        contentDescription = strings.trackingShowStatistics
                     )
                 }
 
@@ -700,9 +719,7 @@ private fun ActiveTrackingContent(
                 ) {
                     Icon(
                         imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
-                        contentDescription = stringResource(
-                            if (isPaused) Res.string.tracking_resume else Res.string.tracking_pause
-                        ),
+                        contentDescription = if (isPaused) strings.trackingResume else strings.trackingPause,
                         tint = if (isPaused) {
                             MaterialTheme.colorScheme.onPrimary
                         } else {
@@ -727,31 +744,31 @@ private fun ActiveTrackingContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
-                    text = stringResource(Res.string.tracking_statistics_title),
+                    text = strings.trackingStatisticsTitle,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
                 if (currentLocation != null) {
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_latitude),
+                        strings.trackingLatitude,
                         "${(currentLocation.latitude * 1000000).toInt() / 1000000.0}°"
                     )
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_longitude),
+                        strings.trackingLongitude,
                         "${(currentLocation.longitude * 1000000).toInt() / 1000000.0}°"
                     )
 
                     currentLocation.altitude?.let {
                         LocationInfoRow(
-                            stringResource(Res.string.tracking_altitude),
+                            strings.sessionAltitude,
                             "${(it * 10).toInt() / 10.0} m"
                         )
                     }
 
                     currentLocation.accuracy?.let {
                         LocationInfoRow(
-                            stringResource(Res.string.tracking_accuracy),
+                            strings.trackingAccuracy,
                             "±${(it * 10).toInt() / 10.0} m"
                         )
                     }
@@ -759,25 +776,25 @@ private fun ActiveTrackingContent(
                     currentLocation.speed?.let {
                         val speedKmh = it * 3.6
                         LocationInfoRow(
-                            stringResource(Res.string.tracking_speed),
+                            strings.trackingSpeed,
                             "${(speedKmh * 10).toInt() / 10.0} km/h"
                         )
                     }
 
                     // Show distance traveled
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_distance),
+                        strings.trackingDistance,
                         "${((distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
                     )
 
                     // Show duration
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_duration),
+                        strings.homeDuration,
                         formatDuration(durationSeconds)
                     )
                 } else {
                     Text(
-                        text = stringResource(Res.string.tracking_acquiring_signal),
+                        text = strings.trackingAcquiringSignal,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -786,7 +803,7 @@ private fun ActiveTrackingContent(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = stringResource(Res.string.tracking_session_prefix, sessionId.take(8)),
+                    text = strings.trackingSessionPrefix(sessionId.take(8)),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -818,6 +835,7 @@ private fun LocationInfoRow(label: String, value: String) {
 
 @Composable
 private fun CompletedContent(
+    strings: LocalizedStrings,
     session: com.followmemobile.camidecavalls.domain.model.TrackingSession?,
     onNewSession: () -> Unit,
     modifier: Modifier = Modifier
@@ -837,7 +855,7 @@ private fun CompletedContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = stringResource(Res.string.tracking_completed),
+            text = strings.trackingCompleted,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -853,25 +871,25 @@ private fun CompletedContent(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = stringResource(Res.string.tracking_session_summary),
+                        text = strings.trackingSessionSummary,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
 
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_distance),
+                        strings.trackingDistance,
                         "${((session.distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
                     )
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_duration),
+                        strings.homeDuration,
                         "${session.durationSeconds / 3600}h ${(session.durationSeconds % 3600) / 60}m"
                     )
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_avg_speed),
+                        strings.sessionAvgSpeed,
                         "${(session.averageSpeedKmh * 10).toInt() / 10.0} km/h"
                     )
                     LocationInfoRow(
-                        stringResource(Res.string.tracking_elevation_gain),
+                        strings.routeDetailElevationGain,
                         "+${session.elevationGainMeters} m"
                     )
                 }
@@ -888,13 +906,14 @@ private fun CompletedContent(
         ) {
             Icon(Icons.Default.Refresh, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
-            Text(stringResource(Res.string.tracking_start_new_session))
+            Text(strings.trackingStartNewSession)
         }
     }
 }
 
 @Composable
 private fun ErrorContent(
+    strings: LocalizedStrings,
     message: String,
     onRetry: () -> Unit,
     onDismiss: () -> Unit,
@@ -915,7 +934,7 @@ private fun ErrorContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = stringResource(Res.string.tracking_error),
+            text = strings.trackingError,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -940,7 +959,7 @@ private fun ErrorContent(
                     .weight(1f)
                     .height(56.dp)
             ) {
-                Text(stringResource(Res.string.cancel))
+                Text(strings.notebookCancel)
             }
 
             FilledTonalButton(
@@ -951,7 +970,7 @@ private fun ErrorContent(
             ) {
                 Icon(Icons.Default.Refresh, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(stringResource(Res.string.retry))
+                Text(strings.trackingRetry)
             }
         }
     }
@@ -959,6 +978,7 @@ private fun ErrorContent(
 
 @Composable
 private fun ConfirmationDialog(
+    strings: LocalizedStrings,
     distanceKm: Double,
     onConfirm: () -> Unit,
     onCancel: () -> Unit
@@ -973,22 +993,20 @@ private fun ConfirmationDialog(
             )
         },
         title = {
-            Text(stringResource(Res.string.tracking_far_title))
+            Text(strings.trackingFarTitle)
         },
         text = {
-            val distanceFormatted = (distanceKm * 10).toInt() / 10.0
-            Text(
-                stringResource(Res.string.tracking_far_message, distanceFormatted)
-            )
+            val distanceFormatted = "${(distanceKm * 10).toInt() / 10.0}"
+            Text(strings.trackingFarMessage(distanceFormatted))
         },
         confirmButton = {
             FilledTonalButton(onClick = onConfirm) {
-                Text(stringResource(Res.string.tracking_start_anyway))
+                Text(strings.trackingStartAnyway)
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onCancel) {
-                Text(stringResource(Res.string.cancel))
+                Text(strings.notebookCancel)
             }
         }
     )
@@ -1078,6 +1096,7 @@ private fun SaveSessionDialog(
     defaultName: String,
     onNameChange: (String) -> Unit,
     onConfirm: () -> Unit,
+    onDiscard: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
@@ -1108,8 +1127,18 @@ private fun SaveSessionDialog(
             }
         },
         dismissButton = {
-            OutlinedButton(onClick = onDismiss) {
-                Text(strings.notebookCancel)
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                TextButton(onClick = onDiscard) {
+                    Text(
+                        text = strings.trackingDiscard,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+                OutlinedButton(onClick = onDismiss) {
+                    Text(strings.notebookCancel)
+                }
             }
         }
     )

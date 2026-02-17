@@ -66,8 +66,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import camidecavalls.composeapp.generated.resources.Res
-import camidecavalls.composeapp.generated.resources.*
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 /**
  * Route Detail screen showing detailed information about a specific trail stage.
@@ -135,7 +134,7 @@ private fun RouteDetailScreenContent(
                     Box {
                         // Default title (visible when not scrolled)
                         Text(
-                            text = strings?.routeViewDetails ?: stringResource(Res.string.route_view_details),
+                            text = strings?.routeViewDetails ?: "",
                             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 1f - titleAlpha)
                         )
                         // Route name title (visible when scrolled)
@@ -149,7 +148,7 @@ private fun RouteDetailScreenContent(
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = strings?.back ?: "Back"
                         )
                     }
                 },
@@ -166,7 +165,7 @@ private fun RouteDetailScreenContent(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Flag,
-                        contentDescription = stringResource(Res.string.tracking_start)
+                        contentDescription = strings?.trackingStart ?: ""
                     )
                 }
             }
@@ -205,6 +204,7 @@ private fun RouteDetailScreenContent(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun RouteDetailContent(
     route: Route,

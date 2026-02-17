@@ -121,6 +121,40 @@ class LocalizedStrings(val languageCode: String) {
     val backgroundPermissionGrant: String get() = strings.backgroundPermissionGrant
     val notificationTitle: String get() = strings.notificationTitle
     val notificationChannelName: String get() = strings.notificationChannelName
+
+    // Tracking Screen
+    val trackingStart: String get() = strings.trackingStart
+    val trackingPause: String get() = strings.trackingPause
+    val trackingResume: String get() = strings.trackingResume
+    val trackingStop: String get() = strings.trackingStop
+    val trackingRecordingBadge: String get() = strings.trackingRecordingBadge
+    val trackingCompleted: String get() = strings.trackingCompleted
+    val trackingError: String get() = strings.trackingError
+    val trackingStatisticsTitle: String get() = strings.trackingStatisticsTitle
+    val trackingSessionSummary: String get() = strings.trackingSessionSummary
+    val trackingLatitude: String get() = strings.trackingLatitude
+    val trackingLongitude: String get() = strings.trackingLongitude
+    val trackingAccuracy: String get() = strings.trackingAccuracy
+    val trackingSpeed: String get() = strings.trackingSpeed
+    val trackingAcquiringSignal: String get() = strings.trackingAcquiringSignal
+    val trackingStartNewSession: String get() = strings.trackingStartNewSession
+    val trackingRetry: String get() = strings.trackingRetry
+    val trackingFarTitle: String get() = strings.trackingFarTitle
+    val trackingStartAnyway: String get() = strings.trackingStartAnyway
+    val trackingSessionPrefix: (String) -> String = { id -> strings.trackingSessionPrefix(id) }
+    val trackingFarMessage: (String) -> String = { distance -> strings.trackingFarMessage(distance) }
+    val trackingErrorPermission: String get() = strings.trackingErrorPermission
+    val trackingErrorGeneric: String get() = strings.trackingErrorGeneric
+
+    // Accessibility
+    val back: String get() = strings.back
+    val openMenu: String get() = strings.openMenu
+    val trackingShowStatistics: String get() = strings.trackingShowStatistics
+    val trackingGpsFollowEnabled: String get() = strings.trackingGpsFollowEnabled
+    val trackingGpsFollowDisabled: String get() = strings.trackingGpsFollowDisabled
+    val trackingDiscardTitle: String get() = strings.trackingDiscardTitle
+    val trackingDiscardMessage: String get() = strings.trackingDiscardMessage
+    val trackingDiscard: String get() = strings.trackingDiscard
 }
 
 private interface Strings {
@@ -229,6 +263,40 @@ private interface Strings {
     val backgroundPermissionGrant: String
     val notificationTitle: String
     val notificationChannelName: String
+
+    // Tracking Screen
+    val trackingStart: String
+    val trackingPause: String
+    val trackingResume: String
+    val trackingStop: String
+    val trackingRecordingBadge: String
+    val trackingCompleted: String
+    val trackingError: String
+    val trackingStatisticsTitle: String
+    val trackingSessionSummary: String
+    val trackingLatitude: String
+    val trackingLongitude: String
+    val trackingAccuracy: String
+    val trackingSpeed: String
+    val trackingAcquiringSignal: String
+    val trackingStartNewSession: String
+    val trackingRetry: String
+    val trackingFarTitle: String
+    val trackingStartAnyway: String
+    fun trackingSessionPrefix(id: String): String
+    fun trackingFarMessage(distance: String): String
+    val trackingErrorPermission: String
+    val trackingErrorGeneric: String
+
+    // Accessibility
+    val back: String
+    val openMenu: String
+    val trackingShowStatistics: String
+    val trackingGpsFollowEnabled: String
+    val trackingGpsFollowDisabled: String
+    val trackingDiscardTitle: String
+    val trackingDiscardMessage: String
+    val trackingDiscard: String
 }
 
 private object StringsCa : Strings {
@@ -327,6 +395,38 @@ private object StringsCa : Strings {
     override val backgroundPermissionGrant = "Concedir permís"
     override val notificationTitle = "Seguiment GPS actiu"
     override val notificationChannelName = "Seguiment GPS"
+
+    override val trackingStart = "Iniciar"
+    override val trackingPause = "Pausar"
+    override val trackingResume = "Reprendre"
+    override val trackingStop = "Aturar"
+    override val trackingRecordingBadge = "ENREGISTRANT"
+    override val trackingCompleted = "Seguiment Completat!"
+    override val trackingError = "Error de Seguiment"
+    override val trackingStatisticsTitle = "Estadístiques en Directe"
+    override val trackingSessionSummary = "Resum de Sessió"
+    override val trackingLatitude = "Latitud"
+    override val trackingLongitude = "Longitud"
+    override val trackingAccuracy = "Precisió"
+    override val trackingSpeed = "Velocitat"
+    override val trackingAcquiringSignal = "Adquirint senyal GPS…"
+    override val trackingStartNewSession = "Nova Sessió"
+    override val trackingRetry = "Reintentar"
+    override val trackingFarTitle = "Ets lluny de la ruta"
+    override val trackingStartAnyway = "Iniciar igualment"
+    override fun trackingSessionPrefix(id: String) = "Sessió: $id…"
+    override fun trackingFarMessage(distance: String) = "Ets a $distance km del punt més proper de la ruta. Vols iniciar el seguiment igualment?"
+    override val trackingErrorPermission = "Cal el permís de localització per iniciar el seguiment."
+    override val trackingErrorGeneric = "S'ha produït un error"
+
+    override val back = "Enrere"
+    override val openMenu = "Obrir menú"
+    override val trackingShowStatistics = "Mostrar estadístiques"
+    override val trackingGpsFollowEnabled = "Seguiment GPS activat"
+    override val trackingGpsFollowDisabled = "Seguiment GPS desactivat"
+    override val trackingDiscardTitle = "Descartar seguiment?"
+    override val trackingDiscardMessage = "Totes les dades registrades es perdran permanentment."
+    override val trackingDiscard = "Descartar"
 }
 
 private object StringsEs : Strings {
@@ -425,6 +525,38 @@ private object StringsEs : Strings {
     override val backgroundPermissionGrant = "Conceder permiso"
     override val notificationTitle = "Seguimiento GPS activo"
     override val notificationChannelName = "Seguimiento GPS"
+
+    override val trackingStart = "Iniciar"
+    override val trackingPause = "Pausar"
+    override val trackingResume = "Reanudar"
+    override val trackingStop = "Detener"
+    override val trackingRecordingBadge = "GRABANDO"
+    override val trackingCompleted = "Seguimiento Completado!"
+    override val trackingError = "Error de Seguimiento"
+    override val trackingStatisticsTitle = "Estadísticas en Vivo"
+    override val trackingSessionSummary = "Resumen de Sesión"
+    override val trackingLatitude = "Latitud"
+    override val trackingLongitude = "Longitud"
+    override val trackingAccuracy = "Precisión"
+    override val trackingSpeed = "Velocidad"
+    override val trackingAcquiringSignal = "Adquiriendo señal GPS…"
+    override val trackingStartNewSession = "Nueva Sesión"
+    override val trackingRetry = "Reintentar"
+    override val trackingFarTitle = "Estás lejos de la ruta"
+    override val trackingStartAnyway = "Iniciar de todos modos"
+    override fun trackingSessionPrefix(id: String) = "Sesión: $id…"
+    override fun trackingFarMessage(distance: String) = "Estás a $distance km del punto más cercano de la ruta. ¿Quieres iniciar el seguimiento de todos modos?"
+    override val trackingErrorPermission = "Se necesita el permiso de ubicación para iniciar el seguimiento."
+    override val trackingErrorGeneric = "Se ha producido un error"
+
+    override val back = "Atrás"
+    override val openMenu = "Abrir menú"
+    override val trackingShowStatistics = "Mostrar estadísticas"
+    override val trackingGpsFollowEnabled = "Seguimiento GPS activado"
+    override val trackingGpsFollowDisabled = "Seguimiento GPS desactivado"
+    override val trackingDiscardTitle = "¿Descartar seguimiento?"
+    override val trackingDiscardMessage = "Todos los datos registrados se perderán permanentemente."
+    override val trackingDiscard = "Descartar"
 }
 
 private object StringsEn : Strings {
@@ -523,6 +655,38 @@ private object StringsEn : Strings {
     override val backgroundPermissionGrant = "Grant permission"
     override val notificationTitle = "GPS tracking active"
     override val notificationChannelName = "GPS Tracking"
+
+    override val trackingStart = "Start"
+    override val trackingPause = "Pause"
+    override val trackingResume = "Resume"
+    override val trackingStop = "Stop"
+    override val trackingRecordingBadge = "RECORDING"
+    override val trackingCompleted = "Tracking Completed!"
+    override val trackingError = "Tracking Error"
+    override val trackingStatisticsTitle = "Live Statistics"
+    override val trackingSessionSummary = "Session Summary"
+    override val trackingLatitude = "Latitude"
+    override val trackingLongitude = "Longitude"
+    override val trackingAccuracy = "Accuracy"
+    override val trackingSpeed = "Speed"
+    override val trackingAcquiringSignal = "Acquiring GPS signal…"
+    override val trackingStartNewSession = "Start New Session"
+    override val trackingRetry = "Retry"
+    override val trackingFarTitle = "You are far from the route"
+    override val trackingStartAnyway = "Start anyway"
+    override fun trackingSessionPrefix(id: String) = "Session: $id…"
+    override fun trackingFarMessage(distance: String) = "You are $distance km away from the nearest route. Do you want to start tracking anyway?"
+    override val trackingErrorPermission = "Location permission is required to start tracking."
+    override val trackingErrorGeneric = "An error occurred"
+
+    override val back = "Back"
+    override val openMenu = "Open menu"
+    override val trackingShowStatistics = "Show statistics"
+    override val trackingGpsFollowEnabled = "GPS follow enabled"
+    override val trackingGpsFollowDisabled = "GPS follow disabled"
+    override val trackingDiscardTitle = "Discard tracking?"
+    override val trackingDiscardMessage = "All recorded data will be permanently lost."
+    override val trackingDiscard = "Discard"
 }
 
 private object StringsDe : Strings {
@@ -621,6 +785,38 @@ private object StringsDe : Strings {
     override val backgroundPermissionGrant = "Berechtigung erteilen"
     override val notificationTitle = "GPS-Verfolgung aktiv"
     override val notificationChannelName = "GPS-Verfolgung"
+
+    override val trackingStart = "Starten"
+    override val trackingPause = "Pause"
+    override val trackingResume = "Fortsetzen"
+    override val trackingStop = "Stoppen"
+    override val trackingRecordingBadge = "AUFZEICHNUNG"
+    override val trackingCompleted = "Verfolgung Abgeschlossen!"
+    override val trackingError = "Verfolgungsfehler"
+    override val trackingStatisticsTitle = "Live-Statistiken"
+    override val trackingSessionSummary = "Sitzungszusammenfassung"
+    override val trackingLatitude = "Breitengrad"
+    override val trackingLongitude = "Längengrad"
+    override val trackingAccuracy = "Genauigkeit"
+    override val trackingSpeed = "Geschwindigkeit"
+    override val trackingAcquiringSignal = "GPS-Signal wird gesucht…"
+    override val trackingStartNewSession = "Neue Sitzung"
+    override val trackingRetry = "Erneut versuchen"
+    override val trackingFarTitle = "Sie sind weit von der Route entfernt"
+    override val trackingStartAnyway = "Trotzdem starten"
+    override fun trackingSessionPrefix(id: String) = "Sitzung: $id…"
+    override fun trackingFarMessage(distance: String) = "Sie sind $distance km vom nächsten Punkt der Route entfernt. Möchten Sie die Verfolgung trotzdem starten?"
+    override val trackingErrorPermission = "Standortberechtigung ist erforderlich, um die Verfolgung zu starten."
+    override val trackingErrorGeneric = "Ein Fehler ist aufgetreten"
+
+    override val back = "Zurück"
+    override val openMenu = "Menü öffnen"
+    override val trackingShowStatistics = "Statistiken anzeigen"
+    override val trackingGpsFollowEnabled = "GPS-Verfolgung aktiviert"
+    override val trackingGpsFollowDisabled = "GPS-Verfolgung deaktiviert"
+    override val trackingDiscardTitle = "Aufzeichnung verwerfen?"
+    override val trackingDiscardMessage = "Alle aufgezeichneten Daten gehen dauerhaft verloren."
+    override val trackingDiscard = "Verwerfen"
 }
 
 private object StringsFr : Strings {
@@ -719,6 +915,38 @@ private object StringsFr : Strings {
     override val backgroundPermissionGrant = "Accorder l'autorisation"
     override val notificationTitle = "Suivi GPS actif"
     override val notificationChannelName = "Suivi GPS"
+
+    override val trackingStart = "Démarrer"
+    override val trackingPause = "Pause"
+    override val trackingResume = "Reprendre"
+    override val trackingStop = "Arrêter"
+    override val trackingRecordingBadge = "ENREGISTREMENT"
+    override val trackingCompleted = "Suivi Terminé !"
+    override val trackingError = "Erreur de Suivi"
+    override val trackingStatisticsTitle = "Statistiques en Direct"
+    override val trackingSessionSummary = "Résumé de Session"
+    override val trackingLatitude = "Latitude"
+    override val trackingLongitude = "Longitude"
+    override val trackingAccuracy = "Précision"
+    override val trackingSpeed = "Vitesse"
+    override val trackingAcquiringSignal = "Acquisition du signal GPS…"
+    override val trackingStartNewSession = "Nouvelle Session"
+    override val trackingRetry = "Réessayer"
+    override val trackingFarTitle = "Vous êtes loin de l'itinéraire"
+    override val trackingStartAnyway = "Démarrer quand même"
+    override fun trackingSessionPrefix(id: String) = "Session : $id…"
+    override fun trackingFarMessage(distance: String) = "Vous êtes à $distance km du point le plus proche de l'itinéraire. Voulez-vous démarrer le suivi quand même ?"
+    override val trackingErrorPermission = "L'autorisation de localisation est nécessaire pour démarrer le suivi."
+    override val trackingErrorGeneric = "Une erreur s'est produite"
+
+    override val back = "Retour"
+    override val openMenu = "Ouvrir le menu"
+    override val trackingShowStatistics = "Afficher les statistiques"
+    override val trackingGpsFollowEnabled = "Suivi GPS activé"
+    override val trackingGpsFollowDisabled = "Suivi GPS désactivé"
+    override val trackingDiscardTitle = "Supprimer le suivi ?"
+    override val trackingDiscardMessage = "Toutes les données enregistrées seront définitivement perdues."
+    override val trackingDiscard = "Supprimer"
 }
 
 private object StringsIt : Strings {
@@ -817,4 +1045,36 @@ private object StringsIt : Strings {
     override val backgroundPermissionGrant = "Concedi permesso"
     override val notificationTitle = "Tracciamento GPS attivo"
     override val notificationChannelName = "Tracciamento GPS"
+
+    override val trackingStart = "Inizia"
+    override val trackingPause = "Pausa"
+    override val trackingResume = "Riprendi"
+    override val trackingStop = "Ferma"
+    override val trackingRecordingBadge = "REGISTRAZIONE"
+    override val trackingCompleted = "Tracciamento Completato!"
+    override val trackingError = "Errore Tracciamento"
+    override val trackingStatisticsTitle = "Statistiche Live"
+    override val trackingSessionSummary = "Riepilogo Sessione"
+    override val trackingLatitude = "Latitudine"
+    override val trackingLongitude = "Longitudine"
+    override val trackingAccuracy = "Precisione"
+    override val trackingSpeed = "Velocità"
+    override val trackingAcquiringSignal = "Acquisizione segnale GPS…"
+    override val trackingStartNewSession = "Nuova Sessione"
+    override val trackingRetry = "Riprova"
+    override val trackingFarTitle = "Sei lontano dal percorso"
+    override val trackingStartAnyway = "Inizia comunque"
+    override fun trackingSessionPrefix(id: String) = "Sessione: $id…"
+    override fun trackingFarMessage(distance: String) = "Sei a $distance km dal punto più vicino del percorso. Vuoi iniziare il tracciamento comunque?"
+    override val trackingErrorPermission = "Permesso di posizione necessario per iniziare il tracciamento."
+    override val trackingErrorGeneric = "Si è verificato un errore"
+
+    override val back = "Indietro"
+    override val openMenu = "Apri menu"
+    override val trackingShowStatistics = "Mostra statistiche"
+    override val trackingGpsFollowEnabled = "Segui GPS attivato"
+    override val trackingGpsFollowDisabled = "Segui GPS disattivato"
+    override val trackingDiscardTitle = "Scartare il tracciamento?"
+    override val trackingDiscardMessage = "Tutti i dati registrati andranno persi definitivamente."
+    override val trackingDiscard = "Scarta"
 }

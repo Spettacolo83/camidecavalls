@@ -416,6 +416,42 @@ class TrackingManager(
     }
 
     /**
+     * Discard the current tracking session.
+     * Stops all services and deletes the session from the database.
+     */
+    suspend fun discardTracking() {
+        stopDurationTimer()
+        backgroundTrackingManager.stopBackgroundTracking()
+        trackingJob?.cancel()
+        trackingJob = null
+
+        try {
+            locationService.stopTracking()
+        } catch (_: Exception) {
+            // Ignore stop errors when cleaning up
+        }
+
+        try {
+            val sessionId = currentSessionId
+            if (sessionId != null) {
+                trackingRepository.deleteSession(sessionId)
+            }
+        } catch (_: Exception) {
+            // Best effort deletion
+        } finally {
+            _trackingState.value = TrackingState.Stopped
+            _activeTrackPoints.value = emptyList()
+            currentSessionId = null
+            currentRouteId = null
+            lastLocationForSpeed = null
+            currentConfig = LocationConfig()
+            currentStageName = ""
+            notificationTitle = "GPS tracking active"
+            notificationChannelName = "GPS Tracking"
+        }
+    }
+
+    /**
      * Get last known location without starting tracking (doesn't consume battery)
      */
     suspend fun getLastLocation(): LocationData? {

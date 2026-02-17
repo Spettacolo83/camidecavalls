@@ -403,7 +403,7 @@ class TrackingScreenModel(
             } else {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = "Location permission is required for tracking. Please grant permission in Settings."
+                    message = currentStrings.trackingErrorPermission
                 )
             }
         }
@@ -457,7 +457,7 @@ class TrackingScreenModel(
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = e.message ?: "Failed to start tracking"
+                    message = e.message ?: currentStrings.trackingErrorGeneric
                 )
             }
         }
@@ -483,7 +483,7 @@ class TrackingScreenModel(
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = e.message ?: "Failed to start tracking"
+                    message = e.message ?: currentStrings.trackingErrorGeneric
                 )
             }
         }
@@ -496,7 +496,7 @@ class TrackingScreenModel(
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = e.message ?: "Failed to pause tracking"
+                    message = e.message ?: currentStrings.trackingErrorGeneric
                 )
             }
         }
@@ -509,7 +509,7 @@ class TrackingScreenModel(
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = e.message ?: "Failed to resume tracking"
+                    message = e.message ?: currentStrings.trackingErrorGeneric
                 )
             }
         }
@@ -539,7 +539,7 @@ class TrackingScreenModel(
             } catch (e: Exception) {
                 _uiState.value = TrackingUiState.Error(
                     strings = currentStrings,
-                    message = e.message ?: "Failed to stop tracking"
+                    message = e.message ?: currentStrings.trackingErrorGeneric
                 )
             }
         }
@@ -559,6 +559,24 @@ class TrackingScreenModel(
         val dateStr = "${localDate.dayOfMonth.toString().padStart(2, '0')}/${localDate.monthNumber.toString().padStart(2, '0')}/${localDate.year}"
 
         return "$routeName - $dateStr"
+    }
+
+    fun discardTracking() {
+        screenModelScope.launch {
+            try {
+                trackingManager.discardTracking()
+                cachedTrackPoints = emptyList()
+                mapController?.let { controller ->
+                    renderTrack(controller)
+                    renderCurrentLocation(controller)
+                }
+            } catch (e: Exception) {
+                _uiState.value = TrackingUiState.Error(
+                    strings = currentStrings,
+                    message = e.message ?: currentStrings.trackingErrorGeneric
+                )
+            }
+        }
     }
 
     fun startNewSession() {

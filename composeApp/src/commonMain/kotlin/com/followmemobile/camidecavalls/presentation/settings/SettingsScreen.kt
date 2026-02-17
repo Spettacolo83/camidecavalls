@@ -129,7 +129,7 @@ fun SettingsContent(
                 ),
                 navigationIcon = {
                     IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = "Open Menu")
+                        Icon(Icons.Default.Menu, contentDescription = strings.openMenu)
                     }
                 }
             )

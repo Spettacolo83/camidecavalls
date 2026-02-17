@@ -143,11 +143,12 @@ private fun RoutesScreenContent(
     onMenuClick: () -> Unit,
     onRouteClick: (Route) -> Unit
 ) {
-    val title = when (uiState) {
-        is RoutesUiState.Success -> uiState.strings.routesTitle
-        is RoutesUiState.Empty -> uiState.strings.routesTitle
-        else -> "Routes"
+    val strings = when (uiState) {
+        is RoutesUiState.Success -> uiState.strings
+        is RoutesUiState.Empty -> uiState.strings
+        else -> null
     }
+    val title = strings?.routesTitle ?: "Routes"
 
     Scaffold(
         topBar = {
@@ -159,7 +160,7 @@ private fun RoutesScreenContent(
                 ),
                 navigationIcon = {
                     IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = "Open Menu")
+                        Icon(Icons.Default.Menu, contentDescription = strings?.openMenu ?: "Open menu")
                     }
                 }
             )
