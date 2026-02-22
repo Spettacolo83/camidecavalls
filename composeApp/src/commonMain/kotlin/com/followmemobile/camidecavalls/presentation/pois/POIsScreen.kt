@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.FilterList
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,157 +31,92 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.SubcomposeAsyncImage
 import com.followmemobile.camidecavalls.domain.model.Language
 import com.followmemobile.camidecavalls.domain.model.POIType
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
-import com.followmemobile.camidecavalls.presentation.about.AboutScreen
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
-import com.followmemobile.camidecavalls.presentation.home.DrawerContent
-import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
-import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
-import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
-import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import kotlin.math.roundToInt
 
 /**
- * POIs Screen showing all POIs on a Menorca map with colored markers.
- *
- * Features:
- * - All POIs displayed with colored markers (blue=BEACH, green=NATURAL, red=HISTORIC)
- * - Semi-transparent popup on marker tap with preview
- * - Navigation to full detail screen
+ * Public composable for the POI tab in the bottom navigation.
  */
-class POIsScreen : Screen {
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun POIsTabContent(
+    fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp
+) {
+    val screenModel: POIsScreenModel = koinInject()
+    val uiState by screenModel.uiState.collectAsState()
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    override fun Content() {
-        val screenModel: POIsScreenModel = koinInject()
-        val navigator = LocalNavigator.currentOrThrow
-        val uiState by screenModel.uiState.collectAsState()
+    // State for detail bottom sheet
+    var selectedPoiForDetail by remember { mutableStateOf<PointOfInterest?>(null) }
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
+    POIsScreenContent(
+        uiState = uiState,
+        onMapReady = { controller -> screenModel.onMapReady(controller) },
+        onClosePopup = { screenModel.closePopup() },
+        onToggleType = { type -> screenModel.toggleType(type) },
+        onShowDetails = { poi ->
+            selectedPoiForDetail = poi
+        },
+        onPopupMeasured = { heightPx -> screenModel.updatePopupHeight(heightPx) },
+        onPopupBottomPaddingResolved = { paddingPx ->
+            screenModel.updatePopupBottomPadding(paddingPx)
+        },
+        fabBottomPadding = fabBottomPadding
+    )
 
-        // State for detail bottom sheet
-        var selectedPoiForDetail by remember { mutableStateOf<PointOfInterest?>(null) }
-        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                DrawerContent(
-                    uiState = convertToRoutesUiState(uiState),
-                    currentScreen = DrawerScreen.POIS,
-                    onAboutClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(AboutScreen())
-                    },
-                    onRoutesClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(RoutesScreen())
-                    },
-                    onMapClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(FullMapScreen())
-                    },
-                    onTrackingClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(TrackingScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                    },
-                    onNotebookClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(NotebookScreen())
-                    },
-                    onSettingsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(SettingsScreen())
-                    },
-                    onCloseDrawer = {
-                        scope.launch { drawerState.close() }
-                    }
-                )
-            }
+    // Material 3 ModalBottomSheet for POI detail
+    selectedPoiForDetail?.let { poi ->
+        // Match sheet background with POI type color
+        val sheetBackgroundColor = when (poi.type.name) {
+            "BEACH" -> Color(0xFFE6F5FF)
+            "NATURAL" -> Color(0xFFEAF7EA)
+            "HISTORIC" -> Color(0xFFFFE6E6)
+            else -> Color(0xFFF5F5F5)
+        }
+        ModalBottomSheet(
+            onDismissRequest = { selectedPoiForDetail = null },
+            sheetState = sheetState,
+            containerColor = sheetBackgroundColor,
+            dragHandle = { BottomSheetDefaults.DragHandle() }
         ) {
-            POIsScreenContent(
-                uiState = uiState,
-                onMenuClick = {
-                    scope.launch { drawerState.open() }
-                },
-                onMapReady = { controller -> screenModel.onMapReady(controller) },
-                onClosePopup = { screenModel.closePopup() },
-                onToggleType = { type -> screenModel.toggleType(type) },
-                onShowDetails = { poi ->
-                    // Show POI detail in bottom sheet (map stays loaded underneath)
-                    selectedPoiForDetail = poi
-                },
-                onPopupMeasured = { heightPx -> screenModel.updatePopupHeight(heightPx) },
-                onPopupBottomPaddingResolved = { paddingPx ->
-                    screenModel.updatePopupBottomPadding(paddingPx)
-                }
-            )
-
-            // Material 3 ModalBottomSheet for POI detail
-            selectedPoiForDetail?.let { poi ->
-                ModalBottomSheet(
-                    onDismissRequest = { selectedPoiForDetail = null },
-                    sheetState = sheetState
-                ) {
-                    POIDetailContent(
-                        poi = poi,
-                        currentLanguage = uiState.currentLanguage,
-                        onBackClick = { selectedPoiForDetail = null },
-                        onNavigateClick = { poiToNavigate ->
-                            openInMaps(
-                                poiToNavigate.latitude,
-                                poiToNavigate.longitude,
-                                poiToNavigate.getName(uiState.currentLanguage)
-                            )
-                        }
+            POIDetailContent(
+                poi = poi,
+                currentLanguage = uiState.currentLanguage,
+                onBackClick = { selectedPoiForDetail = null },
+                onNavigateClick = { poiToNavigate ->
+                    openInMaps(
+                        poiToNavigate.latitude,
+                        poiToNavigate.longitude,
+                        poiToNavigate.getName(uiState.currentLanguage)
                     )
                 }
-            }
+            )
         }
     }
-}
-
-// Helper to convert POIsUiState to RoutesUiState for drawer
-private fun convertToRoutesUiState(poisUiState: POIsUiState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
-    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = "en",
-        strings = poisUiState.strings
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun POIsScreenContent(
     uiState: POIsUiState,
-    onMenuClick: () -> Unit,
     onMapReady: (MapLayerController) -> Unit,
     onClosePopup: () -> Unit,
     onToggleType: (POIType) -> Unit,
     onShowDetails: (PointOfInterest) -> Unit,
     onPopupMeasured: (Int) -> Unit,
-    onPopupBottomPaddingResolved: (Int) -> Unit
+    onPopupBottomPaddingResolved: (Int) -> Unit,
+    fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp
 ) {
     var filtersVisible by remember { mutableStateOf(false) }
     val filterTransitionState = remember { MutableTransitionState(false) }
@@ -192,39 +126,23 @@ private fun POIsScreenContent(
     }
 
     val density = LocalDensity.current
-    val filterPopupOffset = remember(density) {
+    val filterPopupOffset = remember(density, fabBottomPadding) {
         IntOffset(
             x = -with(density) { 24.dp.roundToPx() },
-            y = -with(density) { 96.dp.roundToPx() }
+            y = -with(density) { (24.dp + fabBottomPadding).roundToPx() }
         )
     }
 
-    val popupBottomPaddingPx = remember(density) { with(density) { 104.dp.roundToPx() } }
+    // Popup bottom aligns with the filter FAB bottom (24dp padding + FAB height ~56dp = 80dp)
+    val effectivePopupBottom = 24.dp + fabBottomPadding
+    val popupBottomPaddingPx = remember(density, fabBottomPadding) { with(density) { effectivePopupBottom.roundToPx() } }
     LaunchedEffect(popupBottomPaddingPx) {
         onPopupBottomPaddingResolved(popupBottomPaddingPx)
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(uiState.strings.poisTitle) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
             var mapController by remember { mutableStateOf<MapLayerController?>(null) }
             val viewportState = rememberMenorcaViewportState()
 
@@ -262,7 +180,6 @@ private fun POIsScreenContent(
                 }
             }
 
-            // Loading indicator
             if (uiState.isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -272,7 +189,6 @@ private fun POIsScreenContent(
                 }
             }
 
-            // Error message
             if (uiState.error != null) {
                 Snackbar(
                     modifier = Modifier
@@ -283,7 +199,21 @@ private fun POIsScreenContent(
                 }
             }
 
-            // POI Popup (shown when a marker is tapped)
+                // Filter FAB - declared BEFORE popup so popup draws on top
+            FloatingActionButton(
+                onClick = { filtersVisible = !filtersVisible },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 24.dp + fabBottomPadding, end = 24.dp),
+                containerColor = Color(0xFF1C1C2E),
+                contentColor = Color(0xFF4FC3F7)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.FilterList,
+                    contentDescription = uiState.strings.poisFiltersLabel
+                )
+            }
+
             uiState.selectedPoi?.let { poi ->
                 POIPopup(
                     poi = poi,
@@ -293,7 +223,7 @@ private fun POIsScreenContent(
                     onMeasured = onPopupMeasured,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 104.dp)
+                        .padding(bottom = effectivePopupBottom)
                 )
             }
 
@@ -324,25 +254,9 @@ private fun POIsScreenContent(
                 }
             }
 
-            FloatingActionButton(
-                onClick = { filtersVisible = !filtersVisible },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(bottom = 24.dp, end = 24.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.FilterList,
-                    contentDescription = uiState.strings.poisFiltersLabel
-                )
-            }
-        }
     }
 }
 
-/**
- * Semi-transparent popup showing POI preview
- * New compact design: max 280dp wide, 1-line title, image with badge, 3-line description
- */
 @Composable
 private fun POIPopup(
     poi: PointOfInterest,
@@ -352,15 +266,13 @@ private fun POIPopup(
     modifier: Modifier = Modifier,
     onMeasured: (Int) -> Unit = {}
 ) {
-    // Get background color based on POI type
     val backgroundColor = when (poi.type.name) {
-        "BEACH" -> Color(0xFFE6F5FF)      // Very very light blue
-        "NATURAL" -> Color(0xFFEAF7EA)    // Very very light green
-        "HISTORIC" -> Color(0xFFFFE6E6)   // Very very light red/pink
-        else -> Color(0xFFF5F5F5)         // Very light gray
+        "BEACH" -> Color(0xFFE6F5FF)
+        "NATURAL" -> Color(0xFFEAF7EA)
+        "HISTORIC" -> Color(0xFFFFE6E6)
+        else -> Color(0xFFF5F5F5)
     }
 
-    // Badge text translations
     val badgeText = when (poi.type.name) {
         "BEACH" -> when (currentLanguage) {
             Language.CATALAN -> "🏖️ Zona Costanera"
@@ -389,7 +301,6 @@ private fun POIPopup(
         else -> poi.type.name
     }
 
-    // Button text translations
     val detailsButtonText = when (currentLanguage) {
         Language.CATALAN -> "Veure detalls"
         Language.SPANISH -> "Ver detalles"
@@ -415,7 +326,6 @@ private fun POIPopup(
                 .fillMaxWidth()
                 .padding(12.dp)
         ) {
-            // Header: Title (1 line) with close button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -443,7 +353,6 @@ private fun POIPopup(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Image with badge overlay
             poi.imageUrl?.let { imageUrl ->
                 Box(
                     modifier = Modifier
@@ -484,7 +393,6 @@ private fun POIPopup(
                         }
                     )
 
-                    // Badge overlay on top-left of image
                     Surface(
                         shape = RoundedCornerShape(4.dp),
                         color = when (poi.type.name) {
@@ -509,7 +417,6 @@ private fun POIPopup(
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            // Description (max 3 lines with ellipsis)
             val description = poi.getDescription(currentLanguage)
             val previewText = if (description.length > 120) {
                 description.substring(0, 120).trim() + "..."
@@ -527,7 +434,6 @@ private fun POIPopup(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // "See Details" button - always visible
             Button(
                 onClick = onShowDetails,
                 modifier = Modifier
@@ -546,6 +452,7 @@ private fun POIPopup(
         }
     }
 }
+
 @Composable
 private fun POIFilterBar(
     visibleTypes: Set<POIType>,
@@ -566,30 +473,10 @@ private fun POIFilterBar(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.End
         ) {
-            POIFilterChip(
-                type = POIType.BEACH,
-                label = strings.poiTypeBeach,
-                selected = visibleTypes.contains(POIType.BEACH),
-                onToggleType = onToggleType
-            )
-            POIFilterChip(
-                type = POIType.NATURAL,
-                label = strings.poiTypeNatural,
-                selected = visibleTypes.contains(POIType.NATURAL),
-                onToggleType = onToggleType
-            )
-            POIFilterChip(
-                type = POIType.HISTORIC,
-                label = strings.poiTypeHistoric,
-                selected = visibleTypes.contains(POIType.HISTORIC),
-                onToggleType = onToggleType
-            )
-            POIFilterChip(
-                type = POIType.COMMERCIAL,
-                label = strings.poiTypeCommercial,
-                selected = visibleTypes.contains(POIType.COMMERCIAL),
-                onToggleType = onToggleType
-            )
+            POIFilterChip(type = POIType.BEACH, label = strings.poiTypeBeach, selected = visibleTypes.contains(POIType.BEACH), onToggleType = onToggleType)
+            POIFilterChip(type = POIType.NATURAL, label = strings.poiTypeNatural, selected = visibleTypes.contains(POIType.NATURAL), onToggleType = onToggleType)
+            POIFilterChip(type = POIType.HISTORIC, label = strings.poiTypeHistoric, selected = visibleTypes.contains(POIType.HISTORIC), onToggleType = onToggleType)
+            POIFilterChip(type = POIType.COMMERCIAL, label = strings.poiTypeCommercial, selected = visibleTypes.contains(POIType.COMMERCIAL), onToggleType = onToggleType)
         }
     }
 }

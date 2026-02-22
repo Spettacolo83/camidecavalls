@@ -27,8 +27,12 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 🧭 **GPS Toggle Button**: Smart GPS following with automatic disable on map gestures (pan, zoom) - works consistently on both Android and iOS
 - 🌍 **Multilingual**: Full support for 6 languages (Catalan, Spanish, English, French, German, Italian) with custom localization system, multilingual route descriptions, and localized settings screen
 - 📊 **Elevation Charts**: Interactive elevation profiles with tap/drag gestures, centered tooltips, map synchronization, and smooth curve rendering
-- ⚙️ **Settings**: In-app language selection with full localization support
+- ⚙️ **Settings Hub**: Dedicated settings screen with language selection, about page, and contact options
 - 🏛️ **Points of Interest**: Complete database of 190 POIs with multilingual content (6 languages) - coastal zones, natural areas, and historic sites with accurate coordinates from official map
+- 🧭 **Bottom Navigation Bar**: WeWard-style dark bottom bar with 5 tabs (Map, Routes, POI, Diary, Settings) replacing the drawer menu
+- 🗺️ **Complete Route**: Virtual "Complete Route" (185km full loop Maó–Maó) combining all 20 stages with aggregated statistics, elevation profile, and combined GeoJSON track
+- 📊 **Session Summary Overlay**: Post-tracking session summary displayed as a dark card overlay on the map with key statistics
+- 📱 **Android Immersive Mode**: Full-screen experience hiding system navigation bar with swipe-to-reveal
 
 **Planned:**
 - 🔔 **Proximity Alerts**: Get notified when approaching important points
@@ -104,10 +108,13 @@ composeApp/
    - Platform-specific implementations (expect/actual)
 
 3. **Presentation Layer**
-   - ScreenModels (Voyager): HomeScreenModel, RouteDetailScreenModel, TrackingScreenModel, SettingsScreenModel
-   - UI screens: Home (route list), RouteDetail (with elevation chart), Tracking (GPS), Settings (language selection)
-   - Interactive components: ElevationChart with Canvas API
-   - Navigation with Voyager
+   - MainScreen with bottom navigation bar (5 tabs: Map, Routes, POI, Notebook, Settings)
+   - ScreenModels (Voyager): RoutesScreenModel, RouteDetailScreenModel, TrackingScreenModel, NotebookScreenModel, POIsScreenModel, SettingsScreenModel, AboutScreenModel
+   - Tab content: MapTabContent (GPS + routes), RoutesTabContent (route list + complete route), POIsTabContent (POI map + filters), NotebookTabContent (session diary), SettingsHubContent (settings hub)
+   - Detail screens: RouteDetailScreen, SessionDetailScreen, LanguageSettingsScreen, AboutCamiScreen
+   - Interactive components: ElevationChart with Canvas API, WeWardBottomBar, CompletedOverlay
+   - RouteSelectionManager for cross-tab route communication
+   - Navigation with Voyager (detail screens pushed on top of MainScreen)
    - Material 3 UI components
 
 ## 🛠️ Tech Stack
@@ -401,6 +408,26 @@ Build in Xcode with Release configuration for App Store distribution.
   - [x] Settings localization with custom LocalizedStrings
   - [x] Language persistence across app launches
 
+### ✅ Milestone 8: Bottom Navigation & UI Restructuring (COMPLETED)
+- [x] Bottom navigation bar (WeWard-style dark theme)
+  - [x] 5 tabs: Map, Routes, POI, Diary, Settings
+  - [x] Dark background (#1C1C2E) with rounded top corners
+  - [x] Blue accent for selected tab, gray for unselected
+  - [x] Variable weight layout for proportional label sizing
+  - [x] Auto-hide during active GPS tracking
+- [x] MainScreen as root with tab-based navigation
+  - [x] RouteSelectionManager for cross-tab route communication
+  - [x] Detail screens pushed on top (bottom bar hidden)
+- [x] Complete Route feature
+  - [x] Virtual 185km full loop (Maó–Maó) combining all 20 stages
+  - [x] Aggregated statistics (elevation, duration, difficulty)
+  - [x] Combined GeoJSON track from all route segments
+  - [x] Multilingual descriptions in 6 languages
+- [x] Settings hub with language, about, and contact options
+- [x] Session summary overlay (dark card on map after tracking)
+- [x] Android immersive mode (hidden system navigation bar)
+- [x] Drawer menu fully replaced and removed
+
 ### 🔔 Future: Advanced Features
 - [ ] Proximity alerts for POIs
 - [ ] Route navigation with turn-by-turn
@@ -418,9 +445,9 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestones 1-7 Completed** ✅
+**Milestones 1-8 Completed** ✅
 
-The app is now fully functional with core trekking features, interactive maps, elevation charts, settings, and complete POI database:
+The app is now fully functional with core trekking features, interactive maps, elevation charts, settings, complete POI database, and bottom navigation bar:
 
 **Architecture & Foundation:**
 - Clean Architecture fully implemented across 3 layers
@@ -441,11 +468,19 @@ The app is now fully functional with core trekking features, interactive maps, e
 **User Interface:**
 - Material 3 design system
 - Voyager navigation (type-safe, without voyager-koin)
-- HomeScreen with route list cards
+- Bottom navigation bar with 5 tabs (Map, Routes, POI, Diary, Settings)
+  - WeWard-style dark theme with blue accent for selected tab
+  - Variable weight layout for proportional label sizing
+  - Auto-hides during active GPS tracking for maximum map space
+- MainScreen as root with tab-based content switching
+- RoutesTabContent with route list cards + complete route (185km Maó–Maó)
 - RouteDetailScreen with complete stage information, map preview, and elevation chart
-- TrackingScreen with real-time GPS display
-- SettingsScreen with in-app language selection
+- MapTabContent (formerly TrackingScreen) with real-time GPS display
+- Settings hub with language selection, about page, and contact options
+- Session summary overlay: dark card on map after tracking with key statistics
 - ElevationChart component with interactive visualization
+- RouteSelectionManager for cross-tab route communication
+- Android immersive mode hiding system navigation bar
 - Smart location permission handling
 
 **GPS Tracking:**
@@ -506,7 +541,7 @@ The app is now fully functional with core trekking features, interactive maps, e
 - Custom scraping tools for data collection and coordinate validation
 - Fixed 16 POIs with coordinate errors > 800m (up to 8.3 km corrections)
 
-**Ready for:** POI visualization on map, proximity alerts, and advanced features
+**Ready for:** Proximity alerts, route navigation, and advanced features
 
 ## 🤝 Contributing
 

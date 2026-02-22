@@ -6,15 +6,14 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.GpsNotFixed
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.filled.Flag
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
@@ -25,230 +24,135 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
-import com.followmemobile.camidecavalls.presentation.about.AboutScreen
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
-import com.followmemobile.camidecavalls.presentation.home.DrawerContent
-import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesUiState
 import com.followmemobile.camidecavalls.presentation.map.MapCameraConfig
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
-import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
-import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
+import kotlin.math.ln
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.roundToInt
 import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
+// Bottom bar colors for FABs
+private val FabDarkBackground = androidx.compose.ui.graphics.Color(0xFF1C1C2E)
+private val FabSelectedBlue = androidx.compose.ui.graphics.Color(0xFF4FC3F7)
+
 /**
- * Screen for GPS tracking functionality.
- * Shows real-time location data and tracking controls.
+ * Public composable for the MAP tab in the bottom navigation.
+ * Shows the map with routes and tracking controls, without any toolbar or drawer.
  */
-data class TrackingScreen(val routeId: Int? = null) : Screen {
+@Composable
+fun MapTabContent(
+    routeId: Int? = null,
+    fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp
+) {
+    val screenModel: TrackingScreenModel = koinInject { parametersOf(routeId) }
+    val backgroundTrackingManager: BackgroundTrackingManager = koinInject()
+    val uiState by screenModel.uiState.collectAsState()
+    var showBackgroundPermissionDialog by remember { mutableStateOf(false) }
 
-    @Composable
-    override fun Content() {
-        val screenModel: TrackingScreenModel = koinInject { parametersOf(routeId) }
-        val backgroundTrackingManager: BackgroundTrackingManager = koinInject()
-        val navigator = LocalNavigator.currentOrThrow
-        val uiState by screenModel.uiState.collectAsState()
-        var showBackgroundPermissionDialog by remember { mutableStateOf(false) }
-
-        // Cleanup when screen leaves composition
-        DisposableEffect(screenModel) {
-            onDispose {
-                screenModel.onDispose()
-            }
-        }
-
-        // Step 3: Background location permission (Android 10+)
-        val backgroundPermissionRequester = rememberBackgroundPermissionRequester { granted ->
-            // Whether granted or not, proceed with tracking
-            // Background tracking will still work with foreground service, just won't survive app kill
-            screenModel.startTracking()
-        }
-
-        // Step 2: Notification permission (Android 13+), then check background
-        val notificationPermissionRequester = rememberNotificationPermissionRequester { _ ->
-            // After notification permission (granted or not), check background location
-            if (!backgroundTrackingManager.hasBackgroundPermission()) {
-                showBackgroundPermissionDialog = true
-            } else {
-                screenModel.startTracking()
-            }
-        }
-
-        // Step 1: Foreground location permission
-        val permissionRequester = rememberPermissionRequester { granted ->
-            if (granted) {
-                // Foreground granted, now request notification permission
-                notificationPermissionRequester()
-            } else {
-                screenModel.requestPermission {
-                    // This won't be called since permission was already denied
-                }
-            }
-        }
-
-        val onStartTracking = {
-            if (screenModel.isPermissionGranted()) {
-                // Already have foreground location, check notification and background
-                notificationPermissionRequester()
-            } else {
-                permissionRequester()
-            }
-        }
-
-        val onStartNewSession = {
-            screenModel.startNewSession()
-        }
-
-        // Background permission rationale dialog
-        if (showBackgroundPermissionDialog) {
-            AlertDialog(
-                onDismissRequest = {
-                    showBackgroundPermissionDialog = false
-                    // Proceed without background permission
-                    screenModel.startTracking()
-                },
-                title = { Text(uiState.strings.backgroundPermissionTitle) },
-                text = { Text(uiState.strings.backgroundPermissionMessage) },
-                confirmButton = {
-                    FilledTonalButton(onClick = {
-                        showBackgroundPermissionDialog = false
-                        backgroundPermissionRequester()
-                    }) {
-                        Text(uiState.strings.backgroundPermissionGrant)
-                    }
-                },
-                dismissButton = {
-                    OutlinedButton(onClick = {
-                        showBackgroundPermissionDialog = false
-                        // Proceed without background permission
-                        screenModel.startTracking()
-                    }) {
-                        Text(uiState.strings.notebookCancel)
-                    }
-                }
-            )
-        }
-
-        if (routeId == null) {
-            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-            val scope = rememberCoroutineScope()
-
-            ModalNavigationDrawer(
-                drawerState = drawerState,
-                drawerContent = {
-                    DrawerContent(
-                        uiState = convertTrackingToRoutesUiState(uiState.strings),
-                        currentScreen = DrawerScreen.TRACKING,
-                        onAboutClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(AboutScreen())
-                        },
-                        onRoutesClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(RoutesScreen())
-                        },
-                        onMapClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(FullMapScreen())
-                        },
-                        onTrackingClick = {
-                            scope.launch { drawerState.close() }
-                        },
-                        onPOIsClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(POIsScreen())
-                        },
-                        onNotebookClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(NotebookScreen())
-                        },
-                        onSettingsClick = {
-                            scope.launch { drawerState.close() }
-                            navigator.replaceAll(SettingsScreen())
-                        },
-                        onCloseDrawer = {
-                            scope.launch { drawerState.close() }
-                        }
-                    )
-                }
-            ) {
-                TrackingScreenContent(
-                    uiState = uiState,
-                    showMenuButton = true,
-                    onMenuClick = { scope.launch { drawerState.open() } },
-                    onBackClick = { navigator.pop() },
-                    onMapReady = screenModel::onMapReady,
-                    onMapReleased = screenModel::onMapReleased,
-                    onStartTracking = onStartTracking,
-                    onStartTrackingForced = { screenModel.startTrackingForced() },
-                    onPauseTracking = { screenModel.pauseTracking() },
-                    onResumeTracking = { screenModel.resumeTracking() },
-                    onCancelConfirmation = { screenModel.cancelConfirmation() },
-                    onStopTracking = { name -> screenModel.stopTracking(name) },
-                    onDiscardTracking = { screenModel.discardTracking() },
-                    onStartNewSession = onStartNewSession,
-                    onClearError = { screenModel.clearError() },
-                    getDefaultSessionName = { screenModel.getDefaultSessionName() }
-                )
-            }
-        } else {
-            TrackingScreenContent(
-                uiState = uiState,
-                showMenuButton = false,
-                onMenuClick = {},
-                onBackClick = { navigator.pop() },
-                onMapReady = screenModel::onMapReady,
-                onMapReleased = screenModel::onMapReleased,
-                onStartTracking = onStartTracking,
-                onStartTrackingForced = { screenModel.startTrackingForced() },
-                onPauseTracking = { screenModel.pauseTracking() },
-                onResumeTracking = { screenModel.resumeTracking() },
-                onCancelConfirmation = { screenModel.cancelConfirmation() },
-                onStopTracking = { name -> screenModel.stopTracking(name) },
-                onDiscardTracking = { screenModel.discardTracking() },
-                onStartNewSession = onStartNewSession,
-                onClearError = { screenModel.clearError() },
-                getDefaultSessionName = { screenModel.getDefaultSessionName() }
-            )
+    // Cleanup when leaving composition
+    DisposableEffect(screenModel) {
+        onDispose {
+            screenModel.onDispose()
         }
     }
-}
 
-private fun convertTrackingToRoutesUiState(strings: LocalizedStrings): RoutesUiState {
-    return RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = strings.languageCode,
-        strings = strings
+    // Permission flow
+    val backgroundPermissionRequester = rememberBackgroundPermissionRequester { granted ->
+        screenModel.startTracking()
+    }
+
+    val notificationPermissionRequester = rememberNotificationPermissionRequester { _ ->
+        if (!backgroundTrackingManager.hasBackgroundPermission()) {
+            showBackgroundPermissionDialog = true
+        } else {
+            screenModel.startTracking()
+        }
+    }
+
+    val permissionRequester = rememberPermissionRequester { granted ->
+        if (granted) {
+            notificationPermissionRequester()
+        } else {
+            screenModel.requestPermission {}
+        }
+    }
+
+    val onStartTracking = {
+        if (screenModel.isPermissionGranted()) {
+            notificationPermissionRequester()
+        } else {
+            permissionRequester()
+        }
+    }
+
+    val onStartNewSession = {
+        screenModel.startNewSession()
+    }
+
+    // Background permission rationale dialog
+    if (showBackgroundPermissionDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showBackgroundPermissionDialog = false
+                screenModel.startTracking()
+            },
+            title = { Text(uiState.strings.backgroundPermissionTitle) },
+            text = { Text(uiState.strings.backgroundPermissionMessage) },
+            confirmButton = {
+                FilledTonalButton(onClick = {
+                    showBackgroundPermissionDialog = false
+                    backgroundPermissionRequester()
+                }) {
+                    Text(uiState.strings.backgroundPermissionGrant)
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = {
+                    showBackgroundPermissionDialog = false
+                    screenModel.startTracking()
+                }) {
+                    Text(uiState.strings.notebookCancel)
+                }
+            }
+        )
+    }
+
+    TrackingContent(
+        uiState = uiState,
+        onMapReady = screenModel::onMapReady,
+        onMapReleased = screenModel::onMapReleased,
+        onStartTracking = onStartTracking,
+        onStartTrackingForced = { screenModel.startTrackingForced() },
+        onPauseTracking = { screenModel.pauseTracking() },
+        onResumeTracking = { screenModel.resumeTracking() },
+        onCancelConfirmation = { screenModel.cancelConfirmation() },
+        onStopTracking = { name -> screenModel.stopTracking(name) },
+        onDiscardTracking = { screenModel.discardTracking() },
+        onStartNewSession = onStartNewSession,
+        onClearError = { screenModel.clearError() },
+        getDefaultSessionName = { screenModel.getDefaultSessionName() },
+        fabBottomPadding = fabBottomPadding
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TrackingScreenContent(
+private fun TrackingContent(
     uiState: TrackingUiState,
-    showMenuButton: Boolean,
-    onMenuClick: () -> Unit,
-    onBackClick: () -> Unit,
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
     onStartTracking: () -> Unit,
@@ -260,7 +164,8 @@ private fun TrackingScreenContent(
     onDiscardTracking: () -> Unit,
     onStartNewSession: () -> Unit,
     onClearError: () -> Unit,
-    getDefaultSessionName: () -> String
+    getDefaultSessionName: () -> String,
+    fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp
 ) {
     var showSaveDialog by remember { mutableStateOf(false) }
     var showDiscardConfirmDialog by remember { mutableStateOf(false) }
@@ -321,132 +226,119 @@ private fun TrackingScreenContent(
         )
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(uiState.strings.menuTracking) },
-                navigationIcon = {
-                    if (showMenuButton) {
-                        IconButton(onClick = onMenuClick) {
-                            Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
-                        }
-                    } else {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = uiState.strings.back
-                            )
-                        }
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            when (uiState) {
-                is TrackingUiState.Idle -> {
-                    IdleContent(
-                        strings = uiState.strings,
-                        routes = uiState.routes,
-                        selectedRoute = uiState.selectedRoute,
-                        currentLocation = uiState.currentLocation,
-                        onMapReady = onMapReady,
-                        onMapReleased = onMapReleased,
-                        onStartTracking = onStartTracking,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+    // No Scaffold/TopAppBar - map fills the full content area
+    Box(modifier = Modifier.fillMaxSize()) {
+        when (uiState) {
+            is TrackingUiState.Idle -> {
+                IdleContent(
+                    strings = uiState.strings,
+                    routes = uiState.routes,
+                    selectedRoute = uiState.selectedRoute,
+                    currentLocation = uiState.currentLocation,
+                    onMapReady = onMapReady,
+                    onMapReleased = onMapReleased,
+                    onStartTracking = onStartTracking,
+                    modifier = Modifier.fillMaxSize(),
+                    fabBottomPadding = fabBottomPadding,
+                    skipCameraReposition = uiState.skipCameraReposition
+                )
+            }
 
-                is TrackingUiState.AwaitingConfirmation -> {
-                    // Show idle map with confirmation dialog on top
-                    IdleContent(
-                        strings = uiState.strings,
-                        routes = uiState.routes,
-                        selectedRoute = uiState.selectedRoute,
-                        currentLocation = uiState.currentLocation,
-                        onMapReady = onMapReady,
-                        onMapReleased = onMapReleased,
-                        onStartTracking = onStartTracking,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    ConfirmationDialog(
-                        strings = uiState.strings,
-                        distanceKm = uiState.distanceFromRoute / 1000.0,
-                        onConfirm = onStartTrackingForced,
-                        onCancel = onCancelConfirmation
-                    )
-                }
+            is TrackingUiState.AwaitingConfirmation -> {
+                IdleContent(
+                    strings = uiState.strings,
+                    routes = uiState.routes,
+                    selectedRoute = uiState.selectedRoute,
+                    currentLocation = uiState.currentLocation,
+                    onMapReady = onMapReady,
+                    onMapReleased = onMapReleased,
+                    onStartTracking = onStartTracking,
+                    modifier = Modifier.fillMaxSize(),
+                    fabBottomPadding = fabBottomPadding
+                )
+                ConfirmationDialog(
+                    strings = uiState.strings,
+                    distanceKm = uiState.distanceFromRoute / 1000.0,
+                    onConfirm = onStartTrackingForced,
+                    onCancel = onCancelConfirmation
+                )
+            }
 
-                is TrackingUiState.Tracking -> {
-                    ActiveTrackingContent(
-                        strings = uiState.strings,
-                        routes = uiState.routes,
-                        selectedRoute = uiState.selectedRoute,
-                        sessionId = uiState.sessionId,
-                        currentLocation = uiState.currentLocation,
-                        trackPoints = uiState.trackPoints,
-                        distanceMeters = uiState.distanceMeters,
-                        durationSeconds = uiState.durationSeconds,
-                        isPaused = false,
-                        onMapReady = onMapReady,
-                        onMapReleased = onMapReleased,
-                        onPauseOrResume = onPauseTracking,
-                        onStopTracking = {
-                            sessionName = getDefaultSessionName()
-                            showSaveDialog = true
-                        },
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+            is TrackingUiState.Tracking -> {
+                ActiveTrackingContent(
+                    strings = uiState.strings,
+                    routes = uiState.routes,
+                    selectedRoute = uiState.selectedRoute,
+                    sessionId = uiState.sessionId,
+                    currentLocation = uiState.currentLocation,
+                    trackPoints = uiState.trackPoints,
+                    distanceMeters = uiState.distanceMeters,
+                    durationSeconds = uiState.durationSeconds,
+                    isPaused = false,
+                    onMapReady = onMapReady,
+                    onMapReleased = onMapReleased,
+                    onPauseOrResume = onPauseTracking,
+                    onStopTracking = {
+                        sessionName = getDefaultSessionName()
+                        showSaveDialog = true
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
 
-                is TrackingUiState.Paused -> {
-                    ActiveTrackingContent(
-                        strings = uiState.strings,
-                        routes = uiState.routes,
-                        selectedRoute = uiState.selectedRoute,
-                        sessionId = uiState.sessionId,
-                        currentLocation = uiState.currentLocation,
-                        trackPoints = uiState.trackPoints,
-                        distanceMeters = uiState.distanceMeters,
-                        durationSeconds = uiState.durationSeconds,
-                        isPaused = true,
-                        onMapReady = onMapReady,
-                        onMapReleased = onMapReleased,
-                        onPauseOrResume = onResumeTracking,
-                        onStopTracking = {
-                            sessionName = getDefaultSessionName()
-                            showSaveDialog = true
-                        },
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+            is TrackingUiState.Paused -> {
+                ActiveTrackingContent(
+                    strings = uiState.strings,
+                    routes = uiState.routes,
+                    selectedRoute = uiState.selectedRoute,
+                    sessionId = uiState.sessionId,
+                    currentLocation = uiState.currentLocation,
+                    trackPoints = uiState.trackPoints,
+                    distanceMeters = uiState.distanceMeters,
+                    durationSeconds = uiState.durationSeconds,
+                    isPaused = true,
+                    onMapReady = onMapReady,
+                    onMapReleased = onMapReleased,
+                    onPauseOrResume = onResumeTracking,
+                    onStopTracking = {
+                        sessionName = getDefaultSessionName()
+                        showSaveDialog = true
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
 
-                is TrackingUiState.Completed -> {
-                    CompletedContent(
-                        strings = uiState.strings,
-                        session = uiState.session,
-                        onNewSession = onStartNewSession,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                    )
-                }
+            is TrackingUiState.Completed -> {
+                // Show the map behind the summary overlay
+                IdleContent(
+                    strings = uiState.strings,
+                    routes = emptyList(),
+                    selectedRoute = null,
+                    currentLocation = null,
+                    onMapReady = onMapReady,
+                    onMapReleased = onMapReleased,
+                    onStartTracking = {},
+                    modifier = Modifier.fillMaxSize(),
+                    skipCameraReposition = true
+                )
+                // Summary card overlay
+                CompletedOverlay(
+                    strings = uiState.strings,
+                    session = uiState.session,
+                    onDismiss = onStartNewSession
+                )
+            }
 
-                is TrackingUiState.Error -> {
-                    ErrorContent(
-                        strings = uiState.strings,
-                        message = uiState.message,
-                        onRetry = onStartTracking,
-                        onDismiss = onClearError,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                    )
-                }
+            is TrackingUiState.Error -> {
+                ErrorContent(
+                    strings = uiState.strings,
+                    message = uiState.message,
+                    onRetry = onStartTracking,
+                    onDismiss = onClearError,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                )
             }
         }
     }
@@ -461,7 +353,9 @@ private fun IdleContent(
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
     onStartTracking: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp,
+    skipCameraReposition: Boolean = false
 ) {
     val viewportState = rememberMenorcaViewportState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
@@ -469,15 +363,23 @@ private fun IdleContent(
         val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
         val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
         val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
+        val mapAspectRatio = widthPx.toDouble() / heightPx.toDouble()
         val useFallbackZoom = selectedRoute == null && currentLocation == null
-        val cameraPosition = remember(routes, selectedRoute, currentLocation, fallbackCamera, useFallbackZoom) {
-            calculateCameraPosition(
-                routes = routes,
-                selectedRoute = selectedRoute,
-                location = currentLocation,
-                fallbackCamera = fallbackCamera,
-                useFallbackZoom = useFallbackZoom
-            )
+
+        // When returning from tracking, center on GPS position instead of route
+        val cameraPosition = if (skipCameraReposition && currentLocation != null) {
+            remember { CameraPosition(currentLocation.latitude, currentLocation.longitude, 14.0) }
+        } else {
+            remember(routes, selectedRoute, currentLocation, fallbackCamera, useFallbackZoom, mapAspectRatio) {
+                calculateCameraPosition(
+                    routes = routes,
+                    selectedRoute = selectedRoute,
+                    location = currentLocation,
+                    fallbackCamera = fallbackCamera,
+                    useFallbackZoom = useFallbackZoom,
+                    mapAspectRatio = mapAspectRatio
+                )
+            }
         }
         var mapController by remember { mutableStateOf<MapLayerController?>(null) }
 
@@ -499,24 +401,29 @@ private fun IdleContent(
             }
         )
 
-        // Start Tracking FAB
+        // Start Tracking FAB (matches bottom bar style)
         ExtendedFloatingActionButton(
             onClick = onStartTracking,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp + fabBottomPadding),
+            containerColor = FabDarkBackground,
+            contentColor = FabSelectedBlue,
             icon = { Icon(Icons.Default.Flag, contentDescription = null) },
             text = { Text(strings.trackingStart) }
         )
 
-        LaunchedEffect(mapController, cameraPosition) {
-            val controller = mapController ?: return@LaunchedEffect
-            controller.updateCamera(
-                latitude = cameraPosition.latitude,
-                longitude = cameraPosition.longitude,
-                zoom = cameraPosition.zoom,
-                animated = false
-            )
+        // Only update camera when NOT returning from tracking
+        if (!skipCameraReposition) {
+            LaunchedEffect(mapController, cameraPosition) {
+                val controller = mapController ?: return@LaunchedEffect
+                controller.updateCamera(
+                    latitude = cameraPosition.latitude,
+                    longitude = cameraPosition.longitude,
+                    zoom = cameraPosition.zoom,
+                    animated = false
+                )
+            }
         }
 
         DisposableEffect(mapController) {
@@ -557,12 +464,14 @@ private fun ActiveTrackingContent(
         val widthPx = with(density) { maxWidth.toPx() }.roundToInt().coerceAtLeast(1)
         val heightPx = with(density) { maxHeight.toPx() }.roundToInt().coerceAtLeast(1)
         val fallbackCamera = viewportState.updateSize(widthPx, heightPx)
+        val mapAspectRatio = widthPx.toDouble() / heightPx.toDouble()
 
         // GPS following state - enabled by default
         var followGpsLocation by remember { mutableStateOf(true) }
         var lastKnownPosition by remember { mutableStateOf<CameraPosition?>(null) }
 
         // Calculate camera position based on GPS following state
+        // During active tracking, GPS always takes priority over route coordinates
         val useFallbackZoom = selectedRoute == null && currentLocation == null && trackPoints.isEmpty()
         val cameraPosition = if (followGpsLocation) {
             calculateCameraPosition(
@@ -570,7 +479,9 @@ private fun ActiveTrackingContent(
                 selectedRoute = selectedRoute,
                 location = currentLocation,
                 fallbackCamera = fallbackCamera,
-                useFallbackZoom = useFallbackZoom
+                useFallbackZoom = useFallbackZoom,
+                mapAspectRatio = mapAspectRatio,
+                prioritizeLocation = true
             ).also {
                 lastKnownPosition = it
             }
@@ -580,7 +491,9 @@ private fun ActiveTrackingContent(
                 selectedRoute = selectedRoute,
                 location = currentLocation,
                 fallbackCamera = fallbackCamera,
-                useFallbackZoom = useFallbackZoom
+                useFallbackZoom = useFallbackZoom,
+                mapAspectRatio = mapAspectRatio,
+                prioritizeLocation = true
             )
         }
 
@@ -588,16 +501,31 @@ private fun ActiveTrackingContent(
         var mapController by remember { mutableStateOf<MapLayerController?>(null) }
         val cameraState = rememberUpdatedState(cameraPosition)
 
+        // One-time close zoom when first GPS position arrives during tracking
+        var hasAppliedInitialZoom by remember { mutableStateOf(false) }
+
         LaunchedEffect(mapController, followGpsLocation, cameraPosition) {
             val controller = mapController ?: return@LaunchedEffect
-            if (followGpsLocation) {
-                val position = cameraState.value
-                controller.updateCamera(
-                    latitude = position.latitude,
-                    longitude = position.longitude,
-                    zoom = null,
-                    animated = true
-                )
+            if (followGpsLocation && currentLocation != null) {
+                if (!hasAppliedInitialZoom) {
+                    // First GPS fix: zoom in close to the user's position
+                    hasAppliedInitialZoom = true
+                    controller.updateCamera(
+                        latitude = currentLocation.latitude,
+                        longitude = currentLocation.longitude,
+                        zoom = 16.0,
+                        animated = true
+                    )
+                } else {
+                    // Subsequent updates: reposition only, no zoom change
+                    val position = cameraState.value
+                    controller.updateCamera(
+                        latitude = position.latitude,
+                        longitude = position.longitude,
+                        zoom = null,
+                        animated = true
+                    )
+                }
             }
         }
 
@@ -670,7 +598,7 @@ private fun ActiveTrackingContent(
             )
         }
 
-        // Floating controls anchored bottom end, with Stop button animating above Play/Pause when paused
+        // Floating controls anchored bottom end
         val controlsSpacing = 8.dp
         Column(
             modifier = Modifier
@@ -781,13 +709,11 @@ private fun ActiveTrackingContent(
                         )
                     }
 
-                    // Show distance traveled
                     LocationInfoRow(
                         strings.trackingDistance,
                         "${((distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
                     )
 
-                    // Show duration
                     LocationInfoRow(
                         strings.homeDuration,
                         formatDuration(durationSeconds)
@@ -834,80 +760,117 @@ private fun LocationInfoRow(label: String, value: String) {
 }
 
 @Composable
-private fun CompletedContent(
+private fun CompletedOverlay(
     strings: LocalizedStrings,
     session: com.followmemobile.camidecavalls.domain.model.TrackingSession?,
-    onNewSession: () -> Unit,
-    modifier: Modifier = Modifier
+    onDismiss: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize().then(modifier),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Icon(
-            imageVector = Icons.Default.CheckCircle,
-            contentDescription = null,
-            modifier = Modifier.size(120.dp),
-            tint = MaterialTheme.colorScheme.primary
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = strings.trackingCompleted,
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        if (session != null) {
-            Card(modifier = Modifier.fillMaxWidth()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .wrapContentHeight(),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = FabDarkBackground
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Title row with small icon
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp),
+                        tint = FabSelectedBlue
+                    )
                     Text(
-                        text = strings.trackingSessionSummary,
+                        text = strings.trackingCompleted,
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = androidx.compose.ui.graphics.Color.White
                     )
+                }
 
-                    LocationInfoRow(
-                        strings.trackingDistance,
-                        "${((session.distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
+                if (session != null) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        SummaryRow(
+                            strings.trackingDistance,
+                            "${((session.distanceMeters / 1000.0) * 100).toInt() / 100.0} km"
+                        )
+                        SummaryRow(
+                            strings.homeDuration,
+                            "${session.durationSeconds / 3600}h ${(session.durationSeconds % 3600) / 60}m"
+                        )
+                        SummaryRow(
+                            strings.sessionAvgSpeed,
+                            "${(session.averageSpeedKmh * 10).toInt() / 10.0} km/h"
+                        )
+                        SummaryRow(
+                            strings.routeDetailElevationGain,
+                            "+${session.elevationGainMeters} m"
+                        )
+                    }
+                }
+
+                // Close button
+                FilledTonalButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = FabSelectedBlue,
+                        contentColor = FabDarkBackground
                     )
-                    LocationInfoRow(
-                        strings.homeDuration,
-                        "${session.durationSeconds / 3600}h ${(session.durationSeconds % 3600) / 60}m"
+                ) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
                     )
-                    LocationInfoRow(
-                        strings.sessionAvgSpeed,
-                        "${(session.averageSpeedKmh * 10).toInt() / 10.0} km/h"
-                    )
-                    LocationInfoRow(
-                        strings.routeDetailElevationGain,
-                        "+${session.elevationGainMeters} m"
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        strings.trackingStartNewSession,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
         }
+    }
+}
 
-        Spacer(modifier = Modifier.height(32.dp))
-
-        FilledTonalButton(
-            onClick = onNewSession,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        ) {
-            Icon(Icons.Default.Refresh, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(strings.trackingStartNewSession)
-        }
+@Composable
+private fun SummaryRow(label: String, value: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.7f)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = FabSelectedBlue
+        )
     }
 }
 
@@ -1012,10 +975,6 @@ private fun ConfirmationDialog(
     )
 }
 
-/**
- * Parse GeoJSON LineString coordinates from JSON string.
- * Returns list of (longitude, latitude) pairs.
- */
 private fun parseGeoJsonLineString(geoJson: String): List<Pair<Double, Double>> {
     return try {
         val json = Json.parseToJsonElement(geoJson).jsonObject
@@ -1032,21 +991,27 @@ private fun parseGeoJsonLineString(geoJson: String): List<Pair<Double, Double>> 
     }
 }
 
-/**
- * Calculate camera position from route or location
- */
 private data class CameraPosition(
     val latitude: Double,
     val longitude: Double,
     val zoom: Double
 )
 
+/**
+ * Calculate camera position and zoom for the map.
+ *
+ * @param prioritizeLocation When true (active tracking), GPS location takes priority
+ *   over route coordinates. When false (idle/route selection), route coordinates
+ *   take priority so that selecting a route reframes the map.
+ */
 private fun calculateCameraPosition(
     routes: List<Route>,
     selectedRoute: Route?,
     location: LocationData?,
     fallbackCamera: MapCameraConfig,
-    useFallbackZoom: Boolean = false
+    useFallbackZoom: Boolean = false,
+    mapAspectRatio: Double = 1.5,
+    prioritizeLocation: Boolean = false
 ): CameraPosition {
     if (useFallbackZoom) {
         return CameraPosition(
@@ -1056,16 +1021,16 @@ private fun calculateCameraPosition(
         )
     }
 
-    // If we have current location, center on it
-    location?.let {
+    // During active tracking, GPS location takes priority
+    if (prioritizeLocation && location != null) {
         return CameraPosition(
-            latitude = it.latitude,
-            longitude = it.longitude,
+            latitude = location.latitude,
+            longitude = location.longitude,
             zoom = 14.0
         )
     }
 
-    // Otherwise, if we have a selected route with data, center on it
+    // In idle mode, route coordinates take priority over GPS location
     val primaryCoordinates = selectedRoute?.gpxData?.let { geoJson ->
         parseGeoJsonLineString(geoJson)
     }
@@ -1080,13 +1045,47 @@ private fun calculateCameraPosition(
     if (coordinates.isNotEmpty()) {
         val lats = coordinates.map { it.second }
         val lons = coordinates.map { it.first }
-        val centerLat = (lats.minOrNull()!! + lats.maxOrNull()!!) / 2.0
-        val centerLon = (lons.minOrNull()!! + lons.maxOrNull()!!) / 2.0
-        val zoom = if (selectedRoute != null || routes.size == 1) 12.0 else 10.5
+
+        val minLat = lats.minOrNull()!!
+        val maxLat = lats.maxOrNull()!!
+        val minLon = lons.minOrNull()!!
+        val maxLon = lons.maxOrNull()!!
+
+        val centerLat = (minLat + maxLat) / 2.0
+        val centerLon = (minLon + maxLon) / 2.0
+
+        // Dynamic zoom based on bounding box (same algorithm as RouteMapPreview)
+        val latDelta = maxLat - minLat
+        val lonDelta = maxLon - minLon
+
+        val latPaddingFactor = 2.5
+        val lonPaddingFactor = 2.0
+        val paddedLatDelta = latDelta * latPaddingFactor
+        val paddedLonDelta = lonDelta * lonPaddingFactor
+
+        val effectiveLatDelta = paddedLatDelta
+        val effectiveLonDelta = paddedLonDelta / mapAspectRatio
+        val limitingDelta = max(effectiveLatDelta, effectiveLonDelta)
+
+        val zoom = if (limitingDelta > 0) {
+            val baseZoom = ln(360.0 / limitingDelta) / ln(2.0)
+            min(15.0, max(8.0, baseZoom - 0.3))
+        } else {
+            12.0
+        }
+
         return CameraPosition(centerLat, centerLon, zoom)
     }
 
-    // Default: Menorca center
+    // Fall back to current GPS location if no route coordinates
+    location?.let {
+        return CameraPosition(
+            latitude = it.latitude,
+            longitude = it.longitude,
+            zoom = 14.0
+        )
+    }
+
     return CameraPosition(fallbackCamera.latitude, fallbackCamera.longitude, fallbackCamera.zoom)
 }
 
@@ -1144,9 +1143,6 @@ private fun SaveSessionDialog(
     )
 }
 
-/**
- * Format duration in seconds to human-readable format (e.g., "1h 23m" or "45m 30s")
- */
 private fun formatDuration(seconds: Long): String {
     val hours = seconds / 3600
     val minutes = (seconds % 3600) / 60

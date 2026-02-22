@@ -56,8 +56,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.Route
+import com.followmemobile.camidecavalls.presentation.main.RouteSelectionManager
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
-import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
 import com.followmemobile.camidecavalls.presentation.components.ElevationChart
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
@@ -76,8 +76,14 @@ data class RouteDetailScreen(val routeId: Int) : Screen {
     @Composable
     override fun Content() {
         val screenModel: RouteDetailScreenModel = koinInject { parametersOf(routeId) }
+        val routeSelectionManager: RouteSelectionManager = koinInject()
         val navigator = LocalNavigator.currentOrThrow
         val uiState by screenModel.uiState.collectAsState()
+
+        val onStartTracking: (Route) -> Unit = { route ->
+            routeSelectionManager.selectRoute(route.id)
+            navigator.popUntilRoot()
+        }
 
         when (val state = uiState) {
             is RouteDetailUiState.Success -> {
@@ -85,9 +91,7 @@ data class RouteDetailScreen(val routeId: Int) : Screen {
                     uiState = state,
                     strings = state.strings,
                     onBackClick = { navigator.pop() },
-                    onStartTracking = { route ->
-                        navigator.push(TrackingScreen(routeId = route.id))
-                    }
+                    onStartTracking = onStartTracking
                 )
             }
             else -> {
@@ -95,9 +99,7 @@ data class RouteDetailScreen(val routeId: Int) : Screen {
                     uiState = uiState,
                     strings = null,
                     onBackClick = { navigator.pop() },
-                    onStartTracking = { route ->
-                        navigator.push(TrackingScreen(routeId = route.id))
-                    }
+                    onStartTracking = onStartTracking
                 )
             }
         }
@@ -215,10 +217,14 @@ private fun RouteDetailContent(
     // Track selected point from elevation chart
     var selectedChartPoint by remember { mutableStateOf<Pair<Double, Double>?>(null) }
 
-    // Load route image
+    // Load route image (hero_cami.jpg for complete route, route image otherwise)
     val routeImageBytes by produceState<ByteArray?>(initialValue = null) {
         value = try {
-            Res.readBytes("files/images/routes/route_${route.id}.jpg")
+            if (route.id == 0) {
+                Res.readBytes("files/images/hero_cami.jpg")
+            } else {
+                Res.readBytes("files/images/routes/route_${route.id}.jpg")
+            }
         } catch (e: Exception) {
             null
         }
@@ -277,20 +283,35 @@ private fun RouteDetailContent(
                         .align(Alignment.BottomStart)
                         .padding(16.dp)
                 ) {
-                    Text(
-                        text = strings.routeStage(route.number).uppercase(),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text(
-                        text = route.name,
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
+                    if (route.id == 0) {
+                        Text(
+                            text = strings.completeRouteName.uppercase(),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = strings.completeRouteSubtitle,
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    } else {
+                        Text(
+                            text = strings.routeStage(route.number).uppercase(),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = route.name,
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
                 }
             }
         }

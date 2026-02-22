@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DirectionsWalk
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -16,140 +15,53 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
-import com.followmemobile.camidecavalls.presentation.about.AboutScreen
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
-import com.followmemobile.camidecavalls.presentation.home.DrawerContent
-import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesUiState
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
-import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
-import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
-import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.koin.compose.koinInject
 
 /**
- * Notebook/Diary screen showing list of recorded tracking sessions.
+ * Public composable for the NOTEBOOK tab in the bottom navigation.
  */
-class NotebookScreen : Screen {
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun NotebookTabContent(
+    onSessionClick: (String) -> Unit,
+    onSwitchToMapTab: () -> Unit
+) {
+    val screenModel: NotebookScreenModel = koinInject()
+    val uiState by screenModel.uiState.collectAsState()
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    override fun Content() {
-        val screenModel: NotebookScreenModel = koinInject()
-        val navigator = LocalNavigator.currentOrThrow
-        val uiState by screenModel.uiState.collectAsState()
-
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
-
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                DrawerContent(
-                    uiState = convertToRoutesUiState(uiState.strings),
-                    currentScreen = DrawerScreen.NOTEBOOK,
-                    onAboutClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(AboutScreen())
-                    },
-                    onRoutesClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(RoutesScreen())
-                    },
-                    onMapClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(FullMapScreen())
-                    },
-                    onTrackingClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(TrackingScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(POIsScreen())
-                    },
-                    onNotebookClick = {
-                        scope.launch { drawerState.close() }
-                    },
-                    onSettingsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(SettingsScreen())
-                    },
-                    onCloseDrawer = {
-                        scope.launch { drawerState.close() }
-                    }
-                )
-            }
-        ) {
-            NotebookScreenContent(
-                uiState = uiState,
-                onMenuClick = { scope.launch { drawerState.open() } },
-                onSessionClick = { session ->
-                    navigator.push(SessionDetailScreen(session.id))
-                },
-                onDeleteClick = { session -> screenModel.showDeleteConfirmation(session) },
-                onStartTracking = { navigator.replaceAll(TrackingScreen()) }
-            )
-
-            // Delete confirmation dialog
-            uiState.sessionToDelete?.let { session ->
-                DeleteConfirmationDialog(
-                    strings = uiState.strings,
-                    sessionName = session.name.ifEmpty { formatDate(session.startTime) },
-                    onConfirm = { screenModel.confirmDelete() },
-                    onDismiss = { screenModel.dismissDeleteConfirmation() }
-                )
-            }
-        }
-    }
-}
-
-private fun convertToRoutesUiState(strings: LocalizedStrings): RoutesUiState {
-    return RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = "en",
-        strings = strings
+    NotebookScreenContent(
+        uiState = uiState,
+        onSessionClick = { session -> onSessionClick(session.id) },
+        onDeleteClick = { session -> screenModel.showDeleteConfirmation(session) },
+        onStartTracking = onSwitchToMapTab
     )
+
+    // Delete confirmation dialog
+    uiState.sessionToDelete?.let { session ->
+        DeleteConfirmationDialog(
+            strings = uiState.strings,
+            sessionName = session.name.ifEmpty { formatDate(session.startTime) },
+            onConfirm = { screenModel.confirmDelete() },
+            onDismiss = { screenModel.dismissDeleteConfirmation() }
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NotebookScreenContent(
     uiState: NotebookUiState,
-    onMenuClick: () -> Unit,
     onSessionClick: (TrackingSession) -> Unit,
     onDeleteClick: (TrackingSession) -> Unit,
     onStartTracking: () -> Unit
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(uiState.strings.notebookTitle) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
             when {
                 uiState.isLoading -> {
                     CircularProgressIndicator(
@@ -181,7 +93,6 @@ private fun NotebookScreenContent(
                 }
             }
 
-            // Error snackbar
             uiState.error?.let { error ->
                 Snackbar(
                     modifier = Modifier
@@ -191,7 +102,6 @@ private fun NotebookScreenContent(
                     Text(error)
                 }
             }
-        }
     }
 }
 
@@ -256,7 +166,6 @@ private fun SessionCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // Session name
                 Text(
                     text = session.name.ifEmpty { formatDate(session.startTime) },
                     style = MaterialTheme.typography.titleMedium,
@@ -265,7 +174,6 @@ private fun SessionCard(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                // Date and time
                 Text(
                     text = formatDateTime(session.startTime),
                     style = MaterialTheme.typography.bodySmall,
@@ -274,23 +182,17 @@ private fun SessionCard(
 
                 Spacer(Modifier.height(8.dp))
 
-                // Stats row
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // Distance
                     StatItem(
                         label = strings.trackingDistance,
                         value = "${formatDistance(session.distanceMeters)} km"
                     )
-
-                    // Duration
                     StatItem(
                         label = strings.homeDuration,
                         value = formatDuration(session.durationSeconds)
                     )
-
-                    // Elevation gain
                     if (session.elevationGainMeters > 0) {
                         StatItem(
                             label = strings.homeElevation,
@@ -300,10 +202,7 @@ private fun SessionCard(
                 }
             }
 
-            // Delete button
-            IconButton(
-                onClick = onDeleteClick
-            ) {
+            IconButton(onClick = onDeleteClick) {
                 Icon(
                     Icons.Default.Delete,
                     contentDescription = strings.notebookDeleteConfirm,
@@ -315,10 +214,7 @@ private fun SessionCard(
 }
 
 @Composable
-private fun StatItem(
-    label: String,
-    value: String
-) {
+private fun StatItem(label: String, value: String) {
     Column {
         Text(
             text = label,

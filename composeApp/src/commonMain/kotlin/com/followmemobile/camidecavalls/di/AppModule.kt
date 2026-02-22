@@ -34,8 +34,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import com.followmemobile.camidecavalls.presentation.about.AboutScreenModel
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreenModel
 import com.followmemobile.camidecavalls.presentation.home.RoutesScreenModel
+import com.followmemobile.camidecavalls.presentation.main.RouteSelectionManager
 import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreenModel
 import com.followmemobile.camidecavalls.presentation.notebook.SessionDetailScreenModel
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreenModel
@@ -100,15 +100,17 @@ val appModule = module {
         )
     }
 
+    // Route Selection Manager (cross-tab communication)
+    single { RouteSelectionManager() }
+
     // ScreenModels
     factoryOf(::AboutScreenModel)
     factoryOf(::RoutesScreenModel)
-    factoryOf(::FullMapScreenModel)
     factoryOf(::POIsScreenModel)
     factoryOf(::NotebookScreenModel)
     factory { params -> SessionDetailScreenModel(params.get(), get(), get()) }
     factoryOf(::SettingsScreenModel)
-    factory { params -> RouteDetailScreenModel(params.get(), get(), get()) }
+    factory { params -> RouteDetailScreenModel(params.get(), get(), get(), get()) }
     factory { params ->
         TrackingScreenModel(
             trackingManager = get(),

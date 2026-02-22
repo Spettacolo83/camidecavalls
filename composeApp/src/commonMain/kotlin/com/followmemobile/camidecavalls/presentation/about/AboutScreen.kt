@@ -1,17 +1,15 @@
 package com.followmemobile.camidecavalls.presentation.about
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -25,28 +23,13 @@ import coil3.compose.SubcomposeAsyncImage
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import camidecavalls.composeapp.generated.resources.Res
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreen
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
-import com.followmemobile.camidecavalls.presentation.home.DrawerContent
-import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
-import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
-import com.followmemobile.camidecavalls.presentation.settings.SettingsScreen
-import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 /**
- * AboutScreen - Landing page of the app showing information about Camí de Cavalls.
- *
- * Features:
- * - Hero section with welcome message
- * - Detailed description of the trail
- * - UNESCO Biosphere Reserve information
- * - Key stats (length, stages)
- * - Call to action to explore routes
+ * AboutCamiScreen - Shows information about Camí de Cavalls.
+ * Pushed from the Settings hub.
  */
-class AboutScreen : Screen {
+class AboutCamiScreen : Screen {
 
     @Composable
     override fun Content() {
@@ -54,81 +37,25 @@ class AboutScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val uiState = screenModel.uiState.collectAsState().value
 
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
-
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                DrawerContent(
-                    uiState = convertToRoutesUiState(uiState),
-                    currentScreen = DrawerScreen.ABOUT,
-                    onAboutClick = {
-                        scope.launch { drawerState.close() }
-                    },
-                    onRoutesClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(RoutesScreen())
-                    },
-                    onMapClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(FullMapScreen())
-                    },
-                    onTrackingClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(TrackingScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(POIsScreen())
-                    },
-                    onNotebookClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(NotebookScreen())
-                    },
-                    onSettingsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(SettingsScreen())
-                    },
-                    onCloseDrawer = {
-                        scope.launch { drawerState.close() }
-                    }
-                )
+        AboutScreenContent(
+            uiState = uiState,
+            onBackClick = { navigator.pop() },
+            onExploreClick = {
+                navigator.push(RouteDetailScreen(1))
             }
-        ) {
-            AboutScreenContent(
-                uiState = uiState,
-                onMenuClick = {
-                    scope.launch { drawerState.open() }
-                },
-                onExploreClick = {
-                    // Navigate to first route as example
-                    navigator.push(RouteDetailScreen(1))
-                }
-            )
-        }
+        )
     }
-}
-
-// Helper to convert AboutUiState to RoutesUiState for drawer
-private fun convertToRoutesUiState(aboutUiState: AboutUiState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
-    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = "en",
-        strings = aboutUiState.strings
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
 @Composable
 private fun AboutScreenContent(
     uiState: AboutUiState,
-    onMenuClick: () -> Unit,
+    onBackClick: () -> Unit,
     onExploreClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
-    // Load hero image from resources
     val heroImageBytes by produceState<ByteArray?>(initialValue = null) {
         value = Res.readBytes("files/images/hero_cami.jpg")
     }
@@ -142,8 +69,11 @@ private fun AboutScreenContent(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = uiState.strings.openMenu)
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = uiState.strings.back
+                        )
                     }
                 }
             )
@@ -160,8 +90,7 @@ private fun AboutScreenContent(
                 SubcomposeAsyncImage(
                     model = imageBytes,
                     contentDescription = "Camí de Cavalls",
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.FillWidth,
                     loading = {
                         Box(
@@ -183,14 +112,12 @@ private fun AboutScreenContent(
                 CircularProgressIndicator()
             }
 
-            // Content
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                // Welcome
                 Text(
                     text = uiState.strings.aboutWelcome,
                     style = MaterialTheme.typography.headlineMedium,
@@ -199,7 +126,6 @@ private fun AboutScreenContent(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Stats Cards
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -214,7 +140,6 @@ private fun AboutScreenContent(
                     )
                 }
 
-                // Description
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -228,7 +153,6 @@ private fun AboutScreenContent(
                     )
                 }
 
-                // UNESCO
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -253,7 +177,6 @@ private fun AboutScreenContent(
                     }
                 }
 
-                // Call to Action
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -288,7 +211,6 @@ private fun AboutScreenContent(
                     }
                 }
 
-                // Bottom spacing
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

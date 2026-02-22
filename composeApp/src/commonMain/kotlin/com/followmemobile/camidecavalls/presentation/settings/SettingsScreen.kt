@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,21 +15,14 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import camidecavalls.composeapp.generated.resources.Res
-import camidecavalls.composeapp.generated.resources.*
-import com.followmemobile.camidecavalls.presentation.about.AboutScreen
-import com.followmemobile.camidecavalls.presentation.fullmap.FullMapScreen
-import com.followmemobile.camidecavalls.presentation.home.DrawerContent
-import com.followmemobile.camidecavalls.presentation.home.DrawerScreen
-import com.followmemobile.camidecavalls.presentation.home.RoutesScreen
-import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreen
-import com.followmemobile.camidecavalls.presentation.pois.POIsScreen
-import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreen
-import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
-class SettingsScreen : Screen {
+/**
+ * Language settings screen - pushed from Settings hub.
+ * Renamed from SettingsScreen to LanguageSettingsScreen conceptually,
+ * but class kept as LanguageSettingsScreen for navigation.
+ */
+class LanguageSettingsScreen : Screen {
 
     @Composable
     override fun Content() {
@@ -37,73 +30,19 @@ class SettingsScreen : Screen {
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
 
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
-
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                DrawerContent(
-                    uiState = convertToRoutesUiState(state),
-                    currentScreen = DrawerScreen.SETTINGS,
-                    onAboutClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(AboutScreen())
-                    },
-                    onRoutesClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(RoutesScreen())
-                    },
-                    onMapClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(FullMapScreen())
-                    },
-                    onTrackingClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(TrackingScreen())
-                    },
-                    onPOIsClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(POIsScreen())
-                    },
-                    onNotebookClick = {
-                        scope.launch { drawerState.close() }
-                        navigator.replaceAll(NotebookScreen())
-                    },
-                    onSettingsClick = {
-                        scope.launch { drawerState.close() }
-                    },
-                    onCloseDrawer = {
-                        scope.launch { drawerState.close() }
-                    }
-                )
-            }
-        ) {
-            SettingsContent(
-                state = state,
-                onMenuClick = {
-                    scope.launch { drawerState.open() }
-                },
-                onLanguageSelected = { screenModel.onLanguageSelected(it) }
-            )
-        }
+        LanguageSettingsContent(
+            state = state,
+            onBackClick = { navigator.pop() },
+            onLanguageSelected = { screenModel.onLanguageSelected(it) }
+        )
     }
-}
-
-// Helper to convert SettingsState to RoutesUiState for drawer
-private fun convertToRoutesUiState(settingsState: SettingsState): com.followmemobile.camidecavalls.presentation.home.RoutesUiState {
-    return com.followmemobile.camidecavalls.presentation.home.RoutesUiState.Success(
-        routes = emptyList(),
-        currentLanguage = "en",
-        strings = settingsState.strings
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsContent(
+private fun LanguageSettingsContent(
     state: SettingsState,
-    onMenuClick: () -> Unit,
+    onBackClick: () -> Unit,
     onLanguageSelected: (String) -> Unit
 ) {
     val strings = state.strings
@@ -122,14 +61,17 @@ fun SettingsContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(strings.settingsTitle) },
+                title = { Text(strings.settingsLanguageOption) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Default.Menu, contentDescription = strings.openMenu)
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = strings.back
+                        )
                     }
                 }
             )
@@ -142,7 +84,6 @@ fun SettingsContent(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Language Section Header
             item {
                 Text(
                     text = strings.settingsLanguage,
@@ -152,7 +93,6 @@ fun SettingsContent(
                 )
             }
 
-            // Language Options
             items(languages) { language ->
                 LanguageOptionItem(
                     languageItem = language,
@@ -209,7 +149,7 @@ fun LanguageOptionItem(
                     MaterialTheme.colorScheme.onSurface
                 }
             )
-            
+
             if (isSelected) {
                 Icon(
                     imageVector = Icons.Default.Check,

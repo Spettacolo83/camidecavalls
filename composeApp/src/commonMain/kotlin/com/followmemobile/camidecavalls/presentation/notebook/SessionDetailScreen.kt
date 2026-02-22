@@ -6,6 +6,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -52,6 +53,7 @@ data class SessionDetailScreen(val sessionId: String) : Screen {
         var gpxContent by remember { mutableStateOf<String?>(null) }
 
         Scaffold(
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
             topBar = {
                 TopAppBar(
                     title = {
@@ -175,28 +177,35 @@ private fun SessionDetailContent(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
         ) {
-            // Toggle button
+            // Toggle button — taller handle with text at top, no gap to panel below
             Surface(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
                     .clickable(onClick = onTogglePanel),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.95f),
+                color = MaterialTheme.colorScheme.primaryContainer,
                 tonalElevation = 4.dp
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(
+                        start = 24.dp,
+                        end = 24.dp,
+                        top = 8.dp,
+                        bottom = 40.dp
+                    ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
                         text = strings.sessionDetails,
-                        style = MaterialTheme.typography.labelLarge
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Icon(
                         imageVector = if (isDetailsPanelExpanded) Icons.Default.ExpandMore else Icons.Default.ExpandLess,
                         contentDescription = null,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
             }

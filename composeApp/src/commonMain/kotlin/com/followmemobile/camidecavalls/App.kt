@@ -12,11 +12,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.Navigator
-import com.followmemobile.camidecavalls.presentation.about.AboutScreen
+import com.followmemobile.camidecavalls.presentation.main.MainScreen
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
 import com.followmemobile.camidecavalls.ui.theme.AppTypography
@@ -28,11 +29,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun App() {
     KoinInitializer {
+        val seaColorScheme = lightColorScheme(
+            primaryContainer = Color(0xFF4FC3F7),
+            onPrimaryContainer = Color.White
+        )
+
         MaterialTheme(
+            colorScheme = seaColorScheme,
             typography = AppTypography()
         ) {
             val trackingManager: TrackingManager = koinInject()
@@ -42,7 +50,7 @@ fun App() {
             val strings = LocalizedStrings(language)
 
             Box(modifier = Modifier.fillMaxSize()) {
-                Navigator(AboutScreen())
+                Navigator(MainScreen())
 
                 if (trackingState is TrackingState.Recording) {
                     RecordingBadge(

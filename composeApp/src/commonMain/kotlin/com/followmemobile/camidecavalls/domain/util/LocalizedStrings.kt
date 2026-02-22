@@ -155,6 +155,22 @@ class LocalizedStrings(val languageCode: String) {
     val trackingDiscardTitle: String get() = strings.trackingDiscardTitle
     val trackingDiscardMessage: String get() = strings.trackingDiscardMessage
     val trackingDiscard: String get() = strings.trackingDiscard
+
+    // Bottom Bar
+    val bottomBarMap: String get() = strings.bottomBarMap
+    val bottomBarRoutes: String get() = strings.bottomBarRoutes
+    val bottomBarPoi: String get() = strings.bottomBarPoi
+    val bottomBarNotebook: String get() = strings.bottomBarNotebook
+    val bottomBarSettings: String get() = strings.bottomBarSettings
+
+    // Settings Hub
+    val settingsLanguageOption: String get() = strings.settingsLanguageOption
+    val settingsAboutOption: String get() = strings.settingsAboutOption
+    val settingsContactUs: String get() = strings.settingsContactUs
+
+    // Complete Route
+    val completeRouteName: String get() = strings.completeRouteName
+    val completeRouteSubtitle: String get() = strings.completeRouteSubtitle
 }
 
 private interface Strings {
@@ -297,6 +313,22 @@ private interface Strings {
     val trackingDiscardTitle: String
     val trackingDiscardMessage: String
     val trackingDiscard: String
+
+    // Bottom Bar
+    val bottomBarMap: String
+    val bottomBarRoutes: String
+    val bottomBarPoi: String
+    val bottomBarNotebook: String
+    val bottomBarSettings: String
+
+    // Settings Hub
+    val settingsLanguageOption: String
+    val settingsAboutOption: String
+    val settingsContactUs: String
+
+    // Complete Route
+    val completeRouteName: String
+    val completeRouteSubtitle: String
 }
 
 private object StringsCa : Strings {
@@ -401,7 +433,7 @@ private object StringsCa : Strings {
     override val trackingResume = "Reprendre"
     override val trackingStop = "Aturar"
     override val trackingRecordingBadge = "ENREGISTRANT"
-    override val trackingCompleted = "Seguiment Completat!"
+    override val trackingCompleted = "Resum de la sessió"
     override val trackingError = "Error de Seguiment"
     override val trackingStatisticsTitle = "Estadístiques en Directe"
     override val trackingSessionSummary = "Resum de Sessió"
@@ -410,7 +442,7 @@ private object StringsCa : Strings {
     override val trackingAccuracy = "Precisió"
     override val trackingSpeed = "Velocitat"
     override val trackingAcquiringSignal = "Adquirint senyal GPS…"
-    override val trackingStartNewSession = "Nova Sessió"
+    override val trackingStartNewSession = "Tancar"
     override val trackingRetry = "Reintentar"
     override val trackingFarTitle = "Ets lluny de la ruta"
     override val trackingStartAnyway = "Iniciar igualment"
@@ -427,6 +459,17 @@ private object StringsCa : Strings {
     override val trackingDiscardTitle = "Descartar seguiment?"
     override val trackingDiscardMessage = "Totes les dades registrades es perdran permanentment."
     override val trackingDiscard = "Descartar"
+
+    override val bottomBarMap = "Mapa"
+    override val bottomBarRoutes = "Rutes"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Diari"
+    override val bottomBarSettings = "Configuració"
+    override val settingsLanguageOption = "Idioma"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Contacta'ns"
+    override val completeRouteName = "Ruta Completa"
+    override val completeRouteSubtitle = "Bucle complet"
 }
 
 private object StringsEs : Strings {
@@ -531,7 +574,7 @@ private object StringsEs : Strings {
     override val trackingResume = "Reanudar"
     override val trackingStop = "Detener"
     override val trackingRecordingBadge = "GRABANDO"
-    override val trackingCompleted = "Seguimiento Completado!"
+    override val trackingCompleted = "Resumen de la sesión"
     override val trackingError = "Error de Seguimiento"
     override val trackingStatisticsTitle = "Estadísticas en Vivo"
     override val trackingSessionSummary = "Resumen de Sesión"
@@ -540,7 +583,7 @@ private object StringsEs : Strings {
     override val trackingAccuracy = "Precisión"
     override val trackingSpeed = "Velocidad"
     override val trackingAcquiringSignal = "Adquiriendo señal GPS…"
-    override val trackingStartNewSession = "Nueva Sesión"
+    override val trackingStartNewSession = "Cerrar"
     override val trackingRetry = "Reintentar"
     override val trackingFarTitle = "Estás lejos de la ruta"
     override val trackingStartAnyway = "Iniciar de todos modos"
@@ -557,6 +600,17 @@ private object StringsEs : Strings {
     override val trackingDiscardTitle = "¿Descartar seguimiento?"
     override val trackingDiscardMessage = "Todos los datos registrados se perderán permanentemente."
     override val trackingDiscard = "Descartar"
+
+    override val bottomBarMap = "Mapa"
+    override val bottomBarRoutes = "Rutas"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Diario"
+    override val bottomBarSettings = "Ajustes"
+    override val settingsLanguageOption = "Idioma"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Contáctanos"
+    override val completeRouteName = "Ruta Completa"
+    override val completeRouteSubtitle = "Bucle completo"
 }
 
 private object StringsEn : Strings {
@@ -661,7 +715,7 @@ private object StringsEn : Strings {
     override val trackingResume = "Resume"
     override val trackingStop = "Stop"
     override val trackingRecordingBadge = "RECORDING"
-    override val trackingCompleted = "Tracking Completed!"
+    override val trackingCompleted = "Session summary"
     override val trackingError = "Tracking Error"
     override val trackingStatisticsTitle = "Live Statistics"
     override val trackingSessionSummary = "Session Summary"
@@ -670,7 +724,7 @@ private object StringsEn : Strings {
     override val trackingAccuracy = "Accuracy"
     override val trackingSpeed = "Speed"
     override val trackingAcquiringSignal = "Acquiring GPS signal…"
-    override val trackingStartNewSession = "Start New Session"
+    override val trackingStartNewSession = "Close"
     override val trackingRetry = "Retry"
     override val trackingFarTitle = "You are far from the route"
     override val trackingStartAnyway = "Start anyway"
@@ -687,6 +741,17 @@ private object StringsEn : Strings {
     override val trackingDiscardTitle = "Discard tracking?"
     override val trackingDiscardMessage = "All recorded data will be permanently lost."
     override val trackingDiscard = "Discard"
+
+    override val bottomBarMap = "Map"
+    override val bottomBarRoutes = "Routes"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Diary"
+    override val bottomBarSettings = "Settings"
+    override val settingsLanguageOption = "Language"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Contact us"
+    override val completeRouteName = "Complete Route"
+    override val completeRouteSubtitle = "Full loop"
 }
 
 private object StringsDe : Strings {
@@ -791,7 +856,7 @@ private object StringsDe : Strings {
     override val trackingResume = "Fortsetzen"
     override val trackingStop = "Stoppen"
     override val trackingRecordingBadge = "AUFZEICHNUNG"
-    override val trackingCompleted = "Verfolgung Abgeschlossen!"
+    override val trackingCompleted = "Sitzungsübersicht"
     override val trackingError = "Verfolgungsfehler"
     override val trackingStatisticsTitle = "Live-Statistiken"
     override val trackingSessionSummary = "Sitzungszusammenfassung"
@@ -800,7 +865,7 @@ private object StringsDe : Strings {
     override val trackingAccuracy = "Genauigkeit"
     override val trackingSpeed = "Geschwindigkeit"
     override val trackingAcquiringSignal = "GPS-Signal wird gesucht…"
-    override val trackingStartNewSession = "Neue Sitzung"
+    override val trackingStartNewSession = "Schließen"
     override val trackingRetry = "Erneut versuchen"
     override val trackingFarTitle = "Sie sind weit von der Route entfernt"
     override val trackingStartAnyway = "Trotzdem starten"
@@ -817,6 +882,17 @@ private object StringsDe : Strings {
     override val trackingDiscardTitle = "Aufzeichnung verwerfen?"
     override val trackingDiscardMessage = "Alle aufgezeichneten Daten gehen dauerhaft verloren."
     override val trackingDiscard = "Verwerfen"
+
+    override val bottomBarMap = "Karte"
+    override val bottomBarRoutes = "Routen"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Tagebuch"
+    override val bottomBarSettings = "Einstellungen"
+    override val settingsLanguageOption = "Sprache"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Kontaktiere uns"
+    override val completeRouteName = "Vollständige Route"
+    override val completeRouteSubtitle = "Volle Runde"
 }
 
 private object StringsFr : Strings {
@@ -921,7 +997,7 @@ private object StringsFr : Strings {
     override val trackingResume = "Reprendre"
     override val trackingStop = "Arrêter"
     override val trackingRecordingBadge = "ENREGISTREMENT"
-    override val trackingCompleted = "Suivi Terminé !"
+    override val trackingCompleted = "Résumé de la session"
     override val trackingError = "Erreur de Suivi"
     override val trackingStatisticsTitle = "Statistiques en Direct"
     override val trackingSessionSummary = "Résumé de Session"
@@ -930,7 +1006,7 @@ private object StringsFr : Strings {
     override val trackingAccuracy = "Précision"
     override val trackingSpeed = "Vitesse"
     override val trackingAcquiringSignal = "Acquisition du signal GPS…"
-    override val trackingStartNewSession = "Nouvelle Session"
+    override val trackingStartNewSession = "Fermer"
     override val trackingRetry = "Réessayer"
     override val trackingFarTitle = "Vous êtes loin de l'itinéraire"
     override val trackingStartAnyway = "Démarrer quand même"
@@ -947,6 +1023,17 @@ private object StringsFr : Strings {
     override val trackingDiscardTitle = "Supprimer le suivi ?"
     override val trackingDiscardMessage = "Toutes les données enregistrées seront définitivement perdues."
     override val trackingDiscard = "Supprimer"
+
+    override val bottomBarMap = "Carte"
+    override val bottomBarRoutes = "Itinéraires"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Journal"
+    override val bottomBarSettings = "Paramètres"
+    override val settingsLanguageOption = "Langue"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Contactez-nous"
+    override val completeRouteName = "Itinéraire Complet"
+    override val completeRouteSubtitle = "Boucle complète"
 }
 
 private object StringsIt : Strings {
@@ -1051,7 +1138,7 @@ private object StringsIt : Strings {
     override val trackingResume = "Riprendi"
     override val trackingStop = "Ferma"
     override val trackingRecordingBadge = "REGISTRAZIONE"
-    override val trackingCompleted = "Tracciamento Completato!"
+    override val trackingCompleted = "Riepilogo sessione"
     override val trackingError = "Errore Tracciamento"
     override val trackingStatisticsTitle = "Statistiche Live"
     override val trackingSessionSummary = "Riepilogo Sessione"
@@ -1060,7 +1147,7 @@ private object StringsIt : Strings {
     override val trackingAccuracy = "Precisione"
     override val trackingSpeed = "Velocità"
     override val trackingAcquiringSignal = "Acquisizione segnale GPS…"
-    override val trackingStartNewSession = "Nuova Sessione"
+    override val trackingStartNewSession = "Chiudi"
     override val trackingRetry = "Riprova"
     override val trackingFarTitle = "Sei lontano dal percorso"
     override val trackingStartAnyway = "Inizia comunque"
@@ -1077,4 +1164,15 @@ private object StringsIt : Strings {
     override val trackingDiscardTitle = "Scartare il tracciamento?"
     override val trackingDiscardMessage = "Tutti i dati registrati andranno persi definitivamente."
     override val trackingDiscard = "Scarta"
+
+    override val bottomBarMap = "Mappa"
+    override val bottomBarRoutes = "Percorsi"
+    override val bottomBarPoi = "POI"
+    override val bottomBarNotebook = "Diario"
+    override val bottomBarSettings = "Impostazioni"
+    override val settingsLanguageOption = "Lingua"
+    override val settingsAboutOption = "Camí de Cavalls"
+    override val settingsContactUs = "Contattaci"
+    override val completeRouteName = "Percorso Completo"
+    override val completeRouteSubtitle = "Anello completo"
 }

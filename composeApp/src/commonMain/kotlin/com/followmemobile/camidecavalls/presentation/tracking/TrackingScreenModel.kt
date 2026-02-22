@@ -60,6 +60,7 @@ class TrackingScreenModel(
     private var routes: List<Route> = emptyList()
     private var cachedTrackPoints: List<TrackPoint> = emptyList()
     private var mapController: MapLayerController? = null
+    private var wasRecordingOrPaused = false
 
     // Helper to get current strings from state
     private val currentStrings: LocalizedStrings
@@ -260,6 +261,8 @@ class TrackingScreenModel(
             trackingManager.trackingState.collect { state ->
                 _uiState.value = when (state) {
                     is TrackingState.Stopped -> {
+                        val skipReposition = wasRecordingOrPaused
+                        wasRecordingOrPaused = false
                         cachedTrackPoints = emptyList()
                         mapController?.let { controller ->
                             renderTrack(controller)
@@ -269,11 +272,13 @@ class TrackingScreenModel(
                             strings = currentStrings,
                             routes = routes,
                             selectedRoute = selectedRoute,
-                            currentLocation = trackingManager.currentLocation.value
+                            currentLocation = trackingManager.currentLocation.value,
+                            skipCameraReposition = skipReposition
                         )
                     }
 
                     is TrackingState.Recording -> {
+                        wasRecordingOrPaused = true
                         TrackingUiState.Tracking(
                             strings = currentStrings,
                             routes = routes,
@@ -287,6 +292,7 @@ class TrackingScreenModel(
                     }
 
                     is TrackingState.Paused -> {
+                        wasRecordingOrPaused = true
                         TrackingUiState.Paused(
                             strings = currentStrings,
                             routes = routes,
@@ -587,7 +593,8 @@ class TrackingScreenModel(
                 strings = currentStrings,
                 routes = routes,
                 selectedRoute = selectedRoute,
-                currentLocation = trackingManager.currentLocation.value
+                currentLocation = trackingManager.currentLocation.value,
+                skipCameraReposition = true
             )
 
             mapController?.let { controller ->
@@ -741,7 +748,8 @@ sealed interface TrackingUiState {
         override val strings: LocalizedStrings,
         val routes: List<Route> = emptyList(),
         val selectedRoute: Route? = null,
-        val currentLocation: LocationData? = null
+        val currentLocation: LocationData? = null,
+        val skipCameraReposition: Boolean = false
     ) : TrackingUiState
 
     data class AwaitingConfirmation(
