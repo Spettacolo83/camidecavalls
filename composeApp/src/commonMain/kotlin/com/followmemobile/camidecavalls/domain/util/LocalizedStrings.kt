@@ -171,6 +171,13 @@ class LocalizedStrings(val languageCode: String) {
     // Complete Route
     val completeRouteName: String get() = strings.completeRouteName
     val completeRouteSubtitle: String get() = strings.completeRouteSubtitle
+
+    // POI Proximity & Settings
+    val poiProximityBody: (String, String) -> String = { type, distance -> strings.poiProximityBody(type, distance) }
+    val settingsPoiOption: String get() = strings.settingsPoiOption
+    val settingsPoiNotificationRadius: String get() = strings.settingsPoiNotificationRadius
+    val settingsPoiNotificationsEnabled: String get() = strings.settingsPoiNotificationsEnabled
+    val settingsPoiMaxVisible: String get() = strings.settingsPoiMaxVisible
 }
 
 private interface Strings {
@@ -329,6 +336,13 @@ private interface Strings {
     // Complete Route
     val completeRouteName: String
     val completeRouteSubtitle: String
+
+    // POI Proximity & Settings
+    fun poiProximityBody(type: String, distance: String): String
+    val settingsPoiOption: String
+    val settingsPoiNotificationRadius: String
+    val settingsPoiNotificationsEnabled: String
+    val settingsPoiMaxVisible: String
 }
 
 private object StringsCa : Strings {
@@ -470,6 +484,11 @@ private object StringsCa : Strings {
     override val settingsContactUs = "Contacta'ns"
     override val completeRouteName = "Ruta Completa"
     override val completeRouteSubtitle = "Bucle complet"
+    override fun poiProximityBody(type: String, distance: String) = "$type - a $distance"
+    override val settingsPoiOption = "Punts d'interès (POI)"
+    override val settingsPoiNotificationRadius = "Radi de notificació"
+    override val settingsPoiNotificationsEnabled = "Notificacions POI"
+    override val settingsPoiMaxVisible = "POI visibles"
 }
 
 private object StringsEs : Strings {
@@ -611,6 +630,11 @@ private object StringsEs : Strings {
     override val settingsContactUs = "Contáctanos"
     override val completeRouteName = "Ruta Completa"
     override val completeRouteSubtitle = "Bucle completo"
+    override fun poiProximityBody(type: String, distance: String) = "$type - a $distance"
+    override val settingsPoiOption = "Puntos de interés (POI)"
+    override val settingsPoiNotificationRadius = "Radio de notificación"
+    override val settingsPoiNotificationsEnabled = "Notificaciones POI"
+    override val settingsPoiMaxVisible = "POI visibles"
 }
 
 private object StringsEn : Strings {
@@ -752,6 +776,11 @@ private object StringsEn : Strings {
     override val settingsContactUs = "Contact us"
     override val completeRouteName = "Complete Route"
     override val completeRouteSubtitle = "Full loop"
+    override fun poiProximityBody(type: String, distance: String) = "$type - $distance away"
+    override val settingsPoiOption = "Points of Interest (POI)"
+    override val settingsPoiNotificationRadius = "Notification radius"
+    override val settingsPoiNotificationsEnabled = "POI Notifications"
+    override val settingsPoiMaxVisible = "Visible POIs"
 }
 
 private object StringsDe : Strings {
@@ -893,6 +922,11 @@ private object StringsDe : Strings {
     override val settingsContactUs = "Kontaktiere uns"
     override val completeRouteName = "Vollständige Route"
     override val completeRouteSubtitle = "Volle Runde"
+    override fun poiProximityBody(type: String, distance: String) = "$type - $distance entfernt"
+    override val settingsPoiOption = "Sehenswürdigkeiten (POI)"
+    override val settingsPoiNotificationRadius = "Benachrichtigungsradius"
+    override val settingsPoiNotificationsEnabled = "POI-Benachrichtigungen"
+    override val settingsPoiMaxVisible = "Sichtbare POI"
 }
 
 private object StringsFr : Strings {
@@ -1034,6 +1068,11 @@ private object StringsFr : Strings {
     override val settingsContactUs = "Contactez-nous"
     override val completeRouteName = "Itinéraire Complet"
     override val completeRouteSubtitle = "Boucle complète"
+    override fun poiProximityBody(type: String, distance: String) = "$type - à $distance"
+    override val settingsPoiOption = "Points d'intérêt (POI)"
+    override val settingsPoiNotificationRadius = "Rayon de notification"
+    override val settingsPoiNotificationsEnabled = "Notifications POI"
+    override val settingsPoiMaxVisible = "POI visibles"
 }
 
 private object StringsIt : Strings {
@@ -1175,4 +1214,9 @@ private object StringsIt : Strings {
     override val settingsContactUs = "Contattaci"
     override val completeRouteName = "Percorso Completo"
     override val completeRouteSubtitle = "Anello completo"
+    override fun poiProximityBody(type: String, distance: String) = "$type - a $distance"
+    override val settingsPoiOption = "Punti di interesse (POI)"
+    override val settingsPoiNotificationRadius = "Raggio di notifica"
+    override val settingsPoiNotificationsEnabled = "Notifiche POI"
+    override val settingsPoiMaxVisible = "POI visibili"
 }

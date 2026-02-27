@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import com.followmemobile.camidecavalls.presentation.icons.CamiDeCavallsIcon
 fun SettingsHubContent(
     strings: LocalizedStrings,
     onLanguageClick: () -> Unit,
+    onPoiSettingsClick: () -> Unit,
     onAboutClick: () -> Unit
 ) {
     Box(
@@ -37,6 +39,14 @@ fun SettingsHubContent(
                     icon = { Icon(Icons.Default.Language, contentDescription = null) },
                     label = strings.settingsLanguageOption,
                     onClick = onLanguageClick
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+
+                // POI settings option
+                SettingsOptionRow(
+                    icon = { Icon(Icons.Default.Place, contentDescription = null) },
+                    label = strings.settingsPoiOption,
+                    onClick = onPoiSettingsClick
                 )
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
 

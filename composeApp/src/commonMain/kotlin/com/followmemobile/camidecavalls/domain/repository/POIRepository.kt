@@ -29,6 +29,11 @@ interface POIRepository {
     ): List<PointOfInterest>
 
     /**
+     * Get a single POI by its ID
+     */
+    suspend fun getPOIById(id: Int): PointOfInterest?
+
+    /**
      * Get POIs along a specific route
      */
     fun getPOIsByRoute(routeId: Int): Flow<List<PointOfInterest>>

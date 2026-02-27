@@ -258,7 +258,7 @@ private fun POIsScreenContent(
 }
 
 @Composable
-private fun POIPopup(
+internal fun POIPopup(
     poi: PointOfInterest,
     currentLanguage: Language,
     onClose: () -> Unit,

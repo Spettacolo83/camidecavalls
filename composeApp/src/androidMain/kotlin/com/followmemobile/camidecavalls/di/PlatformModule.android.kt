@@ -5,6 +5,7 @@ import com.followmemobile.camidecavalls.data.local.DatabaseDriverFactory
 import com.followmemobile.camidecavalls.data.service.AndroidLocationService
 import com.followmemobile.camidecavalls.data.service.AndroidPermissionHandler
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
+import com.followmemobile.camidecavalls.domain.service.LocalNotificationManager
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.google.android.gms.location.LocationServices
@@ -38,4 +39,7 @@ actual val platformModule = module {
 
     // Background Tracking Manager
     single { BackgroundTrackingManager(androidContext()) }
+
+    // Local Notification Manager (POI proximity)
+    single { LocalNotificationManager(androidContext()) }
 }

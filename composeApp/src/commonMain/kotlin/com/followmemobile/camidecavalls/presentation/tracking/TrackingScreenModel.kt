@@ -2,16 +2,23 @@ package com.followmemobile.camidecavalls.presentation.tracking
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.model.TrackingSession
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
+import com.followmemobile.camidecavalls.domain.repository.POIRepository
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
+import com.followmemobile.camidecavalls.presentation.main.PoiNavigationManager
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.CalculateSessionStatsUseCase
+import com.followmemobile.camidecavalls.domain.usecase.tracking.NearbyPoi
+import com.followmemobile.camidecavalls.domain.usecase.tracking.PoiProximityManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingState
+import com.followmemobile.camidecavalls.presentation.pois.PoiTypeColors
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.RouteColorPalette
@@ -46,6 +53,9 @@ class TrackingScreenModel(
     private val getSimplifiedRoutesUseCase: GetSimplifiedRoutesUseCase,
     private val calculateSessionStatsUseCase: CalculateSessionStatsUseCase,
     private val languageRepository: LanguageRepository,
+    private val poiProximityManager: PoiProximityManager,
+    private val poiNavigationManager: PoiNavigationManager,
+    private val poiRepository: POIRepository,
     private val routeId: Int? = null
 ) : ScreenModel {
 
@@ -61,6 +71,14 @@ class TrackingScreenModel(
     private var cachedTrackPoints: List<TrackPoint> = emptyList()
     private var mapController: MapLayerController? = null
     private var wasRecordingOrPaused = false
+    private var previousProximityPoiIds: Set<Int> = emptySet()
+    private var isProximityObserving = false
+
+    private val _selectedProximityPoi = MutableStateFlow<PointOfInterest?>(null)
+    val selectedProximityPoi: StateFlow<PointOfInterest?> = _selectedProximityPoi.asStateFlow()
+
+    private val _currentLanguage = MutableStateFlow(Language.fromCode(languageRepository.getSystemLanguage()))
+    val currentLanguage: StateFlow<Language> = _currentLanguage.asStateFlow()
 
     // Helper to get current strings from state
     private val currentStrings: LocalizedStrings
@@ -72,6 +90,7 @@ class TrackingScreenModel(
         // Observe language changes
         screenModelScope.launch {
             languageRepository.observeCurrentLanguage().collect { languageCode ->
+                _currentLanguage.value = Language.fromCode(languageCode)
                 val currentState = _uiState.value
                 _uiState.value = when (currentState) {
                     is TrackingUiState.Idle -> currentState.copy(strings = LocalizedStrings(languageCode))
@@ -259,6 +278,23 @@ class TrackingScreenModel(
         // Never load from database to avoid confusion with old sessions
         screenModelScope.launch {
             trackingManager.trackingState.collect { state ->
+                // Start/stop POI proximity observation based on tracking state
+                // Only call startObserving once to avoid resetting state on every emission
+                when (state) {
+                    is TrackingState.Recording -> {
+                        if (!isProximityObserving) {
+                            isProximityObserving = true
+                            poiProximityManager.startObserving(trackingManager.currentLocation)
+                        }
+                    }
+                    is TrackingState.Stopped, is TrackingState.Completed -> {
+                        isProximityObserving = false
+                        poiProximityManager.stopObserving()
+                        closeProximityPoiPopup()
+                    }
+                    else -> { /* Paused/Error: keep observing */ }
+                }
+
                 _uiState.value = when (state) {
                     is TrackingState.Stopped -> {
                         val skipReposition = wasRecordingOrPaused
@@ -321,10 +357,47 @@ class TrackingScreenModel(
             }
         }
 
+        // Observe nearby POIs and render markers on map
+        screenModelScope.launch {
+            poiProximityManager.nearbyPois.collect { pois ->
+                // Close popup if selected POI is no longer nearby
+                val selected = _selectedProximityPoi.value
+                if (selected != null && pois.none { it.poi.id == selected.id }) {
+                    closeProximityPoiPopup()
+                }
+                mapController?.let { controller ->
+                    renderNearbyPois(controller, pois)
+                }
+            }
+        }
+
+        // Observe POI navigation from notification taps
+        screenModelScope.launch {
+            poiNavigationManager.selectedPoiId.collect { poiId ->
+                if (poiId != null) {
+                    poiNavigationManager.consume()
+                    // Try to find POI in nearby list first (still in range → highlight marker)
+                    val nearbyPoi = poiProximityManager.nearbyPois.value
+                        .find { it.poi.id == poiId }?.poi
+                    val poi = nearbyPoi ?: poiRepository.getPOIById(poiId)
+                    if (poi != null) {
+                        _selectedProximityPoi.value = poi
+                        mapController?.setHighlightedMarker(
+                            "proximity-poi-${poi.id}",
+                            PoiTypeColors.markerHex(poi.type)
+                        )
+                    }
+                }
+            }
+        }
+
     }
 
     fun onMapReady(controller: MapLayerController) {
         mapController = controller
+        controller.setOnMarkerClickListener { markerId ->
+            onMarkerClick(markerId)
+        }
         renderRoutes(controller)
     }
 
@@ -336,6 +409,7 @@ class TrackingScreenModel(
 
     private fun renderRoutes(controller: MapLayerController) {
         controller.clearAll()
+        previousProximityPoiIds = emptySet()
 
         routes.forEachIndexed { index, route ->
             route.gpxData?.let { geoJson ->
@@ -350,6 +424,7 @@ class TrackingScreenModel(
 
         renderTrack(controller)
         renderCurrentLocation(controller)
+        renderNearbyPois(controller, poiProximityManager.nearbyPois.value)
     }
 
     private fun renderTrack(controller: MapLayerController) {
@@ -364,6 +439,28 @@ class TrackingScreenModel(
         } else {
             controller.removeLayer("user-track")
         }
+    }
+
+    private fun renderNearbyPois(controller: MapLayerController, pois: List<NearbyPoi>) {
+        // Remove previous proximity markers
+        for (poiId in previousProximityPoiIds) {
+            controller.removeLayer("proximity-poi-$poiId")
+        }
+
+        // Add new proximity markers
+        val newIds = mutableSetOf<Int>()
+        for (nearby in pois) {
+            val poi = nearby.poi
+            newIds.add(poi.id)
+            controller.addMarker(
+                markerId = "proximity-poi-${poi.id}",
+                latitude = poi.latitude,
+                longitude = poi.longitude,
+                color = PoiTypeColors.markerHex(poi.type),
+                radius = 10f
+            )
+        }
+        previousProximityPoiIds = newIds
     }
 
     private fun renderCurrentLocation(controller: MapLayerController) {
@@ -396,6 +493,19 @@ class TrackingScreenModel(
             put("type", JsonPrimitive("LineString"))
             put("coordinates", JsonArray(coordinates))
         }.toString()
+    }
+
+    private fun onMarkerClick(markerId: String) {
+        if (!markerId.startsWith("proximity-poi-")) return
+        val poiId = markerId.removePrefix("proximity-poi-").toIntOrNull() ?: return
+        val nearby = poiProximityManager.nearbyPois.value.find { it.poi.id == poiId } ?: return
+        _selectedProximityPoi.value = nearby.poi
+        mapController?.setHighlightedMarker(markerId, PoiTypeColors.markerHex(nearby.poi.type))
+    }
+
+    fun closeProximityPoiPopup() {
+        _selectedProximityPoi.value = null
+        mapController?.setHighlightedMarker(null)
     }
 
     /**
@@ -570,6 +680,8 @@ class TrackingScreenModel(
     fun discardTracking() {
         screenModelScope.launch {
             try {
+                isProximityObserving = false
+                poiProximityManager.stopObserving()
                 trackingManager.discardTracking()
                 cachedTrackPoints = emptyList()
                 mapController?.let { controller ->

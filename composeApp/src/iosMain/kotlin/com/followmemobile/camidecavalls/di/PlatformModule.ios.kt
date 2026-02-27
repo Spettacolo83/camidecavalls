@@ -5,6 +5,7 @@ import com.followmemobile.camidecavalls.data.local.DatabaseDriverFactory
 import com.followmemobile.camidecavalls.data.service.IOSLocationService
 import com.followmemobile.camidecavalls.data.service.IOSPermissionHandler
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
+import com.followmemobile.camidecavalls.domain.service.LocalNotificationManager
 import com.followmemobile.camidecavalls.domain.service.LocationService
 import com.followmemobile.camidecavalls.domain.service.PermissionHandler
 import com.russhwolf.settings.NSUserDefaultsSettings
@@ -33,4 +34,7 @@ actual val platformModule = module {
 
     // Background Tracking Manager
     single { BackgroundTrackingManager() }
+
+    // Local Notification Manager (POI proximity)
+    single { LocalNotificationManager(poiNavigationManager = get()) }
 }

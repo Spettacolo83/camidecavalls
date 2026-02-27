@@ -28,6 +28,7 @@ import com.followmemobile.camidecavalls.domain.usecase.tracking.GetAllSessionsUs
 import com.followmemobile.camidecavalls.domain.usecase.tracking.GetSessionByIdUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.StartTrackingSessionUseCase
 import com.followmemobile.camidecavalls.domain.usecase.tracking.StopTrackingSessionUseCase
+import com.followmemobile.camidecavalls.domain.usecase.tracking.PoiProximityManager
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,7 @@ import kotlinx.coroutines.SupervisorJob
 import com.followmemobile.camidecavalls.presentation.about.AboutScreenModel
 import com.followmemobile.camidecavalls.presentation.detail.RouteDetailScreenModel
 import com.followmemobile.camidecavalls.presentation.home.RoutesScreenModel
+import com.followmemobile.camidecavalls.presentation.main.PoiNavigationManager
 import com.followmemobile.camidecavalls.presentation.main.RouteSelectionManager
 import com.followmemobile.camidecavalls.presentation.notebook.NotebookScreenModel
 import com.followmemobile.camidecavalls.presentation.notebook.SessionDetailScreenModel
@@ -100,8 +102,23 @@ val appModule = module {
         )
     }
 
+    // POI Proximity Manager - Singleton with dedicated coroutine scope
+    single {
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        PoiProximityManager(
+            poiRepository = get(),
+            localNotificationManager = get(),
+            languageRepository = get(),
+            settings = get(),
+            scope = scope
+        )
+    }
+
     // Route Selection Manager (cross-tab communication)
     single { RouteSelectionManager() }
+
+    // POI Navigation Manager (notification tap → map POI popup)
+    single { PoiNavigationManager() }
 
     // ScreenModels
     factoryOf(::AboutScreenModel)
@@ -118,6 +135,9 @@ val appModule = module {
             getSimplifiedRoutesUseCase = get(),
             calculateSessionStatsUseCase = get(),
             languageRepository = get(),
+            poiProximityManager = get(),
+            poiNavigationManager = get(),
+            poiRepository = get(),
             routeId = params.getOrNull()
         )
     }

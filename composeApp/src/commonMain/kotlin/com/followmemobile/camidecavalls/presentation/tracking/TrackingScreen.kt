@@ -24,11 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.followmemobile.camidecavalls.domain.model.Language
+import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.model.Route
 import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
+import com.followmemobile.camidecavalls.presentation.detail.openInMaps
+import com.followmemobile.camidecavalls.presentation.pois.POIPopup
 import com.followmemobile.camidecavalls.presentation.map.MapCameraConfig
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
@@ -61,6 +66,8 @@ fun MapTabContent(
     val screenModel: TrackingScreenModel = koinInject { parametersOf(routeId) }
     val backgroundTrackingManager: BackgroundTrackingManager = koinInject()
     val uiState by screenModel.uiState.collectAsState()
+    val selectedProximityPoi by screenModel.selectedProximityPoi.collectAsState()
+    val currentLanguage by screenModel.currentLanguage.collectAsState()
     var showBackgroundPermissionDialog by remember { mutableStateOf(false) }
 
     // Cleanup when leaving composition
@@ -133,6 +140,8 @@ fun MapTabContent(
 
     TrackingContent(
         uiState = uiState,
+        selectedProximityPoi = selectedProximityPoi,
+        currentLanguage = currentLanguage,
         onMapReady = screenModel::onMapReady,
         onMapReleased = screenModel::onMapReleased,
         onStartTracking = onStartTracking,
@@ -145,6 +154,7 @@ fun MapTabContent(
         onStartNewSession = onStartNewSession,
         onClearError = { screenModel.clearError() },
         getDefaultSessionName = { screenModel.getDefaultSessionName() },
+        onCloseProximityPopup = { screenModel.closeProximityPoiPopup() },
         fabBottomPadding = fabBottomPadding
     )
 }
@@ -153,6 +163,8 @@ fun MapTabContent(
 @Composable
 private fun TrackingContent(
     uiState: TrackingUiState,
+    selectedProximityPoi: PointOfInterest?,
+    currentLanguage: Language,
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
     onStartTracking: () -> Unit,
@@ -165,6 +177,7 @@ private fun TrackingContent(
     onStartNewSession: () -> Unit,
     onClearError: () -> Unit,
     getDefaultSessionName: () -> String,
+    onCloseProximityPopup: () -> Unit,
     fabBottomPadding: androidx.compose.ui.unit.Dp = 0.dp
 ) {
     var showSaveDialog by remember { mutableStateOf(false) }
@@ -275,6 +288,8 @@ private fun TrackingContent(
                     distanceMeters = uiState.distanceMeters,
                     durationSeconds = uiState.durationSeconds,
                     isPaused = false,
+                    selectedProximityPoi = selectedProximityPoi,
+                    currentLanguage = currentLanguage,
                     onMapReady = onMapReady,
                     onMapReleased = onMapReleased,
                     onPauseOrResume = onPauseTracking,
@@ -282,6 +297,7 @@ private fun TrackingContent(
                         sessionName = getDefaultSessionName()
                         showSaveDialog = true
                     },
+                    onCloseProximityPopup = onCloseProximityPopup,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -297,6 +313,8 @@ private fun TrackingContent(
                     distanceMeters = uiState.distanceMeters,
                     durationSeconds = uiState.durationSeconds,
                     isPaused = true,
+                    selectedProximityPoi = selectedProximityPoi,
+                    currentLanguage = currentLanguage,
                     onMapReady = onMapReady,
                     onMapReleased = onMapReleased,
                     onPauseOrResume = onResumeTracking,
@@ -304,6 +322,7 @@ private fun TrackingContent(
                         sessionName = getDefaultSessionName()
                         showSaveDialog = true
                     },
+                    onCloseProximityPopup = onCloseProximityPopup,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -449,14 +468,19 @@ private fun ActiveTrackingContent(
     distanceMeters: Double,
     durationSeconds: Long,
     isPaused: Boolean,
+    selectedProximityPoi: PointOfInterest?,
+    currentLanguage: Language,
     onMapReady: (MapLayerController) -> Unit,
     onMapReleased: (MapLayerController) -> Unit,
     onPauseOrResume: () -> Unit,
     onStopTracking: () -> Unit,
+    onCloseProximityPopup: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
+    var selectedPoiForDetail by remember { mutableStateOf<PointOfInterest?>(null) }
+    val detailSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     val viewportState = rememberMenorcaViewportState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize().then(modifier)) {
@@ -656,6 +680,51 @@ private fun ActiveTrackingContent(
                     )
                 }
             }
+        }
+
+        // POI proximity popup overlay
+        selectedProximityPoi?.let { poi ->
+            POIPopup(
+                poi = poi,
+                currentLanguage = currentLanguage,
+                onClose = onCloseProximityPopup,
+                onShowDetails = {
+                    selectedPoiForDetail = poi
+                    onCloseProximityPopup()
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 88.dp)
+            )
+        }
+    }
+
+    // POI detail bottom sheet
+    selectedPoiForDetail?.let { poi ->
+        val sheetBackgroundColor = when (poi.type.name) {
+            "BEACH" -> androidx.compose.ui.graphics.Color(0xFFE6F5FF)
+            "NATURAL" -> androidx.compose.ui.graphics.Color(0xFFEAF7EA)
+            "HISTORIC" -> androidx.compose.ui.graphics.Color(0xFFFFE6E6)
+            else -> androidx.compose.ui.graphics.Color(0xFFF5F5F5)
+        }
+        ModalBottomSheet(
+            onDismissRequest = { selectedPoiForDetail = null },
+            sheetState = detailSheetState,
+            containerColor = sheetBackgroundColor,
+            dragHandle = { BottomSheetDefaults.DragHandle() }
+        ) {
+            POIDetailContent(
+                poi = poi,
+                currentLanguage = currentLanguage,
+                onBackClick = { selectedPoiForDetail = null },
+                onNavigateClick = { poiToNavigate ->
+                    openInMaps(
+                        poiToNavigate.latitude,
+                        poiToNavigate.longitude,
+                        poiToNavigate.getName(currentLanguage)
+                    )
+                }
+            )
         }
     }
 

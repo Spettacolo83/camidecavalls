@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import com.followmemobile.camidecavalls.data.RouteData
 import com.followmemobile.camidecavalls.di.appModule
 import com.followmemobile.camidecavalls.di.platformModule
+import com.followmemobile.camidecavalls.domain.service.LocalNotificationManager
 import com.followmemobile.camidecavalls.domain.usecase.route.InitializeDatabaseUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
 import org.koin.compose.KoinApplication
@@ -21,6 +22,9 @@ actual fun KoinInitializer(content: @Composable () -> Unit) {
             modules(appModule, platformModule)
         }
     ) {
+        // Eagerly initialize LocalNotificationManager to set UNUserNotificationCenter delegate
+        koinInject<LocalNotificationManager>()
+
         // Initialize database on first launch
         val initializeDatabaseUseCase: InitializeDatabaseUseCase = koinInject()
         val initializePOIsUseCase: InitializePOIsUseCase = koinInject()

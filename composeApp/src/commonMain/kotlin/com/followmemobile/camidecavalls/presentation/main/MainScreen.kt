@@ -34,6 +34,7 @@ import com.followmemobile.camidecavalls.presentation.notebook.NotebookTabContent
 import com.followmemobile.camidecavalls.presentation.notebook.SessionDetailScreen
 import com.followmemobile.camidecavalls.presentation.pois.POIsTabContent
 import com.followmemobile.camidecavalls.presentation.settings.LanguageSettingsScreen
+import com.followmemobile.camidecavalls.presentation.settings.PoiSettingsScreen
 import com.followmemobile.camidecavalls.presentation.settings.SettingsHubContent
 import com.followmemobile.camidecavalls.presentation.tracking.MapTabContent
 import org.koin.compose.koinInject
@@ -67,6 +68,16 @@ class MainScreen : Screen {
         // Hide bottom bar during active tracking (Recording/Paused)
         val showBottomBar = trackingState !is TrackingState.Recording
                 && trackingState !is TrackingState.Paused
+
+        // Observe PoiNavigationManager for notification tap → MAP tab
+        val poiNavigationManager: PoiNavigationManager = koinInject()
+        val poiNavigation by poiNavigationManager.selectedPoiId.collectAsState()
+
+        LaunchedEffect(poiNavigation) {
+            if (poiNavigation != null) {
+                currentTab = BottomTab.MAP
+            }
+        }
 
         // Observe RouteSelectionManager for cross-tab navigation
         val routeSelectionManager: RouteSelectionManager = koinInject()
@@ -144,6 +155,7 @@ class MainScreen : Screen {
                         SettingsHubContent(
                             strings = strings,
                             onLanguageClick = { navigator.push(LanguageSettingsScreen()) },
+                            onPoiSettingsClick = { navigator.push(PoiSettingsScreen()) },
                             onAboutClick = { navigator.push(AboutCamiScreen()) }
                         )
                     }

@@ -48,6 +48,13 @@ class POIRepositoryImpl(
             }
     }
 
+    override suspend fun getPOIById(id: Int): PointOfInterest? = withContext(Dispatchers.IO) {
+        database.poiQueries
+            .selectById(id.toLong())
+            .executeAsOneOrNull()
+            ?.toDomain()
+    }
+
     override suspend fun getPOIsNearLocation(
         latitude: Double,
         longitude: Double,

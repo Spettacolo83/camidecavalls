@@ -15,6 +15,7 @@ import android.os.Looper
 import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import com.followmemobile.camidecavalls.MainActivity
+import com.followmemobile.camidecavalls.R
 import com.followmemobile.camidecavalls.data.local.CamiDatabaseWrapper
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationData
@@ -425,7 +426,7 @@ class LocationForegroundService : Service(), KoinComponent {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(notificationTitleText)
             .setContentText(contentText)
-            .setSmallIcon(android.R.drawable.ic_menu_mylocation)
+            .setSmallIcon(R.drawable.ic_notification)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)

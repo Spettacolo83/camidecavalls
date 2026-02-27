@@ -41,15 +41,19 @@ actual fun rememberBackgroundPermissionRequester(
 }
 
 /**
- * iOS: No notification permission needed for background tracking.
- * The blue status bar indicator is managed by the system.
+ * iOS: Request notification permission for POI proximity alerts.
+ * Uses UNUserNotificationCenter to request Alert + Sound authorization.
  */
 @Composable
 actual fun rememberNotificationPermissionRequester(
     onPermissionResult: (Boolean) -> Unit
 ): () -> Unit {
     return {
-        // iOS doesn't use notifications for background tracking
-        onPermissionResult(true)
+        val center = platform.UserNotifications.UNUserNotificationCenter.currentNotificationCenter()
+        val options = platform.UserNotifications.UNAuthorizationOptionAlert or
+                platform.UserNotifications.UNAuthorizationOptionSound
+        center.requestAuthorizationWithOptions(options) { granted, _ ->
+            onPermissionResult(granted)
+        }
     }
 }
