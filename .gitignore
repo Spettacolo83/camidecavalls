@@ -48,3 +48,14 @@ DerivedData/
 # IDE
 .vscode/
 .claude/
+
+# Secrets and credentials
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+google-services.json
+GoogleService-Info.plist
