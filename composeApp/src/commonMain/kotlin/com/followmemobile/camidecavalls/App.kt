@@ -16,6 +16,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.navigator.Navigator
 import com.followmemobile.camidecavalls.presentation.main.MainScreen
 import com.followmemobile.camidecavalls.domain.usecase.tracking.TrackingManager
@@ -29,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.followmemobile.camidecavalls.domain.repository.LanguageRepository
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import com.followmemobile.camidecavalls.presentation.splash.SplashScreen
 import androidx.compose.ui.graphics.Color
 
 @Composable
@@ -43,22 +47,28 @@ fun App() {
             colorScheme = seaColorScheme,
             typography = AppTypography()
         ) {
-            val trackingManager: TrackingManager = koinInject()
-            val trackingState by trackingManager.trackingState.collectAsState()
-            val languageRepository: LanguageRepository = koinInject()
-            val language by languageRepository.observeCurrentLanguage().collectAsState(initial = languageRepository.getSystemLanguage())
-            val strings = LocalizedStrings(language)
+            var showSplash by remember { mutableStateOf(true) }
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                Navigator(MainScreen())
+            if (showSplash) {
+                SplashScreen(onFinished = { showSplash = false })
+            } else {
+                val trackingManager: TrackingManager = koinInject()
+                val trackingState by trackingManager.trackingState.collectAsState()
+                val languageRepository: LanguageRepository = koinInject()
+                val language by languageRepository.observeCurrentLanguage().collectAsState(initial = languageRepository.getSystemLanguage())
+                val strings = LocalizedStrings(language)
 
-                if (trackingState is TrackingState.Recording) {
-                    RecordingBadge(
-                        text = strings.trackingRecordingBadge,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .padding(top = 44.dp, end = 16.dp)
-                    )
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Navigator(MainScreen())
+
+                    if (trackingState is TrackingState.Recording) {
+                        RecordingBadge(
+                            text = strings.trackingRecordingBadge,
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(top = 44.dp, end = 16.dp)
+                        )
+                    }
                 }
             }
         }
