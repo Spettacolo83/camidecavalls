@@ -36,12 +36,17 @@ import com.followmemobile.camidecavalls.domain.model.Language
 import com.followmemobile.camidecavalls.domain.model.POIType
 import com.followmemobile.camidecavalls.domain.model.PointOfInterest
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import com.followmemobile.camidecavalls.data.weather.WeatherService
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
+import com.followmemobile.camidecavalls.presentation.icons.WeatherIcon
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
 import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
+import com.followmemobile.camidecavalls.presentation.weather.WeatherPopup
+import com.followmemobile.camidecavalls.presentation.weather.WeatherUiState
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import kotlin.math.roundToInt
 
@@ -121,6 +126,11 @@ private fun POIsScreenContent(
     var filtersVisible by remember { mutableStateOf(false) }
     val filterTransitionState = remember { MutableTransitionState(false) }
 
+    // Weather state
+    val weatherService: WeatherService = koinInject()
+    var weatherState by remember { mutableStateOf<WeatherUiState>(WeatherUiState.Hidden) }
+    val weatherScope = rememberCoroutineScope()
+
     LaunchedEffect(filtersVisible) {
         filterTransitionState.targetState = filtersVisible
     }
@@ -133,8 +143,8 @@ private fun POIsScreenContent(
         )
     }
 
-    // Popup bottom aligns with the filter FAB bottom (24dp padding + FAB height ~56dp = 80dp)
-    val effectivePopupBottom = 24.dp + fabBottomPadding
+    // Popup bottom: 24dp padding + 56dp FAB height + 8dp gap
+    val effectivePopupBottom = 88.dp + fabBottomPadding
     val popupBottomPaddingPx = remember(density, fabBottomPadding) { with(density) { effectivePopupBottom.roundToPx() } }
     LaunchedEffect(popupBottomPaddingPx) {
         onPopupBottomPaddingResolved(popupBottomPaddingPx)
@@ -198,6 +208,47 @@ private fun POIsScreenContent(
                     Text(uiState.error)
                 }
             }
+
+            // Weather FAB
+            FloatingActionButton(
+                onClick = {
+                    if (weatherState is WeatherUiState.Visible || weatherState is WeatherUiState.Error) {
+                        weatherState = WeatherUiState.Hidden
+                    } else {
+                        weatherState = WeatherUiState.Loading
+                        weatherScope.launch {
+                            weatherState = try {
+                                val days = weatherService.getForecast()
+                                WeatherUiState.Visible(days)
+                            } catch (_: Exception) {
+                                WeatherUiState.Error(uiState.strings.weatherNoConnection)
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(bottom = 24.dp + fabBottomPadding, start = 16.dp),
+                containerColor = Color(0xFF1C1C2E),
+                contentColor = Color(0xFF4FC3F7)
+            ) {
+                Icon(
+                    imageVector = WeatherIcon,
+                    contentDescription = "Weather",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
+            // Weather popup (includes loading state)
+            WeatherPopup(
+                state = weatherState,
+                strings = uiState.strings,
+                weatherService = weatherService,
+                onClose = { weatherState = WeatherUiState.Hidden },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = effectivePopupBottom)
+            )
 
                 // Filter FAB - declared BEFORE popup so popup draws on top
             FloatingActionButton(
