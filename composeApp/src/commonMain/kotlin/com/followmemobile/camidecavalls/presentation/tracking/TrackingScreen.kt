@@ -31,7 +31,9 @@ import com.followmemobile.camidecavalls.domain.model.TrackPoint
 import com.followmemobile.camidecavalls.domain.service.BackgroundTrackingManager
 import com.followmemobile.camidecavalls.domain.service.LocationData
 import com.followmemobile.camidecavalls.domain.util.LocalizedStrings
+import com.followmemobile.camidecavalls.data.weather.WeatherService
 import com.followmemobile.camidecavalls.presentation.detail.POIDetailContent
+import com.followmemobile.camidecavalls.presentation.icons.WeatherIcon
 import com.followmemobile.camidecavalls.presentation.detail.openInMaps
 import com.followmemobile.camidecavalls.presentation.pois.POIPopup
 import com.followmemobile.camidecavalls.presentation.map.MapCameraConfig
@@ -39,6 +41,9 @@ import com.followmemobile.camidecavalls.presentation.map.MapLayerController
 import com.followmemobile.camidecavalls.presentation.map.MapStyles
 import com.followmemobile.camidecavalls.presentation.map.MapWithLayers
 import com.followmemobile.camidecavalls.presentation.map.rememberMenorcaViewportState
+import com.followmemobile.camidecavalls.presentation.weather.WeatherPopup
+import com.followmemobile.camidecavalls.presentation.weather.WeatherUiState
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -420,12 +425,58 @@ private fun IdleContent(
             }
         )
 
+        // Weather state
+        val weatherService: WeatherService = koinInject()
+        var weatherState by remember { mutableStateOf<WeatherUiState>(WeatherUiState.Hidden) }
+        val weatherScope = rememberCoroutineScope()
+
+        // Weather FAB
+        FloatingActionButton(
+            onClick = {
+                if (weatherState is WeatherUiState.Visible || weatherState is WeatherUiState.Error) {
+                    weatherState = WeatherUiState.Hidden
+                } else {
+                    weatherState = WeatherUiState.Loading
+                    weatherScope.launch {
+                        weatherState = try {
+                            val days = weatherService.getForecast()
+                            WeatherUiState.Visible(days)
+                        } catch (_: Exception) {
+                            WeatherUiState.Error(strings.weatherNoConnection)
+                        }
+                    }
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 24.dp + fabBottomPadding, start = 16.dp),
+            containerColor = FabDarkBackground,
+            contentColor = FabSelectedBlue
+        ) {
+            Icon(
+                imageVector = WeatherIcon,
+                contentDescription = "Weather",
+                modifier = Modifier.size(28.dp)
+            )
+        }
+
+        // Weather popup (includes loading state)
+        WeatherPopup(
+            state = weatherState,
+            strings = strings,
+            weatherService = weatherService,
+            onClose = { weatherState = WeatherUiState.Hidden },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 88.dp + fabBottomPadding)
+        )
+
         // Start Tracking FAB (matches bottom bar style)
         ExtendedFloatingActionButton(
             onClick = onStartTracking,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp + fabBottomPadding),
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 24.dp + fabBottomPadding),
             containerColor = FabDarkBackground,
             contentColor = FabSelectedBlue,
             icon = { Icon(Icons.Default.Flag, contentDescription = null) },

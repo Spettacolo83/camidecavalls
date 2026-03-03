@@ -2,6 +2,7 @@ package com.followmemobile.camidecavalls.di
 
 import com.followmemobile.camidecavalls.data.local.CamiDatabaseWrapper
 import com.followmemobile.camidecavalls.data.repository.LanguageRepositoryImpl
+import com.followmemobile.camidecavalls.data.weather.WeatherService
 import com.followmemobile.camidecavalls.data.repository.POIRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.RouteRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.TrackingRepositoryImpl
@@ -43,6 +44,10 @@ import com.followmemobile.camidecavalls.presentation.notebook.SessionDetailScree
 import com.followmemobile.camidecavalls.presentation.pois.POIsScreenModel
 import com.followmemobile.camidecavalls.presentation.settings.SettingsScreenModel
 import com.followmemobile.camidecavalls.presentation.tracking.TrackingScreenModel
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -54,6 +59,18 @@ import org.koin.dsl.module
  * Platform-specific modules (platformModule) are defined in androidMain and iosMain.
  */
 val appModule = module {
+    // HTTP Client
+    single {
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
+            }
+        }
+    }
+
+    // Weather
+    single { WeatherService(get()) }
+
     // Database
     single { CamiDatabaseWrapper(get()) }
 

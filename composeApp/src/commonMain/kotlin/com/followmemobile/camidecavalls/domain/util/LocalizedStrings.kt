@@ -178,6 +178,12 @@ class LocalizedStrings(val languageCode: String) {
     val settingsPoiNotificationRadius: String get() = strings.settingsPoiNotificationRadius
     val settingsPoiNotificationsEnabled: String get() = strings.settingsPoiNotificationsEnabled
     val settingsPoiMaxVisible: String get() = strings.settingsPoiMaxVisible
+
+    // Weather
+    val weatherTitle: String get() = strings.weatherTitle
+    val weatherMoreInfo: String get() = strings.weatherMoreInfo
+    val weatherNoConnection: String get() = strings.weatherNoConnection
+    val weatherDayName: (Int) -> String = { dayOfWeek -> strings.weatherDayName(dayOfWeek) }
 }
 
 private interface Strings {
@@ -343,6 +349,12 @@ private interface Strings {
     val settingsPoiNotificationRadius: String
     val settingsPoiNotificationsEnabled: String
     val settingsPoiMaxVisible: String
+
+    // Weather
+    val weatherTitle: String
+    val weatherMoreInfo: String
+    val weatherNoConnection: String
+    fun weatherDayName(dayOfWeek: Int): String
 }
 
 private object StringsCa : Strings {
@@ -489,6 +501,12 @@ private object StringsCa : Strings {
     override val settingsPoiNotificationRadius = "Radi de notificació"
     override val settingsPoiNotificationsEnabled = "Notificacions POI"
     override val settingsPoiMaxVisible = "POI visibles"
+    override val weatherTitle = "Previsió Meteo"
+    override val weatherMoreInfo = "Més informació meteo"
+    override val weatherNoConnection = "No hi ha connexió disponible"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Dll"; 2 -> "Dm"; 3 -> "Dc"; 4 -> "Dj"; 5 -> "Dv"; 6 -> "Ds"; 7 -> "Dg"; else -> ""
+    }
 }
 
 private object StringsEs : Strings {
@@ -635,6 +653,12 @@ private object StringsEs : Strings {
     override val settingsPoiNotificationRadius = "Radio de notificación"
     override val settingsPoiNotificationsEnabled = "Notificaciones POI"
     override val settingsPoiMaxVisible = "POI visibles"
+    override val weatherTitle = "Previsión Meteorológica"
+    override val weatherMoreInfo = "Más información meteorológica"
+    override val weatherNoConnection = "Sin conexión disponible"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Lun"; 2 -> "Mar"; 3 -> "Mié"; 4 -> "Jue"; 5 -> "Vie"; 6 -> "Sáb"; 7 -> "Dom"; else -> ""
+    }
 }
 
 private object StringsEn : Strings {
@@ -781,6 +805,12 @@ private object StringsEn : Strings {
     override val settingsPoiNotificationRadius = "Notification radius"
     override val settingsPoiNotificationsEnabled = "POI Notifications"
     override val settingsPoiMaxVisible = "Visible POIs"
+    override val weatherTitle = "Weather Forecast"
+    override val weatherMoreInfo = "More weather info"
+    override val weatherNoConnection = "No connection available"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Mon"; 2 -> "Tue"; 3 -> "Wed"; 4 -> "Thu"; 5 -> "Fri"; 6 -> "Sat"; 7 -> "Sun"; else -> ""
+    }
 }
 
 private object StringsDe : Strings {
@@ -927,6 +957,12 @@ private object StringsDe : Strings {
     override val settingsPoiNotificationRadius = "Benachrichtigungsradius"
     override val settingsPoiNotificationsEnabled = "POI-Benachrichtigungen"
     override val settingsPoiMaxVisible = "Sichtbare POI"
+    override val weatherTitle = "Wettervorhersage"
+    override val weatherMoreInfo = "Mehr Wetterinfos"
+    override val weatherNoConnection = "Keine Verbindung verfügbar"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Mo"; 2 -> "Di"; 3 -> "Mi"; 4 -> "Do"; 5 -> "Fr"; 6 -> "Sa"; 7 -> "So"; else -> ""
+    }
 }
 
 private object StringsFr : Strings {
@@ -1073,6 +1109,12 @@ private object StringsFr : Strings {
     override val settingsPoiNotificationRadius = "Rayon de notification"
     override val settingsPoiNotificationsEnabled = "Notifications POI"
     override val settingsPoiMaxVisible = "POI visibles"
+    override val weatherTitle = "Prévisions Météo"
+    override val weatherMoreInfo = "Plus d'infos météo"
+    override val weatherNoConnection = "Aucune connexion disponible"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Lun"; 2 -> "Mar"; 3 -> "Mer"; 4 -> "Jeu"; 5 -> "Ven"; 6 -> "Sam"; 7 -> "Dim"; else -> ""
+    }
 }
 
 private object StringsIt : Strings {
@@ -1219,4 +1261,10 @@ private object StringsIt : Strings {
     override val settingsPoiNotificationRadius = "Raggio di notifica"
     override val settingsPoiNotificationsEnabled = "Notifiche POI"
     override val settingsPoiMaxVisible = "POI visibili"
+    override val weatherTitle = "Previsioni Meteo"
+    override val weatherMoreInfo = "Altre informazioni meteo"
+    override val weatherNoConnection = "Nessuna connessione disponibile"
+    override fun weatherDayName(dayOfWeek: Int) = when (dayOfWeek) {
+        1 -> "Lun"; 2 -> "Mar"; 3 -> "Mer"; 4 -> "Gio"; 5 -> "Ven"; 6 -> "Sab"; 7 -> "Dom"; else -> ""
+    }
 }
