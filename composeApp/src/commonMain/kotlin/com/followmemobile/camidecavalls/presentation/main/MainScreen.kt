@@ -76,6 +76,9 @@ class MainScreen : Screen {
         LaunchedEffect(poiNavigation) {
             if (poiNavigation != null) {
                 currentTab = BottomTab.MAP
+                // Delay before consuming to ensure TrackingScreenModel has processed the event
+                kotlinx.coroutines.delay(300)
+                poiNavigationManager.consume()
             }
         }
 

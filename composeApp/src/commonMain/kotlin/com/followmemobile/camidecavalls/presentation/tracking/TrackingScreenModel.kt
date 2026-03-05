@@ -372,10 +372,10 @@ class TrackingScreenModel(
         }
 
         // Observe POI navigation from notification taps
+        // Note: consume() is called by MainScreen after all observers have processed the event
         screenModelScope.launch {
             poiNavigationManager.selectedPoiId.collect { poiId ->
                 if (poiId != null) {
-                    poiNavigationManager.consume()
                     // Try to find POI in nearby list first (still in range → highlight marker)
                     val nearbyPoi = poiProximityManager.nearbyPois.value
                         .find { it.poi.id == poiId }?.poi

@@ -28,10 +28,13 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.PathParser
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 import kotlin.random.Random
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 private val GradientTop = Color(0xFF00C8FF)
 private val GradientBottom = Color(0xFF004CFF)
@@ -44,6 +47,9 @@ private const val ROUTE_SCALE_ADJUST = 0.97f
 // Tiny offset to fine-tune after scale (in SVG coordinate units)
 private const val ROUTE_SHIFT_X = 3f
 private const val ROUTE_SHIFT_Y = -3f
+
+// Logo and text max opacity (slightly transparent for visual softness)
+private const val LOGO_TEXT_MAX_ALPHA = 0.85f
 
 @Composable
 fun SplashScreen(onFinished: () -> Unit) {
@@ -96,15 +102,21 @@ fun SplashScreen(onFinished: () -> Unit) {
             targetValue = 1f,
             animationSpec = tween(durationMillis = 2000, easing = FastOutSlowInEasing)
         )
-        // Step 3: Cross-fade to logo (3.0 → 3.8s)
-        crossFade.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
-        )
-        logoScale.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
-        )
+        // Step 3: Cross-fade to logo + logo scale in parallel (3.0 → 3.8s)
+        coroutineScope {
+            launch {
+                crossFade.animateTo(
+                    targetValue = 1f,
+                    animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
+                )
+            }
+            launch {
+                logoScale.animateTo(
+                    targetValue = 1f,
+                    animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
+                )
+            }
+        }
         // Step 4: Text fade-in (3.8 → 4.5s)
         textAlpha.animateTo(
             targetValue = 1f,
@@ -126,124 +138,132 @@ fun SplashScreen(onFinished: () -> Unit) {
         contentAlignment = Alignment.Center
     ) {
         // Phase 1+2: Menorca silhouette + route tracing
+        // Always composed, visibility controlled by graphicsLayer alpha
         val mapAlpha = 1f - crossFade.value
-        if (mapAlpha > 0f) {
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                val canvasW = size.width
-                val canvasH = size.height
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer { alpha = mapAlpha }
+        ) {
+            val canvasW = size.width
+            val canvasH = size.height
 
-                // Compute the Menorca drawing area from the silhouette's actual bounds
-                val silAspect = menorcaMapBounds.width / menorcaMapBounds.height
-                val drawWidth = canvasW * MENORCA_WIDTH_FRACTION
-                val drawHeight = drawWidth / silAspect
-                val drawLeft = (canvasW - drawWidth) / 2f
-                val drawTop = (canvasH - drawHeight) / 2f
+            // Compute the Menorca drawing area from the silhouette's actual bounds
+            val silAspect = menorcaMapBounds.width / menorcaMapBounds.height
+            val drawWidth = canvasW * MENORCA_WIDTH_FRACTION
+            val drawHeight = drawWidth / silAspect
+            val drawLeft = (canvasW - drawWidth) / 2f
+            val drawTop = (canvasH - drawHeight) / 2f
 
-                // Draw silhouette: fit SVG path bounds into the drawing area
-                val silScale = drawWidth / menorcaMapBounds.width
-                val silOffsetX = drawLeft - menorcaMapBounds.left * silScale
-                val silOffsetY = drawTop - menorcaMapBounds.top * silScale
+            // Draw silhouette: fit SVG path bounds into the drawing area
+            val silScale = drawWidth / menorcaMapBounds.width
+            val silOffsetX = drawLeft - menorcaMapBounds.left * silScale
+            val silOffsetY = drawTop - menorcaMapBounds.top * silScale
 
-                scale(menorcaScale.value, pivot = Offset(canvasW / 2f, canvasH / 2f)) {
-                    translate(silOffsetX, silOffsetY) {
-                        scale(silScale, pivot = Offset.Zero) {
+            scale(menorcaScale.value, pivot = Offset(canvasW / 2f, canvasH / 2f)) {
+                translate(silOffsetX, silOffsetY) {
+                    scale(silScale, pivot = Offset.Zero) {
+                        drawPath(
+                            path = menorcaMapPath,
+                            color = Color.White.copy(alpha = 0.18f),
+                            style = Fill
+                        )
+                    }
+                }
+            }
+
+            // Draw route tracing using the same transform as the silhouette
+            // with slight scale-down centered on the silhouette center
+            if (routeProgress.value > 0f) {
+                val silCenterX = (menorcaMapBounds.left + menorcaMapBounds.right) / 2f
+                val silCenterY = (menorcaMapBounds.top + menorcaMapBounds.bottom) / 2f
+                drawRouteTracing(
+                    routeColors = routeColors,
+                    progress = routeProgress.value,
+                    alpha = 1f,
+                    svgScale = silScale,
+                    svgOffsetX = silOffsetX,
+                    svgOffsetY = silOffsetY,
+                    silCenterX = silCenterX,
+                    silCenterY = silCenterY
+                )
+            }
+        }
+
+        // Phase 3+4: Logo + text
+        // Always composed to avoid cold-start delay on iOS
+        val logoAlpha = crossFade.value * screenAlpha.value * LOGO_TEXT_MAX_ALPHA
+
+        // Logo Canvas (60% of screen width)
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize(0.6f)
+                .graphicsLayer { alpha = crossFade.value * screenAlpha.value }
+        ) {
+            val canvasW = size.width
+            val canvasH = size.height
+            val pivotCenter = Offset(canvasW / 2f, canvasH / 2f)
+
+            if (useHorseVariant) {
+                // Horse variant: 188.176x188.176 viewport
+                val vp = MenorcaSilhouetteData.HORSE_ICON_VIEWPORT_SIZE
+                val fitScale = min(canvasW / vp, canvasH / vp)
+                val offsetX = (canvasW - vp * fitScale) / 2f
+                val offsetY = (canvasH - vp * fitScale) / 2f
+
+                scale(logoScale.value, pivot = pivotCenter) {
+                    translate(offsetX, offsetY) {
+                        scale(fitScale, pivot = Offset.Zero) {
                             drawPath(
-                                path = menorcaMapPath,
-                                color = Color.White.copy(alpha = 0.18f * mapAlpha),
+                                path = logoHorseIconPath,
+                                color = Color.White.copy(alpha = LOGO_TEXT_MAX_ALPHA),
                                 style = Fill
                             )
                         }
                     }
                 }
+            } else {
+                // Menorca variant: 500x500 viewport
+                val vw = MenorcaSilhouetteData.ICON_VIEWPORT_WIDTH
+                val vh = MenorcaSilhouetteData.ICON_VIEWPORT_HEIGHT
+                val fitScale = min(canvasW / vw, canvasH / vh)
+                val offsetX = (canvasW - vw * fitScale) / 2f
+                val offsetY = (canvasH - vh * fitScale) / 2f
 
-                // Draw route tracing using the same transform as the silhouette
-                // with slight scale-down centered on the silhouette center
-                if (routeProgress.value > 0f) {
-                    val silCenterX = (menorcaMapBounds.left + menorcaMapBounds.right) / 2f
-                    val silCenterY = (menorcaMapBounds.top + menorcaMapBounds.bottom) / 2f
-                    drawRouteTracing(
-                        routeColors = routeColors,
-                        progress = routeProgress.value,
-                        alpha = mapAlpha,
-                        svgScale = silScale,
-                        svgOffsetX = silOffsetX,
-                        svgOffsetY = silOffsetY,
-                        silCenterX = silCenterX,
-                        silCenterY = silCenterY
-                    )
+                scale(logoScale.value, pivot = pivotCenter) {
+                    translate(offsetX, offsetY) {
+                        scale(fitScale, pivot = Offset.Zero) {
+                            drawPath(
+                                path = logoMenorcaHorseshoePath,
+                                color = Color.White.copy(alpha = LOGO_TEXT_MAX_ALPHA),
+                                style = Fill
+                            )
+                            drawPath(
+                                path = logoMenorcaSilhouettePath,
+                                color = Color.White.copy(alpha = LOGO_TEXT_MAX_ALPHA),
+                                style = Fill
+                            )
+                        }
+                    }
                 }
             }
         }
 
-        // Phase 3+4: Logo + text
-        if (crossFade.value > 0f) {
-            val logoAlpha = crossFade.value * screenAlpha.value
-
-            // Logo Canvas (60% of screen width)
-            Canvas(modifier = Modifier.fillMaxSize(0.6f)) {
-                val canvasW = size.width
-                val canvasH = size.height
-                val pivotCenter = Offset(canvasW / 2f, canvasH / 2f)
-
-                if (useHorseVariant) {
-                    // Horse variant: 188.176x188.176 viewport
-                    val vp = MenorcaSilhouetteData.HORSE_ICON_VIEWPORT_SIZE
-                    val fitScale = min(canvasW / vp, canvasH / vp)
-                    val offsetX = (canvasW - vp * fitScale) / 2f
-                    val offsetY = (canvasH - vp * fitScale) / 2f
-
-                    scale(logoScale.value, pivot = pivotCenter) {
-                        translate(offsetX, offsetY) {
-                            scale(fitScale, pivot = Offset.Zero) {
-                                drawPath(
-                                    path = logoHorseIconPath,
-                                    color = Color.White.copy(alpha = logoAlpha),
-                                    style = Fill
-                                )
-                            }
-                        }
-                    }
-                } else {
-                    // Menorca variant: 500x500 viewport
-                    val vw = MenorcaSilhouetteData.ICON_VIEWPORT_WIDTH
-                    val vh = MenorcaSilhouetteData.ICON_VIEWPORT_HEIGHT
-                    val fitScale = min(canvasW / vw, canvasH / vh)
-                    val offsetX = (canvasW - vw * fitScale) / 2f
-                    val offsetY = (canvasH - vh * fitScale) / 2f
-
-                    scale(logoScale.value, pivot = pivotCenter) {
-                        translate(offsetX, offsetY) {
-                            scale(fitScale, pivot = Offset.Zero) {
-                                drawPath(
-                                    path = logoMenorcaHorseshoePath,
-                                    color = Color.White.copy(alpha = logoAlpha),
-                                    style = Fill
-                                )
-                                drawPath(
-                                    path = logoMenorcaSilhouettePath,
-                                    color = Color.White.copy(alpha = logoAlpha),
-                                    style = Fill
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Text below logo
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.weight(0.72f))
-                Text(
-                    text = "Cam\u00ED de Cavalls",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.White.copy(alpha = textAlpha.value * screenAlpha.value),
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.weight(0.28f))
-            }
+        // Text below logo
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer { alpha = textAlpha.value * screenAlpha.value },
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(0.72f))
+            Text(
+                text = "Cam\u00ED de Cavalls",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.White.copy(alpha = LOGO_TEXT_MAX_ALPHA),
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(0.28f))
         }
     }
 }
