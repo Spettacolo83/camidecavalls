@@ -33,9 +33,9 @@ A modern Kotlin Multiplatform trekking/hiking application for exploring the lege
 - 🗺️ **Complete Route**: Virtual "Complete Route" (185km full loop Maó–Maó) combining all 20 stages with aggregated statistics, elevation profile, and combined GeoJSON track
 - 📊 **Session Summary Overlay**: Post-tracking session summary displayed as a dark card overlay on the map with key statistics
 - 📱 **Android Immersive Mode**: Full-screen experience hiding system navigation bar with swipe-to-reveal
-
-**Planned:**
-- 🔔 **Proximity Alerts**: Get notified when approaching important points
+- 🔔 **POI Proximity Notifications**: Real-time local notifications when approaching nearby POIs during tracking, with tap-to-open POI detail popup (both Android and iOS)
+- 🎬 **Animated Splash Screen**: Menorca silhouette with route tracing animation, cross-fade to logo, randomized horse/horseshoe variant
+- 🌦️ **Weather Forecast**: 5-day weather forecast popup via Open-Meteo API with daily temperature, precipitation, and weather icons
 
 ### Business Model
 
@@ -141,8 +141,8 @@ composeApp/
   - Optimized indexes for location queries
   - Foreign keys with cascade deletes
 
-#### Networking (Future)
-- **Ktor 3.0.1**: HTTP client for backend API
+#### Networking
+- **Ktor 3.0.1**: HTTP client (Open-Meteo weather API)
 
 #### Navigation
 - **Voyager 1.1.0-beta02**: Type-safe navigation
@@ -428,8 +428,24 @@ Build in Xcode with Release configuration for App Store distribution.
 - [x] Android immersive mode (hidden system navigation bar)
 - [x] Drawer menu fully replaced and removed
 
-### 🔔 Future: Advanced Features
-- [ ] Proximity alerts for POIs
+### ✅ Milestone 9: Notifications, Splash & Weather (COMPLETED)
+- [x] POI proximity notifications
+  - [x] Real-time detection of nearby POIs during tracking
+  - [x] Local notifications with tap-to-open POI detail popup
+  - [x] Android: PendingIntent with foreground service integration
+  - [x] iOS: UNUserNotificationCenter with delegate-based tap handling
+  - [x] PoiNavigationManager for cross-component notification navigation
+- [x] Animated splash screen
+  - [x] Menorca silhouette with route tracing animation (Canvas API)
+  - [x] Cross-fade to logo with parallel scale animation
+  - [x] Randomized horse/horseshoe logo variant per launch
+  - [x] Always-composed phases with graphicsLayer for iOS performance
+- [x] Weather forecast
+  - [x] Open-Meteo API integration via Ktor HTTP client
+  - [x] 5-day forecast with daily temperature, precipitation, and weather codes
+  - [x] Weather popup accessible from MAP tab FAB
+
+### 🔮 Future: Advanced Features
 - [ ] Route navigation with turn-by-turn
 - [ ] Statistics and achievements
 - [ ] Photo gallery for routes
@@ -445,7 +461,7 @@ Build in Xcode with Release configuration for App Store distribution.
 
 ## 📝 Current Status
 
-**Milestones 1-8 Completed** ✅
+**Milestones 1-9 Completed** ✅
 
 The app is now fully functional with core trekking features, interactive maps, elevation charts, settings, complete POI database, and bottom navigation bar:
 
@@ -541,7 +557,30 @@ The app is now fully functional with core trekking features, interactive maps, e
 - Custom scraping tools for data collection and coordinate validation
 - Fixed 16 POIs with coordinate errors > 800m (up to 8.3 km corrections)
 
-**Ready for:** Proximity alerts, route navigation, and advanced features
+**POI Proximity Notifications:**
+- Real-time detection of nearby POIs during active tracking
+- Local notifications with POI name and distance
+- Tap-to-open: notification tap navigates to MAP tab and shows POI detail popup
+- Android: PendingIntent with singleTop launch mode, foreground service integration
+- iOS: UNUserNotificationCenter with delegate-based tap handling
+- PoiNavigationManager singleton for cross-component event coordination
+
+**Animated Splash Screen:**
+- Menorca silhouette drawn with Canvas API SVG path rendering
+- Route tracing animation with color-coded segments
+- Cross-fade to logo with parallel scale-in animation
+- Randomized horse/horseshoe logo variant per launch
+- Always-composed phases with graphicsLayer alpha for iOS performance
+- Smooth screen fade-out transition to main content
+
+**Weather Forecast:**
+- Open-Meteo API integration via Ktor HTTP client
+- 5-day forecast with daily min/max temperature, precipitation, and WMO weather codes
+- Custom weather icons mapped to WMO code ranges
+- Weather popup accessible from MAP tab floating action button
+- Loading and error states with localized messages
+
+**Ready for:** Route navigation, statistics, and advanced features
 
 ## 🤝 Contributing
 
@@ -549,7 +588,7 @@ This is currently a portfolio/commercial project. Contributions are not being ac
 
 ## 📄 License
 
-Copyright © 2024 Stefano Russello. All rights reserved.
+Copyright © 2024-2026 Stefano Russello. All rights reserved.
 
 This project is private and proprietary. No license is granted for use, modification, or distribution.
 
