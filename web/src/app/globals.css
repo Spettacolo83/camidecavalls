@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --color-dark: #1C1C2E;
+  --color-dark-lighter: #252540;
+  --color-dark-card: #2A2A45;
+  --color-dark-border: #3A3A55;
+  --color-primary: #4FC3F7;
+  --color-primary-hover: #39B5EC;
+  --color-primary-muted: #4FC3F720;
+  --color-gray-text: #8E8E9A;
+  --color-beach: #6FBAFF;
+  --color-natural: #7FD17F;
+  --color-historic: #FF8080;
+  --color-commercial: #FFB85C;
+  --color-danger: #FF5252;
+  --color-success: #4CAF50;
+  --color-warning: #FF9800;
+  --color-error: #F44336;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: #E8E8F0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-text);
+}
+
+/* Leaflet overrides - Tailwind preflight breaks tile rendering */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.leaflet-tile-pane {
+  z-index: 1;
+}
+
+/* Input focus styling */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px var(--color-primary-muted);
+}

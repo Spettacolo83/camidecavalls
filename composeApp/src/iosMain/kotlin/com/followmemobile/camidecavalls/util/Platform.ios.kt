@@ -7,3 +7,5 @@ import platform.Foundation.languageCode
 actual fun getSystemLanguageCode(): String {
     return NSLocale.currentLocale.languageCode
 }
+
+actual fun getLocalhostUrl(): String = "http://localhost:3002"

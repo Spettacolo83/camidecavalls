@@ -756,6 +756,8 @@ private fun ActiveTrackingContent(
             "BEACH" -> androidx.compose.ui.graphics.Color(0xFFE6F5FF)
             "NATURAL" -> androidx.compose.ui.graphics.Color(0xFFEAF7EA)
             "HISTORIC" -> androidx.compose.ui.graphics.Color(0xFFFFE6E6)
+            "COMMERCIAL" -> androidx.compose.ui.graphics.Color(0xFFFFF3E0)
+            "DANGER" -> androidx.compose.ui.graphics.Color(0xFFFFEBEE)
             else -> androidx.compose.ui.graphics.Color(0xFFF5F5F5)
         }
         ModalBottomSheet(

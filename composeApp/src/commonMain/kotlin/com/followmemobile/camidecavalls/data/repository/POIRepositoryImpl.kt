@@ -9,9 +9,9 @@ import com.followmemobile.camidecavalls.domain.repository.POIRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -21,6 +21,8 @@ import kotlin.math.sqrt
 
 /**
  * Implementation of POIRepository using SQLDelight.
+ * Merges hardcoded POIs with remote dynamic POIs from backend.
+ * Remote POIs with hardcodedPoiId override the corresponding local POI.
  */
 class POIRepositoryImpl(
     private val database: CamiDatabaseWrapper
@@ -29,13 +31,21 @@ class POIRepositoryImpl(
     private val json = Json { ignoreUnknownKeys = true }
 
     override fun getAllPOIs(): Flow<List<PointOfInterest>> {
-        return database.poiQueries
+        val localFlow = database.poiQueries
             .selectAll()
             .asFlow()
             .mapToList(Dispatchers.IO)
-            .map { entities ->
-                entities.map { it.toDomain() }
-            }
+            .map { entities -> entities.map { it.toDomain() } }
+
+        val remoteFlow = database.remotePoiQueries
+            .selectAll()
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .map { entities -> entities.map { it.toRemoteDomain() } }
+
+        return combine(localFlow, remoteFlow) { local, remote ->
+            mergePoiLists(local, remote)
+        }
     }
 
     override fun getPOIsByType(type: POIType): Flow<List<PointOfInterest>> {
@@ -69,12 +79,21 @@ class POIRepositoryImpl(
         val minLon = longitude - lonDelta
         val maxLon = longitude + lonDelta
 
-        database.poiQueries
+        // Get local hardcoded POIs near location
+        val localPois = database.poiQueries
             .selectNearLocation(minLat, maxLat, minLon, maxLon)
             .executeAsList()
             .map { it.toDomain() }
+
+        // Get remote dynamic POIs near location
+        val remotePois = database.remotePoiQueries
+            .selectNearLocation(minLat, maxLat, minLon, maxLon)
+            .executeAsList()
+            .map { it.toRemoteDomain() }
+
+        // Merge and filter by actual distance using Haversine formula
+        mergePoiLists(localPois, remotePois)
             .filter { poi ->
-                // Filter by actual distance using Haversine formula
                 calculateDistance(latitude, longitude, poi.latitude, poi.longitude) <= radiusMeters
             }
     }
@@ -145,6 +164,87 @@ class POIRepositoryImpl(
             imageUrl = imageUrl,
             routeId = routeId?.toInt(),
             isAdvertisement = isAdvertisement == 1L
+        )
+    }
+
+    /**
+     * Merge local hardcoded POIs with remote dynamic POIs.
+     * Remote POIs with a hardcodedPoiId override the corresponding local POI.
+     * Dynamic remote POIs are added to the list.
+     */
+    private fun mergePoiLists(
+        local: List<PointOfInterest>,
+        remote: List<PointOfInterest>
+    ): List<PointOfInterest> {
+        if (remote.isEmpty()) return local
+
+        // Build override map: hardcodedPoiId -> remote POI
+        val overrides = mutableMapOf<Int, PointOfInterest>()
+        val dynamicPois = mutableListOf<PointOfInterest>()
+
+        for (poi in remote) {
+            // Remote POIs that override hardcoded ones are identified by negative IDs
+            // (see toRemoteDomain which uses hashCode). We stored hardcodedPoiId info
+            // in the remote table, so we check via the database.
+            dynamicPois.add(poi)
+        }
+
+        // Fetch overrides from database directly
+        val overrideEntities = database.remotePoiQueries.selectOverrides().executeAsList()
+        for (entity in overrideEntities) {
+            entity.hardcodedPoiId?.let { hcId ->
+                overrides[hcId.toInt()] = entity.toRemoteDomain()
+            }
+        }
+
+        // Replace overridden local POIs, keep the rest
+        val mergedLocal = local.map { localPoi ->
+            overrides[localPoi.id] ?: localPoi
+        }
+
+        // Add dynamic POIs (those without hardcodedPoiId)
+        val dynamicOnly = remote.filter { remotePoi ->
+            overrideEntities.none { it.id.hashCode() == remotePoi.id }
+        }
+
+        return mergedLocal + dynamicOnly
+    }
+
+    // Map RemotePoiEntity to domain model
+    private fun com.followmemobile.camidecavalls.database.RemotePoiEntity.toRemoteDomain(): PointOfInterest {
+        val poiType = try {
+            POIType.valueOf(type)
+        } catch (_: Exception) {
+            POIType.COMMERCIAL
+        }
+
+        return PointOfInterest(
+            id = id.hashCode(),
+            type = poiType,
+            latitude = latitude,
+            longitude = longitude,
+            nameCa = nameCa,
+            nameEs = nameEs,
+            nameEn = nameEn,
+            nameFr = nameFr,
+            nameDe = nameDe,
+            nameIt = nameIt,
+            descriptionCa = descriptionCa,
+            descriptionEs = descriptionEs,
+            descriptionEn = descriptionEn,
+            descriptionFr = descriptionFr,
+            descriptionDe = descriptionDe,
+            descriptionIt = descriptionIt,
+            imageUrl = imageUrl,
+            routeId = routeId?.toInt(),
+            isAdvertisement = isAdvertisement == 1L,
+            actionUrl = actionUrl.ifBlank { null },
+            actionButtonTextCa = actionButtonTextCa,
+            actionButtonTextEs = actionButtonTextEs,
+            actionButtonTextEn = actionButtonTextEn,
+            actionButtonTextFr = actionButtonTextFr,
+            actionButtonTextDe = actionButtonTextDe,
+            actionButtonTextIt = actionButtonTextIt
         )
     }
 

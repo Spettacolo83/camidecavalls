@@ -1,0 +1,31 @@
+-- Migration from version 5 to 6: Add RemotePoiEntity table for dynamic POIs from backend
+CREATE TABLE IF NOT EXISTS RemotePoiEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    type TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    nameCa TEXT NOT NULL DEFAULT '',
+    nameEs TEXT NOT NULL DEFAULT '',
+    nameEn TEXT NOT NULL DEFAULT '',
+    nameFr TEXT NOT NULL DEFAULT '',
+    nameDe TEXT NOT NULL DEFAULT '',
+    nameIt TEXT NOT NULL DEFAULT '',
+    descriptionCa TEXT NOT NULL DEFAULT '',
+    descriptionEs TEXT NOT NULL DEFAULT '',
+    descriptionEn TEXT NOT NULL DEFAULT '',
+    descriptionFr TEXT NOT NULL DEFAULT '',
+    descriptionDe TEXT NOT NULL DEFAULT '',
+    descriptionIt TEXT NOT NULL DEFAULT '',
+    imageUrl TEXT NOT NULL DEFAULT '',
+    routeId INTEGER,
+    isAdvertisement INTEGER NOT NULL DEFAULT 0,
+    source TEXT NOT NULL DEFAULT 'DYNAMIC',
+    hardcodedPoiId INTEGER,
+    priority INTEGER NOT NULL DEFAULT 0,
+    updatedAt TEXT NOT NULL DEFAULT '',
+    FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS remote_poi_type_idx ON RemotePoiEntity(type);
+CREATE INDEX IF NOT EXISTS remote_poi_location_idx ON RemotePoiEntity(latitude, longitude);
+CREATE INDEX IF NOT EXISTS remote_poi_hardcoded_idx ON RemotePoiEntity(hardcodedPoiId);

@@ -1,0 +1,8 @@
+-- Migration from version 6 to 7: Add actionUrl and actionButtonText columns to RemotePoiEntity
+ALTER TABLE RemotePoiEntity ADD COLUMN actionUrl TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextCa TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextEs TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextEn TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextFr TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextDe TEXT NOT NULL DEFAULT '';
+ALTER TABLE RemotePoiEntity ADD COLUMN actionButtonTextIt TEXT NOT NULL DEFAULT '';

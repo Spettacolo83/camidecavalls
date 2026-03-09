@@ -36,7 +36,18 @@ data class PointOfInterest(
     val routeId: Int? = null,
 
     // For V2: commercial POIs
-    val isAdvertisement: Boolean = false
+    val isAdvertisement: Boolean = false,
+
+    // Action URL opened when user taps the action button
+    val actionUrl: String? = null,
+
+    // Multilingual action button text (6 languages)
+    val actionButtonTextCa: String = "",
+    val actionButtonTextEs: String = "",
+    val actionButtonTextEn: String = "",
+    val actionButtonTextFr: String = "",
+    val actionButtonTextDe: String = "",
+    val actionButtonTextIt: String = ""
 ) {
     /**
      * Get name in specified language
@@ -65,11 +76,28 @@ data class PointOfInterest(
             Language.ITALIAN -> descriptionIt
         }
     }
+
+    /**
+     * Get action button text in specified language.
+     * Returns null if no action button text is set.
+     */
+    fun getActionButtonText(language: Language): String? {
+        val text = when (language) {
+            Language.CATALAN -> actionButtonTextCa
+            Language.SPANISH -> actionButtonTextEs
+            Language.ENGLISH -> actionButtonTextEn
+            Language.FRENCH -> actionButtonTextFr
+            Language.GERMAN -> actionButtonTextDe
+            Language.ITALIAN -> actionButtonTextIt
+        }
+        return text.ifBlank { null }
+    }
 }
 
 enum class POIType {
     BEACH,      // Zones costaneres (Blue marker - marker16.png)
     NATURAL,    // Espais protegits, flora, fauna (Green marker - marker17.png)
     HISTORIC,   // Torres, fars, fortificacions (Red marker - marker18.png)
-    COMMERCIAL  // For V2: Bars, restaurants, shops
+    COMMERCIAL, // Bars, restaurants, shops
+    DANGER      // Hazards, alerts on the trail
 }

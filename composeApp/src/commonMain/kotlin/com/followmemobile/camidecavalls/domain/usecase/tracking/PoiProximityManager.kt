@@ -155,6 +155,7 @@ class PoiProximityManager(
             com.followmemobile.camidecavalls.domain.model.POIType.NATURAL -> strings.poiTypeNatural
             com.followmemobile.camidecavalls.domain.model.POIType.HISTORIC -> strings.poiTypeHistoric
             com.followmemobile.camidecavalls.domain.model.POIType.COMMERCIAL -> strings.poiTypeCommercial
+            com.followmemobile.camidecavalls.domain.model.POIType.DANGER -> strings.poiTypeDanger
         }
     }
 

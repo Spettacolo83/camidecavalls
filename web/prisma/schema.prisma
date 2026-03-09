@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Admin Users ────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String?
+  passwordHash   String
+  role           Role      @default(VIEWER)
+  inviteToken    String?   @unique
+  inviteAccepted Boolean   @default(false)
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  createdPois    Poi[]     @relation("CreatedBy")
+  updatedPois    Poi[]     @relation("UpdatedBy")
+
+  sessions       Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// ─── Points of Interest ─────────────────────────────────────
+
+enum PoiType {
+  BEACH
+  NATURAL
+  HISTORIC
+  COMMERCIAL
+  DANGER
+}
+
+enum PoiSource {
+  DYNAMIC
+  HARDCODED_OVERRIDE
+}
+
+model Poi {
+  id              String      @id @default(cuid())
+  type            PoiType
+  latitude        Float
+  longitude       Float
+  imageUrl        String?
+  actionUrl       String?
+  routeId         Int?
+  isAdvertisement Boolean     @default(false)
+  isActive        Boolean     @default(true)
+  source          PoiSource   @default(DYNAMIC)
+  hardcodedPoiId  Int?        @unique
+  priority        Int         @default(0)
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  createdById     String?
+  updatedById     String?
+
+  createdBy       User?       @relation("CreatedBy", fields: [createdById], references: [id])
+  updatedBy       User?       @relation("UpdatedBy", fields: [updatedById], references: [id])
+
+  translations    PoiTranslation[]
+
+  @@index([type])
+  @@index([latitude, longitude])
+  @@index([updatedAt])
+  @@index([isActive])
+  @@map("pois")
+}
+
+model PoiTranslation {
+  id               String  @id @default(cuid())
+  poiId            String
+  language         String  // ca, es, en, fr, de, it
+  name             String
+  description      String  @db.Text
+  actionButtonText String?
+
+  poi         Poi     @relation(fields: [poiId], references: [id], onDelete: Cascade)
+
+  @@unique([poiId, language])
+  @@map("poi_translations")
+}
+
+// ─── Future: App Users (prepared but not active) ────────────
+
+// model AppUser {
+//   id            String    @id @default(cuid())
+//   email         String    @unique
+//   name          String?
+//   avatarUrl     String?
+//   provider      String    // google, email
+//   providerId    String?
+//   isVerified    Boolean   @default(false)
+//   isBanned      Boolean   @default(false)
+//   createdAt     DateTime  @default(now())
+//   updatedAt     DateTime  @updatedAt
+//   @@map("app_users")
+// }
+
+// ─── Future: Reviews ────────────────────────────────────────
+
+// model Review {
+//   id        String   @id @default(cuid())
+//   poiId     String
+//   userId    String
+//   rating    Int
+//   comment   String?  @db.Text
+//   language  String
+//   createdAt DateTime @default(now())
+//   @@map("reviews")
+// }
+
+// ─── Future: Danger Reports ─────────────────────────────────
+
+// model DangerReport {
+//   id          String   @id @default(cuid())
+//   userId      String
+//   latitude    Float
+//   longitude   Float
+//   description String   @db.Text
+//   language    String
+//   photoUrl    String?
+//   isConfirmed Boolean  @default(false)
+//   convertedToPoiId String?
+//   createdAt   DateTime @default(now())
+//   @@map("danger_reports")
+// }

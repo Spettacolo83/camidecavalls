@@ -117,7 +117,7 @@ sqldelight {
     databases {
         create("CamiDatabase") {
             packageName.set("com.followmemobile.camidecavalls.database")
-            version = 3
+            version = 6
         }
     }
 }

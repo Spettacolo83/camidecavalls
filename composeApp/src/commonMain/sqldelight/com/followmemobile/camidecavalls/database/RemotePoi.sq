@@ -1,0 +1,76 @@
+-- Table for storing dynamic POIs from backend API
+CREATE TABLE RemotePoiEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    type TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    nameCa TEXT NOT NULL DEFAULT '',
+    nameEs TEXT NOT NULL DEFAULT '',
+    nameEn TEXT NOT NULL DEFAULT '',
+    nameFr TEXT NOT NULL DEFAULT '',
+    nameDe TEXT NOT NULL DEFAULT '',
+    nameIt TEXT NOT NULL DEFAULT '',
+    descriptionCa TEXT NOT NULL DEFAULT '',
+    descriptionEs TEXT NOT NULL DEFAULT '',
+    descriptionEn TEXT NOT NULL DEFAULT '',
+    descriptionFr TEXT NOT NULL DEFAULT '',
+    descriptionDe TEXT NOT NULL DEFAULT '',
+    descriptionIt TEXT NOT NULL DEFAULT '',
+    imageUrl TEXT NOT NULL DEFAULT '',
+    actionUrl TEXT NOT NULL DEFAULT '',
+    actionButtonTextCa TEXT NOT NULL DEFAULT '',
+    actionButtonTextEs TEXT NOT NULL DEFAULT '',
+    actionButtonTextEn TEXT NOT NULL DEFAULT '',
+    actionButtonTextFr TEXT NOT NULL DEFAULT '',
+    actionButtonTextDe TEXT NOT NULL DEFAULT '',
+    actionButtonTextIt TEXT NOT NULL DEFAULT '',
+    routeId INTEGER,
+    isAdvertisement INTEGER NOT NULL DEFAULT 0,
+    source TEXT NOT NULL DEFAULT 'DYNAMIC',
+    hardcodedPoiId INTEGER,
+    priority INTEGER NOT NULL DEFAULT 0,
+    updatedAt TEXT NOT NULL DEFAULT '',
+    FOREIGN KEY (routeId) REFERENCES RouteEntity(id) ON DELETE SET NULL
+);
+
+CREATE INDEX remote_poi_type_idx ON RemotePoiEntity(type);
+CREATE INDEX remote_poi_location_idx ON RemotePoiEntity(latitude, longitude);
+CREATE INDEX remote_poi_hardcoded_idx ON RemotePoiEntity(hardcodedPoiId);
+
+-- Queries
+selectAll:
+SELECT * FROM RemotePoiEntity;
+
+selectByType:
+SELECT * FROM RemotePoiEntity WHERE type = ?;
+
+selectByHardcodedId:
+SELECT * FROM RemotePoiEntity WHERE hardcodedPoiId = ?;
+
+selectOverrides:
+SELECT * FROM RemotePoiEntity WHERE source = 'HARDCODED_OVERRIDE';
+
+selectNearLocation:
+SELECT * FROM RemotePoiEntity
+WHERE latitude BETWEEN ? AND ?
+AND longitude BETWEEN ? AND ?;
+
+insert:
+INSERT OR REPLACE INTO RemotePoiEntity(
+    id, type, latitude, longitude,
+    nameCa, nameEs, nameEn, nameFr, nameDe, nameIt,
+    descriptionCa, descriptionEs, descriptionEn, descriptionFr, descriptionDe, descriptionIt,
+    imageUrl, actionUrl,
+    actionButtonTextCa, actionButtonTextEs, actionButtonTextEn,
+    actionButtonTextFr, actionButtonTextDe, actionButtonTextIt,
+    routeId, isAdvertisement, source, hardcodedPoiId, priority, updatedAt
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM RemotePoiEntity;
+
+deleteById:
+DELETE FROM RemotePoiEntity WHERE id = ?;
+
+count:
+SELECT COUNT(*) FROM RemotePoiEntity;

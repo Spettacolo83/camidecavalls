@@ -87,6 +87,8 @@ fun POIsTabContent(
             "BEACH" -> Color(0xFFE6F5FF)
             "NATURAL" -> Color(0xFFEAF7EA)
             "HISTORIC" -> Color(0xFFFFE6E6)
+            "COMMERCIAL" -> Color(0xFFFFF3E0)
+            "DANGER" -> Color(0xFFFFEBEE)
             else -> Color(0xFFF5F5F5)
         }
         ModalBottomSheet(
@@ -321,6 +323,8 @@ internal fun POIPopup(
         "BEACH" -> Color(0xFFE6F5FF)
         "NATURAL" -> Color(0xFFEAF7EA)
         "HISTORIC" -> Color(0xFFFFE6E6)
+        "COMMERCIAL" -> Color(0xFFFFF3E0)
+        "DANGER" -> Color(0xFFFFEBEE)
         else -> Color(0xFFF5F5F5)
     }
 
@@ -348,6 +352,22 @@ internal fun POIPopup(
             Language.FRENCH -> "🏛️ Patrimoine"
             Language.GERMAN -> "🏛️ Erbe"
             Language.ITALIAN -> "🏛️ Patrimonio"
+        }
+        "COMMERCIAL" -> when (currentLanguage) {
+            Language.CATALAN -> "🏪 Comercial"
+            Language.SPANISH -> "🏪 Comercial"
+            Language.ENGLISH -> "🏪 Commercial"
+            Language.FRENCH -> "🏪 Commercial"
+            Language.GERMAN -> "🏪 Kommerziell"
+            Language.ITALIAN -> "🏪 Commerciale"
+        }
+        "DANGER" -> when (currentLanguage) {
+            Language.CATALAN -> "⚠️ Perill"
+            Language.SPANISH -> "⚠️ Peligro"
+            Language.ENGLISH -> "⚠️ Danger"
+            Language.FRENCH -> "⚠️ Danger"
+            Language.GERMAN -> "⚠️ Gefahr"
+            Language.ITALIAN -> "⚠️ Pericolo"
         }
         else -> poi.type.name
     }
@@ -450,6 +470,8 @@ internal fun POIPopup(
                             "BEACH" -> Color(0xFF6FBAFF)
                             "NATURAL" -> Color(0xFF7FD17F)
                             "HISTORIC" -> Color(0xFFFF8080)
+                            "COMMERCIAL" -> Color(0xFFFFB85C)
+                            "DANGER" -> Color(0xFFFF5252)
                             else -> Color.Gray
                         },
                         modifier = Modifier
@@ -528,6 +550,7 @@ private fun POIFilterBar(
             POIFilterChip(type = POIType.NATURAL, label = strings.poiTypeNatural, selected = visibleTypes.contains(POIType.NATURAL), onToggleType = onToggleType)
             POIFilterChip(type = POIType.HISTORIC, label = strings.poiTypeHistoric, selected = visibleTypes.contains(POIType.HISTORIC), onToggleType = onToggleType)
             POIFilterChip(type = POIType.COMMERCIAL, label = strings.poiTypeCommercial, selected = visibleTypes.contains(POIType.COMMERCIAL), onToggleType = onToggleType)
+            POIFilterChip(type = POIType.DANGER, label = strings.poiTypeDanger, selected = visibleTypes.contains(POIType.DANGER), onToggleType = onToggleType)
         }
     }
 }

@@ -17,12 +17,16 @@
     <!-- Wake lock to prevent CPU from sleeping during tracking -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- Internet access for API calls and image loading -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".CamiApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Camí de Cavalls"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
             android:name=".MainActivity"

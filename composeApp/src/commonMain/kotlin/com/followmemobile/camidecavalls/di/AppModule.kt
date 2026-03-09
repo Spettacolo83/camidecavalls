@@ -1,7 +1,9 @@
 package com.followmemobile.camidecavalls.di
 
 import com.followmemobile.camidecavalls.data.local.CamiDatabaseWrapper
+import com.followmemobile.camidecavalls.data.remote.PoiApiService
 import com.followmemobile.camidecavalls.data.repository.LanguageRepositoryImpl
+import com.followmemobile.camidecavalls.data.repository.RemotePOIRepositoryImpl
 import com.followmemobile.camidecavalls.data.weather.WeatherService
 import com.followmemobile.camidecavalls.data.repository.POIRepositoryImpl
 import com.followmemobile.camidecavalls.data.repository.RouteRepositoryImpl
@@ -16,6 +18,7 @@ import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsByTypeUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.GetPOIsNearLocationUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.SavePOIsUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.SyncRemotePOIsUseCase
 import com.followmemobile.camidecavalls.domain.usecase.GetSimplifiedRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetAllRoutesUseCase
 import com.followmemobile.camidecavalls.domain.usecase.route.GetRouteByIdUseCase
@@ -71,6 +74,15 @@ val appModule = module {
     // Weather
     single { WeatherService(get()) }
 
+    // Remote POI API
+    // TODO: Change to production URL before release
+    single {
+        val baseUrl = com.followmemobile.camidecavalls.util.DebugConfig.DEV_BASE_URL
+            .ifBlank { com.followmemobile.camidecavalls.util.getLocalhostUrl() }
+        PoiApiService(get(), baseUrl)
+    }
+    singleOf(::RemotePOIRepositoryImpl)
+
     // Database
     single { CamiDatabaseWrapper(get()) }
 
@@ -95,6 +107,7 @@ val appModule = module {
     factoryOf(::GetPOIsByRouteUseCase)
     factoryOf(::SavePOIsUseCase)
     factoryOf(::InitializePOIsUseCase)
+    factoryOf(::SyncRemotePOIsUseCase)
 
     // Tracking Use Cases
     factoryOf(::CalculateSessionStatsUseCase)

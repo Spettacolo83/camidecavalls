@@ -8,6 +8,10 @@ import com.followmemobile.camidecavalls.di.platformModule
 import com.followmemobile.camidecavalls.domain.service.LocalNotificationManager
 import com.followmemobile.camidecavalls.domain.usecase.route.InitializeDatabaseUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.SyncRemotePOIsUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 
@@ -28,6 +32,7 @@ actual fun KoinInitializer(content: @Composable () -> Unit) {
         // Initialize database on first launch
         val initializeDatabaseUseCase: InitializeDatabaseUseCase = koinInject()
         val initializePOIsUseCase: InitializePOIsUseCase = koinInject()
+        val syncRemotePOIsUseCase: SyncRemotePOIsUseCase = koinInject()
 
         LaunchedEffect(Unit) {
             val initialized = initializeDatabaseUseCase()
@@ -39,6 +44,11 @@ actual fun KoinInitializer(content: @Composable () -> Unit) {
             val poisInitialized = initializePOIsUseCase()
             if (poisInitialized) {
                 println("POIs initialized successfully")
+            }
+
+            // Sync remote POIs from backend (daily, non-blocking)
+            launch(Dispatchers.IO) {
+                syncRemotePOIsUseCase()
             }
         }
 

@@ -38,6 +38,17 @@ actual fun openInMaps(latitude: Double, longitude: Double, name: String) {
 }
 
 /**
+ * Android implementation to open a URL in the default browser
+ */
+actual fun openUrl(url: String) {
+    val context = AndroidContextProvider.context
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+    context.startActivity(intent)
+}
+
+/**
  * Helper object to provide Android Context using Koin
  */
 private object AndroidContextProvider : KoinComponent {

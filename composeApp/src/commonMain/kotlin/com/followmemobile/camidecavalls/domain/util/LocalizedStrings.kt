@@ -83,6 +83,7 @@ class LocalizedStrings(val languageCode: String) {
     val poiTypeNatural: String get() = strings.poiTypeNatural
     val poiTypeHistoric: String get() = strings.poiTypeHistoric
     val poiTypeCommercial: String get() = strings.poiTypeCommercial
+    val poiTypeDanger: String get() = strings.poiTypeDanger
     val poisFiltersLabel: String get() = strings.poisFiltersLabel
 
     // About Screen
@@ -254,6 +255,7 @@ private interface Strings {
     val poiTypeNatural: String
     val poiTypeHistoric: String
     val poiTypeCommercial: String
+    val poiTypeDanger: String
     val poisFiltersLabel: String
 
     // About Screen
@@ -419,6 +421,7 @@ private object StringsCa : Strings {
     override val poiTypeNatural = "Espai Natural"
     override val poiTypeHistoric = "Patrimoni Històric"
     override val poiTypeCommercial = "Activitats comercials"
+    override val poiTypeDanger = "Perill / Alerta"
     override val poisFiltersLabel = "Filtra POI"
 
     override val aboutWelcome = "Benvingut al Camí de Cavalls"
@@ -571,6 +574,7 @@ private object StringsEs : Strings {
     override val poiTypeNatural = "Espacio Natural"
     override val poiTypeHistoric = "Patrimonio Histórico"
     override val poiTypeCommercial = "Actividades comerciales"
+    override val poiTypeDanger = "Peligro / Alerta"
     override val poisFiltersLabel = "Filtrar POI"
 
     override val aboutWelcome = "Bienvenido al Camí de Cavalls"
@@ -723,6 +727,7 @@ private object StringsEn : Strings {
     override val poiTypeNatural = "Natural Site"
     override val poiTypeHistoric = "Historic Site"
     override val poiTypeCommercial = "Commercial Activities"
+    override val poiTypeDanger = "Danger / Alert"
     override val poisFiltersLabel = "Filter POIs"
 
     override val aboutWelcome = "Welcome to Camí de Cavalls"
@@ -875,6 +880,7 @@ private object StringsDe : Strings {
     override val poiTypeNatural = "Naturraum"
     override val poiTypeHistoric = "Historischer Ort"
     override val poiTypeCommercial = "Kommerzielle Angebote"
+    override val poiTypeDanger = "Gefahr / Warnung"
     override val poisFiltersLabel = "POIs filtern"
 
     override val aboutWelcome = "Willkommen beim Camí de Cavalls"
@@ -1027,6 +1033,7 @@ private object StringsFr : Strings {
     override val poiTypeNatural = "Espace Naturel"
     override val poiTypeHistoric = "Site Historique"
     override val poiTypeCommercial = "Activités commerciales"
+    override val poiTypeDanger = "Danger / Alerte"
     override val poisFiltersLabel = "Filtrer les POI"
 
     override val aboutWelcome = "Bienvenue sur le Camí de Cavalls"
@@ -1179,6 +1186,7 @@ private object StringsIt : Strings {
     override val poiTypeNatural = "Area Naturale"
     override val poiTypeHistoric = "Sito Storico"
     override val poiTypeCommercial = "Attività commerciali"
+    override val poiTypeDanger = "Pericolo / Allerta"
     override val poisFiltersLabel = "Filtra POI"
 
     override val aboutWelcome = "Benvenuto al Camí de Cavalls"

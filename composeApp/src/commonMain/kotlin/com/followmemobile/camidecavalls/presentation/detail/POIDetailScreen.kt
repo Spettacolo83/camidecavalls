@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Navigation
+import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import com.followmemobile.camidecavalls.domain.model.PointOfInterest
  * Features:
  * - Full image display
  * - Complete description
+ * - Action button: custom URL if available, else open in Maps
  * - Navigation button to open in external map app
  * - Pastel background color based on POI type
  */
@@ -37,12 +39,14 @@ fun POIDetailContent(
     onBackClick: () -> Unit,
     onNavigateClick: (PointOfInterest) -> Unit
 ) {
-    // Get background color based on POI type (lighter than popup)
+    // Get background color based on POI type
     val backgroundColor = when (poi.type.name) {
-        "BEACH" -> Color(0xFFE6F5FF)      // Very very light blue
-        "NATURAL" -> Color(0xFFEAF7EA)    // Very very light green
-        "HISTORIC" -> Color(0xFFFFE6E6)   // Very very light red/pink
-        else -> Color(0xFFF5F5F5)         // Very light gray
+        "BEACH" -> Color(0xFFE6F5FF)         // Very light blue
+        "NATURAL" -> Color(0xFFEAF7EA)       // Very light green
+        "HISTORIC" -> Color(0xFFFFE6E6)      // Very light red/pink
+        "COMMERCIAL" -> Color(0xFFFFF3E0)    // Very light orange
+        "DANGER" -> Color(0xFFFFEBEE)        // Very light red
+        else -> Color(0xFFF5F5F5)
     }
 
     // Badge text translations
@@ -71,7 +75,33 @@ fun POIDetailContent(
             Language.GERMAN -> "🏛️ Erbe"
             Language.ITALIAN -> "🏛️ Patrimonio"
         }
+        "COMMERCIAL" -> when (currentLanguage) {
+            Language.CATALAN -> "🏪 Comercial"
+            Language.SPANISH -> "🏪 Comercial"
+            Language.ENGLISH -> "🏪 Commercial"
+            Language.FRENCH -> "🏪 Commercial"
+            Language.GERMAN -> "🏪 Kommerziell"
+            Language.ITALIAN -> "🏪 Commerciale"
+        }
+        "DANGER" -> when (currentLanguage) {
+            Language.CATALAN -> "⚠️ Perill"
+            Language.SPANISH -> "⚠️ Peligro"
+            Language.ENGLISH -> "⚠️ Danger"
+            Language.FRENCH -> "⚠️ Danger"
+            Language.GERMAN -> "⚠️ Gefahr"
+            Language.ITALIAN -> "⚠️ Pericolo"
+        }
         else -> poi.type.name
+    }
+
+    // Badge color
+    val badgeColor = when (poi.type.name) {
+        "BEACH" -> Color(0xFF6FBAFF)
+        "NATURAL" -> Color(0xFF7FD17F)
+        "HISTORIC" -> Color(0xFFFF8080)
+        "COMMERCIAL" -> Color(0xFFFFB85C)
+        "DANGER" -> Color(0xFFFF5252)
+        else -> Color(0xFF9E9E9E)
     }
 
     // Navigate button text translations
@@ -83,6 +113,10 @@ fun POIDetailContent(
         Language.GERMAN -> "In Maps öffnen"
         Language.ITALIAN -> "Apri in Maps"
     }
+
+    // Check for custom action button
+    val actionButtonText = poi.getActionButtonText(currentLanguage)
+    val hasActionUrl = !poi.actionUrl.isNullOrBlank()
 
     Scaffold(
         topBar = {
@@ -107,9 +141,9 @@ fun POIDetailContent(
                 .verticalScroll(rememberScrollState())
         ) {
             // POI Image
-            poi.imageUrl?.let { imageUrl ->
+            if (poi.imageUrl.isNotBlank()) {
                 SubcomposeAsyncImage(
-                    model = imageUrl,
+                    model = poi.imageUrl,
                     contentDescription = poi.getName(currentLanguage),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -149,15 +183,10 @@ fun POIDetailContent(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                // Type badge (no title duplicate - title is in TopBar)
+                // Type badge
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = when (poi.type.name) {
-                        "BEACH" -> Color(0xFF6FBAFF)
-                        "NATURAL" -> Color(0xFF7FD17F)
-                        "HISTORIC" -> Color(0xFFFF8080)
-                        else -> Color(0xFF9E9E9E)
-                    },
+                    color = badgeColor,
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     Text(
@@ -179,7 +208,33 @@ fun POIDetailContent(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Navigate button
+                // Action button (custom URL if available)
+                if (hasActionUrl && actionButtonText != null) {
+                    Button(
+                        onClick = { openUrl(poi.actionUrl!!) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = badgeColor
+                        )
+                    ) {
+                        Icon(
+                            Icons.Default.OpenInBrowser,
+                            contentDescription = "Open URL",
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = actionButtonText,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
+                // Navigate button (always show)
                 Button(
                     onClick = { onNavigateClick(poi) },
                     modifier = Modifier
@@ -208,3 +263,8 @@ fun POIDetailContent(
  * Platform-specific function to open coordinates in external map app
  */
 expect fun openInMaps(latitude: Double, longitude: Double, name: String)
+
+/**
+ * Platform-specific function to open a URL in the default browser
+ */
+expect fun openUrl(url: String)

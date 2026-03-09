@@ -1,25 +1,47 @@
 package com.followmemobile.camidecavalls.presentation.detail
 
-import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSURL
+import platform.Foundation.NSString
+import platform.Foundation.stringByAddingPercentEncodingWithAllowedCharacters
+import platform.Foundation.NSCharacterSet
+import platform.Foundation.URLQueryAllowedCharacterSet
 import platform.UIKit.UIApplication
+import platform.darwin.dispatch_async
+import platform.darwin.dispatch_get_main_queue
+
+/**
+ * iOS implementation to open a URL in the default browser
+ */
+actual fun openUrl(url: String) {
+    val nsUrl = NSURL.URLWithString(url) ?: return
+    dispatch_async(dispatch_get_main_queue()) {
+        UIApplication.sharedApplication.openURL(nsUrl, emptyMap<Any?, Any>()) { success ->
+            if (!success) {
+                println("Failed to open URL: $url")
+            }
+        }
+    }
+}
 
 /**
  * iOS implementation to open coordinates in Apple Maps
  */
-@OptIn(ExperimentalForeignApi::class)
 actual fun openInMaps(latitude: Double, longitude: Double, name: String) {
-    // Create Apple Maps URL with coordinates and name
-    // Format: maps://?q=Name&ll=latitude,longitude
-    val urlString = "maps://?q=${name.replace(" ", "+")}&ll=$latitude,$longitude"
+    // Encode the name for URL safety
+    @Suppress("CAST_NEVER_SUCCEEDS")
+    val encodedName = (name as NSString)
+        .stringByAddingPercentEncodingWithAllowedCharacters(
+            NSCharacterSet.URLQueryAllowedCharacterSet
+        ) ?: name.replace(" ", "+")
 
-    val url = NSURL.URLWithString(urlString)
+    val urlString = "maps://?q=$encodedName&ll=$latitude,$longitude"
+    val url = NSURL.URLWithString(urlString) ?: return
 
-    url?.let {
-        if (UIApplication.sharedApplication.canOpenURL(it)) {
-            UIApplication.sharedApplication.openURL(it)
-        } else {
-            println("❌ Cannot open Maps URL: $urlString")
+    dispatch_async(dispatch_get_main_queue()) {
+        UIApplication.sharedApplication.openURL(url, emptyMap<Any?, Any>()) { success ->
+            if (!success) {
+                println("Failed to open Maps URL: $urlString")
+            }
         }
     }
 }

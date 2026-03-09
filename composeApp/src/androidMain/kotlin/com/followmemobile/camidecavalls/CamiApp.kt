@@ -5,6 +5,7 @@ import com.followmemobile.camidecavalls.di.appModule
 import com.followmemobile.camidecavalls.di.platformModule
 import com.followmemobile.camidecavalls.domain.usecase.route.InitializeDatabaseUseCase
 import com.followmemobile.camidecavalls.domain.usecase.poi.InitializePOIsUseCase
+import com.followmemobile.camidecavalls.domain.usecase.poi.SyncRemotePOIsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -23,6 +24,7 @@ class CamiApp : Application() {
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val initializeDatabaseUseCase: InitializeDatabaseUseCase by inject()
     private val initializePOIsUseCase: InitializePOIsUseCase by inject()
+    private val syncRemotePOIsUseCase: SyncRemotePOIsUseCase by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -44,6 +46,11 @@ class CamiApp : Application() {
             val poisInitialized = initializePOIsUseCase()
             if (poisInitialized) {
                 println("POIs initialized successfully")
+            }
+
+            // Sync remote POIs from backend (daily, non-blocking)
+            launch(Dispatchers.IO) {
+                syncRemotePOIsUseCase()
             }
         }
     }

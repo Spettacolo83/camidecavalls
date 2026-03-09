@@ -14,6 +14,7 @@ class CamiDatabaseWrapper(
 
     val routeQueries = database.routeQueries
     val poiQueries = database.pointOfInterestQueries
+    val remotePoiQueries = database.remotePoiQueries
     val trackingSessionQueries = database.trackingSessionQueries
     val trackPointQueries = database.trackPointQueries
 
