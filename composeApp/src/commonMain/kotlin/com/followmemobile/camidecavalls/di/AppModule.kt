@@ -75,12 +75,7 @@ val appModule = module {
     single { WeatherService(get()) }
 
     // Remote POI API
-    // TODO: Change to production URL before release
-    single {
-        val baseUrl = com.followmemobile.camidecavalls.util.DebugConfig.DEV_BASE_URL
-            .ifBlank { com.followmemobile.camidecavalls.util.getLocalhostUrl() }
-        PoiApiService(get(), baseUrl)
-    }
+    single { PoiApiService(get(), com.followmemobile.camidecavalls.util.AppConfig.baseUrl) }
     singleOf(::RemotePOIRepositoryImpl)
 
     // Database

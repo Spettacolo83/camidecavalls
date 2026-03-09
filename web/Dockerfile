@@ -30,12 +30,24 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Copy built application
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy Prisma files for migrations + seed
 COPY --from=builder /app/prisma ./prisma
-COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=prisma /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/package.json ./package.json
+
+# Copy node_modules needed at runtime (prisma, seed dependencies)
+COPY --from=deps /app/node_modules ./node_modules
+
+# Copy entrypoint script
+COPY --chown=nextjs:nodejs docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+
+# Create uploads directory writable by nextjs
+RUN mkdir -p public/uploads && chown -R nextjs:nodejs public/uploads
 
 USER nextjs
 
@@ -44,4 +56,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+ENTRYPOINT ["./docker-entrypoint.sh"]

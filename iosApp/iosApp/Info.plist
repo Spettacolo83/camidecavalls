@@ -38,6 +38,10 @@
 		<string>location</string>
 		<string>external-accessory</string>
 	</array>
+	<key>API_BASE_URL</key>
+	<string>$(API_BASE_URL)</string>
+	<key>IS_DEBUG_ENV</key>
+	<string>$(IS_DEBUG_ENV)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>

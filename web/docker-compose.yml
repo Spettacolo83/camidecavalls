@@ -3,25 +3,35 @@ services:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: cami_de_cavalls
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
 
   app:
     build: .
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/cami_de_cavalls
-      AUTH_SECRET: dev-secret-change-in-production
-      AUTH_URL: http://localhost:3000
-      ADMIN_EMAIL: admin@camidecavalls.com
-      ADMIN_PASSWORD: changeme
+      DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-postgres}@db:5432/cami_de_cavalls
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@camidecavalls.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme}
+    volumes:
+      - uploads:/app/public/uploads
     depends_on:
       - db
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  uploads:

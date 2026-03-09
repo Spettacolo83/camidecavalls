@@ -138,9 +138,18 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "API_BASE_URL", "\"http://192.168.8.106:3002\"")
+            buildConfigField("boolean", "IS_DEBUG_ENV", "true")
+        }
         getByName("release") {
             isMinifyEnabled = false
+            buildConfigField("String", "API_BASE_URL", "\"https://camidecavalls.followtheflowai.com\"")
+            buildConfigField("boolean", "IS_DEBUG_ENV", "false")
         }
     }
     compileOptions {
