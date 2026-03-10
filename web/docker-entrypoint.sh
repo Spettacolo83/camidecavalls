@@ -2,10 +2,10 @@
 set -e
 
 echo "Running database migrations..."
-npx prisma migrate deploy
+node node_modules/prisma/build/index.js migrate deploy
 
 echo "Seeding database (if needed)..."
-npx prisma db seed || echo "Seed skipped or already applied"
+node node_modules/tsx/dist/cli.mjs prisma/seed.ts || echo "Seed skipped or already applied"
 
 echo "Starting server..."
 exec node server.js
