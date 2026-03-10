@@ -35,12 +35,20 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy Prisma files for migrations + seed
+# Copy Prisma schema for migrations
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/package.json ./package.json
 
-# Copy node_modules needed at runtime (prisma, seed dependencies)
-COPY --from=deps /app/node_modules ./node_modules
+# Copy Prisma generated client (MUST come from prisma stage, not deps)
+COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=prisma /app/node_modules/@prisma ./node_modules/@prisma
+
+# Copy runtime dependencies needed for seed and migrations
+COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
+COPY --from=deps /app/node_modules/tsx ./node_modules/tsx
+COPY --from=deps /app/node_modules/bcryptjs ./node_modules/bcryptjs
+COPY --from=deps /app/node_modules/esbuild ./node_modules/esbuild
+COPY --from=deps /app/node_modules/@esbuild ./node_modules/@esbuild
 
 # Copy entrypoint script
 COPY --chown=nextjs:nodejs docker-entrypoint.sh ./
