@@ -281,40 +281,59 @@ Indexes:
 
 ### Running the Application
 
-#### Android
+#### Android (Build Variants)
+
+The app uses product flavors (`dev` / `production`) × build types (`debug` / `release`):
+
+| Variant | API URL | App ID |
+|---------|---------|--------|
+| `devDebug` | `http://192.168.8.106:3002` | `com.followmemobile.camidecavalls.dev` |
+| `productionDebug` | `https://camidecavalls.followtheflowai.com` | `com.followmemobile.camidecavalls` |
+| `productionRelease` | `https://camidecavalls.followtheflowai.com` | `com.followmemobile.camidecavalls` |
+
 1. Open project in Android Studio
-2. Select `composeApp` run configuration
+2. Select the desired build variant in **Build → Select Build Variant**
 3. Click Run (or press ⌃R)
 
-#### iOS
-**Option 1: From Xcode**
-1. Build Kotlin framework:
-   ```bash
-   ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
-   ```
-2. Open `iosApp/iosApp.xcodeproj` in Xcode
-3. Select simulator or device
-4. Click Run (or press ⌘R)
-
-**Option 2: From Terminal**
-```bash
-# For simulator
-./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
-
-# For device
-./gradlew :composeApp:linkDebugFrameworkIosArm64
+To change the dev API URL (e.g., your LAN IP), edit the `dev` flavor in `composeApp/build.gradle.kts`:
+```kotlin
+buildConfigField("String", "API_BASE_URL", "\"http://YOUR_IP:3002\"")
 ```
+
+#### iOS (Xcode Schemes)
+
+Two shared schemes with separate bundle IDs (installed as separate apps):
+
+| Scheme | Configuration | API URL | Bundle ID |
+|--------|--------------|---------|-----------|
+| iosApp Dev | Debug | `http://192.168.8.106:3002` | `com.followmemobile.camidecavalls.dev` |
+| iosApp Production | ProductionDebug | `https://camidecavalls.followtheflowai.com` | `com.followmemobile.camidecavalls` |
+
+1. Open `iosApp/iosApp.xcodeproj` in Xcode
+2. Select the desired scheme (**iosApp Dev** or **iosApp Production**)
+3. Click Run (or press ⌘R)
+
+**iOS Configurations:**
+- **Debug**: Fast compilation, dev settings (used by iosApp Dev scheme)
+- **ProductionDebug**: Fast compilation, production settings (used by iosApp Production scheme)
+- **Release**: Optimized compilation for App Store distribution
+
+### DEV Environment Indicators
+
+Dev builds include visual indicators on both platforms:
+- **App Icon**: Red banner with white "DEV" text at the bottom of the icon
+- **In-App Ribbon**: Diagonal red ribbon with "DEV" text in the top-left corner (only visible when `AppConfig.isDebug` is true)
 
 ### Building for Production
 
 #### Android
 ```bash
-./gradlew :composeApp:assembleRelease
+./gradlew :composeApp:assembleProductionRelease
 ```
-APK location: `composeApp/build/outputs/apk/release/`
+APK location: `composeApp/build/outputs/apk/production/release/`
 
 #### iOS
-Build in Xcode with Release configuration for App Store distribution.
+Build in Xcode with the **Release** configuration for App Store distribution.
 
 ## 🗓️ Development Roadmap
 
@@ -450,18 +469,34 @@ Build in Xcode with Release configuration for App Store distribution.
 - [ ] Statistics and achievements
 - [ ] Photo gallery for routes
 
-### 🌐 Future: Backend Integration (V2)
-- [ ] Custom backend API (optional)
+### ✅ Milestone 10: Backend CRM & Remote POI Sync (COMPLETED)
+- [x] CRM Backend (Next.js 15 + PostgreSQL + Prisma)
+  - [x] POI management with multilingual translations (6 languages)
+  - [x] Image upload with Sharp-based optimization
+  - [x] User management with role-based access (ADMIN, EDITOR, VIEWER)
+  - [x] REST API for mobile app sync (`/api/v1/pois`, `/api/v1/sync-status`)
+  - [x] Docker deployment on EasyPanel (Contabo)
+- [x] Remote POI sync in KMP app
+  - [x] Incremental sync via `?since=` parameter (daily, if connected)
+  - [x] Sync version mechanism for forced cache migration
+  - [x] Remote POIs merged with hardcoded POIs via Flow combine
+  - [x] Environment-aware endpoint switching with automatic cache clear
+- [x] Build variants / schemes
+  - [x] Android: product flavors (dev/production) with separate app IDs
+  - [x] iOS: Xcode schemes with ProductionDebug config for fast compilation
+  - [x] DEV indicators: badged icons + in-app diagonal ribbon
+- [x] See `web/README.md` for full CRM documentation
+
+### 🌐 Future: Advanced Backend Features
 - [ ] Firebase setup
 - [ ] User authentication
 - [ ] Cloud data sync
 - [ ] Social features
-- [ ] Commercial POI integration
 - [ ] Analytics
 
 ## 📝 Current Status
 
-**Milestones 1-9 Completed** ✅
+**Milestones 1-10 Completed** ✅
 
 The app is now fully functional with core trekking features, interactive maps, elevation charts, settings, complete POI database, and bottom navigation bar:
 

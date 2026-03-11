@@ -164,6 +164,15 @@ android {
             isMinifyEnabled = false
         }
     }
+    // Disable devRelease variant (not useful)
+    androidComponents {
+        beforeVariants { variantBuilder ->
+            if (variantBuilder.productFlavors.any { it.second == "dev" } &&
+                variantBuilder.buildType == "release") {
+                variantBuilder.enable = false
+            }
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

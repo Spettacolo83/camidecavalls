@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name -->
-    <string name="app_name">Camí de Cavalls</string>
+    <string name="app_name">CamíDeCavalls</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>
@@ -11,7 +11,7 @@
     <string name="nav_full_map">Full Map</string>
 
     <!-- Home Screen -->
-    <string name="home_title">Camí de Cavalls</string>
+    <string name="home_title">CamíDeCavalls</string>
     <string name="home_subtitle">Discover Menorca\'s historic trail</string>
     <string name="home_explore_routes">Explore Routes</string>
     <string name="home_start_tracking">Start Tracking</string>

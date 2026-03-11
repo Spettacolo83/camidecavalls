@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import io.github.aakira.napier.Napier
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -35,6 +36,10 @@ class CamiApp : Application() {
             modules(appModule, platformModule)
         }
 
+        // Log current build configuration for debugging
+        Napier.d("BUILD CONFIG: flavor=${BuildConfig.FLAVOR}, API_BASE_URL=${BuildConfig.API_BASE_URL}, IS_DEBUG_ENV=${BuildConfig.IS_DEBUG_ENV}")
+        Napier.d("AppConfig: baseUrl=${com.followmemobile.camidecavalls.util.AppConfig.baseUrl}, isDebug=${com.followmemobile.camidecavalls.util.AppConfig.isDebug}")
+
         // Initialize database with route data on first launch
         applicationScope.launch {
             val initialized = initializeDatabaseUseCase()
@@ -50,7 +55,8 @@ class CamiApp : Application() {
 
             // Sync remote POIs from backend (daily, non-blocking)
             launch(Dispatchers.IO) {
-                syncRemotePOIsUseCase()
+                val result = syncRemotePOIsUseCase()
+                Napier.d("POI sync result: $result")
             }
         }
     }

@@ -14,13 +14,32 @@ class SyncRemotePOIsUseCase(
     private val settings: Settings
 ) {
     suspend operator fun invoke(force: Boolean = false): SyncResult {
+        val poiCountBefore = remotePOIRepository.count()
+        Napier.d("POI SYNC START: $poiCountBefore remote POIs in DB before sync")
+
+        // One-time migration: force cache clear when sync version changes
+        // Bump CURRENT_SYNC_VERSION to force all clients to re-sync
+        val savedSyncVersion = settings.getIntOrNull(KEY_SYNC_VERSION) ?: 0
+        val needsMigration = savedSyncVersion < CURRENT_SYNC_VERSION
+        if (needsMigration) {
+            Napier.d("POI SYNC: migration needed (saved=$savedSyncVersion, current=$CURRENT_SYNC_VERSION), clearing cache")
+            remotePOIRepository.clear()
+            settings.remove(KEY_LAST_SYNC_TIMESTAMP)
+            settings.remove(KEY_LAST_SYNC_CHECK)
+            settings.remove(KEY_LAST_BASE_URL)
+            settings.putInt(KEY_SYNC_VERSION, CURRENT_SYNC_VERSION)
+        }
+
         // Detect endpoint change (e.g. switching between dev and production)
         val currentBaseUrl = poiApiService.getBaseUrl()
         val lastBaseUrl = settings.getStringOrNull(KEY_LAST_BASE_URL)
         val endpointChanged = lastBaseUrl != null && lastBaseUrl != currentBaseUrl
+        Napier.d("POI SYNC: currentBaseUrl=$currentBaseUrl, lastBaseUrl=$lastBaseUrl, endpointChanged=$endpointChanged")
         if (endpointChanged) {
             Napier.d("API endpoint changed ($lastBaseUrl → $currentBaseUrl), clearing POI cache")
             remotePOIRepository.clear()
+            val countAfterClear = remotePOIRepository.count()
+            Napier.d("POI SYNC: cleared cache, $countAfterClear remote POIs remain")
             settings.remove(KEY_LAST_SYNC_TIMESTAMP)
             settings.remove(KEY_LAST_SYNC_CHECK)
         }
@@ -34,7 +53,7 @@ class SyncRemotePOIsUseCase(
         }
 
         // Check if sync is needed (once per day unless forced or debug flag)
-        val shouldForce = force || DebugConfig.FORCE_POI_SYNC || endpointChanged
+        val shouldForce = force || DebugConfig.FORCE_POI_SYNC || endpointChanged || needsMigration
         if (!shouldForce && !isSyncNeeded()) {
             Napier.d("POI sync not needed yet")
             return SyncResult.NotNeeded
@@ -81,7 +100,11 @@ class SyncRemotePOIsUseCase(
             settings.putString(KEY_LAST_SYNC_TIMESTAMP, syncStatus.lastUpdated)
             updateLastSyncCheck()
 
-            Napier.d("POI sync completed: ${response.pois.size} POIs synced")
+            val poiCountAfter = remotePOIRepository.count()
+            Napier.d("POI sync completed: ${response.pois.size} POIs synced, $poiCountAfter total remote POIs in DB")
+            response.pois.forEach { poi ->
+                Napier.d("POI SYNCED: id=${poi.id}, name=${poi.translations.values.firstOrNull()?.name ?: "?"}")
+            }
             SyncResult.Success(response.pois.size)
         } catch (e: Exception) {
             Napier.e("POI sync failed", e)
@@ -109,6 +132,8 @@ class SyncRemotePOIsUseCase(
         private const val KEY_LAST_SYNC_TIMESTAMP = "poi_remote_last_sync_timestamp"
         private const val KEY_LAST_SYNC_CHECK = "poi_remote_last_sync_check"
         private const val KEY_LAST_BASE_URL = "poi_remote_last_base_url"
+        private const val KEY_SYNC_VERSION = "poi_sync_version"
+        private const val CURRENT_SYNC_VERSION = 2 // Bump to force all clients to re-sync
         private const val SYNC_INTERVAL_HOURS = 24
     }
 }

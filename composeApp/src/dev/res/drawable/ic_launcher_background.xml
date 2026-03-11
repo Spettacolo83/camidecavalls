@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="500"
+    android:viewportHeight="500">
+    <!-- Original gradient background -->
+    <path
+        android:fillType="evenOdd"
+        android:pathData="M0,0h500v500h-500z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="0"
+                android:endY="500"
+                android:type="linear">
+                <item android:offset="0.3" android:color="#FF00C8FF"/>
+                <item android:offset="1.0" android:color="#FF004CFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- DEV red banner at bottom -->
+    <path
+        android:fillColor="#FFE53935"
+        android:pathData="M0,350h500v150h-500z"/>
+    <!-- DEV text (smaller, near top of banner to stay in safe zone) -->
+    <path
+        android:fillType="evenOdd"
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M190,358 L190,398 L212,398 C226,398 226,358 212,358 Z M200,367 L209,367 C217,367 217,389 209,389 L200,389 Z M233,358 L233,398 L260,398 L260,390 L243,390 L243,381 L257,381 L257,374 L243,374 L243,366 L260,366 L260,358 Z M267,358 L279,398 L289,398 L301,358 L291,358 L284,387 L277,358 Z"/>
+</vector>
