@@ -141,15 +141,27 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    buildTypes {
-        getByName("debug") {
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
             buildConfigField("String", "API_BASE_URL", "\"http://192.168.8.106:3002\"")
             buildConfigField("boolean", "IS_DEBUG_ENV", "true")
         }
-        getByName("release") {
-            isMinifyEnabled = false
+        create("production") {
+            dimension = "environment"
             buildConfigField("String", "API_BASE_URL", "\"https://camidecavalls.followtheflowai.com\"")
             buildConfigField("boolean", "IS_DEBUG_ENV", "false")
+        }
+    }
+    buildTypes {
+        getByName("debug") {
+            // debuggable, no signing needed
+        }
+        getByName("release") {
+            isMinifyEnabled = false
         }
     }
     compileOptions {
